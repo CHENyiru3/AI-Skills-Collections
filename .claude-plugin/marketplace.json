@@ -1,0 +1,68 @@
+{
+  "name": "ai-skills",
+  "owner": {
+    "name": "Eric Yiru",
+    "email": "contact@example.com"
+  },
+  "metadata": {
+    "description": "AI/ML and Computational Biology skills for AI agents - deep learning, LLM fine-tuning, single-cell, multi-omics, and spatial omics",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "ai-ml-skills",
+      "description": "Collection of AI/ML skills for deep learning, LLM fine-tuning, and distributed training",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./ai-ml-skills/deep-learning/pytorch",
+        "./ai-ml-skills/llm/transformers",
+        "./ai-ml-skills/llm/huggingface-hub",
+        "./ai-ml-skills/llm/peft",
+        "./ai-ml-skills/llm/trl",
+        "./ai-ml-skills/llm/bitsandbytes",
+        "./ai-ml-skills/training/pytorch-lightning",
+        "./ai-ml-skills/training/accelerate",
+        "./ai-ml-skills/training/datasets",
+        "./ai-ml-skills/training/deepspeed"
+      ]
+    },
+    {
+      "name": "compbio-skills",
+      "description": "Collection of computational biology skills for single-cell, multi-omics, and spatial omics analysis",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./compbio-skills/single-cell/analysis/scanpy",
+        "./compbio-skills/single-cell/analysis/seurat",
+        "./compbio-skills/single-cell/analysis/scvi-tools",
+        "./compbio-skills/single-cell/visualization/cellxgene",
+        "./compbio-skills/single-cell/visualization/cellxgene-census",
+        "./compbio-skills/single-cell/analysis/anndata",
+        "./compbio-skills/single-cell/integration/seurat-v5",
+        "./compbio-skills/single-cell/integration/harmony",
+        "./compbio-skills/single-cell/integration/scanorama",
+        "./compbio-skills/single-cell/integration/bbknn",
+        "./compbio-skills/multiomics/scRNA-seq/pydeseq2",
+        "./compbio-skills/multiomics/scATAC-seq/archr",
+        "./compbio-skills/multiomics/scATAC-seq/signac",
+        "./compbio-skills/multiomics/integration-tools/scribble",
+        "./compbio-skills/multiomics/metabolomics/metabolomics-workbench",
+        "./compbio-skills/multiomics/proteomics/uniprot",
+        "./compbio-skills/databases/kegg",
+        "./compbio-skills/databases/reactome",
+        "./compbio-skills/spatial-omics/analysis-tools/squidpy",
+        "./compbio-skills/spatial-omics/analysis-tools/giotto",
+        "./compbio-skills/spatial-omics/analysis-tools/spatialdata",
+        "./compbio-skills/spatial-omics/analysis-tools/vitessce",
+        "./compbio-skills/spatial-omics/stereo-seq/stereo-seq",
+        "./compbio-skills/spatial-omics/visium/visium",
+        "./compbio-skills/databases/geo",
+        "./compbio-skills/databases/human-cell-atlas",
+        "./compbio-skills/databases/ensembl",
+        "./compbio-skills/workflows/snakemake",
+        "./compbio-skills/workflows/nextflow"
+      ]
+    }
+  ]
+}
