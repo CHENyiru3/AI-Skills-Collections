@@ -1,15 +1,26 @@
 # AI Skills
 
-A collection of AI/ML skills for deep learning, LLM fine-tuning, and computational biology research.
+A collection of skills for AI agents covering AI/ML, computational biology, document processing, and writing tools.
 
 ## Overview
 
-This repository provides AI agent skills designed to work with Claude Code and Codex AI agents. The skills cover two main domains:
+This repository provides AI agent skills designed to work with Claude Code and Claude Code. The skills cover four main domains:
 
 - **AI/ML**: Deep learning, LLM fine-tuning, and distributed training
 - **Computational Biology**: Single-cell, multi-omics, and spatial omics analysis
+- **Document Processing**: Word, Excel, PowerPoint, PDF manipulation
+- **Writing**: LaTeX, Obsidian, and technical documentation
 
 ## Skill Categories
+
+### Document Skills (16 skills)
+
+| Category | Skills |
+|----------|--------|
+| Office | docx, pptx, xlsx, pdf |
+| Design & Art | algorithmic-art, canvas-design, theme-factory, brand-guidelines |
+| Web | frontend-design, web-artifacts-builder, webapp-testing |
+| Tools | mcp-builder, skill-creator, slack-gif-creator, internal-comms, doc-coauthoring |
 
 ### AI/ML Skills (10 skills)
 
@@ -19,7 +30,7 @@ This repository provides AI agent skills designed to work with Claude Code and C
 | LLM Ecosystem | Transformers, HuggingFace Hub, PEFT, TRL, BitsAndBytes |
 | Training Tools | Accelerate, DeepSpeed, PyTorch Lightning, Datasets |
 
-### Computational Biology Skills (29 skills)
+### Computational Biology Skills (32 skills)
 
 | Category | Skills |
 |----------|--------|
@@ -29,6 +40,15 @@ This repository provides AI agent skills designed to work with Claude Code and C
 | Spatial Omics | Squidpy, Giotto, SpatialData, Vitessce, Visium, Stereo-seq |
 | Databases | GEO, Ensembl, Human Cell Atlas |
 | Workflows | Snakemake, Nextflow |
+| Bioinformatics Tools | draft-spatial-methods, explain-bio-dl-model, critique-bio-manuscript |
+
+### Writing Skills (4 skills)
+
+| Category | Skills |
+|----------|--------|
+| LaTeX | Latex_writing, Compile_latex |
+| Notes | notes_taking |
+| Academic Editing | academic-writing-editor |
 
 ## Quick Start
 
@@ -58,75 +78,116 @@ sc.tl.umap(adata)
 
 ## Installation
 
-These skills are designed to work with Claude Code and Codex AI agents.
+These skills are designed to work with Claude Code AI agents.
 
 ### Prerequisites
 
-- Claude Code or Codex AI agent
+- Claude Code AI agent (v2.1+)
 - Python 3.8+
 
-### Setup
+### Quick Install (Copy to Claude's Skills Folder)
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/your-username/ai_skills.git
-   ```
+Copy all skills to Claude Code's personal skills directory:
 
-2. Configure Claude Code to use these skills by updating your settings:
-   ```json
-   {
-     "skills": {
-       "enabled": true,
-       "directories": ["./ai_skills"]
-     }
-   }
-   ```
+```bash
+# Copy all skills to ~/.claude/skills/
+cp -r document-skills/* ~/.claude/skills/
+cp -r ai-ml-skills/* ~/.claude/skills/
+cp -r compbio-skills/* ~/.claude/skills/
+cp -r writing/* ~/.claude/skills/
+```
 
-3. Skills will be available when working with relevant tasks
+**Restart Claude Code** or start a new session. Skills will be available:
+- Use directly: `/skill-name` (e.g., `/pdf`, `/scanpy`, `/pytorch`)
+- Auto-trigger: Claude will use relevant skills based on your task
 
-## Skills
+### Alternative: Link Repository (For Development)
 
-### AI/ML Skills
+If you want to keep skills in this repo and reference them:
 
-| Skill | Description |
-|-------|-------------|
-| [PyTorch](ai-ml-skills/deep-learning/pytorch/) | Deep learning framework with neural networks, autograd, GPU acceleration |
-| [Transformers](ai-ml-skills/llm/transformers/) | Pre-trained models (BERT, GPT, Llama), NLP pipelines, fine-tuning |
-| [HuggingFace Hub](ai-ml-skills/llm/huggingface-hub/) | Model/dataset management, version control, sharing |
-| [PEFT](ai-ml-skills/llm/peft/) | Parameter-efficient fine-tuning (LoRA, QLoRA) |
-| [TRL](ai-ml-skills/llm/trl/) | RLHF, DPO, supervised fine-tuning |
-| [BitsAndBytes](ai-ml-skills/llm/bitsandbytes/) | 8-bit/4-bit quantization for LLMs |
-| [PyTorch Lightning](ai-ml-skills/training/pytorch-lightning/) | Simplified training loops, built-in logging |
-| [Accelerate](ai-ml-skills/training/accelerate/) | Distributed training, mixed precision |
-| [Datasets](ai-ml-skills/training/datasets/) | Loading/processing datasets from Hub |
-| [DeepSpeed](ai-ml-skills/training/deepspeed/) | ZeRO optimization, large-scale training |
+1. Add to your global Claude settings (`~/.claude/settings.json`):
+```json
+{
+  "extraKnownMarketplaces": {
+    "ai-skills": {
+      "source": {
+        "type": "file",
+        "path": "/path/to/ai_skills/.claude-plugin/marketplace.json"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "document-skills@ai-skills": true,
+    "ai-ml-skills@ai-skills": true,
+    "compbio-skills@ai-skills": true,
+    "writing-skills@ai-skills": true
+  }
+}
+```
 
-### Computational Biology Skills
+### Adding New Skills
 
-See [docs/computational-biology-skills.md](docs/computational-biology-skills.md) for the complete catalog.
+To add a new skill to this repository:
 
-## Documentation
+1. Create a skill directory:
+```bash
+mkdir -p document-skills/my-new-skill
+# or under ai-ml-skills, compbio-skills, writing
+```
 
-- [AI/ML Skills Catalog](docs/ai-ml-skills.md)
-- [Computational Biology Skills Catalog](docs/computational-biology-skills.md)
+2. Create `SKILL.md` with YAML frontmatter:
+```markdown
+---
+name: my-new-skill
+description: When to use this skill and what it does. Be specific about triggers.
+---
+
+Your skill instructions here...
+```
+
+3. Update `.claude-plugin/marketplace.json` to include the new skill
+
+4. Copy to Claude's skills folder:
+```bash
+cp -r document-skills/my-new-skill ~/.claude/skills/
+```
+
+### Verifying Installation
+
+Run `/skills` in Claude Code to see all available skills.
 
 ## Project Structure
 
 ```
 ai_skills/
-├── ai-ml-skills/           # AI/ML skills
+├── document-skills/         # Document processing (16 skills)
+│   ├── docx, pptx, xlsx, pdf
+│   ├── algorithmic-art, canvas-design, theme-factory
+│   ├── frontend-design, web-artifacts-builder
+│   └── mcp-builder, skill-creator, etc.
+├── ai-ml-skills/           # AI/ML skills (10 skills)
 │   ├── deep-learning/      # PyTorch
 │   ├── llm/                # Transformers, PEFT, TRL, etc.
 │   └── training/           # Accelerate, DeepSpeed, etc.
-├── compbio-skills/         # Computational biology skills
+├── compbio-skills/         # Computational biology (29 skills)
 │   ├── single-cell/       # scanpy, Seurat, scvi-tools
 │   ├── multiomics/         # PyDESeq2, ArchR, etc.
 │   ├── spatial-omics/      # Squidpy, Giotto, etc.
 │   ├── databases/          # GEO, Ensembl, etc.
-│   └── workflows/          # Snakemake, Nextflow
+│   └── workflows/         # Snakemake, Nextflow
+├── writing/                # Writing skills (3 skills)
+│   ├── LaTex/             # LaTeX writing & compilation
+│   └── Obsidian/          # Note-taking
 ├── docs/                   # Documentation
 └── .claude-plugin/         # Claude Code configuration
 ```
+
+## Total Skills: 62
+
+- Document Skills: 16
+- AI/ML Skills: 10
+- Computational Biology: 32
+- Writing: 4
 
 ## License
 
@@ -134,21 +195,8 @@ MIT License - See [LICENSE.md](LICENSE.md)
 
 ## Contributing
 
-Contributions welcome! Please submit pull requests or open issues for:
+Contributions welcome! Please submit pull requests for:
 - New skills
 - Improvements to existing skills
 - Bug fixes
 - Documentation updates
-
-## Resources
-
-### AI/ML
-- [PyTorch Documentation](https://pytorch.org/docs/)
-- [Hugging Face Transformers](https://huggingface.co/docs/transformers)
-- [PEFT Documentation](https://huggingface.co/docs/peft)
-- [DeepSpeed Documentation](https://www.deepspeed.ai/)
-
-### Computational Biology
-- [Scanpy Documentation](https://scanpy.readthedocs.io/)
-- [scverse Ecosystem](https://scverse.org/)
-- [Seurat Documentation](https://satijalab.org/seurat/)

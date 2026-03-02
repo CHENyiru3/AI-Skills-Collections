@@ -10,6 +10,30 @@
   },
   "plugins": [
     {
+      "name": "document-skills",
+      "description": "Collection of document processing suite including Excel, Word, PowerPoint, and PDF capabilities",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./document-skills/xlsx",
+        "./document-skills/docx",
+        "./document-skills/pptx",
+        "./document-skills/pdf",
+        "./document-skills/algorithmic-art",
+        "./document-skills/brand-guidelines",
+        "./document-skills/canvas-design",
+        "./document-skills/doc-coauthoring",
+        "./document-skills/frontend-design",
+        "./document-skills/internal-comms",
+        "./document-skills/mcp-builder",
+        "./document-skills/skill-creator",
+        "./document-skills/slack-gif-creator",
+        "./document-skills/theme-factory",
+        "./document-skills/web-artifacts-builder",
+        "./document-skills/webapp-testing"
+      ]
+    },
+    {
       "name": "ai-ml-skills",
       "description": "Collection of AI/ML skills for deep learning, LLM fine-tuning, and distributed training",
       "source": "./",
@@ -62,6 +86,17 @@
         "./compbio-skills/databases/ensembl",
         "./compbio-skills/workflows/snakemake",
         "./compbio-skills/workflows/nextflow"
+      ]
+    },
+    {
+      "name": "writing-skills",
+      "description": "Collection of writing skills for LaTeX, technical documentation, and academic writing",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./writing/LaTex/Latex_writing",
+        "./writing/LaTex/Compile_latex",
+        "./writing/Obsidian/notes_taking"
       ]
     }
   ]
