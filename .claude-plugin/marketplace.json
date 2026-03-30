@@ -11,10 +11,14 @@
   "plugins": [
     {
       "name": "document-skills",
-      "description": "Collection of document processing suite including Excel, Word, PowerPoint, and PDF capabilities",
+      "description": "Collection of document processing suite including OfficeCLI, Excel, Word, PowerPoint, and PDF capabilities",
       "source": "./",
       "strict": false,
       "skills": [
+        "./document-skills/officecli",
+        "./document-skills/officecli-docx",
+        "./document-skills/officecli-pptx",
+        "./document-skills/officecli-xlsx",
         "./document-skills/xlsx",
         "./document-skills/docx",
         "./document-skills/pptx",

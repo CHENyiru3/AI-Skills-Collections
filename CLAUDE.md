@@ -10,8 +10,8 @@ This is an **AI Skills repository** - a collection of skills for AI agents cover
 
 ```
 ai_skills/
-├── document-skills/         # Document processing skills (16 skills)
-│   ├── docx, pptx, xlsx, pdf
+├── document-skills/         # Document processing skills (20 skills)
+│   ├── officecli, officecli-docx, officecli-pptx, officecli-xlsx, docx, pptx, xlsx, pdf
 │   ├── algorithmic-art, canvas-design, theme-factory, brand-guidelines
 │   ├── frontend-design, web-artifacts-builder, webapp-testing
 │   └── mcp-builder, skill-creator, slack-gif-creator, internal-comms, doc-coauthoring

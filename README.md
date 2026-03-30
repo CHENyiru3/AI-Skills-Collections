@@ -13,11 +13,11 @@ This repository provides AI agent skills designed to work with Claude Code and C
 
 ## Skill Categories
 
-### Document Skills (16 skills)
+### Document Skills (20 skills)
 
 | Category | Skills |
 |----------|--------|
-| Office | docx, pptx, xlsx, pdf |
+| Office | officecli, officecli-docx, officecli-pptx, officecli-xlsx, docx, pptx, xlsx, pdf |
 | Design & Art | algorithmic-art, canvas-design, theme-factory, brand-guidelines |
 | Web | frontend-design, web-artifacts-builder, webapp-testing |
 | Tools | mcp-builder, skill-creator, slack-gif-creator, internal-comms, doc-coauthoring |
@@ -160,8 +160,8 @@ Run `/skills` in Claude Code to see all available skills.
 
 ```
 ai_skills/
-├── document-skills/         # Document processing (16 skills)
-│   ├── docx, pptx, xlsx, pdf
+├── document-skills/         # Document processing (20 skills)
+│   ├── officecli, officecli-docx, officecli-pptx, officecli-xlsx, docx, pptx, xlsx, pdf
 │   ├── algorithmic-art, canvas-design, theme-factory
 │   ├── frontend-design, web-artifacts-builder
 │   └── mcp-builder, skill-creator, etc.
@@ -182,9 +182,9 @@ ai_skills/
 └── .claude-plugin/         # Claude Code configuration
 ```
 
-## Total Skills: 62
+## Total Skills: 66
 
-- Document Skills: 16
+- Document Skills: 20
 - AI/ML Skills: 10
 - Computational Biology: 32
 - Writing: 4
