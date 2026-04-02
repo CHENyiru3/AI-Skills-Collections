@@ -31,6 +31,7 @@
         "./document-skills/internal-comms",
         "./document-skills/mcp-builder",
         "./document-skills/skill-creator",
+        "./document-skills/skill-seekers",
         "./document-skills/slack-gif-creator",
         "./document-skills/theme-factory",
         "./document-skills/web-artifacts-builder",

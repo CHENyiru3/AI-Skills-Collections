@@ -4,7 +4,7 @@ A collection of skills for AI agents covering AI/ML, computational biology, docu
 
 ## Overview
 
-This repository provides AI agent skills designed to work with Claude Code and Claude Code. The skills cover four main domains:
+This repository provides AI agent skills designed to work with Claude Code and Codex. The skills cover four main domains:
 
 - **AI/ML**: Deep learning, LLM fine-tuning, and distributed training
 - **Computational Biology**: Single-cell, multi-omics, and spatial omics analysis
@@ -13,14 +13,14 @@ This repository provides AI agent skills designed to work with Claude Code and C
 
 ## Skill Categories
 
-### Document Skills (20 skills)
+### Document Skills (21 skills)
 
 | Category | Skills |
 |----------|--------|
 | Office | officecli, officecli-docx, officecli-pptx, officecli-xlsx, docx, pptx, xlsx, pdf |
 | Design & Art | algorithmic-art, canvas-design, theme-factory, brand-guidelines |
 | Web | frontend-design, web-artifacts-builder, webapp-testing |
-| Tools | mcp-builder, skill-creator, slack-gif-creator, internal-comms, doc-coauthoring |
+| Tools | mcp-builder, skill-creator, skill-seekers, slack-gif-creator, internal-comms, doc-coauthoring |
 
 ### AI/ML Skills (10 skills)
 
@@ -30,7 +30,7 @@ This repository provides AI agent skills designed to work with Claude Code and C
 | LLM Ecosystem | Transformers, HuggingFace Hub, PEFT, TRL, BitsAndBytes |
 | Training Tools | Accelerate, DeepSpeed, PyTorch Lightning, Datasets |
 
-### Computational Biology Skills (32 skills)
+### Computational Biology Skills (35 skills)
 
 | Category | Skills |
 |----------|--------|
@@ -42,13 +42,13 @@ This repository provides AI agent skills designed to work with Claude Code and C
 | Workflows | Snakemake, Nextflow |
 | Bioinformatics Tools | draft-spatial-methods, explain-bio-dl-model, critique-bio-manuscript |
 
-### Writing Skills (4 skills)
+### Writing Skills (5 skills)
 
 | Category | Skills |
 |----------|--------|
 | LaTeX | Latex_writing, Compile_latex |
 | Notes | notes_taking |
-| Academic Editing | academic-writing-editor |
+| Academic Editing | academic-writing-editor, humanizer |
 
 ## Quick Start
 
@@ -78,32 +78,68 @@ sc.tl.umap(adata)
 
 ## Installation
 
-These skills are designed to work with Claude Code AI agents.
+These skills work best when each installed skill lives in its own directory containing a `SKILL.md` file. This repository supports both Claude Code and Codex, but they discover skills differently.
 
 ### Prerequisites
 
-- Claude Code AI agent (v2.1+)
+- Claude Code or Codex
 - Python 3.8+
 
-### Quick Install (Copy to Claude's Skills Folder)
+### Install for Codex
 
-Copy all skills to Claude Code's personal skills directory:
+Codex installs user skills into `$CODEX_HOME/skills`, which defaults to `~/.codex/skills` when `CODEX_HOME` is unset. Codex only discovers a skill when each installed skill is a top-level directory under that path and that directory contains `SKILL.md`. Copy the leaf skill directories, not the category folders such as `document-skills/` or `compbio-skills/`.
+
+Install all skills from this repository:
 
 ```bash
-# Copy all skills to ~/.claude/skills/
-cp -r document-skills/* ~/.claude/skills/
-cp -r ai-ml-skills/* ~/.claude/skills/
-cp -r compbio-skills/* ~/.claude/skills/
-cp -r writing/* ~/.claude/skills/
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+find document-skills ai-ml-skills compbio-skills writing -name SKILL.md -print | while read -r skill_file; do
+  skill_dir="$(dirname "$skill_file")"
+  cp -R "$skill_dir" "${CODEX_HOME:-$HOME/.codex}/skills/"
+done
 ```
 
-**Restart Claude Code** or start a new session. Skills will be available:
+Install a single skill:
+
+```bash
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+cp -R document-skills/pdf "${CODEX_HOME:-$HOME/.codex}/skills/"
+```
+
+Verify the expected installed skill names:
+
+```bash
+find "${CODEX_HOME:-$HOME/.codex}/skills" -mindepth 1 -maxdepth 1 -type d -exec test -f '{}/SKILL.md' ';' -print \
+  | xargs -n1 basename \
+  | sort
+```
+
+Troubleshooting:
+- If a skill does not load, confirm you copied the leaf skill directory itself, not a parent category directory.
+- `SKILL.md` frontmatter must begin on line 1 with `---`. Comments or other text before the frontmatter can cause Codex to skip the skill.
+- `.claude-plugin/marketplace.json` is used by Claude Code, not Codex.
+
+Restart Codex to pick up new skills.
+
+### Install for Claude Code
+
+For a local install, copy the leaf skill directories into `~/.claude/skills/`:
+
+```bash
+mkdir -p ~/.claude/skills
+find document-skills ai-ml-skills compbio-skills writing -name SKILL.md -print | while read -r skill_file; do
+  skill_dir="$(dirname "$skill_file")"
+  cp -R "$skill_dir" ~/.claude/skills/
+done
+```
+
+Restart Claude Code or start a new session. Skills will be available:
 - Use directly: `/skill-name` (e.g., `/pdf`, `/scanpy`, `/pytorch`)
 - Auto-trigger: Claude will use relevant skills based on your task
 
-### Alternative: Link Repository (For Development)
+### Alternative: Claude Code Marketplace Link (For Development)
 
-If you want to keep skills in this repo and reference them:
+If you want Claude Code to load this repository through its local marketplace config instead of copying skill directories:
 
 1. Add to your global Claude settings (`~/.claude/settings.json`):
 ```json
@@ -125,6 +161,8 @@ If you want to keep skills in this repo and reference them:
 }
 ```
 
+This marketplace configuration is Claude Code-specific; Codex does not read `.claude-plugin/marketplace.json`.
+
 ### Adding New Skills
 
 To add a new skill to this repository:
@@ -145,16 +183,24 @@ description: When to use this skill and what it does. Be specific about triggers
 Your skill instructions here...
 ```
 
-3. Update `.claude-plugin/marketplace.json` to include the new skill
-
-4. Copy to Claude's skills folder:
+3. Copy the skill directory into your local Codex or Claude skills folder:
 ```bash
-cp -r document-skills/my-new-skill ~/.claude/skills/
+cp -R document-skills/my-new-skill "${CODEX_HOME:-$HOME/.codex}/skills/"
+# or
+cp -R document-skills/my-new-skill ~/.claude/skills/
 ```
+
+4. If you want the skill available through Claude Code's marketplace config, also update `.claude-plugin/marketplace.json`
 
 ### Verifying Installation
 
-Run `/skills` in Claude Code to see all available skills.
+Verify that the installed skill directories contain `SKILL.md`:
+
+```bash
+find "${CODEX_HOME:-$HOME/.codex}/skills" ~/.claude/skills -maxdepth 2 -name SKILL.md 2>/dev/null | sort
+```
+
+For Claude Code, you can also run `/skills` to inspect the loaded skills.
 
 ## Project Structure
 
@@ -164,30 +210,30 @@ ai_skills/
 │   ├── officecli, officecli-docx, officecli-pptx, officecli-xlsx, docx, pptx, xlsx, pdf
 │   ├── algorithmic-art, canvas-design, theme-factory
 │   ├── frontend-design, web-artifacts-builder
-│   └── mcp-builder, skill-creator, etc.
+│   └── mcp-builder, skill-creator, skill-seekers, etc.
 ├── ai-ml-skills/           # AI/ML skills (10 skills)
 │   ├── deep-learning/      # PyTorch
 │   ├── llm/                # Transformers, PEFT, TRL, etc.
 │   └── training/           # Accelerate, DeepSpeed, etc.
-├── compbio-skills/         # Computational biology (29 skills)
+├── compbio-skills/         # Computational biology (35 skills)
 │   ├── single-cell/       # scanpy, Seurat, scvi-tools
 │   ├── multiomics/         # PyDESeq2, ArchR, etc.
 │   ├── spatial-omics/      # Squidpy, Giotto, etc.
 │   ├── databases/          # GEO, Ensembl, etc.
 │   └── workflows/         # Snakemake, Nextflow
-├── writing/                # Writing skills (3 skills)
+├── writing/                # Writing skills (5 skills)
 │   ├── LaTex/             # LaTeX writing & compilation
 │   └── Obsidian/          # Note-taking
 ├── docs/                   # Documentation
 └── .claude-plugin/         # Claude Code configuration
 ```
 
-## Total Skills: 66
+## Total Skills: 71
 
-- Document Skills: 20
+- Document Skills: 21
 - AI/ML Skills: 10
-- Computational Biology: 32
-- Writing: 4
+- Computational Biology: 35
+- Writing: 5
 
 ## License
 
