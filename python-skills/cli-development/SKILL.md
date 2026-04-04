@@ -1,6 +1,6 @@
 ---
 name: building-python-clis
-description: Builds command-line interfaces for Python libraries using Click or Typer. Includes command groups, argument handling, progress bars, shell completion, and CLI testing with CliRunner. Use when adding CLI functionality to a library or building standalone command-line tools.
+description: Builds Python CLIs with Click or Typer, including command groups, options, stdin and stdout handling, shell completion, exit codes, and CLI testing. Use this skill whenever a user mentions a command-line tool, subcommands, `click`, `typer`, `argparse`, console entry points, or wants a Python package to expose a usable terminal interface.
 ---
 
 # Python CLI Development

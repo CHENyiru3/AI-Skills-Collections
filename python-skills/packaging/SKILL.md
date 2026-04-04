@@ -1,6 +1,6 @@
 ---
 name: packaging-python-libraries
-description: Packages and distributes Python libraries using modern pyproject.toml, build backends (setuptools, hatchling), PyPI publishing with trusted publishing, and wheel building. Use when packaging libraries for distribution, publishing to PyPI, or troubleshooting packaging issues.
+description: Packages and distributes Python libraries with modern `pyproject.toml`, wheels, source distributions, build backends, and PyPI publishing workflows. Use this skill whenever a user mentions packaging, `pyproject.toml`, wheels, `python -m build`, Twine, trusted publishing, PyPI release problems, or making a Python package installable outside the repo.
 ---
 
 # Python Library Packaging

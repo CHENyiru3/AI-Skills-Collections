@@ -1,6 +1,6 @@
 ---
 name: testing-python-libraries
-description: Designs and implements pytest test suites for Python libraries with fixtures, parametrization, mocking, Hypothesis property-based testing, and CI configuration. Use when creating tests, improving coverage, setting up testing infrastructure, or implementing property-based testing.
+description: Designs pytest-based test suites for Python libraries with fixtures, parametrization, mocking, coverage, property-based testing, and CI integration. Use this skill whenever a user asks to add tests, improve Python coverage, structure `tests/`, mock dependencies, use Hypothesis, or make a Python package safer to change.
 ---
 
 # Python Library Testing

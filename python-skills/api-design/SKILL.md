@@ -1,6 +1,6 @@
 ---
 name: designing-python-apis
-description: Designs intuitive Python library APIs following principles of simplicity, consistency, and discoverability. Handles API evolution, deprecation, breaking changes, and error handling. Use when designing new library APIs, reviewing existing APIs for improvements, or managing API versioning and deprecations.
+description: Designs and reviews Python library APIs for clarity, consistency, naming, parameters, return types, exceptions, and compatibility. Use this skill whenever a user is shaping a public Python API, renaming functions or classes, choosing argument patterns, planning deprecations, or asking how a package interface should feel to downstream users.
 ---
 
 # Python API Design

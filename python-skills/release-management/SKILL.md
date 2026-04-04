@@ -1,6 +1,6 @@
 ---
 name: managing-python-releases
-description: Manages Python library releases including semantic versioning, changelog maintenance (Keep a Changelog format), release automation with GitHub Actions, and deprecation workflows. Use when planning releases, writing changelogs, automating release pipelines, or communicating breaking changes.
+description: Manages Python library releases with semantic versioning, changelogs, tags, GitHub releases, PyPI publishing, and deprecation planning. Use this skill whenever a user is cutting a release, deciding version bumps, writing a changelog, automating release pipelines, or preparing users for breaking changes.
 ---
 
 # Python Release Management

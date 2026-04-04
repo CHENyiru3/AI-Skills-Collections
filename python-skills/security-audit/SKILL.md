@@ -1,6 +1,6 @@
 ---
 name: auditing-python-security
-description: Audits Python libraries for security vulnerabilities using Bandit, pip-audit, Semgrep, and detect-secrets. Identifies SQL injection, command injection, hardcoded credentials, weak cryptography, and insecure deserialization. Use when reviewing library security, setting up security scanning in CI, or implementing secure coding patterns.
+description: Audits Python libraries for security issues using Bandit, pip-audit, secrets scanning, CI checks, and secure coding patterns. Use this skill whenever a user asks for a Python security review, dependency vulnerability scan, secret detection, hardening against injection and deserialization bugs, or wants security checks wired into CI for a Python package.
 ---
 
 # Python Security Auditing

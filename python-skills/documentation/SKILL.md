@@ -1,6 +1,6 @@
 ---
 name: documenting-python-libraries
-description: Creates comprehensive Python library documentation including Google-style docstrings, Sphinx setup, API references, tutorials, and ReadTheDocs configuration. Use when writing docstrings, setting up Sphinx documentation, or creating user guides for Python libraries.
+description: Creates Python library documentation, including docstrings, README structure, Sphinx configuration, API references, tutorials, and docs deployment. Use this skill whenever a user mentions docstrings, Sphinx, Read the Docs, API docs, tutorials, documentation gaps, or wants a Python package to be easier for other developers to learn and adopt.
 ---
 
 # Python Library Documentation

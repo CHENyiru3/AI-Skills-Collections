@@ -1,6 +1,6 @@
 ---
 name: setting-up-python-libraries
-description: Sets up professional Python library projects with modern tooling (pyproject.toml, uv, ruff, pytest, pre-commit, GitHub Actions). Use when creating new Python libraries, modernizing existing projects to pyproject.toml, configuring linting/testing/CI, or setting up Makefiles and pre-commit hooks.
+description: Sets up professional Python libraries with `pyproject.toml`, `src/` layout, Ruff, pytest, mypy, pre-commit, Makefiles, and GitHub Actions. Use this skill whenever a user is starting a Python package, modernizing an older repo, asking for project scaffolding, or needs the baseline tooling and file structure for maintainable Python library development.
 ---
 
 # Python Library Project Setup
