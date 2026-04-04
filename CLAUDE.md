@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an **AI Skills repository** - a collection of skills for AI agents covering AI/ML, computational biology, and writing tools. The skills are designed to work with Claude Code AI agents and are loaded via the Claude Code plugin system.
+This is an **AI Skills repository** - a collection of skills for AI agents covering document workflows, Python library development, AI/ML, computational biology, and writing tools. The skills are designed to work with Claude Code AI agents and are loaded via the Claude Code plugin system.
 
 ## Repository Structure
 
@@ -15,6 +15,10 @@ ai_skills/
 │   ├── algorithmic-art, canvas-design, theme-factory, brand-guidelines
 │   ├── frontend-design, web-artifacts-builder, webapp-testing
 │   └── mcp-builder, skill-creator, slack-gif-creator, internal-comms, doc-coauthoring
+├── python-skills/          # Python library development skills (12 skills)
+│   ├── project-setup, code-quality, testing-strategy
+│   ├── packaging, release-management, cli-development
+│   └── security-audit, performance, api-design, documentation, community, library-review
 ├── ai-ml-skills/           # AI/ML skills (10 skills)
 │   ├── deep-learning/      # PyTorch
 │   ├── llm/                # Transformers, HuggingFace Hub, PEFT, TRL, BitsAndBytes
@@ -53,6 +57,7 @@ Each skill is a directory containing a `SKILL.md` file with YAML frontmatter:
 ### Skill Categories
 
 - **Document Processing**: docx, pptx, xlsx, pdf, algorithmic-art, canvas-design, theme-factory, frontend-design, web-artifacts-builder, webapp-testing, mcp-builder, skill-creator
+- **Python Library Development**: project-setup, code-quality, testing-strategy, packaging, release-management, cli-development, security-audit, performance, api-design, documentation, community, library-review
 - **AI/ML**: PyTorch, Transformers, PEFT, TRL, BitsAndBytes, HuggingFace Hub, Accelerate, DeepSpeed, PyTorch Lightning, Datasets
 - **Computational Biology**: scanpy, scvi-tools, Seurat, AnnData, cellxgene, PyDESeq2, ArchR, Signac, Squidpy, Giotto, SpatialData, and more
 - **Writing**: LaTeX, Obsidian

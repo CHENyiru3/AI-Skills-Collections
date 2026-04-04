@@ -1,14 +1,15 @@
 # AI Skills
 
-A collection of skills for AI agents covering AI/ML, computational biology, document processing, and writing tools.
+A collection of skills for AI agents covering document workflows, Python library development, AI/ML, computational biology, and writing tools.
 
 ## Overview
 
-This repository provides AI agent skills designed to work with Claude Code and Codex. The skills cover four main domains:
+This repository provides AI agent skills designed to work with Claude Code and Codex. The skills cover five main domains:
 
 - **AI/ML**: Deep learning, LLM fine-tuning, and distributed training
 - **Computational Biology**: Single-cell, multi-omics, and spatial omics analysis
 - **Document Processing**: Word, Excel, PowerPoint, PDF manipulation
+- **Python Library Development**: Project setup, testing, packaging, performance, and API design
 - **Writing**: LaTeX, Obsidian, and technical documentation
 
 ## Skill Categories
@@ -29,6 +30,15 @@ This repository provides AI agent skills designed to work with Claude Code and C
 | Deep Learning | PyTorch |
 | LLM Ecosystem | Transformers, HuggingFace Hub, PEFT, TRL, BitsAndBytes |
 | Training Tools | Accelerate, DeepSpeed, PyTorch Lightning, Datasets |
+
+### Python Skills (12 skills)
+
+| Category | Skills |
+|----------|--------|
+| Foundations | project-setup, code-quality, testing-strategy |
+| Distribution | packaging, release-management, cli-development |
+| Quality | security-audit, performance, api-design, library-review |
+| Documentation & Community | documentation, community |
 
 ### Computational Biology Skills (35 skills)
 
@@ -93,7 +103,7 @@ Install all skills from this repository:
 
 ```bash
 mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-find document-skills ai-ml-skills compbio-skills writing -name SKILL.md -print | while read -r skill_file; do
+find document-skills python-skills ai-ml-skills compbio-skills writing -name SKILL.md -print | while read -r skill_file; do
   skill_dir="$(dirname "$skill_file")"
   cp -R "$skill_dir" "${CODEX_HOME:-$HOME/.codex}/skills/"
 done
@@ -127,7 +137,7 @@ For a local install, copy the leaf skill directories into `~/.claude/skills/`:
 
 ```bash
 mkdir -p ~/.claude/skills
-find document-skills ai-ml-skills compbio-skills writing -name SKILL.md -print | while read -r skill_file; do
+find document-skills python-skills ai-ml-skills compbio-skills writing -name SKILL.md -print | while read -r skill_file; do
   skill_dir="$(dirname "$skill_file")"
   cp -R "$skill_dir" ~/.claude/skills/
 done
@@ -154,6 +164,7 @@ If you want Claude Code to load this repository through its local marketplace co
   },
   "enabledPlugins": {
     "document-skills@ai-skills": true,
+    "python-skills@ai-skills": true,
     "ai-ml-skills@ai-skills": true,
     "compbio-skills@ai-skills": true,
     "writing-skills@ai-skills": true
@@ -170,7 +181,7 @@ To add a new skill to this repository:
 1. Create a skill directory:
 ```bash
 mkdir -p document-skills/my-new-skill
-# or under ai-ml-skills, compbio-skills, writing
+# or under python-skills, ai-ml-skills, compbio-skills, writing
 ```
 
 2. Create `SKILL.md` with YAML frontmatter:
@@ -211,6 +222,10 @@ ai_skills/
 │   ├── algorithmic-art, canvas-design, theme-factory
 │   ├── frontend-design, web-artifacts-builder
 │   └── mcp-builder, skill-creator, skill-seekers, etc.
+├── python-skills/           # Python library engineering (12 skills)
+│   ├── project-setup, code-quality, testing-strategy
+│   ├── packaging, release-management, cli-development
+│   └── security-audit, performance, api-design, documentation, community, library-review
 ├── ai-ml-skills/           # AI/ML skills (10 skills)
 │   ├── deep-learning/      # PyTorch
 │   ├── llm/                # Transformers, PEFT, TRL, etc.
@@ -228,9 +243,10 @@ ai_skills/
 └── .claude-plugin/         # Claude Code configuration
 ```
 
-## Total Skills: 71
+## Total Skills: 83
 
 - Document Skills: 21
+- Python Skills: 12
 - AI/ML Skills: 10
 - Computational Biology: 35
 - Writing: 5

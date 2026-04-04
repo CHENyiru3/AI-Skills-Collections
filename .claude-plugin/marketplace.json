@@ -5,7 +5,7 @@
     "email": "contact@example.com"
   },
   "metadata": {
-    "description": "AI/ML and Computational Biology skills for AI agents - deep learning, LLM fine-tuning, single-cell, multi-omics, and spatial omics",
+    "description": "AI agent skills for document workflows, Python library development, AI/ML, computational biology, and writing",
     "version": "1.0.0"
   },
   "plugins": [
@@ -36,6 +36,26 @@
         "./document-skills/theme-factory",
         "./document-skills/web-artifacts-builder",
         "./document-skills/webapp-testing"
+      ]
+    },
+    {
+      "name": "python-skills",
+      "description": "Collection of Python library engineering skills for project setup, testing, packaging, performance, security, and API design",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./python-skills/project-setup",
+        "./python-skills/code-quality",
+        "./python-skills/testing-strategy",
+        "./python-skills/security-audit",
+        "./python-skills/api-design",
+        "./python-skills/documentation",
+        "./python-skills/packaging",
+        "./python-skills/release-management",
+        "./python-skills/performance",
+        "./python-skills/cli-development",
+        "./python-skills/community",
+        "./python-skills/library-review"
       ]
     },
     {
