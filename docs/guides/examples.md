@@ -1,4 +1,17 @@
-# Computational Biology Skills Examples
+# Workflow Examples
+
+This guide contains illustrative workflow snippets for the repository. The current examples are intentionally biased toward computational biology because that domain has the heaviest end-to-end analysis workflows in the repo.
+
+Use these as orientation material, not as a substitute for the domain skill instructions in `SKILL.md`.
+
+## Covered Areas
+
+- Single-cell RNA-seq preprocessing and clustering
+- Batch integration
+- Spatial transcriptomics
+- Single-cell ATAC-seq
+- Differential expression
+- Workflow orchestration with Snakemake and Nextflow
 
 ## Example 1: Basic scRNA-seq Analysis with scanpy
 

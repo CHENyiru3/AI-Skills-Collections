@@ -5,7 +5,7 @@
     "email": "contact@example.com"
   },
   "metadata": {
-    "description": "AI agent skills for document workflows, Python library development, AI/ML, computational biology, and writing",
+    "description": "AI agent skills for document workflows, website maintenance, Python library development, AI/ML, computational biology, and writing",
     "version": "1.0.0"
   },
   "plugins": [
@@ -36,6 +36,16 @@
         "./document-skills/theme-factory",
         "./document-skills/web-artifacts-builder",
         "./document-skills/webapp-testing"
+      ]
+    },
+    {
+      "name": "font-end-skills",
+      "description": "Collection of website maintenance skills for reusable frontend and academic-site upkeep workflows",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./Font_end/page-keeper",
+        "./Font_end/chen-academic-page-maintainer"
       ]
     },
     {
@@ -119,6 +129,8 @@
       "source": "./",
       "strict": false,
       "skills": [
+        "./writing/General_academic/academic-writing-editor",
+        "./writing/General_academic/humanizer",
         "./writing/LaTex/Latex_writing",
         "./writing/LaTex/Compile_latex",
         "./writing/Obsidian/notes_taking"

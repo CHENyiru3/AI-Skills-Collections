@@ -1,0 +1,23 @@
+{
+  "skill_name": "page-keeper",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Inspect my academic website repo and create a site-specific maintenance skill. I want future agents to know which sections they can polish, which sections require my exact wording, and how publications, CV versioning, and profile metadata work.",
+      "expected_output": "A repo assessment, a short list of unresolved high-value questions, a normalized rulebook, and a downstream maintenance skill draft that captures publication, CV, and profile rules.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Turn this portfolio website repo into a maintenance skill. It has a homepage, projects, writing pages, and downloadable resume assets. I need the AI to learn style consistency and what not to touch.",
+      "expected_output": "A framework-aware repo map, section governance rules, style-preservation questions, and a downstream maintenance skill that is not overfit to academic-site assumptions.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Create a repo-specific maintenance skill for this personal website. Some content is duplicated between the homepage and dedicated pages, and I want future agents to preserve consistency and know what should be centralized.",
+      "expected_output": "A rulebook that detects duplication and centralization opportunities, plus a downstream maintenance skill that teaches future agents how to avoid content drift.",
+      "files": []
+    }
+  ]
+}

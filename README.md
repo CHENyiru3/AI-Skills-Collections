@@ -1,14 +1,15 @@
 # AI Skills
 
-A collection of skills for AI agents covering document workflows, Python library development, AI/ML, computational biology, and writing tools.
+A collection of skills for AI agents covering document workflows, website maintenance, Python library development, AI/ML, computational biology, and writing tools.
 
 ## Overview
 
-This repository provides AI agent skills designed to work with Claude Code and Codex. The skills cover five main domains:
+This repository provides AI agent skills designed to work with Claude Code and Codex. The skills cover six main domains:
 
 - **AI/ML**: Deep learning, LLM fine-tuning, and distributed training
 - **Computational Biology**: Single-cell, multi-omics, and spatial omics analysis
 - **Document Processing**: Word, Excel, PowerPoint, PDF manipulation
+- **Website Maintenance**: Repo-specific frontend and academic-site maintenance skills
 - **Python Library Development**: Project setup, testing, packaging, performance, and API design
 - **Writing**: LaTeX, Obsidian, and technical documentation
 
@@ -22,6 +23,12 @@ This repository provides AI agent skills designed to work with Claude Code and C
 | Design & Art | algorithmic-art, canvas-design, theme-factory, brand-guidelines |
 | Web | frontend-design, web-artifacts-builder, webapp-testing |
 | Tools | mcp-builder, skill-creator, skill-seekers, slack-gif-creator, internal-comms, doc-coauthoring |
+
+### Font_end Skills (2 skills)
+
+| Category | Skills |
+|----------|--------|
+| Website Maintenance | page-keeper, chen-academic-page-maintainer |
 
 ### AI/ML Skills (10 skills)
 
@@ -56,9 +63,13 @@ This repository provides AI agent skills designed to work with Claude Code and C
 
 | Category | Skills |
 |----------|--------|
+| General Academic | academic-writing-editor, humanizer |
 | LaTeX | Latex_writing, Compile_latex |
 | Notes | notes_taking |
-| Academic Editing | academic-writing-editor, humanizer |
+
+## Documentation
+
+The top-level `README.md` is the fast entry point for installation and repository structure. The formal documentation hub lives at [docs/README.md](docs/README.md), with domain catalogs under `docs/catalogs/` and practical examples under `docs/guides/`.
 
 ## Quick Start
 
@@ -103,7 +114,7 @@ Install all skills from this repository:
 
 ```bash
 mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-find document-skills python-skills ai-ml-skills compbio-skills writing -name SKILL.md -print | while read -r skill_file; do
+find document-skills Font_end python-skills ai-ml-skills compbio-skills writing -name SKILL.md -print | while read -r skill_file; do
   skill_dir="$(dirname "$skill_file")"
   cp -R "$skill_dir" "${CODEX_HOME:-$HOME/.codex}/skills/"
 done
@@ -137,7 +148,7 @@ For a local install, copy the leaf skill directories into `~/.claude/skills/`:
 
 ```bash
 mkdir -p ~/.claude/skills
-find document-skills python-skills ai-ml-skills compbio-skills writing -name SKILL.md -print | while read -r skill_file; do
+find document-skills Font_end python-skills ai-ml-skills compbio-skills writing -name SKILL.md -print | while read -r skill_file; do
   skill_dir="$(dirname "$skill_file")"
   cp -R "$skill_dir" ~/.claude/skills/
 done
@@ -164,6 +175,7 @@ If you want Claude Code to load this repository through its local marketplace co
   },
   "enabledPlugins": {
     "document-skills@ai-skills": true,
+    "font-end-skills@ai-skills": true,
     "python-skills@ai-skills": true,
     "ai-ml-skills@ai-skills": true,
     "compbio-skills@ai-skills": true,
@@ -181,7 +193,7 @@ To add a new skill to this repository:
 1. Create a skill directory:
 ```bash
 mkdir -p document-skills/my-new-skill
-# or under python-skills, ai-ml-skills, compbio-skills, writing
+# or under Font_end, python-skills, ai-ml-skills, compbio-skills, writing
 ```
 
 2. Create `SKILL.md` with YAML frontmatter:
@@ -217,11 +229,14 @@ For Claude Code, you can also run `/skills` to inspect the loaded skills.
 
 ```
 ai_skills/
-├── document-skills/         # Document processing (20 skills)
+├── document-skills/         # Document processing (21 skills)
 │   ├── officecli, officecli-docx, officecli-pptx, officecli-xlsx, docx, pptx, xlsx, pdf
 │   ├── algorithmic-art, canvas-design, theme-factory
 │   ├── frontend-design, web-artifacts-builder
-│   └── mcp-builder, skill-creator, skill-seekers, etc.
+│   └── mcp-builder, skill-creator, skill-seekers, internal-comms, etc.
+├── Font_end/               # Website maintenance skills (2 skills)
+│   ├── page-keeper        # Generic site-maintenance skill generator
+│   └── chen-academic-page-maintainer
 ├── python-skills/           # Python library engineering (12 skills)
 │   ├── project-setup, code-quality, testing-strategy
 │   ├── packaging, release-management, cli-development
@@ -237,15 +252,20 @@ ai_skills/
 │   ├── databases/          # GEO, Ensembl, etc.
 │   └── workflows/         # Snakemake, Nextflow
 ├── writing/                # Writing skills (5 skills)
+│   ├── General_academic/  # Academic editing and cleanup
 │   ├── LaTex/             # LaTeX writing & compilation
 │   └── Obsidian/          # Note-taking
-├── docs/                   # Documentation
+├── docs/                   # Documentation hub
+│   ├── catalogs/          # Domain inventories
+│   ├── guides/            # Examples and practical notes
+│   └── README.md          # Documentation index
 └── .claude-plugin/         # Claude Code configuration
 ```
 
-## Total Skills: 83
+## Total Skills: 85
 
 - Document Skills: 21
+- Font_end Skills: 2
 - Python Skills: 12
 - AI/ML Skills: 10
 - Computational Biology: 35

@@ -4,17 +4,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an **AI Skills repository** - a collection of skills for AI agents covering document workflows, Python library development, AI/ML, computational biology, and writing tools. The skills are designed to work with Claude Code AI agents and are loaded via the Claude Code plugin system.
+This is an **AI Skills repository** - a collection of skills for AI agents covering document workflows, website maintenance, Python library development, AI/ML, computational biology, and writing tools. The skills are designed to work with Claude Code AI agents and are loaded via the Claude Code plugin system.
 
 ## Repository Structure
 
 ```
 ai_skills/
-├── document-skills/         # Document processing skills (20 skills)
+├── document-skills/         # Document processing skills (21 skills)
 │   ├── officecli, officecli-docx, officecli-pptx, officecli-xlsx, docx, pptx, xlsx, pdf
 │   ├── algorithmic-art, canvas-design, theme-factory, brand-guidelines
 │   ├── frontend-design, web-artifacts-builder, webapp-testing
-│   └── mcp-builder, skill-creator, slack-gif-creator, internal-comms, doc-coauthoring
+│   └── mcp-builder, skill-creator, skill-seekers, slack-gif-creator, internal-comms, doc-coauthoring
+├── Font_end/               # Website maintenance skills (2 skills)
+│   ├── page-keeper
+│   └── chen-academic-page-maintainer
 ├── python-skills/          # Python library development skills (12 skills)
 │   ├── project-setup, code-quality, testing-strategy
 │   ├── packaging, release-management, cli-development
@@ -23,17 +26,21 @@ ai_skills/
 │   ├── deep-learning/      # PyTorch
 │   ├── llm/                # Transformers, HuggingFace Hub, PEFT, TRL, BitsAndBytes
 │   └── training/           # Accelerate, DeepSpeed, PyTorch Lightning, Datasets
-├── compbio-skills/         # Computational biology skills (29 skills)
+├── compbio-skills/         # Computational biology skills (35 skills)
 │   ├── single-cell/        # scanpy, Seurat, scvi-tools, AnnData, cellxgene
 │   ├── integration/        # Harmony, Scanorama, BBKNN, Seurat v5
 │   ├── multiomics/         # PyDESeq2, ArchR, Signac, metabolomics, proteomics
 │   ├── spatial-omics/      # Squidpy, Giotto, SpatialData, Visium, Stereo-seq
 │   ├── databases/          # KEGG, Reactome, GEO, Ensembl, Human Cell Atlas
 │   └── workflows/         # Snakemake, Nextflow
-├── writing/                # Writing skills (3 skills)
+├── writing/                # Writing skills (5 skills)
+│   ├── General_academic/  # Academic editing and cleanup
 │   ├── LaTex/             # LaTeX writing and compilation
 │   └── Obsidian/          # Note-taking with Obsidian
-├── docs/                   # Documentation catalogs
+├── docs/                   # Documentation hub
+│   ├── catalogs/          # Domain inventories
+│   ├── guides/            # Examples and practical notes
+│   └── README.md          # Documentation index
 └── .claude-plugin/         # Claude Code marketplace configuration
 ```
 
@@ -57,10 +64,11 @@ Each skill is a directory containing a `SKILL.md` file with YAML frontmatter:
 ### Skill Categories
 
 - **Document Processing**: docx, pptx, xlsx, pdf, algorithmic-art, canvas-design, theme-factory, frontend-design, web-artifacts-builder, webapp-testing, mcp-builder, skill-creator
+- **Website Maintenance**: page-keeper, chen-academic-page-maintainer
 - **Python Library Development**: project-setup, code-quality, testing-strategy, packaging, release-management, cli-development, security-audit, performance, api-design, documentation, community, library-review
 - **AI/ML**: PyTorch, Transformers, PEFT, TRL, BitsAndBytes, HuggingFace Hub, Accelerate, DeepSpeed, PyTorch Lightning, Datasets
 - **Computational Biology**: scanpy, scvi-tools, Seurat, AnnData, cellxgene, PyDESeq2, ArchR, Signac, Squidpy, Giotto, SpatialData, and more
-- **Writing**: LaTeX, Obsidian
+- **Writing**: General academic, LaTeX, Obsidian
 
 ## Configuration Files
 
