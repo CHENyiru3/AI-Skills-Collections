@@ -15,14 +15,14 @@ This repository provides AI agent skills designed to work with Claude Code and C
 
 ## Skill Categories
 
-### Document Skills (21 skills)
+### Document Skills (22 skills)
 
 | Category | Skills |
 |----------|--------|
 | Office | officecli, officecli-docx, officecli-pptx, officecli-xlsx, docx, pptx, xlsx, pdf |
 | Design & Art | algorithmic-art, canvas-design, theme-factory, brand-guidelines |
 | Web | frontend-design, web-artifacts-builder, webapp-testing |
-| Tools | mcp-builder, skill-creator, skill-seekers, slack-gif-creator, internal-comms, doc-coauthoring |
+| Tools | mcp-builder, skill-creator, skill-seekers, slack-gif-creator, internal-comms, doc-coauthoring, imgur-cli |
 
 ### Font_end Skills (2 skills)
 
@@ -59,13 +59,13 @@ This repository provides AI agent skills designed to work with Claude Code and C
 | Workflows | Snakemake, Nextflow |
 | Bioinformatics Tools | draft-spatial-methods, explain-bio-dl-model, critique-bio-manuscript |
 
-### Writing Skills (5 skills)
+### Writing Skills (9 skills)
 
 | Category | Skills |
 |----------|--------|
 | General Academic | academic-writing-editor, humanizer |
 | LaTeX | Latex_writing, Compile_latex |
-| Notes | notes_taking |
+| Obsidian | obsidian-markdown, obsidian-cli, obsidian-bases, json-canvas, defuddle |
 
 ## Documentation
 
@@ -251,10 +251,10 @@ ai_skills/
 │   ├── spatial-omics/      # Squidpy, Giotto, etc.
 │   ├── databases/          # GEO, Ensembl, etc.
 │   └── workflows/         # Snakemake, Nextflow
-├── writing/                # Writing skills (5 skills)
+├── writing/                # Writing skills (9 skills)
 │   ├── General_academic/  # Academic editing and cleanup
 │   ├── LaTex/             # LaTeX writing & compilation
-│   └── Obsidian/          # Note-taking
+│   └── Obsidian/          # Note-taking and vault tooling
 ├── docs/                   # Documentation hub
 │   ├── catalogs/          # Domain inventories
 │   ├── guides/            # Examples and practical notes

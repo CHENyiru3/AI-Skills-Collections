@@ -1,6 +1,6 @@
 # Document Skills Catalog
 
-This catalog covers the 21 skills under `document-skills/`.
+This catalog covers the 22 skills under `document-skills/`.
 
 ## Office and File Workflows
 
@@ -39,6 +39,7 @@ This catalog covers the 21 skills under `document-skills/`.
 |-------|----------|-------|
 | [`doc-coauthoring`](../../document-skills/doc-coauthoring/SKILL.md) | `document-skills/doc-coauthoring` | Structured collaboration for writing docs, specs, and proposals |
 | [`internal-comms`](../../document-skills/internal-comms/SKILL.md) | `document-skills/internal-comms` | Internal updates, FAQs, incident reports, and status writing |
+| [`imgur-cli`](../../document-skills/imgur-cli/SKILL.md) | `document-skills/imgur-cli` | Uploading and deleting images through the local `imgur` CLI |
 | [`mcp-builder`](../../document-skills/mcp-builder/SKILL.md) | `document-skills/mcp-builder` | Designing and implementing MCP servers |
 | [`skill-creator`](../../document-skills/skill-creator/SKILL.md) | `document-skills/skill-creator` | Creating and refining skills for this ecosystem |
 | [`skill-seekers`](../../document-skills/skill-seekers/SKILL.md) | `document-skills/skill-seekers` | Turning source material into AI-ready knowledge assets |

@@ -29,6 +29,7 @@
         "./document-skills/doc-coauthoring",
         "./document-skills/frontend-design",
         "./document-skills/internal-comms",
+        "./document-skills/imgur-cli",
         "./document-skills/mcp-builder",
         "./document-skills/skill-creator",
         "./document-skills/skill-seekers",
@@ -133,7 +134,11 @@
         "./writing/General_academic/humanizer",
         "./writing/LaTex/Latex_writing",
         "./writing/LaTex/Compile_latex",
-        "./writing/Obsidian/notes_taking"
+        "./writing/Obsidian/obsidian-markdown",
+        "./writing/Obsidian/obsidian-cli",
+        "./writing/Obsidian/obsidian-bases",
+        "./writing/Obsidian/json-canvas",
+        "./writing/Obsidian/defuddle"
       ]
     }
   ]

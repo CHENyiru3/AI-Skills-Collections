@@ -1,0 +1,7 @@
+interface:
+  display_name: "Imgur CLI"
+  short_description: "Upload/delete images with local imgur"
+  default_prompt: "Use $imgur-cli to upload an image with the local imgur command and return the Imgur link plus deletehash."
+
+policy:
+  allow_implicit_invocation: true

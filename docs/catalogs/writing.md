@@ -1,6 +1,6 @@
 # Writing Skills Catalog
 
-This catalog covers the 5 skills under `writing/`.
+This catalog covers the 9 skills under `writing/`.
 
 ## General Academic
 
@@ -20,7 +20,11 @@ This catalog covers the 5 skills under `writing/`.
 
 | Skill | Location | Focus |
 |-------|----------|-------|
-| [`notes_taking`](../../writing/Obsidian/notes_taking/SKILL.md) | `writing/Obsidian/notes_taking` | Obsidian-flavored Markdown workflows |
+| [`obsidian-markdown`](../../writing/Obsidian/obsidian-markdown/SKILL.md) | `writing/Obsidian/obsidian-markdown` | Obsidian-flavored Markdown workflows |
+| [`obsidian-cli`](../../writing/Obsidian/obsidian-cli/SKILL.md) | `writing/Obsidian/obsidian-cli` | CLI control for Obsidian vaults, notes, and plugin debugging |
+| [`obsidian-bases`](../../writing/Obsidian/obsidian-bases/SKILL.md) | `writing/Obsidian/obsidian-bases` | `.base` views, filters, formulas, and summaries |
+| [`json-canvas`](../../writing/Obsidian/json-canvas/SKILL.md) | `writing/Obsidian/json-canvas` | `.canvas` files with nodes, edges, and groups |
+| [`defuddle`](../../writing/Obsidian/defuddle/SKILL.md) | `writing/Obsidian/defuddle` | Clean markdown extraction for web content capture |
 
 ## Notes
 

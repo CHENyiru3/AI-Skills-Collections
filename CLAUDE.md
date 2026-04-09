@@ -10,11 +10,11 @@ This is an **AI Skills repository** - a collection of skills for AI agents cover
 
 ```
 ai_skills/
-├── document-skills/         # Document processing skills (21 skills)
+├── document-skills/         # Document processing skills (22 skills)
 │   ├── officecli, officecli-docx, officecli-pptx, officecli-xlsx, docx, pptx, xlsx, pdf
 │   ├── algorithmic-art, canvas-design, theme-factory, brand-guidelines
 │   ├── frontend-design, web-artifacts-builder, webapp-testing
-│   └── mcp-builder, skill-creator, skill-seekers, slack-gif-creator, internal-comms, doc-coauthoring
+│   └── mcp-builder, skill-creator, skill-seekers, slack-gif-creator, internal-comms, doc-coauthoring, imgur-cli
 ├── Font_end/               # Website maintenance skills (2 skills)
 │   ├── page-keeper
 │   └── chen-academic-page-maintainer
@@ -33,10 +33,10 @@ ai_skills/
 │   ├── spatial-omics/      # Squidpy, Giotto, SpatialData, Visium, Stereo-seq
 │   ├── databases/          # KEGG, Reactome, GEO, Ensembl, Human Cell Atlas
 │   └── workflows/         # Snakemake, Nextflow
-├── writing/                # Writing skills (5 skills)
+├── writing/                # Writing skills (9 skills)
 │   ├── General_academic/  # Academic editing and cleanup
 │   ├── LaTex/             # LaTeX writing and compilation
-│   └── Obsidian/          # Note-taking with Obsidian
+│   └── Obsidian/          # Notes, canvases, bases, and vault tooling
 ├── docs/                   # Documentation hub
 │   ├── catalogs/          # Domain inventories
 │   ├── guides/            # Examples and practical notes
@@ -63,7 +63,7 @@ Each skill is a directory containing a `SKILL.md` file with YAML frontmatter:
 
 ### Skill Categories
 
-- **Document Processing**: docx, pptx, xlsx, pdf, algorithmic-art, canvas-design, theme-factory, frontend-design, web-artifacts-builder, webapp-testing, mcp-builder, skill-creator
+- **Document Processing**: docx, pptx, xlsx, pdf, algorithmic-art, canvas-design, theme-factory, frontend-design, web-artifacts-builder, webapp-testing, mcp-builder, skill-creator, imgur-cli
 - **Website Maintenance**: page-keeper, chen-academic-page-maintainer
 - **Python Library Development**: project-setup, code-quality, testing-strategy, packaging, release-management, cli-development, security-audit, performance, api-design, documentation, community, library-review
 - **AI/ML**: PyTorch, Transformers, PEFT, TRL, BitsAndBytes, HuggingFace Hub, Accelerate, DeepSpeed, PyTorch Lightning, Datasets
