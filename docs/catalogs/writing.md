@@ -7,7 +7,7 @@ This catalog covers the 9 skills under `writing/`.
 | Skill | Location | Focus |
 |-------|----------|-------|
 | [`academic-writing-editor`](../../writing/General_academic/academic-writing-editor/SKILL.md) | `writing/General_academic/academic-writing-editor` | Structural editing for academic manuscripts |
-| [`humanizer`](../../writing/General_academic/humanizer/SKILL.md) | `writing/General_academic/humanizer` | Cleanup pass for more natural, less AI-marked prose |
+| [`humanizer`](../../writing/General_academic/humanizer/SKILL.md) | `writing/General_academic/humanizer` | Cleanup pass for AI-marked, robotic, or overly corporate prose; complements `academic-writing-editor` for academic text |
 
 ## LaTeX
 
@@ -28,5 +28,5 @@ This catalog covers the 9 skills under `writing/`.
 
 ## Notes
 
-- `academic-writing-editor` and `humanizer` are complementary but not interchangeable.
+- `academic-writing-editor` handles structure and argument quality; `humanizer` is the final voice and anti-AI cleanup pass.
 - The writing domain is intentionally narrow; document production skills live under `document-skills/`.
