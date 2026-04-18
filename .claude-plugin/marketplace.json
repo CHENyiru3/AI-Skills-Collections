@@ -148,6 +148,7 @@
       "strict": false,
       "skills": [
         "./ai-ml-skills/utility/token-usage-checker",
+        "./ai-ml-skills/utility/provider-usage-checker",
         "./ai-ml-skills/utility/bitwarden",
         "./ai-ml-skills/llm/cursor-usage-checker"
       ]

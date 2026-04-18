@@ -1,58 +1,35 @@
 ---
 name: cursor-usage-checker
-description: Checks Cursor Pro billing usage by scraping the billing page via Firefox cookies + Playwright WebKit (bypasses Cloudflare). Extracts API tokens, Auto+Composer usage, and spending data. Trigger when user asks to check cursor usage, billing, or token consumption.
+description: Check Cursor usage, billing, and quota through the shared provider usage checker. Reuse local browser session cookies and call Cursor's authenticated usage APIs before considering any browser automation.
 category: ai-ml-skills/llm
 ---
 
 # Cursor Usage Checker
 
-Scrapes cursor.com/dashboard/billing using Firefox session cookies + Playwright WebKit to bypass Cloudflare bot protection.
+This skill delegates to the shared provider usage checker.
 
-## Requirements
+## Default source order
 
-- **Python 3.11+** via uv: `/Users/eric_yiru/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/bin/python3.11`
-- **Playwright with WebKit**: `uv python -m playwright install webkit`
-- **Firefox** with an active Cursor session (must be logged in)
-- Cookies sourced from `ftyiboxw.default-release` Firefox profile
-
-## Key Technical Findings
-
-| Browser | Cloudflare Result |
-|---------|-----------------|
-| Chromium (headless) | ❌ Blocked |
-| Chrome/Chrome-for-Testing | ❌ Blocked |
-| Arc (Chromium-based) | ❌ Blocked |
-| **WebKit (Playwright)** | ✅ **Works** |
-
-- Firefox cookies DB can be read while Firefox is running (WAL mode)
-- `api.cursor.com` exists but all usage endpoints require Enterprise API key — not accessible to Pro users
-- nodriver couldn't connect to any browser (CDP sandbox issue in this env)
+1. Cached cookie header
+2. Imported Firefox session cookies
+3. Manual cookie header
+4. Cursor web APIs
 
 ## Usage
 
 ```bash
-~/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/bin/python3.11 \
-  check_usage.py
-```
-
-Or import as module:
-
-```python
-import asyncio, subprocess
-uv = '/Users/eric_yiru/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/bin/python3.11'
-result = subprocess.run([uv, 'check_usage.py'], capture_output=True, text=True)
-print(result.stdout)
+python3 check_usage.py
+python3 ../../utility/provider-usage-checker/scripts/check_usage.py --provider cursor --json
 ```
 
 ## What it extracts
 
-- Current billing cycle dates
-- API token usage (total + per-model breakdown)
-- Auto + Composer token usage
-- On-demand usage and costs
-- Invoice history
-- Plan renewal date
+- Billing cycle dates
+- Included plan utilization
+- On-demand spend and limit data
+- Identity from `auth/me`
+- Legacy request usage when Cursor still exposes it
 
 ## Privacy Note
 
-The script copies Firefox's cookies.sqlite to `/tmp/` before reading — it never exfiltrates data. Review the script before running.
+The checker copies Firefox `cookies.sqlite` to a temporary location before reading and does not print raw cookie values.

@@ -1,7 +1,7 @@
 ---
 name: token-usage-checker
-description: Check token/credit usage for MiniMax, Cursor Pro, and Codex CLI accounts
-version: 1.3.0
+description: Check token/credit usage for MiniMax, Cursor Pro, and Codex CLI accounts. Delegates to provider-usage-checker for Codex and Cursor.
+version: 1.4.0
 category: utility
 ---
 
@@ -28,21 +28,25 @@ browser_navigate "https://platform.minimaxi.com/user-center/payment/token-plan"
 ## Cursor Pro
 
 ```bash
-python ~/.hermes/skills/cursor-usage-checker/check_usage.py
+python3 /Users/eric_yiru/Desktop/Github/ai_skills/ai-ml-skills/utility/provider-usage-checker/scripts/check_usage.py --provider cursor
+python3 /Users/eric_yiru/Desktop/Github/ai_skills/ai-ml-skills/utility/provider-usage-checker/scripts/check_usage.py --provider cursor --json
 ```
+
+Uses Firefox cookies + Playwright WebKit to bypass Cloudflare. Source order: cached cookie → Firefox → manual cookie → Cursor APIs.
 
 ## Codex
 
 ```bash
-codex
-# /status
-# Interactive only — no headless command available
+python3 /Users/eric_yiru/Desktop/Github/ai_skills/ai-ml-skills/utility/provider-usage-checker/scripts/check_usage.py --provider codex
+python3 /Users/eric_yiru/Desktop/Github/ai_skills/ai-ml-skills/utility/provider-usage-checker/scripts/check_usage.py --provider codex --source dashboard --json --debug
 ```
+
+Source order: `~/.codex/auth.json` → authenticated dashboard → `codex app-server` RPC → `/status` PTY fallback.
 
 ## Quick Ref
 
 | Service | Command | Headless |
 |---------|---------|----------|
-| MiniMax | browser_navigate URL above | ✅ |
-| Cursor | python script | ✅ |
-| Codex | codex → /status | ❌ |
+| MiniMax | browser_navigate + Bitwarden | ✅ |
+| Cursor | provider-usage-checker | ✅ |
+| Codex | provider-usage-checker | ✅ |

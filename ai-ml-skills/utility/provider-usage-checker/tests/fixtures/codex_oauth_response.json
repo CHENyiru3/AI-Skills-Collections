@@ -1,0 +1,21 @@
+{
+  "account_id": "acct_redacted",
+  "email": "coder@example.com",
+  "plan_type": "plus",
+  "rate_limit": {
+    "used_percent": 33,
+    "window_minutes": 300
+  },
+  "additional_rate_limits": [
+    {
+      "used_percent": 47,
+      "window_minutes": 10080
+    }
+  ],
+  "code_review_rate_limit": {
+    "used_percent": 30
+  },
+  "credits": {
+    "balance": "0.0"
+  }
+}
