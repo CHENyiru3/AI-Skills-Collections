@@ -140,6 +140,17 @@
         "./writing/Obsidian/json-canvas",
         "./writing/Obsidian/defuddle"
       ]
+    },
+    {
+      "name": "utility-skills",
+      "description": "Collection of utility skills for token usage checking, Bitwarden secrets management, and productivity tools",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./ai-ml-skills/utility/token-usage-checker",
+        "./ai-ml-skills/utility/bitwarden",
+        "./ai-ml-skills/llm/cursor-usage-checker"
+      ]
     }
   ]
 }
