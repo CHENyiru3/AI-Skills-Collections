@@ -1,0 +1,42 @@
+# JSON Schema for deployment profile YAML files in deployments/
+$schema: "http://json-schema.org/draft-07/schema#"
+title: DeploymentProfile
+description: Schema for a machine-level deployment profile.
+type: object
+required:
+  - id
+  - description
+  - skills
+additionalProperties: false
+properties:
+  id:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9-]*$"
+    description: Unique kebab-case profile identifier.
+    examples:
+      - base
+      - macos-personal
+      - gpu-server
+      - writing-workstation
+  description:
+    type: string
+    description: Human-readable description of what this profile is for.
+  extends:
+    type: array
+    items:
+      type: string
+    description: >
+      Profile IDs to inherit skills from (resolved recursively).
+      Skills from all extended profiles are merged (union, not override).
+    default: []
+  skills:
+    type: array
+    items:
+      type: string
+    description: >
+      List of skill IDs to install for this profile.
+      References registry/skills.yaml by ID, never by path.
+    default: []
+  notes:
+    type: string
+    description: Optional notes for operators.

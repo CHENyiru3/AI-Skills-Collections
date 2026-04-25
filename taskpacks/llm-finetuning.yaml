@@ -1,0 +1,14 @@
+# LLM fine-tuning and lightweight adaptation workflow.
+id: llm-finetuning
+description: LLM fine-tuning and lightweight adaptation — LoRA, QLoRA, RLHF, DPO.
+skills:
+  - transformers
+  - huggingface-hub
+  - datasets
+  - accelerate
+  - deepspeed
+  - peft
+  - trl
+  - bitsandbytes
+  - pytorch
+  - performance

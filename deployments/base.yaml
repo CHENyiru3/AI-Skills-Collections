@@ -1,0 +1,14 @@
+# Base deployment profile — install on every machine.
+# All other profiles extend this.
+id: base
+description: Minimal general skills for all machines. Core Python hygiene and developer utilities.
+skills:
+  - project-setup
+  - code-quality
+  - testing-strategy
+  - security-audit
+  - documentation
+  - performance
+  - cli-development
+  - skill-creator
+  - skill-seekers

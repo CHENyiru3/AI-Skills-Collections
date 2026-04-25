@@ -1,0 +1,16 @@
+# HPC profile — HPC cluster environment with workflow and reproducibility focus.
+id: hpc
+extends:
+  - base
+description: HPC-oriented profile with workflow reproducibility and computational biology.
+skills:
+  - snakemake
+  - nextflow
+  - packaging
+  - performance
+  - testing-strategy
+  - documentation
+  - scanpy
+  - anndata
+  - pytorch
+  - datasets

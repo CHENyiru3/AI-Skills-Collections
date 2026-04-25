@@ -1,0 +1,15 @@
+# Multi-omics data feast — integrate scRNA-seq, scATAC-seq, proteomics, metabolomics.
+id: feast
+description: Multi-omics integration feast — scRNA-seq, scATAC-seq, proteomics, metabolomics, pathway analysis.
+skills:
+  - scanpy
+  - anndata
+  - archr
+  - signac
+  - scribble
+  - pydeseq2
+  - uniprot
+  - metabolomics-workbench
+  - kegg
+  - reactome
+  - ensembl

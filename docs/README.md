@@ -16,7 +16,7 @@ Use the top-level [README.md](../README.md) for repository overview, installatio
 | Domain | Coverage |
 |--------|----------|
 | [Document Skills](./catalogs/document-skills.md) | Office workflows, design, web, and skill-building utilities |
-| [Font_end Skills](./catalogs/font-end.md) | Website maintenance and repo-specific frontend upkeep skills |
+| [Frontend Skills](./catalogs/font-end.md) | Website maintenance and repo-specific frontend upkeep skills |
 | [AI/ML Skills](./catalogs/ai-ml.md) | Deep learning, LLM tooling, and training infrastructure |
 | [Python Skills](./catalogs/python.md) | Python library engineering, quality, packaging, and release workflows |
 | [Computational Biology Skills](./catalogs/computational-biology.md) | Single-cell, multi-omics, spatial omics, databases, and workflow tools |

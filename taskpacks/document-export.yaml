@@ -1,0 +1,14 @@
+# Office, PDF, Word, PowerPoint, Excel, and export workflow.
+id: document-export
+description: Office, PDF, Word, PowerPoint, Excel, and export workflow.
+skills:
+  - officecli
+  - officecli-docx
+  - officecli-pptx
+  - officecli-xlsx
+  - docx
+  - pptx
+  - xlsx
+  - pdf
+  - doc-coauthoring
+  - internal-comms

@@ -1,0 +1,12 @@
+# Local literature recommendation, embedding map, paper clustering, and review system.
+id: zotpilot-literature-map
+description: Local literature recommendation, embedding map, paper clustering, and review system.
+skills:
+  - zotpilot
+  - defuddle
+  - obsidian-markdown
+  - json-canvas
+  - web-artifacts-builder
+  - frontend-design
+  - performance
+  - api-design

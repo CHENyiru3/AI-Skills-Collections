@@ -1,0 +1,12 @@
+# Reproducible computational biology workflow engineering — Snakemake, Nextflow.
+id: workflow-engineering
+description: Reproducible computational biology workflow engineering with Snakemake and Nextflow.
+skills:
+  - snakemake
+  - nextflow
+  - project-setup
+  - cli-development
+  - testing-strategy
+  - documentation
+  - packaging
+  - performance

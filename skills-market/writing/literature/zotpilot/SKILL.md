@@ -1,0 +1,272 @@
+---
+name: zotpilot
+description: Use when user mentions Zotero, academic papers, citations,
+  literature reviews, research libraries, or wants to search/organize their
+  paper collection. Also triggers on "find papers about...", "what's in my
+  library", "organize my papers", "who cites...", "tag these papers".
+  Always use this skill for Zotero-related tasks.
+---
+
+# ZotPilot
+
+> All script paths are relative to this skill's directory.
+
+## Step 0: Verify Zotero is installed
+
+Before anything else, check if Zotero is installed on this machine:
+
+- **macOS**: check if `/Applications/Zotero.app` exists, or if `~/Zotero` or `~/Documents/Zotero` contains a `zotero.sqlite` file
+- **Windows**: check if `C:\Users\<username>\Zotero\zotero.sqlite` exists, or ask the user
+- **Linux**: check if `~/Zotero/zotero.sqlite` exists
+
+**If Zotero is NOT installed:** Tell the user: "ZotPilot requires Zotero to be installed and have been run at least once. Please download Zotero from https://www.zotero.org/download/, install it, add some papers, then come back." Stop here — do not proceed with setup.
+
+## Step 1: Check readiness
+
+**Python command:** Use `python3` on Linux/macOS. On Windows, use `python` (Windows typically does not have `python3` in PATH).
+
+Run: `python3 scripts/run.py status --json`  (Windows: `python scripts/run.py status --json`)
+
+This auto-installs the ZotPilot CLI if not present. Parse the JSON output and follow the FIRST matching branch:
+
+1. Command fails entirely → go to **Prerequisites**
+2. `config_exists` is false → go to **First-Time Setup**
+3. `errors` is non-empty → go to **First-Time Setup** (note: `warnings` like API key not in env are OK if key was passed to `register` — only `errors` trigger this branch)
+4. `index_ready` is false or `doc_count` is 0 → go to **Index**
+5. All green → go to **Research**
+
+If any errors or unexpected behavior at any step: run `python3 scripts/run.py doctor` for detailed diagnostics.
+
+## Prerequisites (if run.py fails)
+
+The user needs:
+1. **Python 3.10+**: `python3 --version` (Linux/macOS) or `python --version` (Windows)
+2. **uv** (package manager):
+   - Linux/macOS: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+   - Windows (PowerShell): `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`
+   - Any platform: `pip install uv`
+   - After installing on Windows, if `uv` is still not in PATH, that's OK — `run.py` will detect it automatically via `python -m uv`
+
+After installing, retry Step 1.
+
+## First-Time Setup
+
+This section runs once. After setup, the user must restart their AI agent before MCP tools become available.
+
+### 1. Configure Zotero + embedding provider
+
+Ask the user: "Which embedding provider do you prefer? Gemini (recommended), DashScope/Bailian (recommended for China), or fully offline (local)?"
+
+**With Gemini (recommended, higher quality):**
+```bash
+python3 scripts/run.py setup --non-interactive --provider gemini
+```
+User needs `GEMINI_API_KEY` — get one free at https://aistudio.google.com/apikey
+
+**With DashScope / Bailian (recommended for China):**
+```bash
+python3 scripts/run.py setup --non-interactive --provider dashscope
+```
+User needs `DASHSCOPE_API_KEY` — get one at https://bailian.console.aliyun.com/
+
+**Without API key (fully offline):**
+```bash
+python3 scripts/run.py setup --non-interactive --provider local
+```
+
+If auto-detection of Zotero fails, add `--zotero-dir /path/to/Zotero`.
+
+### 2. Configure Zotero Web API (for write operations)
+
+Ask the user: "Do you want to be able to tag and organize papers from AI? If yes, you'll need a Zotero API key."
+
+If yes:
+1. Go to **https://www.zotero.org/settings/keys**
+2. **User ID**: The numeric ID shown at the top of the page (e.g. `12345678`). This is NOT your username — it's a number.
+3. Click **"Create new private key"**, check "Allow library access" + "Allow write access", save
+4. Copy the generated key
+
+If no, skip — search/read tools will still work without it.
+
+### 3. Register MCP server
+
+**Preferred: set environment variables first** (avoids keys in shell history):
+
+```bash
+export GEMINI_API_KEY=<key>          # or DASHSCOPE_API_KEY for DashScope
+export ZOTERO_API_KEY=<key>          # optional, for write operations
+export ZOTERO_USER_ID=<numeric-id>   # optional, for write operations
+```
+
+Then register without key flags — keys from env are auto-detected:
+
+```bash
+python3 scripts/run.py register
+```
+
+**Alternative: pass keys as CLI flags** (convenient but leaves keys in shell history):
+
+```bash
+python3 scripts/run.py register \
+  --gemini-key <key> \
+  --zotero-api-key <key> \
+  --zotero-user-id <numeric-id>
+```
+
+This auto-detects the user's AI agent platform(s) and registers accordingly. Supports Claude Code, Codex CLI, OpenCode, Gemini CLI, Cursor, Windsurf, Cline, and Roo Code.
+
+If auto-detection fails, specify explicitly: `python3 scripts/run.py register --platform claude-code`
+
+### 4. Restart
+
+Tell the user: "Setup complete! Please restart your AI agent to activate ZotPilot's tools. After restarting, ask me again and I'll index your papers."
+
+**IMPORTANT:** Stop here. Do NOT attempt to use MCP tools (search_papers, etc.) until the user restarts. The MCP server is not available until after restart.
+
+## Index (if doc_count = 0)
+
+MCP tools are now available. Index the user's papers:
+
+```bash
+python3 scripts/run.py index
+```
+
+Indexing takes ~2-5 seconds per paper. Documents longer than 40 pages are automatically skipped (configurable via `--max-pages`).
+
+### Long document handling
+
+After indexing completes, check the output for "Skipped N long documents". If long documents were skipped:
+
+1. Show the user the list of skipped documents (titles and page counts from the output)
+2. Ask: "The following long documents (over 40 pages) were skipped. Would you like to index any of them?"
+3. If user wants specific papers: `python3 scripts/run.py index --item-key KEY`
+4. If user wants all of them: `python3 scripts/run.py index --max-pages 0`
+
+After completion, proceed to the user's original request.
+
+## Research (daily use)
+
+### Tool selection — pick the RIGHT tool first
+
+| User intent | Tool | Key params |
+|---|---|---|
+| Find specific passages or evidence | `search_papers` | `query`, `top_k=10`, `section_weights`, `required_terms` |
+| Survey a topic / "what do I have on X" | `search_topic` | `query`, `num_papers=10` |
+| Find a known paper by name/author | `search_boolean` | `query`, `operator="AND"` |
+| Find data tables | `search_tables` | `query` |
+| Find figures | `search_figures` | `query` |
+| Read more context around a result | `get_passage_context` | `doc_id`, `chunk_index`, `window=3` |
+| See all papers | `get_library_overview` | `limit=100`, `offset=0` |
+| Paper details | `get_paper_details` | `item_key` |
+| Who cites this? | `find_citing_papers` | `doc_id` |
+| Tag/organize one paper | `add_item_tags`, `add_to_collection` | `item_key` |
+| Batch tag/organize many papers | `batch_tags`, `batch_collections` | `items` or `item_keys`, `action` |
+
+### Workflow chains
+
+**Literature review:**
+search_topic → get_paper_details (top 5) → find_references → search_papers with section_weights
+
+**"What do I have on X?":**
+search_topic(num_papers=20) → report count, year range, key authors, top passages
+
+**Organize by theme (batch):**
+search_topic → create_collection → batch_collections(action="add", item_keys=[...], collection_key) → batch_tags(action="add", items=[{item_key, tags}])
+
+**Find specific paper:**
+search_boolean first (exact terms) → fallback to search_papers (semantic) → get_paper_details
+
+### Output formatting
+
+- Lead with paper title, authors, year, citation key
+- Quote the relevant passage directly
+- Include page number and section name
+- Group results by paper, not by chunk
+- Render table content as markdown tables
+- NEVER dump raw JSON to the user
+
+### Error recovery
+
+| Error | Fix |
+|---|---|
+| Empty results | Try broader query, or `search_boolean` for exact terms. Check `get_index_stats` |
+| "GEMINI_API_KEY not set" | Appears in `warnings` (not `errors`) — **expected** if key was passed to `register`. Only re-run setup if provider is wrong. |
+| "DASHSCOPE_API_KEY not set" | Same as above — expected if key was passed to `register`. |
+| "ZOTERO_API_KEY not set" | Write ops need Zotero Web API credentials — see below |
+| "Document has no DOI" | Cannot use citation tools for this paper |
+| "No chunks found" | Paper not indexed — run `index_library(item_key="...")` |
+
+### Write operations (tags, collections)
+
+Write tools require Zotero Web API credentials. If user gets "ZOTERO_API_KEY not set" or "Invalid user ID":
+
+Go back to **Step 2** (Configure Zotero Web API) in **First-Time Setup** and re-register the MCP server with all credentials.
+
+Common pitfall: `ZOTERO_USER_ID` must be the **numeric ID** (e.g. `12345678`), not the username (e.g. `your_username`). Find it at https://www.zotero.org/settings/keys. Run `zotpilot doctor` to validate.
+
+Another common pitfall: write tools also require outbound network access to `api.zotero.org`. If local reads work but tags/collections/notes fail with DNS, timeout, or connection errors, the issue is usually environment internet policy rather than credentials.
+
+Another common pitfall: after adding `ZOTERO_API_KEY` / `ZOTERO_USER_ID` to MCP config, the running MCP server may not hot-reload them. Restart the AI agent or re-register/restart the MCP server before retrying write operations.
+
+**Single-item tools:** `add_item_tags`, `set_item_tags`, `remove_item_tags`, `add_to_collection`, `remove_from_collection`, `create_collection`
+
+**Batch tools (max 100 items per call):** `batch_tags(action="add|set|remove")`, `batch_collections(action="add|remove")`
+
+Batch tools accept `items: [{item_key, tags}]` (for tag ops) or `item_keys: [str]` + `collection_key` (for collection ops). Partial failures are reported per-item without rollback.
+
+**When to use batch:** First-time library reorganization, bulk tagging after topic search, migrating tags across papers.
+
+**Scope limit:** These MCP write tools organize existing Zotero items. They do not provide a dedicated "import arbitrary local PDF into Zotero" tool. For local folder ingestion, first match PDFs against existing Zotero items; for truly missing PDFs, use a separate pyzotero/Web API import script or import through the Zotero desktop app, then use MCP to tag and place the items in collections.
+
+### Duplicate cleanup workflow
+
+If the user reports many duplicate papers in search or embedding visualizations:
+
+1. Compare the live Zotero library against the current Chroma index.
+2. Distinguish:
+   - live Zotero duplicates
+   - stale indexed docs no longer present in Zotero
+3. Audit duplicates by:
+   - DOI first
+   - then identical PDF hash
+   - then normalized title as review-only
+4. Apply review tags/collections only to live Zotero items.
+5. If the index contains stale docs, run a full `zotpilot index --force` rebuild instead of trying to reason from old embedding points.
+
+Important: duplicate-looking embedding points are often caused by stale index entries, not true live Zotero duplicates.
+
+### Citation grounding workflow with `.docx` and local `Refs/` PDFs
+
+If the user wants citations or references in a Word document verified:
+
+1. Use `officecli` to read the `.docx` first and extract:
+   - in-text citations
+   - the references section
+2. Check each cited paper against Zotero metadata/index first.
+3. If a Zotero record is missing or incomplete, fall back to the local reference PDF folder (for example `Refs/` or `Ref_collection/`) and verify from the PDF title page / DOI / journal line.
+4. Separate two questions clearly:
+   - **content grounding**: are author, year, title, journal, DOI, and citation target correct?
+   - **style normalization**: is the bibliography formatted consistently?
+5. Only edit the `.docx` when grounding reveals a real mismatch. If the source support is correct and the remaining issue is only formatting consistency, treat that as a separate cosmetic pass.
+
+Practical rule: Zotero is the first source of truth for items that exist in the library; local PDFs are the fallback source of truth for missing or incomplete Zotero records.
+
+### Folder-to-Zotero intake workflow
+
+If the user has a local folder of papers and wants them added to an existing Zotero collection:
+
+1. Scan the folder and normalize filenames.
+2. Match files against existing Zotero items first by DOI, then exact title, then probable title.
+3. For items already in Zotero, use collection write tools to add them to the target collection.
+4. For files not already in Zotero, use a separate import script or Zotero desktop import flow.
+5. After remote imports, remember that local embedding rebuilds only see the new items after the Zotero desktop client syncs them down to the local library.
+
+When reporting status, distinguish:
+- already in collection
+- existing Zotero item added to collection
+- imported as new item
+- item created but attachment upload pending
+- still unmatched / needs review
+
+For detailed parameter reference, see `references/tool-guide.md`.
+For common issues and fixes, see `references/troubleshooting.md`.

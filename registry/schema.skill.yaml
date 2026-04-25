@@ -1,0 +1,130 @@
+# JSON Schema for skill entries in registry/skills.yaml
+$schema: "http://json-schema.org/draft-07/schema#"
+title: Skill
+description: Schema for a single skill registry entry.
+type: object
+required:
+  - id
+  - name
+  - canonical_path
+  - domain
+additionalProperties: false
+properties:
+  id:
+    type: string
+    description: Stable kebab-case identifier. Must be unique across registry.
+    pattern: "^[a-z0-9][a-z0-9-]*$"
+    examples:
+      - scanpy
+      - latex-writing
+      - cellxgene-census
+  name:
+    type: string
+    description: Human-readable display name.
+    examples:
+      - Scanpy
+      - LaTeX Writing
+  canonical_path:
+    type: string
+    description: >
+      Path to the skill directory relative to repo root,
+      e.g. skills-market/compbio/single-cell/analysis/scanpy
+    examples:
+      - skills-market/compbio/single-cell/analysis/scanpy
+      - skills-market/ai-ml/llm/transformers
+  old_paths:
+    type: array
+    items:
+      type: string
+    description: >
+      All known previous paths for this skill. Used for alias resolution
+      during migration compatibility window. Includes paths from all
+      pre-reorganization locations.
+    default: []
+  domain:
+    type: string
+    enum:
+      - core
+      - programming
+      - ai-ml
+      - compbio
+      - writing
+      - documents
+      - agents
+      - frontend
+      - github
+      - platforms
+      - projects
+    description: High-level domain category.
+  category:
+    type: string
+    description: Sub-category within domain.
+    examples:
+      - python
+      - llm
+      - single-cell
+      - spatial-omics
+      - latex
+      - obsidian
+  tags:
+    type: array
+    items:
+      type: string
+    description:自由标签 for filtering and discovery.
+    default: []
+  supported_hosts:
+    type: array
+    items:
+      type: string
+      enum:
+        - macos
+        - linux
+        - windows
+        - server
+        - hpc
+        - gpu-server
+    description: Host environments where this skill is expected to work.
+    default: ["macos", "linux", "windows"]
+  profiles:
+    type: array
+    items:
+      type: string
+    description: Deployment profiles that include this skill by default.
+    default: []
+  taskpacks:
+    type: array
+    items:
+      type: string
+    description: Taskpacks that include this skill.
+    default: []
+  install_weight:
+    type: string
+    enum:
+      - light
+      - medium
+      - heavy
+      - host-specific
+    description: >
+      How "heavy" the skill is to install/use.
+      light = trivial, medium = moderate, heavy = large/slow, host-specific = GPU/HPC required.
+    default: light
+  dependencies:
+    type: array
+    items:
+      type: string
+    description: Skill IDs this skill depends on.
+    default: []
+  status:
+    type: string
+    enum:
+      - active
+      - experimental
+      - deprecated
+      - missing
+      - alias-only
+    description: >
+      Lifecycle status.
+      active = available, experimental = works but may change,
+      deprecated = use replacement, missing = expected but no SKILL.md on disk,
+      alias-only = only exists as a legacy alias.
+    default: active

@@ -1,0 +1,14 @@
+# PyTorch model development, training, debugging, and optimization.
+id: pytorch-model-dev
+description: PyTorch model development, training, debugging, and optimization workflow.
+skills:
+  - pytorch
+  - accelerate
+  - datasets
+  - pytorch-lightning
+  - transformers
+  - project-setup
+  - testing-strategy
+  - code-quality
+  - performance
+  - packaging

@@ -1,0 +1,11 @@
+# Biological database access and annotation — KEGG, Reactome, GEO, Ensembl, UniProt.
+id: bio-databases
+description: Biological database access and annotation — pathway, gene expression, genomics, proteomics.
+skills:
+  - geo
+  - human-cell-atlas
+  - ensembl
+  - kegg
+  - reactome
+  - uniprot
+  - metabolomics-workbench

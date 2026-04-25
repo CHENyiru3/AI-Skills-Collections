@@ -1,0 +1,48 @@
+# macOS personal workstation — writing, Obsidian, Office, frontend, academic site.
+id: macos-personal
+extends:
+  - base
+description: "Personal Mac — writing, Obsidian, Office docs, frontend, academic page maintenance."
+skills:
+  # Writing
+  - academic-writing-editor
+  - humanizer
+  - humanizer-zh
+  - zotpilot
+  - latex-writing
+  - compile-latex
+  - obsidian-markdown
+  - obsidian-cli
+  - obsidian-bases
+  - json-canvas
+  - wiki-keeper
+  - defuddle
+  # Documents / Office
+  - officecli
+  - officecli-docx
+  - officecli-pptx
+  - officecli-xlsx
+  - docx
+  - pptx
+  - xlsx
+  - pdf
+  # Documents / Media
+  - imgur-cli
+  - slack-gif-creator
+  # Frontend / Site maintenance
+  - page-keeper
+  - chen-academic-page-maintainer
+  # Documents / Design
+  - frontend-design
+  - web-artifacts-builder
+  - canvas-design
+  - algorithmic-art
+  - theme-factory
+  - brand-guidelines
+  # Documents / Formats
+  - jupyter
+  # Documents / Collaboration
+  - doc-coauthoring
+  - internal-comms
+  # Documents / Web testing
+  - webapp-testing

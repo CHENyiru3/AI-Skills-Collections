@@ -1,0 +1,17 @@
+# Frontend workstation — web artifact, UI, academic page, frontend development.
+id: frontend-workstation
+extends:
+  - base
+description: Frontend and artifact machine — web UI, academic page, frontend development.
+skills:
+  - frontend-design
+  - canvas-design
+  - theme-factory
+  - web-artifacts-builder
+  - webapp-testing
+  - algorithmic-art
+  - brand-guidelines
+  - page-keeper
+  - chen-academic-page-maintainer
+  - imgur-cli
+  - slack-gif-creator

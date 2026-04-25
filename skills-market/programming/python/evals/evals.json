@@ -1,0 +1,41 @@
+{
+  "skill_name": "python-skills",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up a new Python library named `geo-normalizer` with a modern `pyproject.toml`, `src/` layout, Ruff, pytest, mypy, pre-commit, and GitHub Actions.",
+      "expected_output": "Uses the project-setup skill and produces a maintainable package scaffold with modern defaults.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I have a Python package with weak typing and messy exception handling. Clean it up with Ruff and mypy settings and show the refactor plan.",
+      "expected_output": "Uses the code-quality skill and recommends concrete linting, typing, and refactoring changes.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Add a Click-based CLI to this Python library with subcommands, stdin support, and tests using CliRunner.",
+      "expected_output": "Uses the cli-development skill and includes entry points, command structure, and CLI tests.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "We are about to publish version 1.4.0 of our Python package. Help me decide the version bump, update the changelog, tag the release, and wire up PyPI trusted publishing.",
+      "expected_output": "Uses the packaging and release-management skills and gives a coherent release workflow.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Review this Python library for security and test quality. I want to know what is missing before we make it public.",
+      "expected_output": "Uses the security-audit, testing-strategy, and library-review skills to produce a structured audit.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Our Python package has almost no docs. Add Google-style docstrings, a README outline, and a Sphinx starter config.",
+      "expected_output": "Uses the documentation skill and returns concrete documentation assets and structure.",
+      "files": []
+    }
+  ]
+}

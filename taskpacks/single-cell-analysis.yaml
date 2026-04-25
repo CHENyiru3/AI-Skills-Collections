@@ -1,0 +1,18 @@
+# scRNA-seq analysis, integration, visualization, and annotation.
+id: single-cell-analysis
+description: scRNA-seq analysis, integration, visualization, and cell type annotation.
+skills:
+  - scanpy
+  - anndata
+  - scvi-tools
+  - seurat
+  - seurat-v5
+  - harmony
+  - scanorama
+  - bbknn
+  - cellxgene
+  - cellxgene-census
+  - pydeseq2
+  - schard
+  - anndatar
+  - monocle3

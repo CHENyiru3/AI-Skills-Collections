@@ -1,0 +1,38 @@
+# Research server — general Linux research server for Python, data, compbio.
+id: research-server
+extends:
+  - base
+description: General Linux research server — Python library dev, AI/ML basics, computational biology.
+skills:
+  # Python library development
+  - packaging
+  - release-management
+  - library-review
+  - api-design
+  - community
+  # AI-ML / Deep Learning
+  - pytorch
+  # AI-ML / Training
+  - accelerate
+  - datasets
+  # AI-ML / LLM
+  - transformers
+  - huggingface-hub
+  # Compbio / Single-cell
+  - scanpy
+  - anndata
+  - scvi-tools
+  - seurat
+  - cellxgene
+  - cellxgene-census
+  # Compbio / Spatial
+  - squidpy
+  - spatialdata
+  # Compbio / Workflows
+  - snakemake
+  - nextflow
+  # Compbio / Databases
+  - geo
+  - ensembl
+  - kegg
+  - reactome

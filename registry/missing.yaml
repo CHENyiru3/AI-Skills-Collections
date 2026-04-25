@@ -1,0 +1,39 @@
+# Missing skills: expected skills that are registered but have no SKILL.md on disk.
+# Action: implement the skill, or remove from registry/skills.yaml.
+
+missing:
+  native-mcp:
+    id: native-mcp
+    name: Native MCP
+    expected_old_path: agent/native-mcp
+    proposed_canonical_path: skills-market/agents/mcp/native-mcp
+    status: missing
+    action: implement_or_remove
+    note: Listed in marketplace.json but no SKILL.md found on disk.
+
+  ag-ui:
+    id: ag-ui
+    name: AG-UI
+    expected_old_path: agent/ag-ui
+    proposed_canonical_path: skills-market/agents/ag-ui
+    status: missing
+    action: implement_or_remove
+    note: Referenced in original spec but no SKILL.md found on disk.
+
+  token-usage-checker:
+    id: token-usage-checker
+    name: Token Usage Checker
+    expected_old_path: ai-ml-skills/utility/token-usage-checker
+    proposed_canonical_path: skills-market/ai-ml/utility/token-usage-checker
+    status: missing
+    action: restore_or_remove
+    note: Was present but deleted (git status shows D). Re-create or drop.
+
+  provider-usage-checker:
+    id: provider-usage-checker
+    name: Provider Usage Checker
+    expected_old_path: ai-ml-skills/utility/provider-usage-checker
+    proposed_canonical_path: skills-market/ai-ml/utility/provider-usage-checker
+    status: missing
+    action: restore_or_remove
+    note: Was present but deleted (git status shows D). Re-create or drop.

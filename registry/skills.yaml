@@ -1,0 +1,2537 @@
+$schema: ./schema.skill.yaml
+skills:
+  officecli:
+    name: OfficeCLI
+    canonical_path: skills-market/documents/office/officecli
+    old_paths:
+    - document-skills/officecli
+    domain: documents
+    category: office
+    tags:
+    - office
+    - cli
+    - document
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: officecli
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  officecli-docx:
+    name: OfficeCLI DOCX
+    canonical_path: skills-market/documents/office/officecli-docx
+    old_paths:
+    - document-skills/officecli-docx
+    domain: documents
+    category: office
+    tags:
+    - office
+    - cli
+    - docx
+    - word
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: officecli-docx
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  officecli-pptx:
+    name: OfficeCLI PPTX
+    canonical_path: skills-market/documents/office/officecli-pptx
+    old_paths:
+    - document-skills/officecli-pptx
+    domain: documents
+    category: office
+    tags:
+    - office
+    - cli
+    - pptx
+    - powerpoint
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: officecli-pptx
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  officecli-xlsx:
+    name: OfficeCLI XLSX
+    canonical_path: skills-market/documents/office/officecli-xlsx
+    old_paths:
+    - document-skills/officecli-xlsx
+    domain: documents
+    category: office
+    tags:
+    - office
+    - cli
+    - xlsx
+    - excel
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: officecli-xlsx
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  xlsx:
+    name: XLSX
+    canonical_path: skills-market/documents/formats/xlsx
+    old_paths:
+    - document-skills/xlsx
+    domain: documents
+    category: formats
+    tags:
+    - excel
+    - spreadsheet
+    - office
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: xlsx
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  docx:
+    name: DOCX
+    canonical_path: skills-market/documents/formats/docx
+    old_paths:
+    - document-skills/docx
+    domain: documents
+    category: formats
+    tags:
+    - word
+    - document
+    - office
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: docx
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  pptx:
+    name: PPTX
+    canonical_path: skills-market/documents/formats/pptx
+    old_paths:
+    - document-skills/pptx
+    domain: documents
+    category: formats
+    tags:
+    - powerpoint
+    - slides
+    - office
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: pptx
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  pdf:
+    name: PDF
+    canonical_path: skills-market/documents/formats/pdf
+    old_paths:
+    - document-skills/pdf
+    domain: documents
+    category: formats
+    tags:
+    - pdf
+    - document
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: pdf
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  jupyter:
+    name: Jupyter
+    canonical_path: skills-market/programming/python/jupyter
+    old_paths:
+    - python-skills/jupyter
+    domain: programming
+    category: python
+    tags:
+    - jupyter
+    - notebook
+    - python
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: jupyter
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  algorithmic-art:
+    name: Algorithmic Art
+    canonical_path: skills-market/documents/design/algorithmic-art
+    old_paths:
+    - document-skills/algorithmic-art
+    domain: documents
+    category: design
+    tags:
+    - art
+    - generative
+    - p5js
+    - canvas
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: algorithmic-art
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  brand-guidelines:
+    name: Brand Guidelines
+    canonical_path: skills-market/documents/design/brand-guidelines
+    old_paths:
+    - document-skills/brand-guidelines
+    domain: documents
+    category: design
+    tags:
+    - brand
+    - design
+    - style
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: brand-guidelines
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  canvas-design:
+    name: Canvas Design
+    canonical_path: skills-market/documents/design/canvas-design
+    old_paths:
+    - document-skills/canvas-design
+    domain: documents
+    category: design
+    tags:
+    - canvas
+    - poster
+    - design
+    - pdf
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: canvas-design
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  frontend-design:
+    name: Frontend Design
+    canonical_path: skills-market/documents/design/frontend-design
+    old_paths:
+    - document-skills/frontend-design
+    domain: documents
+    category: design
+    tags:
+    - frontend
+    - web
+    - ui
+    - design
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: frontend-design
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  theme-factory:
+    name: Theme Factory
+    canonical_path: skills-market/documents/design/theme-factory
+    old_paths:
+    - document-skills/theme-factory
+    domain: documents
+    category: design
+    tags:
+    - theme
+    - styling
+    - artifact
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: theme-factory
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  web-artifacts-builder:
+    name: Web Artifacts Builder
+    canonical_path: skills-market/documents/design/web-artifacts-builder
+    old_paths:
+    - document-skills/web-artifacts-builder
+    domain: documents
+    category: design
+    tags:
+    - web
+    - artifact
+    - html
+    - react
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: web-artifacts-builder
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  webapp-testing:
+    name: Webapp Testing
+    canonical_path: skills-market/documents/design/webapp-testing
+    old_paths:
+    - document-skills/webapp-testing
+    domain: documents
+    category: design
+    tags:
+    - testing
+    - playwright
+    - web
+    - frontend
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: webapp-testing
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  doc-coauthoring:
+    name: Doc Coauthoring
+    canonical_path: skills-market/documents/collaboration/doc-coauthoring
+    old_paths:
+    - document-skills/doc-coauthoring
+    domain: documents
+    category: collaboration
+    tags:
+    - collaboration
+    - docs
+    - writing
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: doc-coauthoring
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  internal-comms:
+    name: Internal Comms
+    canonical_path: skills-market/documents/collaboration/internal-comms
+    old_paths:
+    - document-skills/internal-comms
+    domain: documents
+    category: collaboration
+    tags:
+    - communication
+    - internal
+    - writing
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: internal-comms
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  imgur-cli:
+    name: Imgur CLI
+    canonical_path: skills-market/documents/media/imgur-cli
+    old_paths:
+    - document-skills/imgur-cli
+    domain: documents
+    category: media
+    tags:
+    - imgur
+    - image
+    - upload
+    - cli
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: imgur-cli
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  slack-gif-creator:
+    name: Slack GIF Creator
+    canonical_path: skills-market/documents/media/slack-gif-creator
+    old_paths:
+    - document-skills/slack-gif-creator
+    domain: documents
+    category: media
+    tags:
+    - slack
+    - gif
+    - animation
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: slack-gif-creator
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  skill-creator:
+    name: Skill Creator
+    canonical_path: skills-market/core/dev/skill-creator
+    old_paths:
+    - document-skills/skill-creator
+    domain: core
+    category: dev
+    tags:
+    - skill
+    - authoring
+    - claude-code
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: skill-creator
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  skill-seekers:
+    name: Skill Seekers
+    canonical_path: skills-market/core/dev/skill-seekers
+    old_paths:
+    - document-skills/skill-seekers
+    domain: core
+    category: dev
+    tags:
+    - skill
+    - discovery
+    - codebase
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: skill-seekers
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  project-setup:
+    name: Project Setup
+    canonical_path: skills-market/programming/python/project-setup
+    old_paths:
+    - python-skills/project-setup
+    domain: programming
+    category: python
+    tags:
+    - python
+    - project
+    - setup
+    - pyproject
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: project-setup
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  code-quality:
+    name: Code Quality
+    canonical_path: skills-market/programming/python/code-quality
+    old_paths:
+    - python-skills/code-quality
+    domain: programming
+    category: python
+    tags:
+    - python
+    - quality
+    - ruff
+    - mypy
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: code-quality
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  testing-strategy:
+    name: Testing Strategy
+    canonical_path: skills-market/programming/python/testing-strategy
+    old_paths:
+    - python-skills/testing-strategy
+    domain: programming
+    category: python
+    tags:
+    - python
+    - testing
+    - pytest
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: testing-strategy
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  security-audit:
+    name: Security Audit
+    canonical_path: skills-market/core/security/security-audit
+    old_paths:
+    - python-skills/security-audit
+    domain: core
+    category: security
+    tags:
+    - security
+    - audit
+    - bandit
+    - python
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: security-audit
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  api-design:
+    name: API Design
+    canonical_path: skills-market/programming/python/api-design
+    old_paths:
+    - python-skills/api-design
+    domain: programming
+    category: python
+    tags:
+    - python
+    - api
+    - design
+    - library
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: api-design
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  documentation:
+    name: Documentation
+    canonical_path: skills-market/programming/python/documentation
+    old_paths:
+    - python-skills/documentation
+    domain: programming
+    category: python
+    tags:
+    - python
+    - docs
+    - sphinx
+    - readme
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: documentation
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  packaging:
+    name: Packaging
+    canonical_path: skills-market/programming/python/packaging
+    old_paths:
+    - python-skills/packaging
+    domain: programming
+    category: python
+    tags:
+    - python
+    - packaging
+    - pypi
+    - wheel
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: packaging
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  release-management:
+    name: Release Management
+    canonical_path: skills-market/programming/python/release-management
+    old_paths:
+    - python-skills/release-management
+    domain: programming
+    category: python
+    tags:
+    - python
+    - release
+    - versioning
+    - changelog
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: release-management
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  performance:
+    name: Performance
+    canonical_path: skills-market/programming/python/performance
+    old_paths:
+    - python-skills/performance
+    domain: programming
+    category: python
+    tags:
+    - python
+    - performance
+    - profiling
+    - optimization
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: performance
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  cli-development:
+    name: CLI Development
+    canonical_path: skills-market/programming/python/cli-development
+    old_paths:
+    - python-skills/cli-development
+    domain: programming
+    category: python
+    tags:
+    - python
+    - cli
+    - click
+    - typer
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: cli-development
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  community:
+    name: Community
+    canonical_path: skills-market/programming/python/community
+    old_paths:
+    - python-skills/community
+    domain: programming
+    category: python
+    tags:
+    - python
+    - community
+    - contributing
+    - governance
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: community
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  library-review:
+    name: Library Review
+    canonical_path: skills-market/programming/python/library-review
+    old_paths:
+    - python-skills/library-review
+    domain: programming
+    category: python
+    tags:
+    - python
+    - review
+    - library
+    - audit
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: library-review
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  sqlite:
+    name: SQLite
+    canonical_path: skills-market/programming/python/sqlite
+    old_paths:
+    - python-skills/sqlite
+    domain: programming
+    category: python
+    tags:
+    - python
+    - sqlite
+    - database
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: sqlite
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  pytorch:
+    name: PyTorch
+    canonical_path: skills-market/ai-ml/deep-learning/pytorch
+    old_paths:
+    - ai-ml-skills/deep-learning/pytorch
+    domain: ai-ml
+    category: deep-learning
+    tags:
+    - pytorch
+    - deep-learning
+    - neural-networks
+    - gpu
+    supported_hosts:
+    - macos
+    - linux
+    - gpu-server
+    install_weight: heavy
+    status: active
+    id: pytorch
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  transformers:
+    name: Transformers
+    canonical_path: skills-market/ai-ml/llm/transformers
+    old_paths:
+    - ai-ml-skills/llm/transformers
+    domain: ai-ml
+    category: llm
+    tags:
+    - llm
+    - transformers
+    - huggingface
+    - nlp
+    supported_hosts:
+    - macos
+    - linux
+    - gpu-server
+    install_weight: heavy
+    status: active
+    id: transformers
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  huggingface-hub:
+    name: HuggingFace Hub
+    canonical_path: skills-market/ai-ml/llm/huggingface-hub
+    old_paths:
+    - ai-ml-skills/llm/huggingface-hub
+    domain: ai-ml
+    category: llm
+    tags:
+    - huggingface
+    - hub
+    - model
+    - dataset
+    supported_hosts:
+    - macos
+    - linux
+    - gpu-server
+    install_weight: medium
+    status: active
+    id: huggingface-hub
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  peft:
+    name: PEFT
+    canonical_path: skills-market/ai-ml/llm/peft
+    old_paths:
+    - ai-ml-skills/llm/peft
+    domain: ai-ml
+    category: llm
+    tags:
+    - peft
+    - lora
+    - fine-tuning
+    - llm
+    supported_hosts:
+    - macos
+    - linux
+    - gpu-server
+    install_weight: medium
+    status: active
+    id: peft
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  trl:
+    name: TRL
+    canonical_path: skills-market/ai-ml/llm/trl
+    old_paths:
+    - ai-ml-skills/llm/trl
+    domain: ai-ml
+    category: llm
+    tags:
+    - trl
+    - rlhf
+    - dpo
+    - fine-tuning
+    - llm
+    supported_hosts:
+    - macos
+    - linux
+    - gpu-server
+    install_weight: medium
+    status: active
+    id: trl
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  bitsandbytes:
+    name: BitsAndBytes
+    canonical_path: skills-market/ai-ml/llm/bitsandbytes
+    old_paths:
+    - ai-ml-skills/llm/bitsandbytes
+    domain: ai-ml
+    category: llm
+    tags:
+    - quantization
+    - bitsandbytes
+    - 8bit
+    - 4bit
+    - llm
+    supported_hosts:
+    - linux
+    - gpu-server
+    install_weight: medium
+    status: active
+    id: bitsandbytes
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  cursor-usage-checker:
+    name: Cursor Usage Checker
+    canonical_path: skills-market/ai-ml/llm/cursor-usage-checker
+    old_paths:
+    - ai-ml-skills/llm/cursor-usage-checker
+    domain: ai-ml
+    category: llm
+    tags:
+    - cursor
+    - usage
+    - monitoring
+    - llm
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: cursor-usage-checker
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  browser-use:
+    name: Browser Use
+    canonical_path: skills-market/ai-ml/llm/browser-use
+    old_paths:
+    - ai-ml-skills/llm/browser-use
+    domain: ai-ml
+    category: llm
+    tags:
+    - browser
+    - automation
+    - llm
+    - agent
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: medium
+    status: active
+    id: browser-use
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  pytorch-lightning:
+    name: PyTorch Lightning
+    canonical_path: skills-market/ai-ml/training/pytorch-lightning
+    old_paths:
+    - ai-ml-skills/training/pytorch-lightning
+    domain: ai-ml
+    category: training
+    tags:
+    - pytorch
+    - lightning
+    - training
+    - deep-learning
+    supported_hosts:
+    - macos
+    - linux
+    - gpu-server
+    install_weight: medium
+    status: active
+    id: pytorch-lightning
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  accelerate:
+    name: Accelerate
+    canonical_path: skills-market/ai-ml/training/accelerate
+    old_paths:
+    - ai-ml-skills/training/accelerate
+    domain: ai-ml
+    category: training
+    tags:
+    - accelerate
+    - distributed
+    - training
+    - multi-gpu
+    supported_hosts:
+    - macos
+    - linux
+    - gpu-server
+    install_weight: medium
+    status: active
+    id: accelerate
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  datasets:
+    name: Datasets
+    canonical_path: skills-market/ai-ml/training/datasets
+    old_paths:
+    - ai-ml-skills/training/datasets
+    domain: ai-ml
+    category: training
+    tags:
+    - datasets
+    - huggingface
+    - data
+    - processing
+    supported_hosts:
+    - macos
+    - linux
+    - gpu-server
+    install_weight: medium
+    status: active
+    id: datasets
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  deepspeed:
+    name: DeepSpeed
+    canonical_path: skills-market/ai-ml/training/deepspeed
+    old_paths:
+    - ai-ml-skills/training/deepspeed
+    domain: ai-ml
+    category: training
+    tags:
+    - deepspeed
+    - distributed
+    - training
+    - zero
+    supported_hosts:
+    - linux
+    - gpu-server
+    install_weight: heavy
+    status: active
+    id: deepspeed
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  bitwarden:
+    name: Bitwarden
+    canonical_path: skills-market/core/security/bitwarden
+    old_paths:
+    - ai-ml-skills/utility/bitwarden
+    domain: core
+    category: security
+    tags:
+    - bitwarden
+    - password
+    - credentials
+    - security
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: bitwarden
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  token-usage-checker:
+    name: Token Usage Checker
+    canonical_path: skills-market/ai-ml/utility/token-usage-checker
+    old_paths:
+    - ai-ml-skills/utility/token-usage-checker
+    domain: ai-ml
+    category: utility
+    tags:
+    - token
+    - usage
+    - monitoring
+    - cost
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: missing
+    id: token-usage-checker
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  provider-usage-checker:
+    name: Provider Usage Checker
+    canonical_path: skills-market/ai-ml/utility/provider-usage-checker
+    old_paths:
+    - ai-ml-skills/utility/provider-usage-checker
+    domain: ai-ml
+    category: utility
+    tags:
+    - provider
+    - usage
+    - monitoring
+    - cost
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: missing
+    id: provider-usage-checker
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  scanpy:
+    name: Scanpy
+    canonical_path: skills-market/compbio/single-cell/analysis/scanpy
+    old_paths:
+    - compbio-skills/single-cell/analysis/scanpy
+    domain: compbio
+    category: single-cell
+    tags:
+    - single-cell
+    - scrna-seq
+    - anndata
+    - analysis
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: scanpy
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  seurat:
+    name: Seurat
+    canonical_path: skills-market/compbio/single-cell/analysis/seurat
+    old_paths:
+    - compbio-skills/single-cell/analysis/seurat
+    domain: compbio
+    category: single-cell
+    tags:
+    - single-cell
+    - scrna-seq
+    - r
+    - seurat
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: seurat
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  scvi-tools:
+    name: scvi-tools
+    canonical_path: skills-market/compbio/single-cell/analysis/scvi-tools
+    old_paths:
+    - compbio-skills/single-cell/analysis/scvi-tools
+    domain: compbio
+    category: single-cell
+    tags:
+    - single-cell
+    - scvi
+    - deep-learning
+    - probabilistic
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: scvi-tools
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  anndata:
+    name: AnnData
+    canonical_path: skills-market/compbio/single-cell/analysis/anndata
+    old_paths:
+    - compbio-skills/single-cell/analysis/anndata
+    domain: compbio
+    category: single-cell
+    tags:
+    - anndata
+    - h5ad
+    - single-cell
+    - data-format
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: light
+    status: active
+    id: anndata
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  schard:
+    name: Schard
+    canonical_path: skills-market/compbio/single-cell/analysis/schard
+    old_paths:
+    - compbio-skills/tools/schard
+    domain: compbio
+    category: single-cell
+    tags:
+    - anndata
+    - seurat
+    - conversion
+    - h5ad
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: light
+    status: active
+    id: schard
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  anndatar:
+    name: anndataR
+    canonical_path: skills-market/compbio/single-cell/analysis/anndatar
+    old_paths:
+    - compbio-skills/tools/anndatar
+    domain: compbio
+    category: single-cell
+    tags:
+    - anndata
+    - r
+    - seurat
+    - singlecellexperiment
+    - conversion
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: light
+    status: active
+    id: anndatar
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  monocle3:
+    name: Monocle3
+    canonical_path: skills-market/compbio/single-cell/analysis/monocle3
+    old_paths:
+    - compbio-skills/tools/monocle3
+    domain: compbio
+    category: single-cell
+    tags:
+    - single-cell
+    - trajectory
+    - pseudotime
+    - r
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: monocle3
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  seurat-v5:
+    name: Seurat v5
+    canonical_path: skills-market/compbio/single-cell/integration/seurat-v5
+    old_paths:
+    - compbio-skills/single-cell/integration/seurat-v5
+    domain: compbio
+    category: single-cell
+    tags:
+    - seurat
+    - v5
+    - multi-modal
+    - integration
+    - r
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: seurat-v5
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  harmony:
+    name: Harmony
+    canonical_path: skills-market/compbio/single-cell/integration/harmony
+    old_paths:
+    - compbio-skills/single-cell/integration/harmony
+    domain: compbio
+    category: single-cell
+    tags:
+    - harmony
+    - integration
+    - batch-correction
+    - r
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: harmony
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  scanorama:
+    name: Scanorama
+    canonical_path: skills-market/compbio/single-cell/integration/scanorama
+    old_paths:
+    - compbio-skills/single-cell/integration/scanorama
+    domain: compbio
+    category: single-cell
+    tags:
+    - scanorama
+    - integration
+    - batch-correction
+    - python
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: light
+    status: active
+    id: scanorama
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  bbknn:
+    name: BBKNN
+    canonical_path: skills-market/compbio/single-cell/integration/bbknn
+    old_paths:
+    - compbio-skills/single-cell/integration/bbknn
+    domain: compbio
+    category: single-cell
+    tags:
+    - bbknn
+    - batch-balanced-knn
+    - integration
+    - python
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: light
+    status: active
+    id: bbknn
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  cellxgene:
+    name: cellxgene
+    canonical_path: skills-market/compbio/single-cell/visualization/cellxgene
+    old_paths:
+    - compbio-skills/single-cell/visualization/cellxgene
+    domain: compbio
+    category: single-cell
+    tags:
+    - cellxgene
+    - visualization
+    - interactive
+    - single-cell
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: cellxgene
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  cellxgene-census:
+    name: CELLxGENE Census
+    canonical_path: skills-market/compbio/single-cell/visualization/cellxgene-census
+    old_paths:
+    - compbio-skills/single-cell/visualization/cellxgene-census
+    domain: compbio
+    category: single-cell
+    tags:
+    - cellxgene
+    - census
+    - reference
+    - single-cell
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: cellxgene-census
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  squidpy:
+    name: Squidpy
+    canonical_path: skills-market/compbio/spatial-omics/analysis/squidpy
+    old_paths:
+    - compbio-skills/spatial-omics/analysis-tools/squidpy
+    domain: compbio
+    category: spatial-omics
+    tags:
+    - squidpy
+    - spatial
+    - transcriptomics
+    - visium
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: squidpy
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  giotto:
+    name: Giotto
+    canonical_path: skills-market/compbio/spatial-omics/analysis/giotto
+    old_paths:
+    - compbio-skills/spatial-omics/analysis-tools/giotto
+    domain: compbio
+    category: spatial-omics
+    tags:
+    - giotto
+    - spatial
+    - genomics
+    - r
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: giotto
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  spatialdata:
+    name: SpatialData
+    canonical_path: skills-market/compbio/spatial-omics/analysis/spatialdata
+    old_paths:
+    - compbio-skills/spatial-omics/analysis-tools/spatialdata
+    domain: compbio
+    category: spatial-omics
+    tags:
+    - spatialdata
+    - spatial
+    - multi-modal
+    - python
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: spatialdata
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  vitessce:
+    name: Vitessce
+    canonical_path: skills-market/compbio/spatial-omics/visualization/vitessce
+    old_paths:
+    - compbio-skills/spatial-omics/analysis-tools/vitessce
+    domain: compbio
+    category: spatial-omics
+    tags:
+    - vitessce
+    - visualization
+    - spatial
+    - interactive
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    install_weight: light
+    status: active
+    id: vitessce
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  stereo-seq:
+    name: Stereo-seq
+    canonical_path: skills-market/compbio/spatial-omics/platforms/stereo-seq
+    old_paths:
+    - compbio-skills/spatial-omics/stereo-seq/stereo-seq
+    domain: compbio
+    category: spatial-omics
+    tags:
+    - stereo-seq
+    - spatial
+    - dnb
+    - bgi
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: stereo-seq
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  visium:
+    name: Visium
+    canonical_path: skills-market/compbio/spatial-omics/platforms/visium
+    old_paths:
+    - compbio-skills/spatial-omics/visium/visium
+    domain: compbio
+    category: spatial-omics
+    tags:
+    - visium
+    - spatial
+    - 10x
+    - transcriptomics
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: visium
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  pydeseq2:
+    name: PyDESeq2
+    canonical_path: skills-market/compbio/multiomics/scRNA-seq/pydeseq2
+    old_paths:
+    - compbio-skills/multiomics/scRNA-seq/pydeseq2
+    domain: compbio
+    category: multiomics
+    tags:
+    - deseq2
+    - differential-expression
+    - rna-seq
+    - python
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: pydeseq2
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  archr:
+    name: ArchR
+    canonical_path: skills-market/compbio/multiomics/scATAC-seq/archr
+    old_paths:
+    - compbio-skills/multiomics/scATAC-seq/archr
+    domain: compbio
+    category: multiomics
+    tags:
+    - archr
+    - scatac-seq
+    - chromatin
+    - r
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: archr
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  signac:
+    name: Signac
+    canonical_path: skills-market/compbio/multiomics/scATAC-seq/signac
+    old_paths:
+    - compbio-skills/multiomics/scATAC-seq/signac
+    domain: compbio
+    category: multiomics
+    tags:
+    - signac
+    - scatac-seq
+    - chromatin
+    - r
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: signac
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  scribble:
+    name: Scribble
+    canonical_path: skills-market/compbio/multiomics/integration-tools/scribble
+    old_paths:
+    - compbio-skills/multiomics/integration-tools/scribble
+    domain: compbio
+    category: multiomics
+    tags:
+    - scribble
+    - multi-omics
+    - integration
+    - r
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: scribble
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  metabolomics-workbench:
+    name: Metabolomics Workbench
+    canonical_path: skills-market/compbio/multiomics/metabolomics/metabolomics-workbench
+    old_paths:
+    - compbio-skills/multiomics/metabolomics/metabolomics-workbench
+    domain: compbio
+    category: multiomics
+    tags:
+    - metabolomics
+    - nih
+    - rest-api
+    - metabolite
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    install_weight: light
+    status: active
+    id: metabolomics-workbench
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  uniprot:
+    name: UniProt
+    canonical_path: skills-market/compbio/multiomics/proteomics/uniprot
+    old_paths:
+    - compbio-skills/multiomics/proteomics/uniprot
+    domain: compbio
+    category: multiomics
+    tags:
+    - uniprot
+    - proteomics
+    - protein
+    - rest-api
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    install_weight: light
+    status: active
+    id: uniprot
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  critique-bio-manuscript:
+    name: Critique Bio Manuscript
+    canonical_path: skills-market/compbio/expert-workflows/critique-bio-manuscript
+    old_paths:
+    - compbio-skills/expert-workflows/critique-bio-manuscript
+    domain: compbio
+    category: tools
+    tags:
+    - manuscript
+    - critique
+    - bioinformatics
+    - writing
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: critique-bio-manuscript
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  explain-bio-dl-model:
+    name: Explain Bio DL Model
+    canonical_path: skills-market/compbio/expert-workflows/explain-bio-dl-model
+    old_paths:
+    - compbio-skills/expert-workflows/explain-bio-dl-model
+    domain: compbio
+    category: tools
+    tags:
+    - deep-learning
+    - explanation
+    - biology
+    - writing
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: explain-bio-dl-model
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  draft-spatial-methods:
+    name: Draft Spatial Methods
+    canonical_path: skills-market/compbio/expert-workflows/draft-spatial-methods
+    old_paths:
+    - compbio-skills/expert-workflows/draft-spatial-methods
+    domain: compbio
+    category: tools
+    tags:
+    - spatial
+    - methods
+    - writing
+    - manuscript
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: draft-spatial-methods
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  kegg:
+    name: KEGG
+    canonical_path: skills-market/compbio/databases/kegg
+    old_paths:
+    - compbio-skills/databases/kegg
+    domain: compbio
+    category: databases
+    tags:
+    - kegg
+    - pathway
+    - database
+    - rest-api
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    install_weight: light
+    status: active
+    id: kegg
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  reactome:
+    name: Reactome
+    canonical_path: skills-market/compbio/databases/reactome
+    old_paths:
+    - compbio-skills/databases/reactome
+    domain: compbio
+    category: databases
+    tags:
+    - reactome
+    - pathway
+    - database
+    - rest-api
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    install_weight: light
+    status: active
+    id: reactome
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  geo:
+    name: GEO
+    canonical_path: skills-market/compbio/databases/geo
+    old_paths:
+    - compbio-skills/databases/geo
+    domain: compbio
+    category: databases
+    tags:
+    - geo
+    - ncbi
+    - gene-expression
+    - rna-seq
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    install_weight: light
+    status: active
+    id: geo
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  human-cell-atlas:
+    name: Human Cell Atlas
+    canonical_path: skills-market/compbio/databases/human-cell-atlas
+    old_paths:
+    - compbio-skills/databases/human-cell-atlas
+    domain: compbio
+    category: databases
+    tags:
+    - hca
+    - human-cell-atlas
+    - reference
+    - single-cell
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    install_weight: light
+    status: active
+    id: human-cell-atlas
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  ensembl:
+    name: Ensembl
+    canonical_path: skills-market/compbio/databases/ensembl
+    old_paths:
+    - compbio-skills/databases/ensembl
+    domain: compbio
+    category: databases
+    tags:
+    - ensembl
+    - genomics
+    - database
+    - rest-api
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    install_weight: light
+    status: active
+    id: ensembl
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  snakemake:
+    name: Snakemake
+    canonical_path: skills-market/compbio/workflows/snakemake
+    old_paths:
+    - compbio-skills/workflows/snakemake
+    domain: compbio
+    category: workflows
+    tags:
+    - snakemake
+    - workflow
+    - reproducibility
+    - python
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: snakemake
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  nextflow:
+    name: Nextflow
+    canonical_path: skills-market/compbio/workflows/nextflow
+    old_paths:
+    - compbio-skills/workflows/nextflow
+    domain: compbio
+    category: workflows
+    tags:
+    - nextflow
+    - workflow
+    - reproducibility
+    - hpc
+    supported_hosts:
+    - macos
+    - linux
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: nextflow
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  academic-writing-editor:
+    name: Academic Writing Editor
+    canonical_path: skills-market/writing/academic/academic-writing-editor
+    old_paths:
+    - writing/General_academic/academic-writing-editor
+    domain: writing
+    category: academic
+    tags:
+    - academic
+    - writing
+    - editing
+    - bioinformatics
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: academic-writing-editor
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  humanizer:
+    name: Humanizer
+    canonical_path: skills-market/writing/academic/humanizer
+    old_paths:
+    - writing/General_academic/humanizer
+    domain: writing
+    category: academic
+    tags:
+    - humanizer
+    - ai-writing
+    - naturalness
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: humanizer
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  humanizer-zh:
+    name: Humanizer ZH
+    canonical_path: skills-market/writing/academic/humanizer-zh
+    old_paths:
+    - writing/General_academic/humanizer-zh
+    domain: writing
+    category: academic
+    tags:
+    - humanizer
+    - chinese
+    - ai-writing
+    - naturalness
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: humanizer-zh
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  zotpilot:
+    name: ZotPilot
+    canonical_path: skills-market/writing/literature/zotpilot
+    old_paths:
+    - writing/General_academic/zotpilot
+    domain: writing
+    category: literature
+    tags:
+    - zotero
+    - literature
+    - citations
+    - research
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: zotpilot
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  latex-writing:
+    name: LaTeX Writing
+    canonical_path: skills-market/writing/latex/latex-writing
+    old_paths:
+    - writing/LaTex/Latex_writing
+    domain: writing
+    category: latex
+    tags:
+    - latex
+    - writing
+    - academic
+    - mathematics
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: latex-writing
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  compile-latex:
+    name: Compile LaTeX
+    canonical_path: skills-market/writing/latex/compile-latex
+    old_paths:
+    - writing/LaTex/Compile_latex
+    domain: writing
+    category: latex
+    tags:
+    - latex
+    - compilation
+    - pdflatex
+    - build
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: compile-latex
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  obsidian-markdown:
+    name: Obsidian Markdown
+    canonical_path: skills-market/writing/obsidian/obsidian-markdown
+    old_paths:
+    - writing/Obsidian/obsidian-markdown
+    domain: writing
+    category: obsidian
+    tags:
+    - obsidian
+    - markdown
+    - notes
+    - vault
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: obsidian-markdown
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  obsidian-cli:
+    name: Obsidian CLI
+    canonical_path: skills-market/writing/obsidian/obsidian-cli
+    old_paths:
+    - writing/Obsidian/obsidian-cli
+    domain: writing
+    category: obsidian
+    tags:
+    - obsidian
+    - cli
+    - vault
+    - notes
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: obsidian-cli
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  obsidian-bases:
+    name: Obsidian Bases
+    canonical_path: skills-market/writing/obsidian/obsidian-bases
+    old_paths:
+    - writing/Obsidian/obsidian-bases
+    domain: writing
+    category: obsidian
+    tags:
+    - obsidian
+    - databases
+    - bases
+    - notion-like
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: obsidian-bases
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  json-canvas:
+    name: JSON Canvas
+    canonical_path: skills-market/writing/obsidian/json-canvas
+    old_paths:
+    - writing/Obsidian/json-canvas
+    domain: writing
+    category: obsidian
+    tags:
+    - obsidian
+    - canvas
+    - visual
+    - json
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: json-canvas
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  defuddle:
+    name: Defuddle
+    canonical_path: skills-market/writing/obsidian/defuddle
+    old_paths:
+    - writing/Obsidian/defuddle
+    domain: writing
+    category: obsidian
+    tags:
+    - defuddle
+    - web-scraping
+    - markdown
+    - obsidian
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: defuddle
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  wiki-keeper:
+    name: Wiki Keeper
+    canonical_path: skills-market/writing/obsidian/wiki-keeper
+    old_paths:
+    - writing/Obsidian/wiki-keeper
+    domain: writing
+    category: obsidian
+    tags:
+    - wiki
+    - obsidian
+    - knowledge-base
+    - notes
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: wiki-keeper
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  claude-code:
+    name: Claude Code
+    canonical_path: skills-market/agents/claude-code
+    old_paths:
+    - agent/claude-code
+    domain: agents
+    category: agent
+    tags:
+    - claude
+    - claude-code
+    - agent
+    - coding
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: claude-code
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  codex:
+    name: Codex
+    canonical_path: skills-market/agents/codex
+    old_paths:
+    - agent/codex
+    domain: agents
+    category: agent
+    tags:
+    - openai
+    - codex
+    - agent
+    - coding
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: codex
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  hermes-agent:
+    name: Hermes Agent
+    canonical_path: skills-market/agents/hermes-agent
+    old_paths:
+    - agent/hermes-agent
+    domain: agents
+    category: agent
+    tags:
+    - hermes
+    - nous-research
+    - agent
+    - coding
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: hermes-agent
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  opencode:
+    name: OpenCode
+    canonical_path: skills-market/agents/opencode
+    old_paths:
+    - agent/opencode
+    domain: agents
+    category: agent
+    tags:
+    - opencode
+    - agent
+    - coding
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: opencode
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  zed:
+    name: Zed
+    canonical_path: skills-market/agents/zed
+    old_paths:
+    - agent/zed
+    domain: agents
+    category: agent
+    tags:
+    - zed
+    - agent
+    - coding
+    - editor
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: zed
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  mcp-builder:
+    name: MCP Builder
+    canonical_path: skills-market/agents/mcp/mcp-builder
+    old_paths:
+    - agent/mcp-builder
+    - document-skills/mcp-builder
+    domain: agents
+    category: mcp
+    tags:
+    - mcp
+    - model-context-protocol
+    - server
+    - tool
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: mcp-builder
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  karpathy-guidelines:
+    name: Karpathy Guidelines
+    canonical_path: skills-market/agents/guidelines/karpathy-guidelines
+    old_paths:
+    - agent/karpathy-guidelines
+    domain: agents
+    category: guidelines
+    tags:
+    - karpathy
+    - guidelines
+    - coding
+    - best-practices
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: karpathy-guidelines
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  native-mcp:
+    name: Native MCP
+    canonical_path: skills-market/agents/mcp/native-mcp
+    old_paths:
+    - agent/native-mcp
+    domain: agents
+    category: mcp
+    tags:
+    - mcp
+    - native
+    - client
+    - agent
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: missing
+    id: native-mcp
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  ag-ui:
+    name: AG-UI
+    canonical_path: skills-market/agents/ag-ui
+    old_paths:
+    - agent/ag-ui
+    domain: agents
+    category: agent
+    tags:
+    - ag-ui
+    - agent
+    - ui
+    - framework
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: missing
+    id: ag-ui
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  page-keeper:
+    name: Page Keeper
+    canonical_path: skills-market/frontend/site-maintenance/page-keeper
+    old_paths:
+    - Font_end/page-keeper
+    domain: frontend
+    category: site-maintenance
+    tags:
+    - website
+    - maintenance
+    - deployment
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: page-keeper
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  chen-academic-page-maintainer:
+    name: Chen Academic Page Maintainer
+    canonical_path: skills-market/frontend/site-maintenance/chen-academic-page-maintainer
+    old_paths:
+    - Font_end/chen-academic-page-maintainer
+    domain: frontend
+    category: site-maintenance
+    tags:
+    - academic
+    - website
+    - personal-page
+    - maintenance
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: chen-academic-page-maintainer
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  github-codebase-inspection:
+    name: GitHub Codebase Inspection
+    canonical_path: skills-market/platforms/github/codebase-inspection
+    old_paths:
+    - platforms/github/codebase-inspection
+    domain: platforms
+    category: github
+    tags:
+    - github
+    - codebase
+    - inspection
+    - analysis
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: github-codebase-inspection
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  github-auth:
+    name: GitHub Auth
+    canonical_path: skills-market/platforms/github/github-auth
+    old_paths:
+    - platforms/github/github-auth
+    domain: platforms
+    category: github
+    tags:
+    - github
+    - auth
+    - authentication
+    - cli
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: github-auth
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  github-code-review:
+    name: GitHub Code Review
+    canonical_path: skills-market/platforms/github/github-code-review
+    old_paths:
+    - platforms/github/github-code-review
+    domain: platforms
+    category: github
+    tags:
+    - github
+    - code-review
+    - pull-request
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: github-code-review
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  github-issues:
+    name: GitHub Issues
+    canonical_path: skills-market/platforms/github/github-issues
+    old_paths:
+    - platforms/github/github-issues
+    domain: platforms
+    category: github
+    tags:
+    - github
+    - issues
+    - tracker
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: github-issues
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  github-pr-workflow:
+    name: GitHub PR Workflow
+    canonical_path: skills-market/platforms/github/github-pr-workflow
+    old_paths:
+    - platforms/github/github-pr-workflow
+    domain: platforms
+    category: github
+    tags:
+    - github
+    - pull-request
+    - workflow
+    - pr
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: github-pr-workflow
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  github-repo-management:
+    name: GitHub Repo Management
+    canonical_path: skills-market/platforms/github/github-repo-management
+    old_paths:
+    - platforms/github/github-repo-management
+    domain: platforms
+    category: github
+    tags:
+    - github
+    - repo
+    - management
+    - administration
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: github-repo-management
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  codebti:
+    name: CODEBTI
+    canonical_path: skills-market/projects/codebti
+    old_paths:
+    - codebti
+    domain: projects
+    category: projects
+    tags:
+    - codebti
+    - project
+    - bioinformatics
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: codebti
+    dependencies: []
+    profiles: []
+    taskpacks: []

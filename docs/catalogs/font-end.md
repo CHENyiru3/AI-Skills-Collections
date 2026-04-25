@@ -1,13 +1,13 @@
-# Font_end Skills Catalog
+# Frontend Skills Catalog
 
-This catalog covers the 2 skills under `Font_end/`.
+This catalog covers the 2 skills under `skills-market/frontend/`.
 
 ## Website Maintenance
 
 | Skill | Location | Focus |
 |-------|----------|-------|
-| [`page-keeper`](../../Font_end/page-keeper/SKILL.md) | `Font_end/page-keeper` | Generate repo-specific maintenance skills for personal and academic websites |
-| [`chen-academic-page-maintainer`](../../Font_end/chen-academic-page-maintainer/SKILL.md) | `Font_end/chen-academic-page-maintainer` | Safely maintain the specific Chen academic website repo |
+| [`page-keeper`](../../skills-market/frontend/site-maintenance/page-keeper/SKILL.md) | `frontend/site-maintenance/page-keeper` | Generate repo-specific maintenance skills for personal and academic websites |
+| [`chen-academic-page-maintainer`](../../skills-market/frontend/site-maintenance/chen-academic-page-maintainer/SKILL.md) | `frontend/site-maintenance/chen-academic-page-maintainer` | Safely maintain the specific Chen academic website repo |
 
 ## Notes
 

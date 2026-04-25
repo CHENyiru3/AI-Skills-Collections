@@ -1,0 +1,18 @@
+# Agent coding environment — Codex, Claude Code, OpenCode, MCP, agent UI.
+id: agent-coding
+extends:
+  - base
+description: Coding-agent environment — Codex, Claude Code, OpenCode, MCP, agent UI, best practices.
+skills:
+  - claude-code
+  - codex
+  - opencode
+  - hermes-agent
+  - zed
+  - mcp-builder
+  - karpathy-guidelines
+  - api-design
+  - code-quality
+  - testing-strategy
+  - documentation
+  - packaging

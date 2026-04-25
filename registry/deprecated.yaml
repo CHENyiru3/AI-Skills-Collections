@@ -1,0 +1,33 @@
+# Deprecated skills: entries that existed but should no longer be used.
+# Each entry points to the replacement skill ID.
+
+deprecated:
+  document-skills/mcp-builder:
+    replacement: mcp-builder
+    reason: Duplicate of agent/mcp-builder. MCP belongs under agents/mcp/.
+    deprecated_since: "2025-04-25"
+
+  Font_end:
+    replacement: frontend
+    reason: Typo in directory name. Renamed to frontend/.
+    deprecated_since: "2025-04-25"
+
+  writing/LaTex:
+    replacement: writing/latex
+    reason: Case inconsistency. Renamed Latex_writing → latex-writing.
+    deprecated_since: "2025-04-25"
+
+  writing/General_academic:
+    replacement: writing/academic
+    reason: Directory name mixed-case. Skills moved to writing/academic/.
+    deprecated_since: "2025-04-25"
+
+  compbio-skills/single-cell/analysis-tools:
+    replacement: compbio/single-cell/analysis
+    reason: Directory named "analysis-tools" should be "analysis".
+    deprecated_since: "2025-04-25"
+
+  compbio-skills/spatial-omics/analysis-tools:
+    replacement: compbio/spatial-omics/analysis
+    reason: Directory named "analysis-tools" should be "analysis".
+    deprecated_since: "2025-04-25"

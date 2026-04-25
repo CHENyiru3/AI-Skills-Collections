@@ -1,0 +1,13 @@
+# GPU server — GPU machine for PyTorch, LLM fine-tuning, large model training.
+id: gpu-server
+extends:
+  - research-server
+description: GPU server for PyTorch, LLM fine-tuning, and large model training.
+skills:
+  - pytorch-lightning
+  - deepspeed
+  - bitsandbytes
+  - peft
+  - trl
+  - cursor-usage-checker
+  - browser-use

@@ -1,0 +1,21 @@
+# Writing workstation — writing-heavy machine with academic, literature, LaTeX, Obsidian.
+id: writing-workstation
+extends:
+  - base
+description: Writing-heavy machine — academic writing, literature review, LaTeX, Obsidian.
+skills:
+  - academic-writing-editor
+  - humanizer
+  - humanizer-zh
+  - zotpilot
+  - latex-writing
+  - compile-latex
+  - obsidian-markdown
+  - obsidian-cli
+  - obsidian-bases
+  - json-canvas
+  - wiki-keeper
+  - defuddle
+  - docx
+  - pdf
+  - doc-coauthoring

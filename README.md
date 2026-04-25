@@ -1,284 +1,182 @@
-# AI Skills
+# AI Skills — Eric Yiru's Personal Library
 
-A collection of skills for AI agents covering document workflows, website maintenance, Python library development, AI/ML, computational biology, and writing tools.
+> **111 skills** for Claude Code, Codex, and AI coding agents.
+> Computational biology · Deep learning · Academic writing · Document automation · and more.
 
-## Overview
-
-This repository provides AI agent skills designed to work with Claude Code and Codex. The skills cover six main domains:
-
-- **AI/ML**: Deep learning, LLM fine-tuning, and distributed training
-- **Computational Biology**: Single-cell, multi-omics, and spatial omics analysis
-- **Document Processing**: Word, Excel, PowerPoint, PDF manipulation
-- **Website Maintenance**: Repo-specific frontend and academic-site maintenance skills
-- **Python Library Development**: Project setup, testing, packaging, performance, and API design
-- **Writing**: LaTeX, Obsidian, and technical documentation
-
-## Skill Categories
-
-### Document Skills (22 skills)
-
-| Category | Skills |
-|----------|--------|
-| Office | officecli, officecli-docx, officecli-pptx, officecli-xlsx, docx, pptx, xlsx, pdf |
-| Design & Art | algorithmic-art, canvas-design, theme-factory, brand-guidelines |
-| Web | frontend-design, web-artifacts-builder, webapp-testing |
-| Tools | mcp-builder, skill-creator, skill-seekers, slack-gif-creator, internal-comms, doc-coauthoring, imgur-cli |
-
-### Font_end Skills (2 skills)
-
-| Category | Skills |
-|----------|--------|
-| Website Maintenance | page-keeper, chen-academic-page-maintainer |
-
-### AI/ML Skills (10 skills)
-
-| Category | Skills |
-|----------|--------|
-| Deep Learning | PyTorch |
-| LLM Ecosystem | Transformers, HuggingFace Hub, PEFT, TRL, BitsAndBytes |
-| Training Tools | Accelerate, DeepSpeed, PyTorch Lightning, Datasets |
-
-### Python Skills (12 skills)
-
-| Category | Skills |
-|----------|--------|
-| Foundations | project-setup, code-quality, testing-strategy |
-| Distribution | packaging, release-management, cli-development |
-| Quality | security-audit, performance, api-design, library-review |
-| Documentation & Community | documentation, community |
-
-### Computational Biology Skills (35 skills)
-
-| Category | Skills |
-|----------|--------|
-| Single-Cell Analysis | scanpy, Seurat, scvi-tools, cellxgene, AnnData |
-| Data Integration | Harmony, Scanorama, BBKNN, Seurat v5 |
-| Multi-Omics | PyDESeq2, ArchR, Signac, Metabolomics, UniProt, KEGG, Reactome |
-| Spatial Omics | Squidpy, Giotto, SpatialData, Vitessce, Visium, Stereo-seq |
-| Databases | GEO, Ensembl, Human Cell Atlas |
-| Workflows | Snakemake, Nextflow |
-| Bioinformatics Tools | draft-spatial-methods, explain-bio-dl-model, critique-bio-manuscript |
-
-### Writing Skills (9 skills)
-
-| Category | Skills |
-|----------|--------|
-| General Academic | academic-writing-editor, humanizer |
-| LaTeX | Latex_writing, Compile_latex |
-| Obsidian | obsidian-markdown, obsidian-cli, obsidian-bases, json-canvas, defuddle |
-
-## Documentation
-
-The top-level `README.md` is the fast entry point for installation and repository structure. The formal documentation hub lives at [docs/README.md](docs/README.md), with domain catalogs under `docs/catalogs/` and practical examples under `docs/guides/`.
-
-## Quick Start
-
-### For AI/ML Tasks
-
-```python
-# Example: Using Transformers for text classification
-from transformers import pipeline
-
-classifier = pipeline("sentiment-analysis")
-result = classifier("I love using AI skills!")
-```
-
-### For Computational Biology Tasks
-
-```python
-# Example: Using scanpy for single-cell analysis
-import scanpy as sc
-
-adata = sc.read_h5ad("data.h5ad")
-sc.pp.normalize_total(adata, target_sum=1e4)
-sc.pp.log1p(adata)
-sc.tl.pca(adata)
-sc.pp.neighbors(adata)
-sc.tl.umap(adata)
-```
-
-## Installation
-
-These skills work best when each installed skill lives in its own directory containing a `SKILL.md` file. This repository supports both Claude Code and Codex, but they discover skills differently.
-
-### Prerequisites
-
-- Claude Code or Codex
-- Python 3.8+
-
-### Install for Codex
-
-Codex installs user skills into `$CODEX_HOME/skills`, which defaults to `~/.codex/skills` when `CODEX_HOME` is unset. Codex only discovers a skill when each installed skill is a top-level directory under that path and that directory contains `SKILL.md`. Copy the leaf skill directories, not the category folders such as `document-skills/` or `compbio-skills/`.
-
-Install all skills from this repository:
-
-```bash
-mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-find document-skills Font_end python-skills ai-ml-skills compbio-skills writing -name SKILL.md -print | while read -r skill_file; do
-  skill_dir="$(dirname "$skill_file")"
-  cp -R "$skill_dir" "${CODEX_HOME:-$HOME/.codex}/skills/"
-done
-```
-
-Install a single skill:
-
-```bash
-mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-cp -R document-skills/pdf "${CODEX_HOME:-$HOME/.codex}/skills/"
-```
-
-Verify the expected installed skill names:
-
-```bash
-find "${CODEX_HOME:-$HOME/.codex}/skills" -mindepth 1 -maxdepth 1 -type d -exec test -f '{}/SKILL.md' ';' -print \
-  | xargs -n1 basename \
-  | sort
-```
-
-Troubleshooting:
-- If a skill does not load, confirm you copied the leaf skill directory itself, not a parent category directory.
-- `SKILL.md` frontmatter must begin on line 1 with `---`. Comments or other text before the frontmatter can cause Codex to skip the skill.
-- `.claude-plugin/marketplace.json` is used by Claude Code, not Codex.
-
-Restart Codex to pick up new skills.
-
-### Install for Claude Code
-
-For a local install, copy the leaf skill directories into `~/.claude/skills/`:
-
-```bash
-mkdir -p ~/.claude/skills
-find document-skills Font_end python-skills ai-ml-skills compbio-skills writing -name SKILL.md -print | while read -r skill_file; do
-  skill_dir="$(dirname "$skill_file")"
-  cp -R "$skill_dir" ~/.claude/skills/
-done
-```
-
-Restart Claude Code or start a new session. Skills will be available:
-- Use directly: `/skill-name` (e.g., `/pdf`, `/scanpy`, `/pytorch`)
-- Auto-trigger: Claude will use relevant skills based on your task
-
-### Alternative: Claude Code Marketplace Link (For Development)
-
-If you want Claude Code to load this repository through its local marketplace config instead of copying skill directories:
-
-1. Add to your global Claude settings (`~/.claude/settings.json`):
-```json
-{
-  "extraKnownMarketplaces": {
-    "ai-skills": {
-      "source": {
-        "type": "file",
-        "path": "/path/to/ai_skills/.claude-plugin/marketplace.json"
-      }
-    }
-  },
-  "enabledPlugins": {
-    "document-skills@ai-skills": true,
-    "font-end-skills@ai-skills": true,
-    "python-skills@ai-skills": true,
-    "ai-ml-skills@ai-skills": true,
-    "compbio-skills@ai-skills": true,
-    "writing-skills@ai-skills": true
-  }
-}
-```
-
-This marketplace configuration is Claude Code-specific; Codex does not read `.claude-plugin/marketplace.json`.
-
-### Adding New Skills
-
-To add a new skill to this repository:
-
-1. Create a skill directory:
-```bash
-mkdir -p document-skills/my-new-skill
-# or under Font_end, python-skills, ai-ml-skills, compbio-skills, writing
-```
-
-2. Create `SKILL.md` with YAML frontmatter:
-```markdown
----
-name: my-new-skill
-description: When to use this skill and what it does. Be specific about triggers.
 ---
 
-Your skill instructions here...
-```
+## What Is This
 
-3. Copy the skill directory into your local Codex or Claude skills folder:
-```bash
-cp -R document-skills/my-new-skill "${CODEX_HOME:-$HOME/.codex}/skills/"
-# or
-cp -R document-skills/my-new-skill ~/.claude/skills/
-```
+A **personal, production-grade skills library** for AI coding agents.
+Each skill is a `SKILL.md` file that tells the agent *how* to do something well — not just *that* it can be done.
 
-4. If you want the skill available through Claude Code's marketplace config, also update `.claude-plugin/marketplace.json`
+When you ask me to analyze a spatial transcriptomics dataset, fine-tune a Llama model, draft a LaTeX Methods section, or set up a Python library — I already know the right approach. These skills are how.
 
-### Verifying Installation
+---
 
-Verify that the installed skill directories contain `SKILL.md`:
-
-```bash
-find "${CODEX_HOME:-$HOME/.codex}/skills" ~/.claude/skills -maxdepth 2 -name SKILL.md 2>/dev/null | sort
-```
-
-For Claude Code, you can also run `/skills` to inspect the loaded skills.
-
-## Project Structure
+## Skills at a Glance
 
 ```
-ai_skills/
-├── document-skills/         # Document processing (21 skills)
-│   ├── officecli, officecli-docx, officecli-pptx, officecli-xlsx, docx, pptx, xlsx, pdf
-│   ├── algorithmic-art, canvas-design, theme-factory
-│   ├── frontend-design, web-artifacts-builder
-│   └── mcp-builder, skill-creator, skill-seekers, internal-comms, etc.
-├── Font_end/               # Website maintenance skills (2 skills)
-│   ├── page-keeper        # Generic site-maintenance skill generator
-│   └── chen-academic-page-maintainer
-├── python-skills/           # Python library engineering (12 skills)
-│   ├── project-setup, code-quality, testing-strategy
-│   ├── packaging, release-management, cli-development
-│   └── security-audit, performance, api-design, documentation, community, library-review
-├── ai-ml-skills/           # AI/ML skills (10 skills)
-│   ├── deep-learning/      # PyTorch
-│   ├── llm/                # Transformers, PEFT, TRL, etc.
-│   └── training/           # Accelerate, DeepSpeed, etc.
-├── compbio-skills/         # Computational biology (35 skills)
-│   ├── single-cell/       # scanpy, Seurat, scvi-tools
-│   ├── multiomics/         # PyDESeq2, ArchR, etc.
-│   ├── spatial-omics/      # Squidpy, Giotto, etc.
-│   ├── databases/          # GEO, Ensembl, etc.
-│   └── workflows/         # Snakemake, Nextflow
-├── writing/                # Writing skills (9 skills)
-│   ├── General_academic/  # Academic editing and cleanup
-│   ├── LaTex/             # LaTeX writing & compilation
-│   └── Obsidian/          # Note-taking and vault tooling
-├── docs/                   # Documentation hub
-│   ├── catalogs/          # Domain inventories
-│   ├── guides/            # Examples and practical notes
-│   └── README.md          # Documentation index
-└── .claude-plugin/         # Claude Code configuration
+compbio (35)  ████████████████████████████████████  single-cell · spatial omics · multi-omics · databases · workflows
+ai-ml  (12)  ████████████  deep learning · LLM fine-tuning · distributed training
+programming (13) █████████████  project scaffolding · testing · packaging · API design
+writing  (12)  ████████████  academic editing · LaTeX · Zotero · Obsidian
+documents (19) ███████████████████  office automation · design · web artifacts
+agents   (7)  ███████  Claude Code · Codex · MCP · agent guidelines
+platforms (6) ██████  GitHub workflows · code review · PR management
+frontend  (2) ██  site maintenance
+core     (4) ████  skill authoring · security · bitwarden
 ```
 
-## Total Skills: 85
+---
 
-- Document Skills: 21
-- Font_end Skills: 2
-- Python Skills: 12
-- AI/ML Skills: 10
-- Computational Biology: 35
-- Writing: 5
+## By Domain
+
+### Computational Biology — 35 skills
+
+Single-cell RNA-seq, spatial omics, multi-omics integration, databases, and workflow engineering.
+
+| Category | Skills |
+|---------|--------|
+| Single-cell analysis | `scanpy`, `seurat`, `scvi-tools`, `anndata` |
+| H5AD interchange | `anndatar`, `schard` |
+| Trajectory analysis | `monocle3` |
+| Integration | `seurat-v5`, `harmony`, `scanorama`, `bbknn` |
+| Visualization | `cellxgene`, `cellxgene-census` |
+| Spatial omics | `squidpy`, `giotto`, `spatialdata`, `vitessce` |
+| Platforms | `visium`, `stereo-seq` |
+| Multi-omics | `pydeseq2`, `archr`, `signac`, `scribble`, `uniprot`, `metabolomics-workbench` |
+| Databases | `kegg`, `reactome`, `geo`, `ensembl`, `human-cell-atlas` |
+| Workflows | `snakemake`, `nextflow` |
+| Expert workflows | `draft-spatial-methods`, `explain-bio-dl-model`, `critique-bio-manuscript` |
+
+### AI / ML — 12 skills
+
+Deep learning, LLM fine-tuning, and distributed training infrastructure.
+
+| Category | Skills |
+|---------|--------|
+| Deep learning | `pytorch` |
+| LLM ecosystem | `transformers`, `huggingface-hub`, `peft`, `trl`, `bitsandbytes`, `cursor-usage-checker`, `browser-use` |
+| Training | `pytorch-lightning`, `accelerate`, `datasets`, `deepspeed` |
+
+### Programming / Python — 13 skills
+
+Python library development from zero to production.
+
+| Category | Skills |
+|---------|--------|
+| Foundation | `project-setup`, `code-quality`, `testing-strategy`, `documentation` |
+| Distribution | `packaging`, `release-management`, `cli-development` |
+| Quality | `security-audit`, `performance`, `api-design`, `library-review`, `community` |
+| Utilities | `sqlite`, `jupyter` |
+
+### Writing — 12 skills
+
+Academic writing, literature review, LaTeX, and Obsidian knowledge management.
+
+| Category | Skills |
+|---------|--------|
+| Academic | `academic-writing-editor`, `humanizer`, `humanizer-zh` |
+| Literature | `zotpilot` |
+| LaTeX | `latex-writing`, `compile-latex` |
+| Obsidian | `obsidian-markdown`, `obsidian-cli`, `obsidian-bases`, `json-canvas`, `defuddle`, `wiki-keeper` |
+
+### Documents — 19 skills
+
+Office automation, design, and media.
+
+| Category | Skills |
+|---------|--------|
+| Office | `officecli`, `officecli-docx`, `officecli-pptx`, `officecli-xlsx` |
+| Formats | `docx`, `pptx`, `xlsx`, `pdf` |
+| Design | `frontend-design`, `canvas-design`, `theme-factory`, `brand-guidelines`, `algorithmic-art`, `web-artifacts-builder`, `webapp-testing` |
+| Collaboration | `doc-coauthoring`, `internal-comms` |
+| Media | `imgur-cli`, `slack-gif-creator` |
+
+### Agents — 7 skills
+
+Coding agents, MCP development, and behavioral guidelines.
+
+| Category | Skills |
+|---------|--------|
+| Coding agents | `claude-code`, `codex`, `hermes-agent`, `opencode`, `zed` |
+| MCP | `mcp-builder` |
+| Guidelines | `karpathy-guidelines` |
+
+### Platforms — 6 skills
+
+GitHub workflow integration.
+
+| Category | Skills |
+|---------|--------|
+| GitHub | `github-auth`, `github-code-review`, `github-issues`, `github-pr-workflow`, `github-repo-management`, `github-codebase-inspection` |
+
+### Frontend — 2 skills
+
+Website maintenance.
+
+| Category | Skills |
+|---------|--------|
+| Site maintenance | `page-keeper`, `chen-academic-page-maintainer` |
+
+### Core — 4 skills
+
+Security, performance tooling, and skill authoring.
+
+| Category | Skills |
+|---------|--------|
+| Skill authoring | `skill-creator`, `skill-seekers` |
+| Security | `security-audit`, `bitwarden` |
+
+---
+
+## Workflow Bundles (Taskpacks)
+
+Taskpacks group skills by **workflow**, not machine:
+
+| Taskpack | Description |
+|---------|-------------|
+| `paper-writing` | Academic paper, thesis, literature review |
+| `document-export` | Office, PDF, Word, PowerPoint, Excel |
+| `single-cell-analysis` | scRNA-seq from raw reads to annotated clusters |
+| `spatial-omics-analysis` | Spatial transcriptomics — Visium, Squidpy, Giotto |
+| `llm-finetuning` | LoRA, QLoRA, RLHF, DPO fine-tuning |
+| `pytorch-model-dev` | PyTorch model development and optimization |
+| `bio-databases` | KEGG, Reactome, GEO, Ensembl, UniProt access |
+| `workflow-engineering` | Snakemake and Nextflow pipelines |
+| `codebti` | CODEBTI project bundle |
+| `feast` | Multi-omics integration — RNA, ATAC, proteomics, metabolomics |
+| `thesis-defense` | Thesis defense preparation |
+| `zotpilot-literature-map` | Literature embedding map and recommendation system |
+
+---
+
+## Architecture
+
+```
+skills-market/   canonical skill library (human-readable organization)
+registry/        source of truth: stable IDs, paths, metadata
+deployments/     machine/profile install plans
+taskpacks/       workflow-specific skill bundles
+scripts/          tooling: validate, migrate, install, query
+```
+
+**Core rule**: skills are referenced by **stable ID** (e.g., `scanpy`), never by folder path. The registry is the source of truth. See `docs/guides/architecture.md` for the full design.
+
+---
+
+## Missing Skills
+
+4 skills are registered but not yet implemented:
+
+- `native-mcp` — Native MCP client
+- `ag-ui` — AG-UI agent framework
+- `token-usage-checker` — Token usage monitoring
+- `provider-usage-checker` — Provider usage monitoring
+
+---
 
 ## License
 
-MIT License - See [LICENSE.md](LICENSE.md)
-
-## Contributing
-
-Contributions welcome! Please submit pull requests for:
-- New skills
-- Improvements to existing skills
-- Bug fixes
-- Documentation updates
+MIT — see `LICENSE.md`

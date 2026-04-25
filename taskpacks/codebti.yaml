@@ -1,0 +1,20 @@
+# CODEBTI project-specific skill bundle.
+id: codebti
+description: CODEBTI project — agent coding, frontend, web artifacts, API, and documentation.
+skills:
+  - codebti
+  - claude-code
+  - codex
+  - opencode
+  - hermes-agent
+  - zed
+  - mcp-builder
+  - karpathy-guidelines
+  - api-design
+  - code-quality
+  - testing-strategy
+  - documentation
+  - packaging
+  - frontend-design
+  - web-artifacts-builder
+  - canvas-design
