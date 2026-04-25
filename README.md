@@ -166,17 +166,6 @@ scripts/          tooling: validate, migrate, install, query
 
 ---
 
-## Missing Skills
-
-4 skills are registered but not yet implemented:
-
-- `native-mcp` — Native MCP client
-- `ag-ui` — AG-UI agent framework
-- `token-usage-checker` — Token usage monitoring
-- `provider-usage-checker` — Provider usage monitoring
-
----
-
 ## License
 
 MIT — see `LICENSE.md`
