@@ -28,8 +28,6 @@ aliases:
   agent/zed: zed
   agent/mcp-builder: mcp-builder
   agent/karpathy-guidelines: karpathy-guidelines
-  agent/native-mcp: native-mcp
-  agent/ag-ui: ag-ui
   Font_end/page-keeper: page-keeper
   Font_end/chen-academic-page-maintainer: chen-academic-page-maintainer
   python-skills/project-setup: project-setup
@@ -58,8 +56,6 @@ aliases:
   ai-ml-skills/training/datasets: datasets
   ai-ml-skills/training/deepspeed: deepspeed
   ai-ml-skills/utility/bitwarden: bitwarden
-  ai-ml-skills/utility/token-usage-checker: token-usage-checker
-  ai-ml-skills/utility/provider-usage-checker: provider-usage-checker
   compbio-skills/single-cell/analysis/scanpy: scanpy
   compbio-skills/single-cell/analysis/seurat: seurat
   compbio-skills/single-cell/analysis/scvi-tools: scvi-tools

@@ -1040,50 +1040,6 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
-  token-usage-checker:
-    name: Token Usage Checker
-    canonical_path: skills-market/ai-ml/utility/token-usage-checker
-    old_paths:
-    - ai-ml-skills/utility/token-usage-checker
-    domain: ai-ml
-    category: utility
-    tags:
-    - token
-    - usage
-    - monitoring
-    - cost
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: missing
-    id: token-usage-checker
-    dependencies: []
-    profiles: []
-    taskpacks: []
-  provider-usage-checker:
-    name: Provider Usage Checker
-    canonical_path: skills-market/ai-ml/utility/provider-usage-checker
-    old_paths:
-    - ai-ml-skills/utility/provider-usage-checker
-    domain: ai-ml
-    category: utility
-    tags:
-    - provider
-    - usage
-    - monitoring
-    - cost
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: missing
-    id: provider-usage-checker
-    dependencies: []
-    profiles: []
-    taskpacks: []
   scanpy:
     name: Scanpy
     canonical_path: skills-market/compbio/single-cell/analysis/scanpy
@@ -2294,50 +2250,6 @@ skills:
     install_weight: light
     status: active
     id: karpathy-guidelines
-    dependencies: []
-    profiles: []
-    taskpacks: []
-  native-mcp:
-    name: Native MCP
-    canonical_path: skills-market/agents/mcp/native-mcp
-    old_paths:
-    - agent/native-mcp
-    domain: agents
-    category: mcp
-    tags:
-    - mcp
-    - native
-    - client
-    - agent
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: missing
-    id: native-mcp
-    dependencies: []
-    profiles: []
-    taskpacks: []
-  ag-ui:
-    name: AG-UI
-    canonical_path: skills-market/agents/ag-ui
-    old_paths:
-    - agent/ag-ui
-    domain: agents
-    category: agent
-    tags:
-    - ag-ui
-    - agent
-    - ui
-    - framework
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: missing
-    id: ag-ui
     dependencies: []
     profiles: []
     taskpacks: []
