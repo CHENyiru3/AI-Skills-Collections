@@ -1,5 +1,6 @@
 ---
 name: officecli-pptx
+domain: documents
 description: Use this skill any time a `.pptx` file is involved, including creating slide decks, presentations, or editing existing presentations with charts, tables, images, animations, and notes.
 ---
 

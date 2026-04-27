@@ -46,3 +46,13 @@ skills:
   - internal-comms
   # Documents / Web testing
   - webapp-testing
+  # AI / ML utilities
+  - minimax-cli
+  # Agents
+  - claude-code
+  - codex
+  - hermes-agent
+  - opencode
+  - zed
+  - mcp-builder
+  - karpathy-guidelines

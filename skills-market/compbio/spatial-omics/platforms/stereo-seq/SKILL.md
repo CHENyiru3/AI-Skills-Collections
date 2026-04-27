@@ -1,5 +1,6 @@
 ---
 name: stereo-seq
+domain: compbio
 description: Stereo-seq (Spatially Resolved Transcriptomics) data analysis. High-resolution spatial transcriptomics from BGI/MGI using DNA nanoball (DNB) technology.
 license: MIT license
 metadata:

@@ -1,5 +1,6 @@
 ---
 name: managing-python-releases
+domain: programming
 description: Manages Python library releases with semantic versioning, changelogs, tags, GitHub releases, PyPI publishing, and deprecation planning. Use this skill whenever a user is cutting a release, deciding version bumps, writing a changelog, automating release pipelines, or preparing users for breaking changes.
 ---
 

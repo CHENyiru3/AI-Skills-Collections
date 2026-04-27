@@ -1,5 +1,6 @@
 ---
 name: human-cell-atlas
+domain: compbio
 description: Human Cell Atlas data portal. Use for accessing single-cell reference datasets, cell type markers, and standard atlases.
 license: MIT license
 metadata:

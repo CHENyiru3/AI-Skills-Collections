@@ -1,5 +1,6 @@
 ---
 name: skill-seekers
+domain: core
 description: Use this skill when the user wants to use Skill Seekers to turn documentation sites, GitHub repositories, local codebases, PDFs, videos, notebooks, wikis, or other knowledge sources into AI-ready outputs such as Claude skills, OpenAI/Gemini assets, RAG documents, vector database payloads, or IDE rule files. Also use when the user explicitly mentions Skill Seekers, `skill-seekers`, or asks how to package one knowledge source for multiple AI platforms.
 ---
 

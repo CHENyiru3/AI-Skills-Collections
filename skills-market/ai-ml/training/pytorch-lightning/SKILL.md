@@ -1,5 +1,6 @@
 ---
 name: pytorch-lightning
+domain: ai-ml
 description: PyTorch Lightning for simplified training loops. Use for structured deep learning training, reducing boilerplate, built-in logging, multi-GPU/TPU support, and checkpointing. Best for research and production ML training. For deep learning use pytorch; for distributed use deepspeed or accelerate.
 license: Apache-2.0 license
 metadata:

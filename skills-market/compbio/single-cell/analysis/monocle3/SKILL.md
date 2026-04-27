@@ -1,5 +1,6 @@
 ---
 name: monocle3
+domain: compbio
 description: R package for single-cell trajectory analysis. Use for reconstructing pseudotime trajectories, identifying cell differentiation paths, analyzing branch points, and ordering cells along developmental processes. Best for understanding dynamic biological processes from scRNA-seq data.
 license: MIT license
 metadata:

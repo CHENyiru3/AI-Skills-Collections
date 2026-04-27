@@ -52,15 +52,6 @@
       ]
     },
     {
-      "name": "ai-ml",
-      "description": "AI/ML — PyTorch, Transformers, HuggingFace, PEFT, TRL, DeepSpeed, training utilities",
-      "source": "./skills-market/ai-ml",
-      "strict": false,
-      "skills": [
-        "./ai-ml/llm/minimax-cli"
-      ]
-    },
-    {
       "name": "writing",
       "description": "Academic writing, literature review, LaTeX, Obsidian, and knowledge management",
       "source": "./skills-market/writing",

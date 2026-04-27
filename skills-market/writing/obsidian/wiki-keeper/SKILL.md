@@ -1,5 +1,6 @@
 ---
 name: wiki-keeper
+domain: writing
 description: Maintain markdown wiki and Obsidian vault repositories safely and consistently. Use when the user wants to build, reorganize, ingest into, query against, or lint a markdown wiki, personal knowledge base, second brain, or Obsidian vault. Inspect the vault first, read local schema files such as AGENTS.md, preserve canonical pages and cross-links, and keep index/log/inbox style support files in sync with content updates.
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: officecli-xlsx
+domain: documents
 description: Use this skill any time a `.xlsx` file is involved, including creating spreadsheets, financial models, dashboards, trackers, or editing existing workbooks with formulas, charts, validations, and named ranges.
 ---
 

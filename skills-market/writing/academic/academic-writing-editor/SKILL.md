@@ -1,5 +1,6 @@
 ---
 name: academic-writing-editor
+domain: writing
 description: Enforces high-impact academic writing principles (C-C-C, A-B-T, active voice, paragraph integrity) on draft text for bioinformatics and computational biology manuscripts.
 allowed-tools: Read
 ---

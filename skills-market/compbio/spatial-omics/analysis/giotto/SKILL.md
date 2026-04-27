@@ -1,5 +1,6 @@
 ---
 name: giotto
+domain: compbio
 description: Toolkit for spatial genomics. Comprehensive R package for spatial transcriptomics analysis with advanced visualization and statistics.
 license: MIT license
 metadata:

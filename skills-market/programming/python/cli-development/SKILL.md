@@ -1,5 +1,6 @@
 ---
 name: building-python-clis
+domain: programming
 description: Builds Python CLIs with Click or Typer, including command groups, options, stdin and stdout handling, shell completion, exit codes, and CLI testing. Use this skill whenever a user mentions a command-line tool, subcommands, `click`, `typer`, `argparse`, console entry points, or wants a Python package to expose a usable terminal interface.
 ---
 

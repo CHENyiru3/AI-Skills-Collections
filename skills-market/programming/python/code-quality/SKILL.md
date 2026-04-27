@@ -1,5 +1,6 @@
 ---
 name: improving-python-code-quality
+domain: programming
 description: Improves Python library code quality with Ruff, mypy, type hints, project structure, and targeted refactoring. Use this skill whenever a user asks to lint Python code, add or fix type annotations, clean up Pythonic anti-patterns, configure static analysis, or raise the maintainability bar of a Python package.
 ---
 

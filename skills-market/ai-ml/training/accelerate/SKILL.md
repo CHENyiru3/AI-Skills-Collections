@@ -1,5 +1,6 @@
 ---
 name: accelerate
+domain: ai-ml
 description: Hugging Face Accelerate for distributed training and mixed precision. Use for multi-GPU training, TPU support, mixed precision (FP16/BF16), gradient accumulation, and seamless scaling from laptop to cloud. Best for scaling PyTorch training across devices. For deep learning use pytorch; for fine-tuning use peft or trl.
 license: Apache-2.0 license
 metadata:

@@ -1,5 +1,6 @@
 ---
 name: draft-spatial-methods
+domain: compbio
 description: Drafts highly precise Methods sections for spatial transcriptomics, single-cell RNA-seq (e.g., muscle aging/regeneration), and 3D interpolation pipelines.
 allowed-tools: Read
 ---

@@ -1,5 +1,6 @@
 ---
 name: visium
+domain: compbio
 description: 10X Visium spatial transcriptomics data analysis. Use for tissue spatial gene expression profiling. For Python use squidpy; for R use Giotto or Seurat.
 license: MIT license
 metadata:

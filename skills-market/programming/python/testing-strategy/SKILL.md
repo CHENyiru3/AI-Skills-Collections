@@ -1,5 +1,6 @@
 ---
 name: testing-python-libraries
+domain: programming
 description: Designs pytest-based test suites for Python libraries with fixtures, parametrization, mocking, coverage, property-based testing, and CI integration. Use this skill whenever a user asks to add tests, improve Python coverage, structure `tests/`, mock dependencies, use Hypothesis, or make a Python package safer to change.
 ---
 

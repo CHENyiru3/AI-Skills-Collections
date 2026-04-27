@@ -1,5 +1,6 @@
 ---
 name: bbknn
+domain: compbio
 description: Batch-balanced k-nearest neighbors for single-cell data integration. Fast and simple Python implementation for batch correction.
 license: MIT license
 metadata:

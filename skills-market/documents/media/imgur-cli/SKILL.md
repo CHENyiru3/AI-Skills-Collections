@@ -1,5 +1,6 @@
 ---
 name: imgur-cli
+domain: documents
 description: Upload or delete images through the locally installed `imgur` command from `@rasch/imgur-cli`. Use when the user wants to send a local image file or remote image URL to Imgur, retrieve the public link plus `deletehash`, remove a prior upload by `deletehash`, or verify/troubleshoot the local Imgur CLI installation.
 ---
 

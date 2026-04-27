@@ -1,5 +1,6 @@
 ---
 name: nextflow
+domain: compbio
 description: Workflow management for computational biology. Use for creating portable and reproducible pipelines with excellent support for cloud and HPC environments.
 license: MIT license
 metadata:

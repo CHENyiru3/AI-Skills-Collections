@@ -1,5 +1,6 @@
 ---
 name: signac
+domain: compbio
 description: R package for chromatin analysis. Use for single-cell ATAC-seq analysis, chromatin accessibility, and integration with Seurat.
 license: MIT license
 metadata:

@@ -1,5 +1,6 @@
 ---
 name: cellxgene
+domain: compbio
 description: Interactive web-based viewer for single-cell RNA-seq data. Use for exploring datasets, creating visualizations, and sharing results. For programmatic access use cellxgene-census.
 license: MIT license
 metadata:

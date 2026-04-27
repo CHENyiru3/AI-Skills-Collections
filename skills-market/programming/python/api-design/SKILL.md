@@ -1,5 +1,6 @@
 ---
 name: designing-python-apis
+domain: programming
 description: Designs and reviews Python library APIs for clarity, consistency, naming, parameters, return types, exceptions, and compatibility. Use this skill whenever a user is shaping a public Python API, renaming functions or classes, choosing argument patterns, planning deprecations, or asking how a package interface should feel to downstream users.
 ---
 

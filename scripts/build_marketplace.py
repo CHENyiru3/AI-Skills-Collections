@@ -10,6 +10,10 @@ Regenerate this file after any change to registry/skills.yaml.
 Usage:
     python scripts/build_marketplace.py
     python scripts/build_marketplace.py --dry-run
+
+Importable functions:
+    build_marketplace_data(skill_ids=None) -> dict
+    write_marketplace_file(marketplace, path) -> int
 """
 
 import argparse
@@ -19,7 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_SKILLS = ROOT / "registry" / "skills.yaml"
-MARKETPLACE_OUT = ROOT / ".claude-plugin" / "marketplace.json"
+MARKETPLACE_PATH = ROOT / ".claude-plugin" / "marketplace.json"
 
 # Map from domain to plugin definition
 PLUGIN_DEFINITIONS = {
@@ -123,16 +127,25 @@ def build_plugin(plugin_def, skills):
     }
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Generate marketplace.json from registry/skills.yaml")
-    parser.add_argument("--dry-run", action="store_true", help="Print output without writing file")
-    args = parser.parse_args()
+def build_marketplace_data(skill_ids=None):
+    """Build the marketplace dict from registry.
 
+    Args:
+        skill_ids: Optional set of skill IDs to include.
+            When None, all active skills are included.
+
+    Returns:
+        dict: The marketplace structure ready for JSON serialization.
+    """
     data = load_yaml(REGISTRY_SKILLS)
     skills = data.get("skills", {})
 
     # Filter out missing skills for marketplace
     active_skills = {sid: meta for sid, meta in skills.items() if meta.get("status") != "missing"}
+
+    # If filtering by specific skill IDs, reduce the set
+    if skill_ids is not None:
+        active_skills = {sid: meta for sid, meta in active_skills.items() if sid in skill_ids}
 
     # Build plugins for each known domain
     plugins = []
@@ -168,16 +181,42 @@ def main():
         "plugins": plugins,
     }
 
+    return marketplace
+
+
+def write_marketplace_file(marketplace, path):
+    """Write marketplace dict to a JSON file.
+
+    Args:
+        marketplace: dict to serialize.
+        path: Path to write to.
+
+    Returns:
+        int: Total number of skill references written.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    output = json.dumps(marketplace, indent=2, ensure_ascii=False) + "\n"
+    path.write_text(output)
+    total_skills = sum(len(p["skills"]) for p in marketplace["plugins"])
+    print(f"Written {path.name}: {len(marketplace['plugins'])} plugins, {total_skills} skill references")
+    return total_skills
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Generate marketplace.json from registry/skills.yaml")
+    parser.add_argument("--dry-run", action="store_true", help="Print output without writing file")
+    args = parser.parse_args()
+
+    marketplace = build_marketplace_data()
+
     output = json.dumps(marketplace, indent=2, ensure_ascii=False) + "\n"
 
     if args.dry_run:
         print(output)
-        print(f"(dry run — not written to {MARKETPLACE_OUT})")
+        print(f"(dry run — not written to {MARKETPLACE_PATH})")
         return
 
-    MARKETPLACE_OUT.write_text(output)
-    total_skills = sum(len(p["skills"]) for p in plugins)
-    print(f"Written marketplace.json: {len(plugins)} plugins, {total_skills} active skill references")
+    write_marketplace_file(marketplace, MARKETPLACE_PATH)
 
 
 if __name__ == "__main__":

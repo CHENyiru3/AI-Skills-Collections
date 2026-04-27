@@ -1,5 +1,6 @@
 ---
 name: vitessce
+domain: compbio
 description: Visual integration tool for exploration of spatial single-cell data. Use for creating interactive visualizations and dashboards for multi-modal and spatial omics data.
 license: MIT license
 metadata:

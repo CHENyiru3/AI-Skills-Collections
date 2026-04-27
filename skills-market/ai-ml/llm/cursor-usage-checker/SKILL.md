@@ -1,5 +1,6 @@
 ---
 name: cursor-usage-checker
+domain: ai-ml
 description: Check Cursor usage, billing, and quota through the shared provider usage checker. Reuse local browser session cookies and call Cursor's authenticated usage APIs before considering any browser automation.
 category: ai-ml-skills/llm
 ---

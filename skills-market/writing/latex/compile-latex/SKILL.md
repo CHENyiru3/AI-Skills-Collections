@@ -1,5 +1,6 @@
 ---
 name: latex
+domain: writing
 description: "LaTeX document compilation and management. When Claude needs to compile LaTeX documents (.tex files) for papers, presentations, or other academic content."
 allowed-tools: Bash(latexmk*), Bash(xelatex*), Bash(pdflatex*), Bash(biber*), Bash(bibtex*), Bash(mkdir*), Bash(ls*), Read, Write, Edit
 argument-hint: [tex-file-path]

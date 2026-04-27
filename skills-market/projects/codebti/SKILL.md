@@ -1,5 +1,6 @@
 ---
 name: codebti
+domain: projects
 description: Run CodeBTI interviews to infer coding style preferences and generate project-specific CodeStyle.md, SKILL.md, or SPEC.md for Python projects.
 ---
 

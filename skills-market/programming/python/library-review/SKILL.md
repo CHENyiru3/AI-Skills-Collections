@@ -1,5 +1,6 @@
 ---
 name: reviewing-python-libraries
+domain: programming
 description: Reviews Python libraries across structure, packaging, code quality, testing, security, documentation, API design, and CI/CD, then produces actionable recommendations. Use this skill whenever a user wants a Python package audit, a release-readiness review, dependency due diligence, or a structured assessment of a library's engineering health.
 ---
 

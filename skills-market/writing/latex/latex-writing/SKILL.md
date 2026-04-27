@@ -1,5 +1,6 @@
 ---
 name: latex-writing
+domain: writing
 description: |
   Guide LaTeX document authoring following best practices, proper semantic 
   markup, academic writing standards, and rigorous mathematical typesetting. 

@@ -1,5 +1,6 @@
 ---
 name: critique-bio-manuscript
+domain: compbio
 description: Acts as a peer review assistant to evaluate bioinformatics manuscripts. Identifies missing baselines, methodological flaws, and data leakage.
 disable-model-invocation: true
 allowed-tools: Read

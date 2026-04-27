@@ -1,5 +1,6 @@
 ---
 name: transformers
+domain: ai-ml
 description: Hugging Face Transformers library. Use for working with pre-trained transformer models (BERT, GPT, Llama, etc.), text classification, named entity recognition, question answering, text generation, translation, summarization, and fine-tuning. Best for NLP tasks and LLM inference. For fine-tuning use peft or trl; for distributed training use accelerate.
 license: Apache-2.0 license
 metadata:

@@ -1,5 +1,6 @@
 ---
 name: optimizing-python-performance
+domain: programming
 description: Optimizes Python library performance through profiling, memory analysis, benchmarking, and regression prevention. Use this skill whenever a user asks why Python code is slow, wants CPU or memory profiling, needs benchmarking, suspects a memory leak, or wants performance work grounded in measurements instead of guesses.
 ---
 

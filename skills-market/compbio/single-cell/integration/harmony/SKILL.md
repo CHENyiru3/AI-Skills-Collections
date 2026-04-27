@@ -1,5 +1,6 @@
 ---
 name: harmony
+domain: compbio
 description: Fast and accurate integration of single-cell data. Use for batch correction and data integration. Works with Seurat objects in R. For Python use scanorama or bbknn.
 license: MIT license
 metadata:

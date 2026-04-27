@@ -1,5 +1,6 @@
 ---
 name: bitsandbytes
+domain: ai-ml
 description: BitsAndBytes for quantization of LLMs. Use for 8-bit and 4-bit model quantization, mixed INT8 quantization, NF4 quantization, and memory-efficient LLM loading. Best for running large models on limited GPU memory. For model loading use transformers; for efficient fine-tuning use peft; for distributed training use deepspeed.
 license: MIT license
 metadata:

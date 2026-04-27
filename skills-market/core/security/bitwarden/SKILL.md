@@ -1,5 +1,6 @@
 ---
 name: bitwarden
+domain: core
 description: Use Bitwarden CLI (bw) for headless secret retrieval. Install via npm, authenticate silently with --passwordenv, read vault items without interactive prompts.
 version: 1.1.0
 category: productivity

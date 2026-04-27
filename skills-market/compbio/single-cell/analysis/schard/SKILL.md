@@ -1,5 +1,6 @@
 ---
 name: schard
+domain: compbio
 description: R package for converting h5ad files (HDF5 AnnData format from scanpy) to Seurat or SingleCellExperiment objects. Use whenever working with single-cell data in h5ad format that needs to be converted to R. Includes support for Visium spatial transcriptomics data, raw counts, cell metadata, and dimensionality reduction embeddings.
 ---
 

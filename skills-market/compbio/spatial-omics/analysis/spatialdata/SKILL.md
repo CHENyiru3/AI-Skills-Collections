@@ -1,5 +1,6 @@
 ---
 name: spatialdata
+domain: compbio
 description: Unified framework for spatial omics data in Python. Use for integrating multiple spatial modalities and formats. Part of the scverse ecosystem.
 license: MIT license
 metadata:

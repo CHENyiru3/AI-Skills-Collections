@@ -1,5 +1,6 @@
 ---
 name: officecli
+domain: documents
 description: Create, inspect, validate, and modify Office documents (.docx, .xlsx, .pptx) using the locally installed `officecli` binary. Use when the user wants to create, read, check formatting, find issues, add charts, or modify Office documents.
 ---
 

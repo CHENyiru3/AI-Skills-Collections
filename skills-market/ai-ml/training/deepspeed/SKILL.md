@@ -1,5 +1,6 @@
 ---
 name: deepspeed
+domain: ai-ml
 description: DeepSpeed for distributed deep learning training. Use for ZeRO optimization, mixed precision training, pipeline parallelism, and memory-efficient training of large models. Best for training very large models (7B+) and optimizing GPU memory. For training use pytorch or pytorch-lightning; for distributed use accelerate.
 license: MIT license
 metadata:

@@ -1,5 +1,6 @@
 ---
 name: github-pr-workflow
+domain: platforms
 description: Full pull request lifecycle — create branches, commit changes, open PRs, monitor CI status, auto-fix failures, and merge. Works with gh CLI or falls back to git + GitHub REST API via curl.
 version: 1.1.0
 author: Hermes Agent

@@ -1,5 +1,6 @@
 ---
 name: zotpilot
+domain: writing
 description: Use when user mentions Zotero, academic papers, citations,
   literature reviews, research libraries, or wants to search/organize their
   paper collection. Also triggers on "find papers about...", "what's in my

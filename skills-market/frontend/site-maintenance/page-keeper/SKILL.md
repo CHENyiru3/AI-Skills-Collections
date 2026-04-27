@@ -1,5 +1,6 @@
 ---
 name: page-keeper
+domain: frontend
 description: Create a repo-specific maintenance skill for a personal website. Use this skill whenever the user wants to turn a website repo into a reusable maintenance workflow, codify site-specific editing rules, teach an agent which website sections can change and which must stay fixed, or generate a maintenance skill for an academic site, portfolio, blog, lab page, or personal homepage. Use it even if the user does not explicitly say "skill" but clearly wants persistent AI-safe maintenance rules for a website repo.
 ---
 

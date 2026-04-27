@@ -1,5 +1,6 @@
 ---
 name: archr
+domain: compbio
 description: R package for single-cell ATAC-seq analysis. Use for chromatin accessibility analysis, peak calling, motif enrichment, and integration with gene expression.
 license: MIT license
 metadata:

@@ -1,5 +1,6 @@
 ---
 name: jupyter
+domain: programming
 description: Read, modify, execute, and convert Jupyter notebooks programmatically. Use when working with `.ipynb` files for data science workflows, including editing cells, clearing outputs, or converting to other formats. Trigger whenever the user mentions Jupyter, notebooks, notebook cells, `nbconvert`, or `.ipynb` files.
 triggers:
 - ipynb

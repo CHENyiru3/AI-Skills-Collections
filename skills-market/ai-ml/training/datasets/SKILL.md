@@ -1,5 +1,6 @@
 ---
 name: datasets
+domain: ai-ml
 description: Hugging Face Datasets library for loading and processing datasets. Use for loading datasets from Hub, processing with map/batch, tokenization, train-test splits, caching, and memory-mapped datasets. Best for NLP and ML datasets. For model training use transformers; for loading from files use PyTorch DataLoader.
 license: Apache-2.0 license
 metadata:

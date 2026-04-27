@@ -1,5 +1,6 @@
 ---
 name: trl
+domain: ai-ml
 description: TRL (Transformer Reinforcement Learning) for SFT, RLHF, DPO training. Use for supervised fine-tuning, reward modeling, RLHF (PPO), and Direct Preference Optimization (DPO). Best for training instruction-following LLMs. For model loading use transformers; for efficient fine-tuning use peft; for quantization use bitsandbytes.
 license: Apache-2.0 license
 metadata:

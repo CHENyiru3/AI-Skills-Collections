@@ -1,5 +1,6 @@
 ---
 name: building-python-communities
+domain: programming
 description: Builds the contributor and governance layer around Python libraries, including CONTRIBUTING.md, CODE_OF_CONDUCT.md, issue and PR templates, labels, triage, and maintainer workflows. Use this skill whenever a user wants to make a Python project easier to contribute to, set up GitHub community files, or define ownership and governance for an open source or inner-source package.
 ---
 

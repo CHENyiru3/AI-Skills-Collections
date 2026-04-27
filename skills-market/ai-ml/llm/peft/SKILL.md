@@ -1,5 +1,6 @@
 ---
 name: peft
+domain: ai-ml
 description: PEFT (Parameter-Efficient Fine-Tuning) for LoRA, QLoRA, and adapter methods. Use for fine-tuning large language models efficiently by training only a small number of parameters. Best for fine-tuning LLMs on limited GPU memory. For full fine-tuning use transformers; for RLHF use trl; for quantization use bitsandbytes.
 license: Apache-2.0 license
 metadata:

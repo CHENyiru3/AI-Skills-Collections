@@ -1,5 +1,6 @@
 ---
 name: seurat
+domain: compbio
 description: R package for single-cell RNA-seq analysis. Use for QC, normalization, dimensionality reduction (PCA/UMAP/t-SNE), clustering, differential expression, and multi-modal integration. Best for R-based single-cell workflows. For Python use scanpy.
 license: MIT license
 metadata:

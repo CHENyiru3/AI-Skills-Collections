@@ -1,5 +1,6 @@
 ---
 name: snakemake
+domain: compbio
 description: Workflow management system for bioinformatics. Use for creating reproducible and scalable computational biology pipelines.
 license: MIT license
 metadata:

@@ -1,5 +1,6 @@
 ---
 name: explain-bio-dl-model
+domain: compbio
 description: Translates complex deep learning architectures (VQ-VAE, Transformers, Neural ODEs) into standard biological manuscript text, focusing on the biological rationale for the architecture.
 ---
 

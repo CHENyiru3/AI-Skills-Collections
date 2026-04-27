@@ -1,5 +1,6 @@
 ---
 name: officecli-docx
+domain: documents
 description: Use this skill any time a `.docx` file is involved, including creating Word documents, reports, letters, memos, proposals, or editing existing documents with tables, headers, footers, and comments.
 ---
 

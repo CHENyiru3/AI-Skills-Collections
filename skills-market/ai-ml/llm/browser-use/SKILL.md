@@ -1,5 +1,6 @@
 ---
 name: browser-use
+domain: ai-ml
 description: AI agent that autonomously interacts with the web via Chromium/CDP. Makes websites accessible for LLMs.
 version: 1.1.0
 category: automation

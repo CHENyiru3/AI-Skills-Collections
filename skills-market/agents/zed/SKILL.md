@@ -1,5 +1,6 @@
 ---
 name: zed
+domain: agents
 description: >-
   Configure Zed editor settings, keybindings, agent profiles, and AI
   integrations. Use when modifying Zed configuration, setting up agent profiles

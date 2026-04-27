@@ -931,6 +931,28 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
+  minimax-cli:
+    name: MiniMax CLI
+    canonical_path: skills-market/ai-ml/llm/minimax-cli
+    old_paths: []
+    domain: ai-ml
+    category: llm
+    tags:
+    - minimax
+    - mmx
+    - multimodal
+    - cli
+    - llm
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: minimax-cli
+    dependencies: []
+    profiles: []
+    taskpacks: []
   pytorch-lightning:
     name: PyTorch Lightning
     canonical_path: skills-market/ai-ml/training/pytorch-lightning

@@ -1,5 +1,6 @@
 ---
 name: pytorch
+domain: ai-ml
 description: PyTorch deep learning framework. Use for building neural networks, tensor operations, automatic differentiation, GPU acceleration, and custom model training. Best for custom deep learning models, research prototyping, and production deployment. For pre-trained transformers use transformers; for distributed training use deepspeed or accelerate.
 license: BSD-3-Clause license
 metadata:

@@ -1,5 +1,6 @@
 ---
 name: chen-academic-page-maintainer
+domain: frontend
 description: Maintain this specific academic website repo safely and consistently. Use this skill whenever the user asks to update, review, polish, reorganize, or extend this website, especially when the request touches homepage identity statements, publications, CV assets, shared templates, or duplicated academic content.
 ---
 

@@ -1,6 +1,6 @@
 # AI Skills — Eric Yiru's Personal Library
 
-> **111 skills** for Claude Code, Codex, and AI coding agents.
+> **112 skills** for Claude Code, Codex, and AI coding agents.
 > Computational biology · Deep learning · Academic writing · Document automation · and more.
 
 ---
@@ -18,7 +18,7 @@ When you ask me to analyze a spatial transcriptomics dataset, fine-tune a Llama 
 
 ```
 compbio (35)  ████████████████████████████████████  single-cell · spatial omics · multi-omics · databases · workflows
-ai-ml  (12)  ████████████  deep learning · LLM fine-tuning · distributed training
+ai-ml  (13)  █████████████  deep learning · LLM fine-tuning · multimodal generation · distributed training
 programming (13) █████████████  project scaffolding · testing · packaging · API design
 writing  (12)  ████████████  academic editing · LaTeX · Zotero · Obsidian
 documents (19) ███████████████████  office automation · design · web artifacts
@@ -57,7 +57,7 @@ Deep learning, LLM fine-tuning, and distributed training infrastructure.
 | Category | Skills |
 |---------|--------|
 | Deep learning | `pytorch` |
-| LLM ecosystem | `transformers`, `huggingface-hub`, `peft`, `trl`, `bitsandbytes`, `cursor-usage-checker`, `browser-use` |
+| LLM ecosystem | `transformers`, `huggingface-hub`, `peft`, `trl`, `bitsandbytes`, `cursor-usage-checker`, `browser-use`, `minimax-cli` |
 | Training | `pytorch-lightning`, `accelerate`, `datasets`, `deepspeed` |
 
 ### Programming / Python — 13 skills

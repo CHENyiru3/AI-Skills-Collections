@@ -1,5 +1,6 @@
 ---
 name: auditing-python-security
+domain: core
 description: Audits Python libraries for security issues using Bandit, pip-audit, secrets scanning, CI checks, and secure coding patterns. Use this skill whenever a user asks for a Python security review, dependency vulnerability scan, secret detection, hardening against injection and deserialization bugs, or wants security checks wired into CI for a Python package.
 ---
 

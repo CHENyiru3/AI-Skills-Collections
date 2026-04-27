@@ -1,5 +1,6 @@
 ---
 name: scribble
+domain: compbio
 description: Multi-omics integration for single-cell data. Use for integrating multiple modalities like RNA, ATAC, and protein in single-cell analysis.
 license: MIT license
 metadata:

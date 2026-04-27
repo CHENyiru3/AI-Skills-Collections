@@ -1,5 +1,6 @@
 ---
 name: squidpy
+domain: compbio
 description: Spatial omics analysis in Python. Use for spatial transcriptomics (Visium, Xenium, MERFISH), spatial clustering, neighborhood analysis, and visualization.
 license: MIT license
 metadata:

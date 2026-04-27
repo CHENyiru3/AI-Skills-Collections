@@ -1,5 +1,6 @@
 ---
 name: huggingface-hub
+domain: ai-ml
 description: Hugging Face Hub for model and dataset management. Use for downloading/uploading models, managing model repositories, browsing model cards, version control for models, and accessing datasets. Best for model management, sharing models, and downloading pre-trained assets. For model loading use transformers; for datasets use datasets library.
 license: Apache-2.0 license
 metadata:

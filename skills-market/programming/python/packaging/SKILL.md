@@ -1,5 +1,6 @@
 ---
 name: packaging-python-libraries
+domain: programming
 description: Packages and distributes Python libraries with modern `pyproject.toml`, wheels, source distributions, build backends, and PyPI publishing workflows. Use this skill whenever a user mentions packaging, `pyproject.toml`, wheels, `python -m build`, Twine, trusted publishing, PyPI release problems, or making a Python package installable outside the repo.
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: humanizer
+domain: writing
 description: |
   Use when text sounds AI-generated, robotic, generic, corporate, over-smoothed,
   or unlike the user's voice. Also use when the user asks to humanize text,

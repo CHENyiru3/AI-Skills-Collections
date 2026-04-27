@@ -1,5 +1,6 @@
 ---
 name: anndatar
+domain: compbio
 description: |
   Convert between .h5ad (AnnData) files and R single-cell data formats (Seurat, SingleCellExperiment) using anndataR.
   Use this skill whenever the user mentions: h5ad files, AnnData objects, converting between Python scanpy and R (Seurat/SingleCellExperiment),

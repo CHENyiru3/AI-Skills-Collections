@@ -1,5 +1,6 @@
 ---
 name: scanorama
+domain: compbio
 description: Python package for single-cell data integration. Use for batch correction and integrating multiple single-cell datasets. Fast and accurate.
 license: BSD license
 metadata:

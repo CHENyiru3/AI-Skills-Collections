@@ -1,5 +1,6 @@
 ---
 name: seurat-v5
+domain: compbio
 description: R package for multi-modal single-cell data integration (v5). Use for analyzing CITE-seq, ADT, and other multi-modal single-cell data. For Python use scanpy with multi-omics.
 license: MIT license
 metadata:
