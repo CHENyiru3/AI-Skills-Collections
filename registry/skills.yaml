@@ -2297,7 +2297,7 @@ skills:
     profiles: []
     taskpacks: []
   chen-academic-page-maintainer:
-    name: Chen Academic Page Maintainer
+    name: CHEN Academic Page Maintainer
     canonical_path: skills-market/frontend/site-maintenance/chen-academic-page-maintainer
     old_paths:
     - Font_end/chen-academic-page-maintainer
@@ -2308,6 +2308,8 @@ skills:
     - website
     - personal-page
     - maintenance
+    - jekyll
+    - research-radar
     supported_hosts:
     - macos
     - linux

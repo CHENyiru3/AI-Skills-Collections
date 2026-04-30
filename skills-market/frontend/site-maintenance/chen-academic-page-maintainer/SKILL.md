@@ -1,6 +1,5 @@
 ---
 name: chen-academic-page-maintainer
-domain: frontend
 description: Maintain this specific academic website repo safely and consistently. Use this skill whenever the user asks to update, review, polish, reorganize, or extend this website, especially when the request touches homepage identity statements, publications, CV assets, shared templates, or duplicated academic content.
 ---
 
@@ -14,12 +13,14 @@ This skill is intentionally conservative. If a situation is not explicitly cover
 
 ## Repo map
 
-Read these references before editing:
+Read these references before editing. They are skill-local files — load them with `skill_view(name='chen-academic-page-maintainer', file_path='references/...')`. Do NOT use `read_file` with a bare relative path; that will resolve against the working directory and fail in cron/workdir contexts.
 - `references/repo-map.md`
 - `references/edit-rules.md`
 - `references/content-contracts.md`
 - `references/style-preferences.md`
 - `references/skill-evolution.md`
+
+**Workdir note:** When running as a cron job with a specific workdir, these reference files must exist in `<workdir>/references/` — not just in the skill directory. Cron agents resolve relative paths against the workdir. Copy them from `~/.hermes/skills/chen-academic-page-maintainer/references/` and add `references/` to the workdir's `.gitignore`.
 
 Primary repo locations:
 - Homepage: `_pages/about.md`
@@ -28,6 +29,10 @@ Primary repo locations:
 - CV page: `_pages/cv.md`
 - Life page: `_pages/life.md`
 - News page: `_pages/news.md`
+- Research Radar page: `_pages/research-radar.md`
+- Research Radar digests: `_research_radar/YYYY-MM-DD.md`
+- Research Radar feed: `_pages/research-radar-feed.xml`
+- Research Radar layouts: `_layouts/research_radar.liquid`, `_includes/research_radar_sections.liquid`, `_includes/research_radar_article.liquid`
 - Publications data: `_bibliography/papers.bib`
 - CV data: `_data/cv.yml`
 - Social data: `_data/socials.yml`
@@ -45,7 +50,117 @@ Primary repo locations:
 7. After the user resolves an uncovered case, ask whether this rule should be added to the skill for future reuse.
 8. Verify mirrored facts across homepage, CV, publications, and news.
 
-## Edit permissions
+## Research Radar maintenance
+
+### Source discipline (critical)
+
+- **Recommendations (articles in the digest)**: use ONLY unread RSS articles from NetNewsWire AOP feeds. Never use Zotero papers for recommendations — Boss already added those manually.
+- **Hot topic signal**: use ONLY Zotero recent additions as a read-only pattern detector. Detect themes from what Boss is collecting, but do NOT expose private Zotero details.
+- **Hallucination rule**: fewer real articles > made-up ones. Every paper must have a verified URL from RSS. Include DOI when available.
+
+### NetNewsWire AOP feeds (query for unread articles)
+
+NNW database: `~/Library/Containers/com.ranchero.NetNewsWire-Evergreen/Data/Library/Application Support/NetNewsWire/Accounts/OnMyMac/DB.sqlite3`
+
+AOP feed IDs (used as `feedID` in `articles` table):
+- `https://www.cell.com/cell/inpress.rss` — Cell
+- `https://www.cell.com/cell-systems/inpress.rss` — Cell Systems
+- `https://www.nature.com/nbt/journal/vaop/ncurrent/rss.rdf` — Nature Biotechnology
+- `https://www.nature.com/ng/journal/vaop/ncurrent/rss.rdf` — Nature Genetics
+- `https://www.nature.com/ni/journal/vaop/ncurrent/rss.rdf` — Nature Immunology
+- `https://www.nature.com/nm/journal/vaop/ncurrent/rss.rdf` — Nature Medicine
+- `https://www.nature.com/nmeth/journal/vaop/ncurrent/rss.rdf` — Nature Methods
+- `http://www.sciencemag.org/rss/current.xml` — Science
+
+Filter by Boss's interests: spatial omics/transcriptomics/multi-omics, single-cell, computational immunology, tumor microenvironment, immunotherapy, CAR-T, macrophage/T cell biology, biomedical AI, foundation models, representation learning, bioinformatics methods, translational cancer biology.
+
+### Digest structure
+
+Each `_research_radar/YYYY-MM-DD.md` uses this YAML front matter with THREE article sections (counts are dynamic, 3-6 each — fewer is fine if signal is thin):
+
+```yaml
+layout: research_radar
+title: "Research Radar — YYYY-MM-DD"
+date: YYYY-MM-DD
+generated_at: "YYYY-MM-DD HH:MM +0800"
+provider: "DeepSeek-V4-Pro"
+scope: "Academic articles only"
+hot_topic:
+  title: "Optional theme title"
+  summary: "Optional 1-sentence summary"
+  signals: ["Evidence signal 1", "Evidence signal 2"]
+computational_articles:  # dynamic count, computational/AI/methods
+  - rank: 1
+    title: "..."
+    authors: "First Author et al."
+    source: "Journal"
+    published: "YYYY-MM-DD"
+    url: "https://..."
+    doi: "10.xxxx/..."
+    article_type: "research article"
+    topics: ["topic1", "topic2"]
+    recommendation: "READ FULL"
+    summary: "One concise factual summary from RSS."
+    why_it_matters: "Scientific significance."
+    why_for_me: "Why relevant to Boss's interests."
+biomedicine_articles:  # dynamic count, biomedical discoveries
+  # same shape, items relevant to Boss's bio interests (can be experimental)
+field_articles:  # dynamic count, AI-related breakthroughs from NON-biomedical fields
+  # same shape, items must have an AI angle and come from outside biomedicine
+  # (robotics, AI safety, AI+education, AI+physics, AI+climate, etc.)
+```
+
+The template (`_includes/research_radar_sections.liquid`) supports: `computational_articles`, `biomedicine_articles`, `field_articles` (current), plus legacy `relevant_articles` / `breakthrough_articles` for backward compatibility. Section headings are plain labels ("Computational", "Biomedicine", "Other Fields") — no "Top N" prefix; the count badge on the side shows the dynamic count.
+
+No `zotero_candidate` field — Boss removed it. Do not include it in any new digest.
+
+**Field type contract (critical for RSS feed and Jekyll build):**
+Every article in any section MUST use these exact types:
+- `doi`: string, NEVER null. Use `""` when no DOI available. Null dois cause Liquid `append` filter crashes in `research-radar-feed.xml`.
+- `topics`: array, NEVER null. Use `[]` when no topics. Non-array topics crash Liquid `for` loops.
+- All string fields: use empty string `""` for missing values, never `null` or omit the key.
+- Abstract is optional but prefer `""` over null if absent.
+Always run the null-doi and array-topics checks (see Post-generation workflow) before committing.
+
+Computational articles must feature: deep learning, representation learning, graph neural networks, foundation models, algorithm development, computational biology tools, bioinformatics methods. Pure biology/experimental papers go in biomedicine_articles, never in computational_articles.
+
+Other Fields (field_articles) must feature AI-related content from non-biomedical domains. The Science RSS feed is a good source — look for AI-related research articles, reviews, or editorials about AI in fields like robotics, physics, climate, materials, education, or policy. Exclude purely non-AI content (geology, primatology, astrophysics without AI angle).
+
+### Post-generation workflow
+
+After writing the digest:
+1. Validate YAML: `python3 -c "import yaml; fm=yaml.safe_load(open('_research_radar/YYYY-MM-DD.md').read().split('---\\n',2)[1]); print(f'comp:{len(fm.get(\\\"computational_articles\\\",[]))} biomed:{len(fm.get(\\\"biomedicine_articles\\\",[]))} fields:{len(fm.get(\\\"field_articles\\\",[]))}')\"`
+2. Check for null dois (MUST pass — causes Liquid build error): `python3 -c "import yaml; d=yaml.safe_load(open('_research_radar/YYYY-MM-DD.md').read().split('---\\n',2)[1]); bad=[(k,a['rank']) for k in ['computational_articles','biomedicine_articles','field_articles'] for a in d.get(k,[]) if a.get('doi') is None]; assert not bad, f'NULL dois: {bad}'; print('OK')"`
+3. Check topics are arrays (MUST pass): `python3 -c "import yaml; d=yaml.safe_load(open('_research_radar/YYYY-MM-DD.md').read().split('---\\n',2)[1]); bad=[(k,a['rank']) for k in ['computational_articles','biomedicine_articles','field_articles'] for a in d.get(k,[]) if not isinstance(a.get('topics'),list)]; assert not bad, f'Non-array topics: {bad}'; print('OK')"`
+4. Auto-format with prettier: `npx prettier --write "_includes/research_radar_sections.liquid" "_includes/research_radar_article.liquid" "_layouts/research_radar.liquid" "_pages/research-radar.md" "_pages/research-radar-feed.xml" "_includes/research_radar_item.xml" "_research_radar/YYYY-MM-DD.md"`
+5. Git push: `git add _research_radar/YYYY-MM-DD.md && git commit -m "Research Radar: YYYY-MM-DD" && git push`. If prettier touched other files, `git add` those too — but only Research Radar files.
+6. Never add/commit/push other files. Never touch `_news/`. Never mark NNW articles as read. Never edit Zotero.
+
+### Strict exclusions
+
+Never include: AI industry news, product announcements, blogs, newsletters, non-academic press releases, author corrections, publisher corrections, Research Radar's own RSS feed, or items without a verifiable source URL.
+
+### Cron job reference
+
+- Job ID: `bcd10b8825f3`, name: "Research Radar daily digest"
+- Schedule: `0 11 * * *` (daily at 11:00 AM Asia/Shanghai)
+- Provider: `deepseek` / Model: `deepseek-v4-pro`
+- Workdir: `/Users/eric_yiru/Desktop/Github/CHENyiru3.github.io`
+- Toolsets: `terminal`, `file`, `web`
+- Preloads `chen-academic-page-maintainer` skill
+- Deliver: `local` (output saved to `~/.hermes/cron/output/`)
+
+When recreating or updating: keep the prompt under ~2000 chars (long prompts cause model truncation errors), explicitly set provider/model, include the three-section structure and AI-focused Other Fields requirement, and ensure git push is in the prompt.
+
+### RSS feed synchronization and pitfalls
+
+When the digest section keys change (e.g., `relevant_articles` → `computational_articles`), the RSS feed template at `_pages/research-radar-feed.xml` must also be updated. The template iterates over specific YAML keys to generate `<item>` entries. If a digest uses new keys that the feed template doesn't recognize, the feed will appear valid but contain zero items. Always check `feed.xml` output after restructuring digest keys.
+
+**Liquid HTML-in-string pitfall**: Never embed HTML tags with attributes inside Liquid `append` chains in the feed template. The Jekyll Liquid parser interprets `<a href="...">` as template syntax, causing "wrong number of arguments" and "Unexpected character /" errors that break the entire GitHub Pages build. The fix: use a separate `_includes/research_radar_item.xml` file with flat text-only Liquid assignments, and use `{% include %}` from the feed template. The item include uses simple `{{ field | xml_escape }}` calls without HTML markup.
+
+The item include file is at `_includes/research_radar_item.xml`. It handles article rendering via `{% include research_radar_item.xml article=article digest=digest section="SectionName" %}`.
+
+---
 
 ### Freely editable sections
 
