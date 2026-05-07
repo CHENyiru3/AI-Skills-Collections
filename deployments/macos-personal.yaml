@@ -11,6 +11,7 @@ skills:
   - zotpilot
   - latex-writing
   - compile-latex
+  - beamer  # Elegant Slides (CC BY 4.0) — Beamer presentation workflow
   - obsidian-markdown
   - obsidian-cli
   - obsidian-bases
