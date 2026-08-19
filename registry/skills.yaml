@@ -2450,6 +2450,104 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
+    profiles: []
+    taskpacks: []
+  beamer:
+    id: beamer
+    name: Beamer
+    canonical_path: skills-market/writing/beamer
+    domain: writing
+    category: presentations
+    tags:
+    - beamer
+    - latex
+    - slides
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: missing
+    dependencies: []
+    profiles:
+    - macos-personal
+    taskpacks: []
+  the-pirate-bay:
+    id: the-pirate-bay
+    name: The Pirate Bay
+    canonical_path: skills-market/platforms/the-pirate-bay
+    domain: platforms
+    category: media
+    tags:
+    - torrent
+    - search
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: missing
+    dependencies: []
+    profiles:
+    - macos-personal
+    taskpacks: []
+  clawd-animation:
+    id: clawd-animation
+    name: Clawd Animation
+    canonical_path: skills-market/frontend/clawd-animation
+    domain: frontend
+    category: animation
+    tags:
+    - animation
+    - html
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: missing
+    dependencies: []
+    profiles:
+    - macos-personal
+    taskpacks: []
+  clawd-animation-lite:
+    id: clawd-animation-lite
+    name: Clawd Animation Lite
+    canonical_path: skills-market/frontend/clawd-animation-lite
+    domain: frontend
+    category: animation
+    tags:
+    - animation
+    - html
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: missing
+    dependencies: []
+    profiles:
+    - macos-personal
+    taskpacks: []
+  neat-freak:
+    id: neat-freak
+    name: Neat Freak
+    canonical_path: skills-market/agents/neat-freak
+    domain: agents
+    category: maintenance
+    tags:
+    - maintenance
+    - cleanup
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: missing
+    dependencies: []
+    profiles:
+    - macos-personal
+    taskpacks: []
   codebti:
     name: CODEBTI
     canonical_path: skills-market/projects/codebti
