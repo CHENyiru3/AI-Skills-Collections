@@ -12,6 +12,7 @@ skills:
   - latex-writing
   - compile-latex
   - beamer  # Elegant Slides (CC BY 4.0) — Beamer presentation workflow
+  - duke-nus-beamer  # Duke-NUS Beamer presentation workflow
   - obsidian-markdown
   - obsidian-cli
   - obsidian-bases
