@@ -1,6 +1,6 @@
 # Computational Biology Skills Catalog
 
-This catalog covers the 35 skills under `skills-market/compbio/`.
+This catalog covers the 36 skills under `skills-market/compbio/`.
 
 ## Single-Cell Analysis
 
@@ -76,8 +76,9 @@ This catalog covers the 35 skills under `skills-market/compbio/`.
 | [`draft-spatial-methods`](../../skills-market/compbio/expert-workflows/draft-spatial-methods/SKILL.md) | `compbio/expert-workflows/draft-spatial-methods` | Methods-section drafting for spatial and single-cell workflows |
 | [`explain-bio-dl-model`](../../skills-market/compbio/expert-workflows/explain-bio-dl-model/SKILL.md) | `compbio/expert-workflows/explain-bio-dl-model` | Manuscript-ready explanations of deep learning models |
 | [`critique-bio-manuscript`](../../skills-market/compbio/expert-workflows/critique-bio-manuscript/SKILL.md) | `compbio/expert-workflows/critique-bio-manuscript` | Peer-review style critique of bioinformatics manuscripts |
+| [`computational-biology-retrospective`](../../skills-market/compbio/expert-workflows/computational-biology-retrospective/SKILL.md) | `compbio/expert-workflows/computational-biology-retrospective` | Index-led experiment review, biological and technical outcome assessment, and evidence-linked Markdown lessons for future work |
 
 ## Notes
 
 - This domain mixes wet-lab-adjacent analysis workflows, data-source access, and manuscript-support utilities.
-- `expert-workflows/` contains tools and manuscript-support skills that don't fit cleanly into other categories.
+- `expert-workflows/` contains tools, research retrospectives, and manuscript-support skills that don't fit cleanly into other categories.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Computational Biology Retrospective"
+  short_description: "Consolidate experiment evidence into reusable lessons"
+  default_prompt: "Use $computational-biology-retrospective to review this project folder, follow its experiment index, and write an evidence-linked EXPERIENCE.md covering outcomes, biological and technical explanations, and reusable lessons."

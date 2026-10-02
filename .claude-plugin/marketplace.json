@@ -61,6 +61,15 @@
       ]
     },
     {
+      "name": "compbio",
+      "description": "Computational biology — single-cell, spatial omics, multi-omics, databases, workflows",
+      "source": "./skills-market/compbio",
+      "strict": false,
+      "skills": [
+        "./compbio/expert-workflows/computational-biology-retrospective"
+      ]
+    },
+    {
       "name": "writing",
       "description": "Academic writing, literature review, LaTeX, Obsidian, and knowledge management",
       "source": "./skills-market/writing",

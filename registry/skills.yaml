@@ -1636,6 +1636,28 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
+  computational-biology-retrospective:
+    name: Computational Biology Retrospective
+    canonical_path: skills-market/compbio/expert-workflows/computational-biology-retrospective
+    old_paths: []
+    domain: compbio
+    category: tools
+    tags:
+    - experiment-review
+    - algorithm-development
+    - biological-validation
+    - reproducibility
+    - research-memory
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: computational-biology-retrospective
+    dependencies: []
+    profiles: []
+    taskpacks: []
   critique-bio-manuscript:
     name: Critique Bio Manuscript
     canonical_path: skills-market/compbio/expert-workflows/critique-bio-manuscript

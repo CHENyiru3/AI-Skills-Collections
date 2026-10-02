@@ -1,6 +1,6 @@
 # AI Skills — Eric Yiru's Personal Library
 
-> **112 skills** for Claude Code, Codex, and AI coding agents.
+> **113 skills** for Claude Code, Codex, and AI coding agents.
 > Computational biology · Deep learning · Academic writing · Document automation · and more.
 
 ---
@@ -17,7 +17,7 @@ When you ask me to analyze a spatial transcriptomics dataset, fine-tune a Llama 
 ## Skills at a Glance
 
 ```
-compbio (35)  ████████████████████████████████████  single-cell · spatial omics · multi-omics · databases · workflows
+compbio (36)  █████████████████████████████████████  single-cell · spatial omics · multi-omics · databases · workflows
 ai-ml  (13)  █████████████  deep learning · LLM fine-tuning · multimodal generation · distributed training
 programming (13) █████████████  project scaffolding · testing · packaging · API design
 writing  (12)  ████████████  academic editing · LaTeX · Zotero · Obsidian
@@ -32,7 +32,7 @@ core     (4) ████  skill authoring · security · bitwarden
 
 ## By Domain
 
-### Computational Biology — 35 skills
+### Computational Biology — 36 skills
 
 Single-cell RNA-seq, spatial omics, multi-omics integration, databases, and workflow engineering.
 
@@ -48,7 +48,7 @@ Single-cell RNA-seq, spatial omics, multi-omics integration, databases, and work
 | Multi-omics | `pydeseq2`, `archr`, `signac`, `scribble`, `uniprot`, `metabolomics-workbench` |
 | Databases | `kegg`, `reactome`, `geo`, `ensembl`, `human-cell-atlas` |
 | Workflows | `snakemake`, `nextflow` |
-| Expert workflows | `draft-spatial-methods`, `explain-bio-dl-model`, `critique-bio-manuscript` |
+| Expert workflows | `draft-spatial-methods`, `explain-bio-dl-model`, `critique-bio-manuscript`, [`computational-biology-retrospective`](skills-market/compbio/expert-workflows/computational-biology-retrospective/SKILL.md) |
 
 ### AI / ML — 12 skills
 
