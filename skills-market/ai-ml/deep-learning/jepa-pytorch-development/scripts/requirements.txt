@@ -1,0 +1,3 @@
+# Optional CPU contract smoke test. Reuse the project PyTorch build when available.
+# Validated with PyTorch 2.15.0; choose the build appropriate to the host.
+torch

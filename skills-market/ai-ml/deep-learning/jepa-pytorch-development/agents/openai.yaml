@@ -1,0 +1,4 @@
+interface:
+  display_name: "JEPA PyTorch Development"
+  short_description: "Build and debug JEPA models from code-backed recipes"
+  default_prompt: "Use $jepa-pytorch-development to design, implement, or debug a JEPA model in PyTorch, selecting the appropriate training recipe and validating its data and gradient contracts."

@@ -1,12 +1,19 @@
 # AI/ML Skills Catalog
 
-This catalog covers the 13 skills under `skills-market/ai-ml/`.
+This catalog covers the 15 skills under `skills-market/ai-ml/`.
+
+## Model Theory
+
+| Skill | Location | Focus |
+|-------|----------|-------|
+| [`latent-identifiability`](../../skills-market/ai-ml/theory/latent-identifiability/SKILL.md) | `ai-ml/theory/latent-identifiability` | Formulate and audit latent-model identifiability proofs, including symmetries, assumptions, lemmas, and implementation limits |
 
 ## Deep Learning
 
 | Skill | Location | Focus |
 |-------|----------|-------|
 | [`pytorch`](../../skills-market/ai-ml/deep-learning/pytorch/SKILL.md) | `ai-ml/deep-learning/pytorch` | Core PyTorch modeling and training workflows |
+| [`jepa-pytorch-development`](../../skills-market/ai-ml/deep-learning/jepa-pytorch-development/SKILL.md) | `ai-ml/deep-learning/jepa-pytorch-development` | JEPA recipe selection, latent prediction, masking, teacher/regularizer gradients, and causal world-model validation |
 
 ## LLM Ecosystem
 
@@ -32,7 +39,9 @@ This catalog covers the 13 skills under `skills-market/ai-ml/`.
 
 ## Notes
 
+- Use `latent-identifiability` for a model identification theorem, proof development, or counterexample audit.
 - Start with `pytorch` for custom model work.
+- Use `jepa-pytorch-development` for masked EMA-teacher JEPA, dense/deep supervision, LeJEPA/SIGReg, or action-conditioned latent prediction.
 - Layer `transformers`, `peft`, `trl`, and `bitsandbytes` on top when the task is model-centric.
 - Use `minimax-cli` when the task is MiniMax-specific or needs a terminal-driven multimodal generation workflow.
 - Use `accelerate` or `deepspeed` when scale or hardware complexity becomes the bottleneck.

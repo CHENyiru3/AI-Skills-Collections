@@ -1,0 +1,4 @@
+interface:
+  display_name: "Latent Identifiability"
+  short_description: "Develop and audit latent-model identifiability proofs"
+  default_prompt: "Use $latent-identifiability to formalize my model's identification target, test its symmetries, and develop a proof with explicit assumptions and implementation limits."

@@ -2591,3 +2591,77 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
+  asd-ste100:
+    id: asd-ste100
+    name: ASD-STE100 Simplified Technical English
+    canonical_path: skills-market/writing/technical/asd-ste100
+    old_paths: []
+    domain: writing
+    category: technical
+    tags:
+    - technical-writing
+    - simplified-technical-english
+    - disambiguation
+    - agent-instructions
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    dependencies: []
+    profiles:
+    - macos-personal
+    - writing-workstation
+    taskpacks: []
+  latent-identifiability:
+    id: latent-identifiability
+    name: Latent Identifiability
+    canonical_path: skills-market/ai-ml/theory/latent-identifiability
+    old_paths: []
+    domain: ai-ml
+    category: theory
+    tags:
+    - identifiability
+    - mathematical-proof
+    - latent-variable-models
+    - nonlinear-ica
+    - variational-inference
+    - counterexamples
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    dependencies: []
+    profiles: []
+    taskpacks:
+    - pytorch-model-dev
+  jepa-pytorch-development:
+    id: jepa-pytorch-development
+    name: JEPA PyTorch Development
+    canonical_path: skills-market/ai-ml/deep-learning/jepa-pytorch-development
+    old_paths: []
+    domain: ai-ml
+    category: deep-learning
+    tags:
+    - jepa
+    - pytorch
+    - self-supervised-learning
+    - representation-learning
+    - world-models
+    - sigreg
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    - server
+    - hpc
+    - gpu-server
+    install_weight: light
+    status: active
+    dependencies: []
+    profiles: []
+    taskpacks:
+    - pytorch-model-dev

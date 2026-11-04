@@ -1,6 +1,6 @@
 # AI Skills — Eric Yiru's Personal Library
 
-> **113 skills** for Claude Code, Codex, and AI coding agents.
+> **116 skills** for Claude Code, Codex, and AI coding agents.
 > Computational biology · Deep learning · Academic writing · Document automation · and more.
 
 ---
@@ -18,9 +18,9 @@ When you ask me to analyze a spatial transcriptomics dataset, fine-tune a Llama 
 
 ```
 compbio (36)  █████████████████████████████████████  single-cell · spatial omics · multi-omics · databases · workflows
-ai-ml  (13)  █████████████  deep learning · LLM fine-tuning · multimodal generation · distributed training
+ai-ml  (15)  ███████████████  identifiability theory · JEPA · deep learning · LLM fine-tuning · distributed training
 programming (13) █████████████  project scaffolding · testing · packaging · API design
-writing  (12)  ████████████  academic editing · LaTeX · Zotero · Obsidian
+writing  (13)  █████████████  academic editing · LaTeX · Zotero · Obsidian
 documents (19) ███████████████████  office automation · design · web artifacts
 agents   (7)  ███████  Claude Code · Codex · MCP · agent guidelines
 platforms (6) ██████  GitHub workflows · code review · PR management
@@ -50,13 +50,14 @@ Single-cell RNA-seq, spatial omics, multi-omics integration, databases, and work
 | Workflows | `snakemake`, `nextflow` |
 | Expert workflows | `draft-spatial-methods`, `explain-bio-dl-model`, `critique-bio-manuscript`, [`computational-biology-retrospective`](skills-market/compbio/expert-workflows/computational-biology-retrospective/SKILL.md) |
 
-### AI / ML — 12 skills
+### AI / ML — 15 skills
 
-Deep learning, LLM fine-tuning, and distributed training infrastructure.
+Latent-model identifiability, JEPA model development, deep learning, LLM fine-tuning, and distributed training infrastructure.
 
 | Category | Skills |
 |---------|--------|
-| Deep learning | `pytorch` |
+| Model theory | [`latent-identifiability`](skills-market/ai-ml/theory/latent-identifiability/SKILL.md) |
+| Deep learning | `pytorch`, [`jepa-pytorch-development`](skills-market/ai-ml/deep-learning/jepa-pytorch-development/SKILL.md) |
 | LLM ecosystem | `transformers`, `huggingface-hub`, `peft`, `trl`, `bitsandbytes`, `cursor-usage-checker`, `browser-use`, `minimax-cli` |
 | Training | `pytorch-lightning`, `accelerate`, `datasets`, `deepspeed` |
 
@@ -71,13 +72,14 @@ Python library development from zero to production.
 | Quality | `security-audit`, `performance`, `api-design`, `library-review`, `community` |
 | Utilities | `sqlite`, `jupyter` |
 
-### Writing — 12 skills
+### Writing — 13 skills
 
 Academic writing, literature review, LaTeX, and Obsidian knowledge management.
 
 | Category | Skills |
 |---------|--------|
 | Academic | `academic-writing-editor`, `humanizer`, `humanizer-zh` |
+| Technical English | [`asd-ste100`](skills-market/writing/technical/asd-ste100/SKILL.md) |
 | Literature | `zotpilot` |
 | LaTeX | `latex-writing`, `compile-latex` |
 | Obsidian | `obsidian-markdown`, `obsidian-cli`, `obsidian-bases`, `json-canvas`, `defuddle`, `wiki-keeper` |

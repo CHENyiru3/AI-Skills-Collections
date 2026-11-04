@@ -3,6 +3,8 @@ id: pytorch-model-dev
 description: PyTorch model development, training, debugging, and optimization workflow.
 skills:
   - pytorch
+  - jepa-pytorch-development
+  - latent-identifiability
   - accelerate
   - datasets
   - pytorch-lightning

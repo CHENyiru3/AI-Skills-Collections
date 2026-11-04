@@ -1,6 +1,6 @@
 # Writing Skills Catalog
 
-This catalog covers the 12 skills under `skills-market/writing/`.
+This catalog covers the 13 skills under `skills-market/writing/`.
 
 ## General Academic
 
@@ -9,6 +9,14 @@ This catalog covers the 12 skills under `skills-market/writing/`.
 | [`academic-writing-editor`](../../skills-market/writing/academic/academic-writing-editor/SKILL.md) | `writing/academic/academic-writing-editor` | Structural editing for academic manuscripts |
 | [`humanizer`](../../skills-market/writing/academic/humanizer/SKILL.md) | `writing/academic/humanizer` | Cleanup pass for AI-marked, robotic, or overly corporate prose |
 | [`humanizer-zh`](../../skills-market/writing/academic/humanizer-zh/SKILL.md) | `writing/academic/humanizer-zh` | Chinese-language cleanup for prose that sounds translated, stiff, or AI-generated |
+
+## Technical English
+
+| Skill | Location | Focus |
+|-------|----------|-------|
+| [`asd-ste100`](../../skills-market/writing/technical/asd-ste100/SKILL.md) | `writing/technical/asd-ste100` | Simplified Technical English for tool descriptions, error messages, prompts, and agent instructions |
+
+Source: [danyuchn/asd-ste100-skill](https://github.com/danyuchn/asd-ste100-skill), version 0.4.0. The upstream MIT license, reference rules, examples, and linter are included.
 
 ## Literature and Research
 

@@ -57,7 +57,9 @@
       "source": "./skills-market/ai-ml",
       "strict": false,
       "skills": [
-        "./ai-ml/llm/minimax-cli"
+        "./ai-ml/deep-learning/jepa-pytorch-development",
+        "./ai-ml/llm/minimax-cli",
+        "./ai-ml/theory/latent-identifiability"
       ]
     },
     {
@@ -86,7 +88,8 @@
         "./writing/obsidian/obsidian-bases",
         "./writing/obsidian/obsidian-cli",
         "./writing/obsidian/obsidian-markdown",
-        "./writing/obsidian/wiki-keeper"
+        "./writing/obsidian/wiki-keeper",
+        "./writing/technical/asd-ste100"
       ]
     },
     {
