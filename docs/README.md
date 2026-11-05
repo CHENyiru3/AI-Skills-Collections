@@ -19,7 +19,7 @@ Use the top-level [README.md](../README.md) for repository overview, installatio
 | [Frontend Skills](./catalogs/font-end.md) | Website maintenance and repo-specific frontend upkeep skills |
 | [AI/ML Skills](./catalogs/ai-ml.md) | Model identifiability, deep learning, LLM tooling, and training infrastructure |
 | [Python Skills](./catalogs/python.md) | Python library engineering, quality, packaging, and release workflows |
-| [Computational Biology Skills](./catalogs/computational-biology.md) | Single-cell, multi-omics, spatial omics, databases, and workflow tools |
+| [Computational Biology Skills](./catalogs/computational-biology.md) | Single-cell, multi-omics, spatial omics, structural biology, databases, and workflow tools |
 | [Writing Skills](./catalogs/writing.md) | Academic editing, technical English, LaTeX, and note-taking |
 
 ## Guides

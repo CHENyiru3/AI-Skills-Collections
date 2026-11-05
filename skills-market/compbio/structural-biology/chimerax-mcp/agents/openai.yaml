@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChimeraX MCP"
+  short_description: "Set up and use ChimeraX through a local MCP bridge"
+  default_prompt: "Use $chimerax-mcp to set up or operate UCSF ChimeraX through the local MCP bridge, verify the target session, and check the result."

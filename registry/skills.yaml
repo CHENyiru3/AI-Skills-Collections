@@ -1636,6 +1636,29 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
+  chimerax-mcp:
+    id: chimerax-mcp
+    name: ChimeraX MCP
+    canonical_path: skills-market/compbio/structural-biology/chimerax-mcp
+    old_paths: []
+    domain: compbio
+    category: structural-biology
+    tags:
+    - chimerax
+    - mcp
+    - codex
+    - molecular-visualization
+    - structural-biology
+    - session-management
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: medium
+    status: active
+    dependencies: []
+    profiles: []
+    taskpacks: []
   computational-biology-retrospective:
     name: Computational Biology Retrospective
     canonical_path: skills-market/compbio/expert-workflows/computational-biology-retrospective

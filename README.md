@@ -1,6 +1,6 @@
 # AI Skills — Eric Yiru's Personal Library
 
-> **116 skills** for Claude Code, Codex, and AI coding agents.
+> **117 skills** for Claude Code, Codex, and AI coding agents.
 > Computational biology · Deep learning · Academic writing · Document automation · and more.
 
 ---
@@ -17,7 +17,7 @@ When you ask me to analyze a spatial transcriptomics dataset, fine-tune a Llama 
 ## Skills at a Glance
 
 ```
-compbio (36)  █████████████████████████████████████  single-cell · spatial omics · multi-omics · databases · workflows
+compbio (37)  █████████████████████████████████████  single-cell · spatial omics · multi-omics · structural biology · databases · workflows
 ai-ml  (15)  ███████████████  identifiability theory · JEPA · deep learning · LLM fine-tuning · distributed training
 programming (13) █████████████  project scaffolding · testing · packaging · API design
 writing  (13)  █████████████  academic editing · LaTeX · Zotero · Obsidian
@@ -32,9 +32,9 @@ core     (4) ████  skill authoring · security · bitwarden
 
 ## By Domain
 
-### Computational Biology — 36 skills
+### Computational Biology — 37 skills
 
-Single-cell RNA-seq, spatial omics, multi-omics integration, databases, and workflow engineering.
+Single-cell RNA-seq, spatial omics, multi-omics integration, structural biology, databases, and workflow engineering.
 
 | Category | Skills |
 |---------|--------|
@@ -46,6 +46,7 @@ Single-cell RNA-seq, spatial omics, multi-omics integration, databases, and work
 | Spatial omics | `squidpy`, `giotto`, `spatialdata`, `vitessce` |
 | Platforms | `visium`, `stereo-seq` |
 | Multi-omics | `pydeseq2`, `archr`, `signac`, `scribble`, `uniprot`, `metabolomics-workbench` |
+| Structural biology | [`chimerax-mcp`](skills-market/compbio/structural-biology/chimerax-mcp/SKILL.md) |
 | Databases | `kegg`, `reactome`, `geo`, `ensembl`, `human-cell-atlas` |
 | Workflows | `snakemake`, `nextflow` |
 | Expert workflows | `draft-spatial-methods`, `explain-bio-dl-model`, `critique-bio-manuscript`, [`computational-biology-retrospective`](skills-market/compbio/expert-workflows/computational-biology-retrospective/SKILL.md) |

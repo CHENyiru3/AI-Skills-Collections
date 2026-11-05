@@ -68,7 +68,8 @@
       "source": "./skills-market/compbio",
       "strict": false,
       "skills": [
-        "./compbio/expert-workflows/computational-biology-retrospective"
+        "./compbio/expert-workflows/computational-biology-retrospective",
+        "./compbio/structural-biology/chimerax-mcp"
       ]
     },
     {

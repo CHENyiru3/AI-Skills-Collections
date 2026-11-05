@@ -1,6 +1,6 @@
 # Computational Biology Skills Catalog
 
-This catalog covers the 36 skills under `skills-market/compbio/`.
+This catalog covers the 37 skills under `skills-market/compbio/`.
 
 ## Single-Cell Analysis
 
@@ -37,6 +37,12 @@ This catalog covers the 36 skills under `skills-market/compbio/`.
 | [`scribble`](../../skills-market/compbio/multiomics/integration-tools/scribble/SKILL.md) | `compbio/multiomics/integration-tools/scribble` | Multi-omic integration across modalities |
 | [`metabolomics-workbench`](../../skills-market/compbio/multiomics/metabolomics/metabolomics-workbench/SKILL.md) | `compbio/multiomics/metabolomics/metabolomics-workbench` | NIH metabolomics database workflows |
 | [`uniprot`](../../skills-market/compbio/multiomics/proteomics/uniprot/SKILL.md) | `compbio/multiomics/proteomics/uniprot` | Protein search, retrieval, and ID mapping |
+
+## Structural Biology
+
+| Skill | Location | Focus |
+|-------|----------|-------|
+| [`chimerax-mcp`](../../skills-market/compbio/structural-biology/chimerax-mcp/SKILL.md) | `compbio/structural-biology/chimerax-mcp` | Install and troubleshoot the local ChimeraX MCP bridge for Codex, then visualize structures with explicit session targeting |
 
 ## Spatial Omics
 
