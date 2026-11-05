@@ -42,7 +42,7 @@ This catalog covers the 37 skills under `skills-market/compbio/`.
 
 | Skill | Location | Focus |
 |-------|----------|-------|
-| [`chimerax-mcp`](../../skills-market/compbio/structural-biology/chimerax-mcp/SKILL.md) | `compbio/structural-biology/chimerax-mcp` | Install and troubleshoot the local ChimeraX MCP bridge for Codex, then visualize structures with explicit session targeting |
+| [`chimerax-mcp`](../../skills-market/compbio/structural-biology/chimerax-mcp/SKILL.md) | `compbio/structural-biology/chimerax-mcp` | MCP/CLI-only structure visualization, chain controls, interchain hydrogen bonds, salt bridges, contacts, and electrostatic surfaces |
 
 ## Spatial Omics
 

@@ -68,7 +68,7 @@ For the lighter profile, use `args = ["-m", "chimerax_mcp", "serve", "--profile"
 
 ## Attach an existing ChimeraX window
 
-In that window's ChimeraX command line, enable its REST server on an available local port:
+If no REST server is available in the intended window, ask the **user** to enter this command there once, or use a documented existing CLI/API attachment facility. Do not use Computer Use or keyboard/mouse automation to enter it:
 
 ```text
 remotecontrol rest start port 8080 json true log true
@@ -82,11 +82,13 @@ Discovery scans common ports and ports known to the current bridge process; it i
 
 `doctor` checks executable discovery and REST reachability. In bridge 0.4.0, finding the executable alone can produce exit code zero; it does not prove a tool can open a model or export an image.
 
-Run the bundled helper with the bridge environment's Python. Replace `/absolute/path/to/skill` with the installed skill directory:
+For API-only verification, initialize the STDIO MCP server, list tools, check the intended session status and inspect its models. An isolated headless CLI calculation is another option; see [interface-analysis.md](interface-analysis.md#headless-cli-calculation). Neither requires an exported image or GUI automation.
+
+The bundled GUI/rendering helper is **opt-in installation verification**: it launches a dedicated application instance through the bridge and exports a PNG. Do not use it for no-export or view-only tasks. When rendering/export verification is authorized, run it with the bridge environment's Python and the explicit `--allow-export` flag. Replace `/absolute/path/to/skill` with the installed skill directory:
 
 ```bash
 .venv/bin/python /absolute/path/to/skill/scripts/smoke_test.py --help
-.venv/bin/python /absolute/path/to/skill/scripts/smoke_test.py
+.venv/bin/python /absolute/path/to/skill/scripts/smoke_test.py --allow-export
 ```
 
 The helper initializes the actual STDIO server, checks the required tool names, creates a **new** ChimeraX session, opens a generated four-atom glycine PDB, lists its model, and exports an 800 × 600 PNG. It prints the actual port and output directory, records the tool catalog and transcript, and leaves its dedicated test window open for inspection. Read the PNG to verify the rendered content. Test files go to a fresh temporary directory by default. `--output` accepts a new or empty directory; `--chimerax` selects a specific executable.

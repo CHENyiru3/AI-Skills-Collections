@@ -1,0 +1,346 @@
+diff --git a/README.md b/README.md
+index c06e004..c93154a 100644
+--- a/README.md
++++ b/README.md
+@@ -70,6 +70,23 @@ chimerax-mcp setup codex         # or any other client name
+ 
+ ## Commands
+ 
++### Local workflow refinements
++
++This checkout includes local changes to bridge 0.4.0: shared full/core server
++instructions for MCP/CLI-only operation and interface analysis, explicit-port
++failure without session redirection, post-split model ID reporting, and additional
++`find_hbonds` parameters: `restrict`, `salt_only`, `inter_submodel`,
++`make_pseudobonds`, and `log_details`. Setting `inter_model=False` now explicitly
++excludes cross-model H-bonds. Native `graphics silhouettes` is used for scene
++outlines. These changes have not been submitted upstream.
++
++For a count between two split chains without creating display objects, call
++`find_hbonds(target="#1.1/A & protein", restrict="#1.2/B & protein",
++inter_model=True, inter_submodel=True, make_pseudobonds=False, log_details=True,
++session_id=PORT)`, using the actual atomic model IDs and REST port. Generic
++contacts, salt bridges, and Coulombic surface potential require distinct
++interpretation; surface coloring is not a binding-energy measurement.
++
+ Once installed, these commands are available inside the venv (or via `./.venv/bin/chimerax-mcp`):
+ 
+ ```bash
+diff --git a/src/chimerax_mcp/chimera_rest.py b/src/chimerax_mcp/chimera_rest.py
+index 4447085..7939841 100644
+--- a/src/chimerax_mcp/chimera_rest.py
++++ b/src/chimerax_mcp/chimera_rest.py
+@@ -463,7 +463,8 @@ async def run_chimerax_command(
+     other ports are only probed if that fails. (ChimeraX's REST server handles
+     one request at a time, so probing before every command would double the
+     request count and queue probes behind in-flight commands.) An explicit
+-    ``port`` is used as-is and does not change the default.
++    ``port`` is used as-is and does not change the default. If that explicit port
++    is unreachable, fail without launching or selecting another instance.
+     """
+     explicit_port = port is not None
+     if port is None:
+@@ -503,6 +504,13 @@ async def run_chimerax_command(
+             raise Exception(_unexpected_response_message(port, str(exc))) from None
+         failure = exc
+ 
++    if explicit_port:
++        raise Exception(
++            f"Cannot connect to the requested ChimeraX session on port {port}. "
++            "No alternate session was selected or launched. Re-check the intended "
++            "window and its REST server before continuing."
++        ) from None
++
+     if not explicit_port:
+         # The default port is gone (or isn't ChimeraX); look for another instance.
+         alternative = await _find_running_port(exclude=port)
+diff --git a/src/chimerax_mcp/core_server.py b/src/chimerax_mcp/core_server.py
+index d640b3a..c2afe70 100644
+--- a/src/chimerax_mcp/core_server.py
++++ b/src/chimerax_mcp/core_server.py
+@@ -58,7 +58,7 @@ CORE_TOOL_NAMES: tuple[str, ...] = (
+     "get_command_documentation",
+ )
+ 
+-mcp = FastMCP("ChimeraX Bridge (Core)")
++mcp = FastMCP("ChimeraX Bridge (Core)", instructions=full_server.BRIDGE_INSTRUCTIONS)
+ 
+ for tool_name in CORE_TOOL_NAMES:
+     mcp.add_tool(getattr(full_server, tool_name), name=tool_name)
+diff --git a/src/chimerax_mcp/server.py b/src/chimerax_mcp/server.py
+index 45c429a..b2e91c3 100644
+--- a/src/chimerax_mcp/server.py
++++ b/src/chimerax_mcp/server.py
+@@ -8,6 +8,7 @@ import os
+ from typing import Optional
+ 
+ from mcp.server.fastmcp import FastMCP
++from chimerax_mcp.guidance import BRIDGE_INSTRUCTIONS
+ 
+ from chimerax_mcp.chimera_rest import (
+     run_chimerax_command,
+@@ -33,7 +34,7 @@ from chimerax_mcp.docs import (
+ 
+ logger = logging.getLogger("chimerax_mcp.tools")
+ 
+-mcp = FastMCP("ChimeraX Bridge")
++mcp = FastMCP("ChimeraX Bridge", instructions=BRIDGE_INSTRUCTIONS)
+ 
+ 
+ # ---------------------------------------------------------------------------
+@@ -854,19 +855,43 @@ async def measure_distance(atom1: str, atom2: str, session_id: Optional[int] = N
+ # ---------------------------------------------------------------------------
+ 
+ @mcp.tool()
+-async def find_hbonds(target: str = "all", inter_model: bool = False, session_id: Optional[int] = None) -> str:
++async def find_hbonds(
++    target: str = "all",
++    inter_model: bool = False,
++    session_id: Optional[int] = None,
++    restrict: Optional[str] = None,
++    salt_only: bool = False,
++    inter_submodel: Optional[bool] = None,
++    make_pseudobonds: bool = True,
++    log_details: bool = False,
++) -> str:
+     """Find hydrogen bonds in a structure.
+ 
+     Args:
+         target: Atomspec to analyze (default: 'all')
+         inter_model: If True, find H-bonds between different models (default: False)
+         session_id: ChimeraX session port (defaults to primary session)
++        restrict: 'cross', 'both', 'any', or a second atomspec for interface-only pairs
++        salt_only: Limit to ChimeraX's salt-bridge subset of charged-group H-bonds
++        inter_submodel: Enable for split sibling models; None uses ChimeraX's default
++        make_pseudobonds: False counts interactions without creating display objects
++        log_details: Include donor/acceptor pairs and distances in the response log
+     """
+-    command = f"hbonds {target}"
+-    if inter_model:
+-        command += " interModel true"
+-    result = await run_chimerax_command(command, session_id)
+-    context = f"Hydrogen bond analysis for {target}"
++    target = validate_atomspec(target)
++    command = f"hbonds {target} interModel {'true' if inter_model else 'false'}"
++    if restrict is not None:
++        restriction = restrict if restrict in ("cross", "both", "any") else validate_atomspec(restrict)
++        command += f" restrict {restriction}"
++    if salt_only:
++        command += " saltOnly true"
++    if inter_submodel is not None:
++        command += f" interSubmodel {'true' if inter_submodel else 'false'}"
++    if not make_pseudobonds:
++        command += " makePseudobonds false"
++    if log_details:
++        command += " log true"
++    result = await run_chimerax_command(command, session_id)
++    context = f"{'Salt bridge' if salt_only else 'Hydrogen bond'} analysis for {target}"
+     return format_chimerax_response(result, context)
+ 
+ 
+@@ -968,7 +993,7 @@ async def set_scene(
+     if lighting is not None:
+         commands.append(f"lighting {lighting}")
+     if silhouettes is not None:
+-        commands.append(f"set silhouettes {'true' if silhouettes else 'false'}")
++        commands.append(f"graphics silhouettes {'true' if silhouettes else 'false'}")
+     if camera is not None:
+         # ChimeraX's `camera` command uses 'mono'/'ortho', not the human-friendly
+         # 'perspective'/'orthographic' this tool documents — map them.
+@@ -2179,7 +2204,11 @@ async def split_model(
+     by: str = "chains",
+     session_id: Optional[int] = None,
+ ) -> str:
+-    """Split a model into separate sub-models.
++    """Split a model into separate sub-models and report their current IDs.
++
++    For separate Models panel chain controls, use by='chains'. Coordinates stay
++    together. Surfaces/coloring/visibility may need restoration using the NEW IDs;
++    inspect the result before subsequent commands, then refit the view if needed.
+ 
+     Args:
+         model: Model spec to split (e.g., '#1')
+@@ -2195,7 +2224,19 @@ async def split_model(
+     else:
+         raise ValueError(f"'by' must be 'chains', 'ligands', 'connected', or 'atoms'")
+     result = await run_chimerax_command(command, session_id)
+-    return format_chimerax_response(result, f"Split {model} by {by}")
++    response = format_chimerax_response(result, f"Split {model} by {by}")
++    response += (
++        "\nInspect the new IDs below before further commands. Surfaces, electrostatic "
++        "coloring and visibility may need restoration; refit the view afterward."
++    )
++    try:
++        response += "\nCurrent models after split:\n" + await list_models(session_id)
++    except Exception as exc:
++        response += (
++            f"\nSplit completed, but model inspection failed: {exc}. "
++            "Re-check this session and list models; do not repeat the split."
++        )
++    return response
+ 
+ 
+ # ---------------------------------------------------------------------------
+diff --git a/tests/test_chimera_rest.py b/tests/test_chimera_rest.py
+index 0166ac1..5773e96 100644
+--- a/tests/test_chimera_rest.py
++++ b/tests/test_chimera_rest.py
+@@ -48,10 +48,11 @@ class TestFindAvailablePort:
+     def test_skips_bound_ports(self):
+         import socket
+         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+-        sock.bind(("localhost", 49200))
++        sock.bind(("localhost", 0))
++        bound_port = sock.getsockname()[1]
+         try:
+-            port = find_available_port(49200)
+-            assert port != 49200
++            port = find_available_port(bound_port)
++            assert port != bound_port
+         finally:
+             sock.close()
+ 
+@@ -282,6 +283,21 @@ class TestPortSelection:
+         assert rest_state._default_port == 8080
+         assert 8082 in rest_state._instances
+ 
++    @pytest.mark.asyncio
++    @pytest.mark.parametrize("port", [8080, 8082])
++    async def test_failed_explicit_port_never_launches_or_redirects(self, rest_state, port):
++        session = _session(_raising(_refused()))
++        with patch("chimerax_mcp.chimera_rest.get_session", return_value=session), \
++             patch("chimerax_mcp.chimera_rest._find_running_port", AsyncMock(return_value=8083)) as find, \
++             patch("chimerax_mcp.chimera_rest.start_chimerax", AsyncMock()) as launch:
++            with pytest.raises(Exception, match="No alternate session"):
++                await run_chimerax_command("delete #1", port=port)
++        find.assert_not_awaited()
++        launch.assert_not_awaited()
++        assert session.get.call_count == 1
++        assert _called_port(session) == port
++        assert rest_state._default_port == 8080
++
+     @pytest.mark.asyncio
+     async def test_falls_back_to_other_running_instance(self, rest_state):
+         session = _session(_raising(_refused()), _ok_response())
+diff --git a/tests/test_tools.py b/tests/test_tools.py
+index b725ef2..61be616 100644
+--- a/tests/test_tools.py
++++ b/tests/test_tools.py
+@@ -856,7 +856,29 @@ class TestSplitModel:
+         mock_result = make_result()
+         with patch("chimerax_mcp.server.run_chimerax_command", new_callable=AsyncMock, return_value=mock_result) as mock:
+             await split_model("#1")
+-            assert "split #1" == mock.call_args[0][0]
++            assert "split #1" == mock.call_args_list[0][0][0]
++
++    @pytest.mark.asyncio
++    async def test_reports_new_ids_on_same_session(self):
++        from chimerax_mcp.server import split_model
++        rows = [{"spec": "#1.1", "value": "chain A", "class": "AtomicStructure"},
++                {"spec": "#1.2", "value": "chain B", "class": "AtomicStructure"}]
++        with patch("chimerax_mcp.server.run_chimerax_command", new_callable=AsyncMock,
++                   side_effect=[make_result(), make_result(json_values=[rows]),
++                                make_result(), make_result()]) as mock:
++            result = await split_model("#1", session_id=58180)
++        assert "#1.1" in result and "#1.2" in result
++        assert all(call.args[1] == 58180 for call in mock.call_args_list)
++        assert sum(call.args[0].startswith("split ") for call in mock.call_args_list) == 1
++
++    @pytest.mark.asyncio
++    async def test_inspection_failure_does_not_repeat_completed_split(self):
++        from chimerax_mcp.server import split_model
++        with patch("chimerax_mcp.server.run_chimerax_command", new_callable=AsyncMock,
++                   side_effect=[make_result(), RuntimeError("session disappeared")]) as mock:
++            result = await split_model("#1", session_id=58180)
++        assert "Split completed" in result and "do not repeat" in result
++        assert mock.await_count == 2
+ 
+ 
+ class TestCombineModels:
+@@ -1513,6 +1535,38 @@ class TestMeasureDistance:
+ 
+ 
+ class TestFindHbonds:
++    @pytest.mark.asyncio
++    async def test_limits_salt_bridges_to_split_interface(self):
++        from chimerax_mcp.server import find_hbonds
++        with patch("chimerax_mcp.server.run_chimerax_command", new_callable=AsyncMock,
++                   return_value=make_result()) as mock:
++            result = await find_hbonds("#1.1/A", inter_model=True, session_id=58180,
++                                       restrict="#1.2/B", salt_only=True, inter_submodel=True)
++        command, port = mock.call_args.args
++        assert "restrict #1.2/B" in command
++        assert "saltOnly true" in command
++        assert "interModel true" in command and "interSubmodel true" in command
++        assert port == 58180 and "Salt bridge" in result
++
++    @pytest.mark.asyncio
++    async def test_false_inter_model_is_explicit(self):
++        from chimerax_mcp.server import find_hbonds
++        with patch("chimerax_mcp.server.run_chimerax_command", new_callable=AsyncMock,
++                   return_value=make_result()) as mock:
++            await find_hbonds("#1", inter_model=False)
++        assert "interModel false" in mock.call_args.args[0]
++
++    @pytest.mark.asyncio
++    async def test_count_only_reports_pairs_without_creating_display_objects(self):
++        from chimerax_mcp.server import find_hbonds
++        with patch("chimerax_mcp.server.run_chimerax_command", new_callable=AsyncMock,
++                   return_value=make_result(logs={"info": ["7 hydrogen bonds"]})) as mock:
++            result = await find_hbonds("#1.1/A", inter_model=True, restrict="#1.2/B",
++                                       inter_submodel=True, make_pseudobonds=False, log_details=True)
++        assert "makePseudobonds false" in mock.call_args.args[0]
++        assert "log true" in mock.call_args.args[0]
++        assert "7 hydrogen bonds" in result
++
+     @pytest.mark.asyncio
+     async def test_returns_hbond_info(self):
+         from chimerax_mcp.server import find_hbonds
+@@ -1590,6 +1644,7 @@ class TestSetScene:
+             # 'orthographic' must be mapped to ChimeraX's native 'ortho' camera mode
+             assert "camera ortho" in calls
+             assert "camera orthographic" not in calls
++            assert "graphics silhouettes true" in calls
+ 
+ 
+ class TestCloseModels:
+diff --git a/src/chimerax_mcp/guidance.py b/src/chimerax_mcp/guidance.py
+new file mode 100644
+index 0000000..0ab2a6b
+--- /dev/null
++++ b/src/chimerax_mcp/guidance.py
+@@ -0,0 +1,34 @@
++"""Shared operating guidance returned during MCP initialization."""
++
++BRIDGE_INSTRUCTIONS = """Use MCP tools or documented CLI/API access; do not use Computer Use or GUI automation.
++Operate on the intended ChimeraX session and verify its models before changes.
++Respect view-only/no-export requests. For binding interfaces, consider hydrogen
++bonds, salt bridges, van der Waals contacts, and electrostatic interactions;
++these categories overlap and are not four independent energy measurements.
++Use current tool schemas and installed ChimeraX command documentation.
++If the current GUI has no REST endpoint, report that limitation or use a separate
++headless CLI computation for a calculation; do not operate the GUI to enable it.
++
++Pass session_id explicitly for an identified session. A failed explicit port
++does not auto-launch or redirect; re-check the session identity before continuing.
++GUI focus or a matching window title alone does not establish session identity.
++If a window becomes empty or changes unexpectedly, inspect sessions before
++reopening files or replaying a command sequence.
++
++Splitting chains creates new model IDs and may discard surfaces, electrostatic
++coloring, and visibility. Inspect the returned models, restore the requested
++representations using the new IDs, and fit the complex in view. Splitting does
++not mean translating chains apart. Do not repeat a completed split just because
++post-split inspection failed.
++
++Restrict interface calculations to the two intended protein selections. For
++split sibling models, enable interModel and interSubmodel for cross-model H-bonds.
++The find_hbonds salt_only option selects ChimeraX's charged-group H-bond subset;
++do not label all close charged pairs as confirmed salt bridges. Generic contacts
++include polar contacts and clashes; proximity alone does not measure attractive
++van der Waals energy. Coulombic surface coloring is approximate electrostatic
++potential, not a pairwise interaction or binding-energy calculation. State the
++selections, geometry/protonation assumptions, potential range and units. Do not
++invent residue pairs from surface colors. Use separate, named interaction layers
++for readable displays. Retain the user's chosen chains and representations.
++"""

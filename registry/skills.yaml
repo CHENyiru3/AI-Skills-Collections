@@ -1650,6 +1650,9 @@ skills:
     - molecular-visualization
     - structural-biology
     - session-management
+    - hydrogen-bonds
+    - salt-bridges
+    - electrostatics
     supported_hosts:
     - macos
     - linux

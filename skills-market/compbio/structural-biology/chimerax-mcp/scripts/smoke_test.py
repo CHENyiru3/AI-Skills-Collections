@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Verify the local ChimeraX MCP bridge with an offline molecule and PNG export.
 
-Run with the Python environment that contains chimerax-mcp. A new dedicated GUI
-session is started and left open; existing working sessions are not targeted.
+Run with the Python environment that contains chimerax-mcp and --allow-export.
+A new dedicated GUI session is started through the bridge and left open;
+no GUI automation is used. Existing working sessions are not targeted.
 """
 
 from __future__ import annotations
@@ -144,12 +145,16 @@ async def verify(args: argparse.Namespace) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--allow-export", action="store_true",
+                        help="Explicitly allow the dedicated GUI session and PNG verification export")
     parser.add_argument("--chimerax", type=Path, help="ChimeraX executable; otherwise use bridge discovery")
     parser.add_argument("--output", type=Path, help="New or empty output directory; default: fresh temp directory")
     parser.add_argument("--port", type=int, default=58180, help="Preferred non-default port for a NEW session (default: 58180)")
     parser.add_argument("--profile", choices=("full", "core"), default="full")
     parser.add_argument("--timeout", type=float, default=90, help="Per-request timeout in seconds (default: 90)")
     args = parser.parse_args()
+    if not args.allow_export:
+        parser.error("Rendering verification requires --allow-export; use API/headless checks for no-export work")
     if not 1 <= args.port <= 65535:
         parser.error("--port must be between 1 and 65535")
     if args.timeout <= 0:
