@@ -1,84 +1,25 @@
 ---
 name: scribble
 domain: compbio
-description: Multi-omics integration for single-cell data. Use for integrating multiple modalities like RNA, ATAC, and protein in single-cell analysis.
+description: Investigate or maintain a user-identified Scribble bioinformatics package after its authoritative repository and API are supplied or found. This entry has an unverified tool identity; do not use it to select a generic multi-omics integration method.
 license: MIT license
 metadata:
-    skill-author: Eric Yiru
+  version: "1.0.1"
+  skill-author: Eric Yiru
 ---
 
-# Scribble: Multi-Omics Integration
+# Scribble: verify package identity first
 
-## Overview
+The previous entry supplied a placeholder repository (`username/scribble`) and an unsupported `scribble.integrate` API. Those examples do not establish a real single-cell multi-omics package. This entry remains in the active catalog for explicit follow-up; it is not a validated integration recipe.
 
-Scribble is a tool/package for multi-omics integration in single-cell analysis. It provides methods for integrating different modalities (gene expression, chromatin accessibility, protein) to create unified representations of cells.
+## Identification gate
 
-## When to Use This Skill
+1. Obtain the intended paper/DOI, authoritative repository, package source, or a project dependency lock identifying the tool.
+2. Match package name, authors, purpose, installation source, supported versions, and API examples. A similarly named PyPI package is not sufficient evidence.
+3. If identity remains unresolved, report that fact and stop the package-specific installation/analysis. Do not install `scribble` by name, invent CCA/MNN/WNN support, or silently substitute SCRABBLE or another method.
 
-This skill should be used when:
-- Integrating multiple single-cell modalities
-- Performing multi-omics integration
-- Creating unified embeddings from heterogeneous data
-- Analyzing paired multi-omics data
+## After identification
 
-## Quick Start
+Read the primary documentation and inspect the project's inputs. Establish paired versus unpaired observations, per-modality preprocessing, feature identities, supported missingness, batch labels, and expected output representation. Align modalities by stable cell IDs where pairing is required; do not assume row order implies pairing.
 
-### Installation
-
-```bash
-pip install scribble
-
-# Or from GitHub
-pip install git+https://github.com/username/scribble.git
-```
-
-### Basic Usage
-
-```python
-import scribble
-import scanpy as sc
-import numpy as np
-
-# Load multi-modal data
-rna = sc.read_h5ad("rna.h5ad")
-atac = sc.read_h5ad("atac.h5ad")
-protein = sc.read_h5ad("protein.h5ad")
-
-# Integration
-combined = scribble.integrate(
-    [rna, atac, protein],
-    method="cca"  # or "mnn", "wnn"
-)
-```
-
-## Integration Methods
-
-### CCA Integration
-
-```python
-# Canonical Correlation Analysis
-combined = scribble.integrate(
-    [rna, atac],
-    method="cca",
-    n_components=50
-)
-```
-
-### WNN (Weighted Nearest Neighbors)
-
-```python
-# Weighted nearest neighbors
-combined = scribble.integrate(
-    [rna, protein],
-    method="wnn"
-)
-```
-
-## Best Practices
-
-1. **Preprocess each modality**: Normalize and select features
-2. **Check for batch effects**: Verify integration quality
-
-## Additional Resources
-
-- **Documentation**: Check GitHub for latest information
+Validate a documented small example, finite outputs, observation coverage, batch effects, and preservation of biological structure before applying the method to real data. Record the exact source/revision and assumptions. Replace this identification-only entry with a verified workflow and advance its version when the intended tool is established.

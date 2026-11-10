@@ -10,6 +10,7 @@ Regenerate this file after any change to registry/skills.yaml.
 Usage:
     python scripts/build_marketplace.py
     python scripts/build_marketplace.py --dry-run
+    python scripts/build_marketplace.py --check
 
 Importable functions:
     build_marketplace_data(skill_ids=None) -> dict
@@ -53,15 +54,15 @@ PLUGIN_DEFINITIONS = {
     },
     "writing": {
         "name": "writing",
-        "description": "Academic writing, literature review, LaTeX, Obsidian, and knowledge management",
+        "description": "Academic writing, literature review, Marp presentations, LaTeX, Obsidian, and knowledge management",
         "source_prefix": "./skills-market/writing",
-        "subdirs": ["academic", "literature", "latex", "obsidian"],
+        "subdirs": ["academic", "literature", "presentations", "latex", "obsidian"],
     },
     "agents": {
         "name": "agents",
-        "description": "Coding agents — Claude Code, Codex, Hermes, OpenCode, MCP, guidelines",
+        "description": "Coding agents — Claude Code, Codex, MCP, guidelines",
         "source_prefix": "./skills-market/agents",
-        "subdirs": ["claude-code", "codex", "hermes-agent", "opencode", "zed", "mcp", "guidelines", "ag-ui"],
+        "subdirs": ["claude-code", "codex", "mcp", "guidelines", "ag-ui"],
     },
     "frontend": {
         "name": "frontend",
@@ -108,14 +109,16 @@ def build_plugin(plugin_def, skills):
         if meta.get("status") == "missing":
             continue
 
-        cp = meta["canonical_path"]  # e.g. skills-market/documents/office/officecli
-        # Convert to relative path from repo root
-        # e.g. skills-market/documents/office/officecli -> documents/office/officecli
-        if cp.startswith("skills-market/"):
-            rel = cp[len("skills-market/") :]
-        else:
-            rel = cp
-
+        # Component paths are relative to the plugin source, not skills-market/.
+        plugin_root = (ROOT / prefix).resolve()
+        skill_root = (ROOT / meta["canonical_path"]).resolve()
+        if not plugin_root.is_relative_to(ROOT.resolve()):
+            raise ValueError(f"Plugin source escapes the repository: {prefix}")
+        if not skill_root.is_relative_to(plugin_root):
+            raise ValueError(f"[{sid}] skill path is outside plugin source {prefix}")
+        if not (skill_root / "SKILL.md").is_file():
+            raise ValueError(f"[{sid}] SKILL.md missing at {skill_root}")
+        rel = skill_root.relative_to(plugin_root).as_posix()
         domain_skills.append(f"./{rel}")
 
     return {
@@ -205,11 +208,18 @@ def write_marketplace_file(marketplace, path):
 def main():
     parser = argparse.ArgumentParser(description="Generate marketplace.json from registry/skills.yaml")
     parser.add_argument("--dry-run", action="store_true", help="Print output without writing file")
+    parser.add_argument("--check", action="store_true", help="Check source paths and generated-file agreement without writing")
     args = parser.parse_args()
 
     marketplace = build_marketplace_data()
 
     output = json.dumps(marketplace, indent=2, ensure_ascii=False) + "\n"
+
+    if args.check:
+        if not MARKETPLACE_PATH.is_file() or MARKETPLACE_PATH.read_text() != output:
+            parser.exit(1, "Marketplace differs from registry; run scripts/build_marketplace.py\n")
+        print("PASSED — marketplace paths exist inside their plugin roots and match the registry")
+        return
 
     if args.dry_run:
         print(output)

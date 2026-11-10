@@ -1,132 +1,33 @@
 ---
 name: building-python-communities
 domain: programming
-description: Builds the contributor and governance layer around Python libraries, including CONTRIBUTING.md, CODE_OF_CONDUCT.md, issue and PR templates, labels, triage, and maintainer workflows. Use this skill whenever a user wants to make a Python project easier to contribute to, set up GitHub community files, or define ownership and governance for an open source or inner-source package.
+description: Create or revise Python project contribution, governance, issue/PR templates or maintainer workflows. Use for explicit contributor-experience work; not ordinary code fixes or automatic GitHub messaging.
+metadata:
+  version: "1.0.1"
 ---
 
-# Python Library Community Management
+# Python Project Community
 
-## Essential Files
+Inspect existing contribution files, license, maintainer roles and repository
+conventions. Deliver the requested documents or configuration without replacing
+established governance, commit styles or response expectations by default.
 
-### CONTRIBUTING.md
+For contribution instructions, verify setup and check commands against the actual
+project. Do not promise a nonexistent dev extra, Make target or pre-commit hook.
+Use issue templates that request enough information to reproduce the problem
+without collecting credentials or unnecessary personal data. Tailor PR prompts to
+changes that actually require tests, docs or migration notes.
 
-```markdown
-# Contributing
+Read [TEMPLATES.md](TEMPLATES.md) for a needed template and
+[GOVERNANCE.md](GOVERNANCE.md) for an ownership/decision model. Present optional
+choices as choices; adding a code of conduct requires real contact/enforcement
+arrangements, not an invented email address or maintainer commitment.
 
-## Development Setup
+GitHub automation is conditional on a request for it. Confirm current action inputs
+and token permissions from the action's primary documentation. Avoid executing
+untrusted PR code with privileged `pull_request_target` credentials. Drafted welcome
+text does not authorize sending messages, changing labels or publishing policy.
 
-git clone https://github.com/user/package.git
-cd package
-pip install -e ".[dev]"
-pre-commit install
-pytest
-
-## Making Changes
-
-1. Create a branch: `git checkout -b feature/name`
-2. Make changes, add tests
-3. Run: `make test && make lint`
-4. Commit and open a PR
-
-## Commit Messages
-
-- `Add:` new feature
-- `Fix:` bug fix
-- `Update:` enhancement
-- `Docs:` documentation
-```
-
-### CODE_OF_CONDUCT.md
-
-Use [Contributor Covenant](https://www.contributor-covenant.org/) - the standard for open source.
-
-## Issue Templates
-
-**.github/ISSUE_TEMPLATE/bug_report.md:**
-```markdown
----
-name: Bug Report
-labels: 'bug'
----
-## Description
-## To Reproduce
-## Expected vs Actual Behavior
-## Environment (OS, Python version, package version)
-## Minimal Reproducible Example
-```
-
-**.github/ISSUE_TEMPLATE/feature_request.md:**
-```markdown
----
-name: Feature Request
-labels: 'enhancement'
----
-## Problem Statement
-## Proposed Solution
-## Example Usage
-```
-
-## PR Template
-
-**.github/PULL_REQUEST_TEMPLATE.md:**
-```markdown
-## Description
-## Related Issue (Fixes #)
-## Checklist
-- [ ] Tests added
-- [ ] Documentation updated
-- [ ] CHANGELOG entry added
-```
-
-## GitHub Actions Automation
-
-```yaml
-# .github/workflows/welcome.yml
-on:
-  pull_request_target:
-    types: [opened]
-jobs:
-  welcome:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/first-interaction@v1
-        with:
-          pr-message: "Thanks for your first PR! 🎉"
-```
-
-## Labels
-
-- `good first issue` - Newcomer-friendly
-- `help wanted` - Extra attention needed
-- `bug`, `enhancement`, `documentation`
-
-For detailed templates, see:
-- **[TEMPLATES.md](TEMPLATES.md)** - Full issue/PR templates
-- **[GOVERNANCE.md](GOVERNANCE.md)** - Project governance guide
-
-## Checklist
-
-```
-Initial Setup:
-- [ ] CONTRIBUTING.md
-- [ ] CODE_OF_CONDUCT.md
-- [ ] Issue templates
-- [ ] PR template
-- [ ] Labels defined
-
-Ongoing:
-- [ ] Respond to issues within 48h
-- [ ] Review PRs within 1 week
-- [ ] Maintain good first issues
-- [ ] Recognize contributors
-```
-
-## Learn More
-
-This skill is based on the [Maintenance](https://mcginniscommawill.com/guides/python-library-development/#maintenance-the-long-game) section of the [Guide to Developing High-Quality Python Libraries](https://mcginniscommawill.com/guides/python-library-development/) by [Will McGinnis](https://mcginniscommawill.com/). See these posts for deeper coverage:
-
-- [Building Engaging Community](https://mcginniscommawill.com/posts/2025-01-22-building-engaging-community/)
-- [Inner Source Introduction](https://mcginniscommawill.com/posts/2025-02-11-inner-source-introduction/)
-- [Building Internal Library Community](https://mcginniscommawill.com/posts/2025-02-15-building-internal-library-community/)
-- [From Silos to Shared Libraries](https://mcginniscommawill.com/posts/2025-02-18-silos-to-shared-libraries/)
-- [Cursor for Library Maintenance](https://mcginniscommawill.com/posts/2025-03-09-cursor-for-library-maintenance/)
+Check local links and real development commands. Stop after the scoped contributor
+artifacts are complete; fixed response SLAs, recurring triage and a full governance
+stack are follow-up decisions, not prerequisites.

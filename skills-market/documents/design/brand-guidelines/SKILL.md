@@ -1,74 +1,34 @@
 ---
 name: brand-guidelines
 domain: documents
-description: Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
+description: Apply this saved Anthropic palette and typography when Anthropic styling is explicitly requested or established for the artifact. Do not apply it to unrelated companies or treat it as a current official brand certification.
 license: Complete terms in LICENSE.txt
+metadata:
+  version: "1.0.1"
 ---
 
-# Anthropic Brand Styling
+# Saved Anthropic Styling
 
-## Overview
+Use this palette only in an Anthropic styling context. If the user supplies newer
+brand assets/rules, follow those; verify a current official requirement against its
+primary source rather than assuming this saved preset is authoritative forever.
 
-To access Anthropic's official brand identity and style resources, use this skill.
+| Role | Saved color |
+| --- | --- |
+| Dark | `#141413` |
+| Light | `#faf9f5` |
+| Mid gray | `#b0aea5` |
+| Light gray | `#e8e6dc` |
+| Orange accent | `#d97757` |
+| Blue accent | `#6a9bcc` |
+| Green accent | `#788c5d` |
 
-**Keywords**: branding, corporate identity, visual identity, post-processing, styling, brand colors, typography, Anthropic brand, visual formatting, visual design
+The saved font pairing is Poppins headings with Lora body; Arial/Georgia are possible
+fallbacks, not automatic guarantees. This folder contains guidance, not a font
+installer or a styling program. Check installed/embedded fonts and render the
+artifact to detect substitution. Adapt size and hierarchy to the artifact/template.
 
-## Brand Guidelines
-
-### Colors
-
-**Main Colors:**
-
-- Dark: `#141413` - Primary text and dark backgrounds
-- Light: `#faf9f5` - Light backgrounds and text on dark
-- Mid Gray: `#b0aea5` - Secondary elements
-- Light Gray: `#e8e6dc` - Subtle backgrounds
-
-**Accent Colors:**
-
-- Orange: `#d97757` - Primary accent
-- Blue: `#6a9bcc` - Secondary accent
-- Green: `#788c5d` - Tertiary accent
-
-### Typography
-
-- **Headings**: Poppins (with Arial fallback)
-- **Body Text**: Lora (with Georgia fallback)
-- **Note**: Fonts should be pre-installed in your environment for best results
-
-## Features
-
-### Smart Font Application
-
-- Applies Poppins font to headings (24pt and larger)
-- Applies Lora font to body text
-- Automatically falls back to Arial/Georgia if custom fonts unavailable
-- Preserves readability across all systems
-
-### Text Styling
-
-- Headings (24pt+): Poppins font
-- Body text: Lora font
-- Smart color selection based on background
-- Preserves text hierarchy and formatting
-
-### Shape and Accent Colors
-
-- Non-text shapes use accent colors
-- Cycles through orange, blue, and green accents
-- Maintains visual interest while staying on-brand
-
-## Technical Details
-
-### Font Management
-
-- Uses system-installed Poppins and Lora fonts when available
-- Provides automatic fallback to Arial (headings) and Georgia (body)
-- No font installation required - works with existing system fonts
-- For best results, pre-install Poppins and Lora fonts in your environment
-
-### Color Application
-
-- Uses RGB color values for precise brand matching
-- Applied via python-pptx's RGBColor class
-- Maintains color fidelity across different systems
+Apply consistent roles with sufficient text/graphic contrast. Do not cycle accent
+colors or impose a 24pt heading threshold without a design reason. Preserve content,
+layout and the user's chosen backend. Stop after the requested brand treatment is
+applied and its rendering checked; do not restyle unrelated artifacts.

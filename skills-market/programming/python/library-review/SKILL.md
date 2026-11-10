@@ -1,104 +1,40 @@
 ---
 name: reviewing-python-libraries
 domain: programming
-description: Reviews Python libraries across structure, packaging, code quality, testing, security, documentation, API design, and CI/CD, then produces actionable recommendations. Use this skill whenever a user wants a Python package audit, a release-readiness review, dependency due diligence, or a structured assessment of a library's engineering health.
+description: Assess a Python package for adoption, maintenance or release readiness and report evidence-backed engineering risks. Use for a requested library audit; not a demand to run arbitrary tests or redesign a package during inspection.
+metadata:
+  version: "1.0.1"
 ---
 
 # Python Library Review
 
-## Quick Health Check (5 min)
+Establish the package revision, intended use and requested review depth. Inspect
+metadata, source, tests, CI and existing result artifacts before running code.
+Dependency installation, test collection and build hooks can execute repository
+code; use an appropriate isolated environment for unfamiliar sources and do not
+assume an audit authorizes global installation.
 
-```bash
-git clone https://github.com/user/package && cd package
-cat pyproject.toml | head -50        # Modern config?
-ls tests/ && pytest --collect-only   # Tests exist?
-pytest --cov=package | tail -20      # Coverage?
-pip install bandit && bandit -r src/ # Security?
-```
+Prioritize findings that affect the user's intended use:
 
-## Review Dimensions
+- Packaging/importability and declared Python/dependency compatibility.
+- Evidence that tests cover consequential behavior, with limits of available
+  coverage reports; a fixed percentage alone is not a quality verdict.
+- Public API stability, exception/data contracts and migration support.
+- Vulnerabilities or secret exposure with a specific affected path/version.
+- Documentation and license evidence needed for the intended adoption.
+- Maintenance/release history as context, not proof that an old stable library is
+  defective or a frequently changed one is dependable.
 
-| Area | Check For |
-|------|-----------|
-| Structure | src/ layout, py.typed marker |
-| Packaging | pyproject.toml (not setup.py) |
-| Code | Type hints, docstrings, no anti-patterns |
-| Tests | 80%+ coverage, edge cases |
-| Security | No secrets, input validation, pip-audit clean |
-| Docs | README, API docs, changelog |
-| API | Consistent naming, sensible defaults |
-| CI/CD | Tests on PR, multi-Python, security scans |
+Distinguish confirmed defects, plausible risks and missing evidence. Do not treat
+src layout, strict types, py.typed, a particular build backend or CI platform as
+universal requirements. Avoid contradictory 70/80/85 percent gates and star scores
+that hide the evidence.
 
-## Red Flags 🚩
+Use [CHECKLIST.md](CHECKLIST.md) as optional review lenses and
+[REPORT_TEMPLATE.md](REPORT_TEMPLATE.md) as a report aid, adapting both to scope.
+Do not inherit their thresholds as acceptance policy. Report location/evidence,
+practical effect and a proportionate recommendation for each material finding.
 
-- No tests
-- No type hints
-- setup.py only (no pyproject.toml)
-- Pinned exact versions for all deps
-- No LICENSE file
-- Last commit > 1 year ago
-
-## Green Flags ✅
-
-- Active maintenance (recent commits)
-- High test coverage (>85%)
-- Comprehensive CI/CD
-- Type hints throughout
-- Clear documentation
-- Semantic versioning
-
-## Report Template
-
-```markdown
-# Library Review: [package]
-
-**Rating:** [Excellent/Good/Needs Work/Significant Issues]
-
-## Strengths
-- [Strength 1]
-
-## Areas for Improvement
-- [Issue 1] - Severity: High/Medium/Low
-
-## Category Scores
-| Category | Score |
-|----------|-------|
-| Structure | ⭐⭐⭐⭐⭐ |
-| Testing | ⭐⭐⭐☆☆ |
-| Security | ⭐⭐⭐⭐☆ |
-
-## Recommendations
-1. [High priority action]
-2. [Medium priority action]
-```
-
-For detailed checklists, see:
-- **[CHECKLIST.md](CHECKLIST.md)** - Full review checklist
-- **[REPORT_TEMPLATE.md](REPORT_TEMPLATE.md)** - Complete report template
-
-## Best Practices Checklist
-
-```
-Essential:
-- [ ] pyproject.toml valid
-- [ ] Tests exist and pass
-- [ ] README has install/usage
-- [ ] LICENSE present
-- [ ] No hardcoded secrets
-
-Important:
-- [ ] Type hints on public API
-- [ ] CI runs tests on PRs
-- [ ] Coverage > 70%
-- [ ] Changelog maintained
-
-Recommended:
-- [ ] src/ layout
-- [ ] py.typed marker
-- [ ] Security scanning in CI
-- [ ] Contributing guide
-```
-
-## Learn More
-
-This skill is based on the [Guide to Developing High-Quality Python Libraries](https://mcginniscommawill.com/guides/python-library-development/) by [Will McGinnis](https://mcginniscommawill.com/). The review criteria in this skill draw from all posts in the guide — see the [full guide](https://mcginniscommawill.com/guides/python-library-development/) for detailed quality criteria across every dimension of library development.
+If execution is useful, run the smallest relevant checks and label what was not
+tested. Stop when the scoped assessment and unresolved gaps are clear; remediation,
+new CI and dependency updates are separate requested work.

@@ -1,114 +1,55 @@
 ---
 name: codex
 domain: agents
-description: Delegate coding tasks to OpenAI Codex CLI agent. Use for building features, refactoring, PR reviews, and batch issue fixing. Requires the codex CLI and a git repository.
-version: 1.0.0
+description: Delegate an explicitly requested task to the Codex CLI and inspect its result. Use when the user wants another Codex run or CLI automation; not for ordinary coding already handled by the current agent.
 author: Hermes Agent
 license: MIT
 metadata:
+  version: "1.0.1"
   hermes:
-    tags: [Coding-Agent, Codex, OpenAI, Code-Review, Refactoring]
-    related_skills: [claude-code, hermes-agent]
+    tags:
+    - Coding-Agent
+    - Codex
+    - OpenAI
+    - Code-Review
+    - Refactoring
+    related_skills:
+    - claude-code
 ---
 
-# Codex CLI
+# Codex CLI Delegation
 
-Delegate coding tasks to [Codex](https://github.com/openai/codex) via the Hermes terminal. Codex is OpenAI's autonomous coding agent CLI.
+Identify the delegated outcome, workspace, allowed mutations and result artifact.
+Use the available process/terminal API; do not assume a particular host's tool names.
+Check `codex --help` and `codex exec --help` for the installed version before
+constructing flags. Reuse configured authentication without printing credentials.
 
-## Prerequisites
+For a bounded non-interactive run:
 
-- Codex installed: `npm install -g @openai/codex`
-- OpenAI API key configured
-- **Must run inside a git repository** — Codex refuses to run outside one
-- Use `pty=true` in terminal calls — Codex is an interactive terminal app
-
-## One-Shot Tasks
-
-```
-terminal(command="codex exec 'Add dark mode toggle to settings'", workdir="~/project", pty=true)
+```bash
+codex exec --sandbox read-only "Review the relevant changes and report findings"
 ```
 
-For scratch work (Codex needs a git repo):
-```
-terminal(command="cd $(mktemp -d) && git init && codex exec 'Build a snake game in Python'", pty=true)
-```
+Run in the selected working directory. Select a sandbox compatible with the task;
+use workspace writes only for an authorized editing task. `exec` is non-interactive
+and does not universally need a PTY. Use a PTY for an interactive session when the
+actual terminal interface requires one.
 
-## Background Mode (Long Tasks)
+Codex normally checks for a trusted Git repository. Where appropriate for a known
+scratch folder, the installed CLI may provide `--skip-git-repo-check`; confirm it
+in help rather than creating a repository merely to satisfy a stale assumption.
+Do not default to disabling sandboxing or bypassing approval controls.
 
-```
-# Start in background with PTY
-terminal(command="codex exec --full-auto 'Refactor the auth module'", workdir="~/project", background=true, pty=true)
-# Returns session_id
+For long runs, keep the process/session handle, inspect progress and final exit
+status, and verify the requested output. Do not blindly answer trust or permission
+prompts. Surface a real authorization gap with the exact action it concerns.
 
-# Monitor progress
-process(action="poll", session_id="<id>")
-process(action="log", session_id="<id>")
+If independent work is requested, use separate worktrees/checkouts so runs cannot
+edit the same files. Record the base and target revisions. For reviews, prefer an
+isolated checkout and keep the review read-only unless fixes were requested.
 
-# Send input if Codex asks a question
-process(action="submit", session_id="<id>", data="yes")
-
-# Kill if needed
-process(action="kill", session_id="<id>")
-```
-
-## Key Flags
-
-| Flag | Effect |
-|------|--------|
-| `exec "prompt"` | One-shot execution, exits when done |
-| `--full-auto` | Sandboxed but auto-approves file changes in workspace |
-| `--yolo` | No sandbox, no approvals (fastest, most dangerous) |
-
-## PR Reviews
-
-Clone to a temp directory for safe review:
-
-```
-terminal(command="REVIEW=$(mktemp -d) && git clone https://github.com/user/repo.git $REVIEW && cd $REVIEW && gh pr checkout 42 && codex review --base origin/main", pty=true)
-```
-
-## Parallel Issue Fixing with Worktrees
-
-```
-# Create worktrees
-terminal(command="git worktree add -b fix/issue-78 /tmp/issue-78 main", workdir="~/project")
-terminal(command="git worktree add -b fix/issue-99 /tmp/issue-99 main", workdir="~/project")
-
-# Launch Codex in each
-terminal(command="codex --yolo exec 'Fix issue #78: <description>. Commit when done.'", workdir="/tmp/issue-78", background=true, pty=true)
-terminal(command="codex --yolo exec 'Fix issue #99: <description>. Commit when done.'", workdir="/tmp/issue-99", background=true, pty=true)
-
-# Monitor
-process(action="list")
-
-# After completion, push and create PRs
-terminal(command="cd /tmp/issue-78 && git push -u origin fix/issue-78")
-terminal(command="gh pr create --repo user/repo --head fix/issue-78 --title 'fix: ...' --body '...'")
-
-# Cleanup
-terminal(command="git worktree remove /tmp/issue-78", workdir="~/project")
-```
-
-## Batch PR Reviews
-
-```
-# Fetch all PR refs
-terminal(command="git fetch origin '+refs/pull/*/head:refs/remotes/origin/pr/*'", workdir="~/project")
-
-# Review multiple PRs in parallel
-terminal(command="codex exec 'Review PR #86. git diff origin/main...origin/pr/86'", workdir="~/project", background=true, pty=true)
-terminal(command="codex exec 'Review PR #87. git diff origin/main...origin/pr/87'", workdir="~/project", background=true, pty=true)
-
-# Post results
-terminal(command="gh pr comment 86 --body '<review>'", workdir="~/project")
-```
-
-## Rules
-
-1. **Always use `pty=true`** — Codex is an interactive terminal app and hangs without a PTY
-2. **Git repo required** — Codex won't run outside a git directory. Use `mktemp -d && git init` for scratch
-3. **Use `exec` for one-shots** — `codex exec "prompt"` runs and exits cleanly
-4. **`--full-auto` for building** — auto-approves changes within the sandbox
-5. **Background for long tasks** — use `background=true` and monitor with `process` tool
-6. **Don't interfere** — monitor with `poll`/`log`, be patient with long-running tasks
-7. **Parallel is fine** — run multiple Codex processes at once for batch work
+Inspect the resulting diff and relevant checks before accepting an editing run.
+Report failures and partial results accurately. Commits, pushes, PR creation and
+posting reviews require that scope in the user's request; delegation alone does
+not authorize them. Stop after the delegated outcome is verified and clean up only
+scratch resources created for that run.

@@ -2,7 +2,8 @@
 KEGG REST API Helper Functions
 
 This module provides Python functions for interacting with the KEGG REST API.
-All functions return raw response text which can be parsed as needed.
+Functions return response text, except image retrieval returns bytes. HTTP errors
+retain the legacy Error: text result; callers must check it before parsing.
 
 API Base URL: https://rest.kegg.jp
 Documentation: https://www.kegg.jp/kegg/rest/keggapi.html
@@ -10,6 +11,10 @@ Documentation: https://www.kegg.jp/kegg/rest/keggapi.html
 IMPORTANT: KEGG API is made available only for academic use by academic users.
 """
 
+from __future__ import annotations
+
+import threading
+import time
 import urllib.request
 import urllib.parse
 import urllib.error
@@ -17,6 +22,31 @@ from typing import Optional, List, Union
 
 
 KEGG_BASE_URL = "https://rest.kegg.jp"
+
+
+_REQUEST_LOCK = threading.Lock()
+_LAST_REQUEST = None
+
+
+def _open(url):
+    """Pace this process to <=3 starts/second. Separate processes must coordinate."""
+    global _LAST_REQUEST
+    with _REQUEST_LOCK:
+        if _LAST_REQUEST is not None:
+            delay = 0.34 - (time.monotonic() - _LAST_REQUEST)
+            if delay > 0:
+                time.sleep(delay)
+        _LAST_REQUEST = time.monotonic()
+    return urllib.request.urlopen(url, timeout=30)
+
+
+def _entry_ids(entries, limit=None):
+    ids = entries if isinstance(entries, list) else entries.split("+")
+    if not ids or any(not entry.strip() for entry in ids):
+        raise ValueError("At least one nonempty entry is required")
+    if limit is not None and len(ids) > limit:
+        raise ValueError(f"This request accepts at most {limit} entries; batch explicitly")
+    return "+".join(ids)
 
 
 def kegg_info(database: str) -> str:
@@ -34,7 +64,7 @@ def kegg_info(database: str) -> str:
     """
     url = f"{KEGG_BASE_URL}/info/{database}"
     try:
-        with urllib.request.urlopen(url) as response:
+        with _open(url) as response:
             return response.read().decode('utf-8')
     except urllib.error.HTTPError as e:
         return f"Error: {e.code} - {e.reason}"
@@ -62,7 +92,7 @@ def kegg_list(database: str, org: Optional[str] = None) -> str:
         url = f"{KEGG_BASE_URL}/list/{database}"
 
     try:
-        with urllib.request.urlopen(url) as response:
+        with _open(url) as response:
             return response.read().decode('utf-8')
     except urllib.error.HTTPError as e:
         return f"Error: {e.code} - {e.reason}"
@@ -101,13 +131,13 @@ def kegg_find(database: str, query: str, option: Optional[str] = None) -> str:
         url = f"{KEGG_BASE_URL}/find/{database}/{query_encoded}"
 
     try:
-        with urllib.request.urlopen(url) as response:
+        with _open(url) as response:
             return response.read().decode('utf-8')
     except urllib.error.HTTPError as e:
         return f"Error: {e.code} - {e.reason}"
 
 
-def kegg_get(entries: Union[str, List[str]], option: Optional[str] = None) -> str:
+def kegg_get(entries: Union[str, List[str]], option: Optional[str] = None) -> Union[str, bytes]:
     """
     Retrieve full database entries or specific data formats.
 
@@ -137,10 +167,8 @@ def kegg_get(entries: Union[str, List[str]], option: Optional[str] = None) -> st
         # Get pathway as JSON
         pathway_json = kegg_get('hsa05130', 'json')
     """
-    if isinstance(entries, list):
-        entries_str = '+'.join(entries[:10])  # Max 10 entries
-    else:
-        entries_str = entries
+    limit = 1 if option in ("image", "image2x", "kgml", "json") else 10
+    entries_str = _entry_ids(entries, limit=limit)
 
     if option:
         url = f"{KEGG_BASE_URL}/get/{entries_str}/{option}"
@@ -148,8 +176,9 @@ def kegg_get(entries: Union[str, List[str]], option: Optional[str] = None) -> st
         url = f"{KEGG_BASE_URL}/get/{entries_str}"
 
     try:
-        with urllib.request.urlopen(url) as response:
-            return response.read().decode('utf-8')
+        with _open(url) as response:
+            payload = response.read()
+            return payload if option in ('image', 'image2x') else payload.decode('utf-8')
     except urllib.error.HTTPError as e:
         return f"Error: {e.code} - {e.reason}"
 
@@ -177,7 +206,7 @@ def kegg_conv(target_db: str, source_db: str) -> str:
     """
     url = f"{KEGG_BASE_URL}/conv/{target_db}/{source_db}"
     try:
-        with urllib.request.urlopen(url) as response:
+        with _open(url) as response:
             return response.read().decode('utf-8')
     except urllib.error.HTTPError as e:
         return f"Error: {e.code} - {e.reason}"
@@ -206,7 +235,7 @@ def kegg_link(target_db: str, source_db: str) -> str:
     """
     url = f"{KEGG_BASE_URL}/link/{target_db}/{source_db}"
     try:
-        with urllib.request.urlopen(url) as response:
+        with _open(url) as response:
             return response.read().decode('utf-8')
     except urllib.error.HTTPError as e:
         return f"Error: {e.code} - {e.reason}"
@@ -225,27 +254,23 @@ def kegg_ddi(drug_entries: Union[str, List[str]]) -> str:
     Example:
         interactions = kegg_ddi(['D00001', 'D00002'])
     """
-    if isinstance(drug_entries, list):
-        entries_str = '+'.join(drug_entries[:10])  # Max 10 entries
-    else:
-        entries_str = drug_entries
+    # No silent truncation. The provider documents operation-specific limits.
+    entries_str = _entry_ids(drug_entries)
 
     url = f"{KEGG_BASE_URL}/ddi/{entries_str}"
     try:
-        with urllib.request.urlopen(url) as response:
+        with _open(url) as response:
             return response.read().decode('utf-8')
     except urllib.error.HTTPError as e:
         return f"Error: {e.code} - {e.reason}"
 
 
 if __name__ == "__main__":
-    # Example usage
-    print("KEGG Info Example:")
-    print(kegg_info('pathway')[:200] + "...\n")
-
-    print("KEGG List Example (first 3 pathways):")
-    pathways = kegg_list('pathway')
-    print('\n'.join(pathways.split('\n')[:3]) + "\n")
-
-    print("KEGG Find Example:")
-    print(kegg_find('genes', 'p53')[:200] + "...")
+    import argparse
+    parser = argparse.ArgumentParser(description="KEGG REST helper; import functions for normal use")
+    parser.add_argument("--demo", action="store_true", help="Run three live example requests")
+    args = parser.parse_args()
+    if args.demo:
+        print(kegg_info("pathway"))
+        print(kegg_list("pathway"))
+        print(kegg_find("genes", "p53"))

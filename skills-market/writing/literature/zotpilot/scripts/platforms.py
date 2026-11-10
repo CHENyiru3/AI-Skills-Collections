@@ -5,11 +5,12 @@ Supports:
   Tier 1 (Skill + MCP): Claude Code, Codex CLI, OpenCode, Gemini CLI
   Tier 2 (MCP only):    Cursor, Windsurf, Cline, Roo Code
 
-Security note: CLI-based platforms (claude, codex, gemini) require passing
-env vars via -e flags on the command line. This briefly exposes keys in the
-process table. This is the only mechanism these CLIs provide. For higher
-security, register manually and use environment variables or secret managers.
+Credential-bearing CLI registration is refused before any subprocess call.
+Use a host-supported protected credential mechanism; older CLI recipes that
+passed API keys as arguments are not a safe setup path.
 """
+from __future__ import annotations
+
 import json
 import os
 import platform
@@ -289,6 +290,9 @@ def print_skill_hints(platforms: list[str]) -> None:
 
 def _register_claude_code(env: dict[str, str]) -> bool:
     """Register via `claude mcp add`."""
+    if any(env.get(key) for key in ("GEMINI_API_KEY", "DASHSCOPE_API_KEY", "ZOTERO_API_KEY")):
+        print("Credential-bearing CLI registration is disabled to avoid keys in process arguments. Configure credentials through the host's protected mechanism before connecting.", file=sys.stderr)
+        return False
     try:
         zp = _zotpilot_command(allow_fallback=False)
     except RuntimeError as e:
@@ -309,6 +313,9 @@ def _register_claude_code(env: dict[str, str]) -> bool:
 
 def _register_codex(env: dict[str, str]) -> bool:
     """Register via `codex mcp add`."""
+    if any(env.get(key) for key in ("GEMINI_API_KEY", "DASHSCOPE_API_KEY", "ZOTERO_API_KEY")):
+        print("Credential-bearing CLI registration is disabled to avoid keys in process arguments. Configure credentials through the host's protected mechanism before connecting.", file=sys.stderr)
+        return False
     try:
         zp = _zotpilot_command(allow_fallback=False)
     except RuntimeError as e:
@@ -333,6 +340,9 @@ def _register_gemini(env: dict[str, str]) -> bool:
     Syntax: gemini mcp add [options] <name> <command> [args...]
     No -- separator; command is a positional argument.
     """
+    if any(env.get(key) for key in ("GEMINI_API_KEY", "DASHSCOPE_API_KEY", "ZOTERO_API_KEY")):
+        print("Credential-bearing CLI registration is disabled to avoid keys in process arguments. Configure credentials through the host's protected mechanism before connecting.", file=sys.stderr)
+        return False
     try:
         zp = _zotpilot_command(allow_fallback=False)
     except RuntimeError as e:

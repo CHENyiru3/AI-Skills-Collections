@@ -1,5 +1,6 @@
 # Common Workflows and Best Practices
 
+This guide contains SCVI-oriented examples to adapt. Verify every layer/covariate and installed signature; specialized models have different data/setup contracts. Never treat condition, tissue, or donor as a nuisance automatically, and do not label an unknown X matrix as counts.
 This document covers common workflows, best practices, and advanced usage patterns for scvi-tools.
 
 ## Standard Analysis Workflow
@@ -47,7 +48,8 @@ adata = adata[~adata.obs['predicted_doublet'], :]
 # IMPORTANT: scvi-tools needs RAW counts
 # If you've already normalized, use the raw layer or reload data
 
-# Save raw counts if not already available
+# Only after verifying X contains unnormalized counts, preserve it if needed.
+# If X is normalized, reload genuine counts; copying X cannot recover them.
 if 'counts' not in adata.layers:
     adata.layers['counts'] = adata.X.copy()
 
@@ -71,8 +73,9 @@ scvi.model.SCVI.setup_anndata(
     adata,
     layer="counts",  # Use raw counts
     batch_key="batch",  # Technical batches
-    categorical_covariate_keys=["donor", "condition"],
-    continuous_covariate_keys=["percent_mito", "n_counts"]
+    # Add only existing, justified covariates; do not regress the target condition.
+    categorical_covariate_keys=None,
+    continuous_covariate_keys=None
 )
 
 # Check registration

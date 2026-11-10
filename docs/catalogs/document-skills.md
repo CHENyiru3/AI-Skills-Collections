@@ -1,6 +1,6 @@
 # Document Skills Catalog
 
-This catalog covers the 19 skills under `skills-market/documents/`.
+This catalog covers the 20 skills under `skills-market/documents/`.
 
 ## Office and File Workflows
 
@@ -21,6 +21,7 @@ This catalog covers the 19 skills under `skills-market/documents/`.
 |-------|----------|-------|
 | [`algorithmic-art`](../../skills-market/documents/design/algorithmic-art/SKILL.md) | `documents/design/algorithmic-art` | Generative art with p5.js |
 | [`canvas-design`](../../skills-market/documents/design/canvas-design/SKILL.md) | `documents/design/canvas-design` | Static visual design for posters and report-style artifacts |
+| [`scientific-figure-polish`](../../skills-market/documents/design/scientific-figure-polish/SKILL.md) | `documents/design/scientific-figure-polish` | Compact manuscript figures with consistent typography, equal comparable units, and precise subpanel alignment |
 | [`theme-factory`](../../skills-market/documents/design/theme-factory/SKILL.md) | `documents/design/theme-factory` | Theme systems for slides, docs, and web artifacts |
 | [`brand-guidelines`](../../skills-market/documents/design/brand-guidelines/SKILL.md) | `documents/design/brand-guidelines` | Applying Anthropic brand colors and typography |
 | [`slack-gif-creator`](../../skills-market/documents/media/slack-gif-creator/SKILL.md) | `documents/media/slack-gif-creator` | Slack-optimized animated GIF creation |
@@ -46,7 +47,9 @@ This catalog covers the 19 skills under `skills-market/documents/`.
 | Skill | Location | Focus |
 |-------|----------|-------|
 | [`skill-creator`](../../skills-market/core/dev/skill-creator/SKILL.md) | `core/dev/skill-creator` | Creating and refining skills for this ecosystem |
-| [`skill-seekers`](../../skills-market/core/dev/skill-seekers/SKILL.md) | `core/dev/skill-seekers` | Turning source material into AI-ready knowledge assets |
+| [`skill-cutter`](../../skills-market/core/dev/skill-cutter/SKILL.md) | `core/dev/skill-cutter` | Auditing or trimming skills to reduce context cost and narrow activation triggers |
+
+`skill-cutter` is imported from [swyxio/skills](https://github.com/swyxio/skills/tree/main/skill-cutter), including its `agents/openai.yaml` metadata.
 
 ## Notes
 

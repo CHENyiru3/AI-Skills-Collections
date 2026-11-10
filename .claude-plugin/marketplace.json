@@ -15,25 +15,26 @@
       "source": "./skills-market/documents",
       "strict": false,
       "skills": [
-        "./documents/collaboration/doc-coauthoring",
-        "./documents/collaboration/internal-comms",
-        "./documents/design/algorithmic-art",
-        "./documents/design/brand-guidelines",
-        "./documents/design/canvas-design",
-        "./documents/design/frontend-design",
-        "./documents/design/theme-factory",
-        "./documents/design/web-artifacts-builder",
-        "./documents/design/webapp-testing",
-        "./documents/formats/docx",
-        "./documents/formats/pdf",
-        "./documents/formats/pptx",
-        "./documents/formats/xlsx",
-        "./documents/media/imgur-cli",
-        "./documents/media/slack-gif-creator",
-        "./documents/office/officecli",
-        "./documents/office/officecli-docx",
-        "./documents/office/officecli-pptx",
-        "./documents/office/officecli-xlsx"
+        "./collaboration/doc-coauthoring",
+        "./collaboration/internal-comms",
+        "./design/algorithmic-art",
+        "./design/brand-guidelines",
+        "./design/canvas-design",
+        "./design/frontend-design",
+        "./design/scientific-figure-polish",
+        "./design/theme-factory",
+        "./design/web-artifacts-builder",
+        "./design/webapp-testing",
+        "./formats/docx",
+        "./formats/pdf",
+        "./formats/pptx",
+        "./formats/xlsx",
+        "./media/imgur-cli",
+        "./media/slack-gif-creator",
+        "./office/officecli",
+        "./office/officecli-docx",
+        "./office/officecli-pptx",
+        "./office/officecli-xlsx"
       ]
     },
     {
@@ -42,13 +43,19 @@
       "source": "./skills-market/programming",
       "strict": false,
       "skills": [
-        "./programming/python/cli-development",
-        "./programming/python/code-quality",
-        "./programming/python/documentation",
-        "./programming/python/jupyter",
-        "./programming/python/performance",
-        "./programming/python/project-setup",
-        "./programming/python/testing-strategy"
+        "./python/api-design",
+        "./python/cli-development",
+        "./python/code-quality",
+        "./python/community",
+        "./python/documentation",
+        "./python/jupyter",
+        "./python/library-review",
+        "./python/packaging",
+        "./python/performance",
+        "./python/project-setup",
+        "./python/release-management",
+        "./python/sqlite",
+        "./python/testing-strategy"
       ]
     },
     {
@@ -57,9 +64,19 @@
       "source": "./skills-market/ai-ml",
       "strict": false,
       "skills": [
-        "./ai-ml/deep-learning/jepa-pytorch-development",
-        "./ai-ml/llm/minimax-cli",
-        "./ai-ml/theory/latent-identifiability"
+        "./deep-learning/jepa-pytorch-development",
+        "./deep-learning/pytorch",
+        "./llm/bitsandbytes",
+        "./llm/browser-use",
+        "./llm/huggingface-hub",
+        "./llm/peft",
+        "./llm/transformers",
+        "./llm/trl",
+        "./theory/latent-identifiability",
+        "./training/accelerate",
+        "./training/datasets",
+        "./training/deepspeed",
+        "./training/pytorch-lightning"
       ]
     },
     {
@@ -68,44 +85,76 @@
       "source": "./skills-market/compbio",
       "strict": false,
       "skills": [
-        "./compbio/expert-workflows/computational-biology-retrospective",
-        "./compbio/structural-biology/chimerax-mcp"
+        "./databases/ensembl",
+        "./databases/geo",
+        "./databases/human-cell-atlas",
+        "./databases/kegg",
+        "./databases/reactome",
+        "./expert-workflows/computational-biology-retrospective",
+        "./expert-workflows/critique-bio-manuscript",
+        "./expert-workflows/draft-spatial-methods",
+        "./expert-workflows/explain-bio-dl-model",
+        "./multiomics/integration-tools/scribble",
+        "./multiomics/metabolomics/metabolomics-workbench",
+        "./multiomics/proteomics/uniprot",
+        "./multiomics/scATAC-seq/archr",
+        "./multiomics/scATAC-seq/signac",
+        "./multiomics/scRNA-seq/pydeseq2",
+        "./single-cell/analysis/anndata",
+        "./single-cell/analysis/anndatar",
+        "./single-cell/analysis/monocle3",
+        "./single-cell/analysis/scanpy",
+        "./single-cell/analysis/schard",
+        "./single-cell/analysis/scvi-tools",
+        "./single-cell/analysis/seurat",
+        "./single-cell/integration/bbknn",
+        "./single-cell/integration/harmony",
+        "./single-cell/integration/scanorama",
+        "./single-cell/integration/seurat-v5",
+        "./single-cell/visualization/cellxgene",
+        "./single-cell/visualization/cellxgene-census",
+        "./spatial-omics/analysis/giotto",
+        "./spatial-omics/analysis/spatialdata",
+        "./spatial-omics/analysis/squidpy",
+        "./spatial-omics/platforms/stereo-seq",
+        "./spatial-omics/visualization/vitessce",
+        "./structural-biology/chimerax-mcp",
+        "./workflows/nextflow",
+        "./workflows/snakemake"
       ]
     },
     {
       "name": "writing",
-      "description": "Academic writing, literature review, LaTeX, Obsidian, and knowledge management",
+      "description": "Academic writing, literature review, Marp presentations, LaTeX, Obsidian, and knowledge management",
       "source": "./skills-market/writing",
       "strict": false,
       "skills": [
-        "./writing/academic/academic-writing-editor",
-        "./writing/academic/humanizer",
-        "./writing/academic/humanizer-zh",
-        "./writing/latex/compile-latex",
-        "./writing/latex/latex-writing",
-        "./writing/literature/zotpilot",
-        "./writing/obsidian/defuddle",
-        "./writing/obsidian/json-canvas",
-        "./writing/obsidian/obsidian-bases",
-        "./writing/obsidian/obsidian-cli",
-        "./writing/obsidian/obsidian-markdown",
-        "./writing/obsidian/wiki-keeper",
-        "./writing/technical/asd-ste100"
+        "./academic/academic-writing-editor",
+        "./academic/humanizer",
+        "./academic/humanizer-zh",
+        "./latex/compile-latex",
+        "./latex/latex-writing",
+        "./literature/zotpilot",
+        "./obsidian/defuddle",
+        "./obsidian/json-canvas",
+        "./obsidian/obsidian-bases",
+        "./obsidian/obsidian-cli",
+        "./obsidian/obsidian-markdown",
+        "./obsidian/wiki-keeper",
+        "./presentations/duke-nus-marp",
+        "./technical/asd-ste100"
       ]
     },
     {
       "name": "agents",
-      "description": "Coding agents — Claude Code, Codex, Hermes, OpenCode, MCP, guidelines",
+      "description": "Coding agents — Claude Code, Codex, MCP, guidelines",
       "source": "./skills-market/agents",
       "strict": false,
       "skills": [
-        "./agents/claude-code",
-        "./agents/codex",
-        "./agents/guidelines/karpathy-guidelines",
-        "./agents/hermes-agent",
-        "./agents/mcp/mcp-builder",
-        "./agents/opencode",
-        "./agents/zed"
+        "./claude-code",
+        "./codex",
+        "./guidelines/karpathy-guidelines",
+        "./mcp/mcp-builder"
       ]
     },
     {
@@ -114,8 +163,22 @@
       "source": "./skills-market/frontend",
       "strict": false,
       "skills": [
-        "./frontend/site-maintenance/chen-academic-page-maintainer",
-        "./frontend/site-maintenance/page-keeper"
+        "./site-maintenance/chen-academic-page-maintainer",
+        "./site-maintenance/page-keeper"
+      ]
+    },
+    {
+      "name": "platforms",
+      "description": "Platform integrations — GitHub, GitLab, HuggingFace, Zotero",
+      "source": "./skills-market/platforms",
+      "strict": false,
+      "skills": [
+        "./github/codebase-inspection",
+        "./github/github-auth",
+        "./github/github-code-review",
+        "./github/github-issues",
+        "./github/github-pr-workflow",
+        "./github/github-repo-management"
       ]
     },
     {
@@ -124,9 +187,9 @@
       "source": "./skills-market/core",
       "strict": false,
       "skills": [
-        "./core/dev/skill-creator",
-        "./core/dev/skill-seekers",
-        "./core/security/security-audit"
+        "./dev/skill-creator",
+        "./dev/skill-cutter",
+        "./security/security-audit"
       ]
     }
   ]

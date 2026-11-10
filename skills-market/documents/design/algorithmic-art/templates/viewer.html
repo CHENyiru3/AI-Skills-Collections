@@ -1,20 +1,7 @@
 <!DOCTYPE html>
-<!--
-    THIS IS A TEMPLATE THAT SHOULD BE USED EVERY TIME AND MODIFIED.
-    WHAT TO KEEP:
-    ✓ Overall structure (header, sidebar, main content)
-    ✓ Anthropic branding (colors, fonts, layout)
-    ✓ Seed navigation section (always include this)
-    ✓ Self-contained artifact (everything inline)
-
-    WHAT TO CREATIVELY EDIT:
-    ✗ The p5.js algorithm (implement YOUR vision)
-    ✗ The parameters (define what YOUR art needs)
-    ✗ The UI controls (match YOUR parameters)
-
-    Let your philosophy guide the implementation.
-    The world is your oyster - be creative!
--->
+<!-- Optional viewer example. Adapt layout, fonts, branding and controls to the
+user's brief. Seed/parameter controls must work if included. CDN scripts/fonts
+require network access; this file is not an offline bundle. -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -336,7 +323,7 @@
             <h1>TITLE - EDIT</h1>
             <div class="subtitle">SUBHEADER - EDIT</div>
 
-            <!-- Seed Section (ALWAYS KEEP THIS) -->
+            <!-- Seed Section (example controls) -->
             <div class="control-section">
                 <h3>Seed</h3>
                 <input type="number" id="seed-input" class="seed-input" value="12345" onchange="updateSeed()">
@@ -420,7 +407,7 @@
                 </div>
             </div>
 
-            <!-- Actions Section (ALWAYS KEEP THIS) -->
+            <!-- Actions Section (example controls) -->
             <div class="control-section">
                 <h3>Actions</h3>
                 <div class="button-row">
@@ -528,7 +515,7 @@
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // SEED CONTROL FUNCTIONS - ALWAYS KEEP THESE
+        // SEED CONTROL FUNCTIONS - retain when their controls are used
         // ═══════════════════════════════════════════════════════════════════════
 
         function updateSeedDisplay() {

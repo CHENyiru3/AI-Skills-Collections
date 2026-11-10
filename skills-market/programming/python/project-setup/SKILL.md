@@ -1,108 +1,39 @@
 ---
 name: setting-up-python-libraries
 domain: programming
-description: Sets up professional Python libraries with `pyproject.toml`, `src/` layout, Ruff, pytest, mypy, pre-commit, Makefiles, and GitHub Actions. Use this skill whenever a user is starting a Python package, modernizing an older repo, asking for project scaffolding, or needs the baseline tooling and file structure for maintainable Python library development.
+description: Scaffold a new Python library or modernize its package structure and selected tooling. Use for explicit setup work; preserve an existing project’s backend, Python support and conventions unless migration is requested.
+metadata:
+  version: "1.0.1"
 ---
 
-# Python Library Project Setup
+# Python Library Setup
 
-## Quick Start
+Establish the package purpose, distribution/import names, Python support, license
+and destination from the request or existing repository. Select only the tooling
+needed for the project; src layout, a Makefile, strict types and pre-commit are
+choices rather than universal acceptance gates.
 
-Create a new library with this structure:
+For a new library, keep package discovery and import names consistent with metadata.
+Use a real license text selected for the project; an `MIT License` heading alone is
+not a license. Declare the tools invoked by setup/CI and avoid embedding unescaped
+author input into TOML. Include data/type markers only when the distribution uses them.
 
-```
-my-library/
-├── src/my_library/
-│   ├── __init__.py
-│   └── py.typed
-├── tests/
-├── pyproject.toml
-├── Makefile
-├── .pre-commit-config.yaml
-└── .github/workflows/ci.yml
-```
-
-Use `src/` layout to prevent accidental imports of development code.
-
-## Core Configuration
-
-For complete templates, see:
-- **[PYPROJECT.md](PYPROJECT.md)** - Full pyproject.toml with all tool configs
-- **[CI.md](CI.md)** - GitHub Actions and pre-commit setup
-- **[MAKEFILE.md](MAKEFILE.md)** - Makefile automation patterns
-
-## Minimal pyproject.toml
-
-```toml
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "my-library"
-version = "0.1.0"
-description = "What it does"
-readme = "README.md"
-requires-python = ">=3.10"
-license = {text = "MIT"}
-dependencies = []
-
-[project.optional-dependencies]
-dev = ["pytest>=7.0", "ruff>=0.1", "mypy>=1.0"]
-
-[tool.setuptools.packages.find]
-where = ["src"]
-```
-
-## Essential Commands
+The bundled starter is optional:
 
 ```bash
-# Setup
-pip install -e ".[dev]"
-pre-commit install
-
-# Daily workflow
-ruff check src tests        # Lint
-ruff format src tests       # Format
-pytest                      # Test
-mypy src                    # Type check
+python scripts/create_project.py my-library --author "Name" --directory /chosen/parent
 ```
 
-## Key Decisions
+It creates a new directory and refuses an existing target. Its MIT license, Python
+floor and sample tool stack are starter defaults to adapt, not instructions to
+replace an existing project. Review the generated diff before installing hooks or
+running its remote CI. The helper does not install dependencies itself.
 
-| Choice | Recommendation | Why |
-|--------|---------------|-----|
-| Layout | `src/` | Catches packaging bugs early |
-| Build backend | setuptools | Mature, broad compatibility |
-| Linter | ruff | Fast, replaces flake8+isort+black |
-| Python range | `>=3.10` | Don't pin exact versions |
-| Dependencies | Minimal | Move optional deps to extras |
+Read [PYPROJECT.md](PYPROJECT.md) for relevant packaging fields, [CI.md](CI.md)
+for a requested CI/hook setup and [MAKEFILE.md](MAKEFILE.md) for command automation.
+Verify version-sensitive examples against the chosen backend/actions.
 
-## Checklist
-
-```
-Project Setup:
-- [ ] src/ layout with py.typed marker
-- [ ] pyproject.toml (not setup.py)
-- [ ] Makefile with dev/test/lint/format
-- [ ] .pre-commit-config.yaml
-- [ ] .github/workflows/ci.yml
-- [ ] README.md, LICENSE, CHANGELOG.md
-- [ ] .gitignore
-```
-
-## Helper Script
-
-Create a new project structure:
-```bash
-python scripts/create_project.py my-library --author "Name"
-```
-
-## Learn More
-
-This skill is based on the [Guide to Developing High-Quality Python Libraries](https://mcginniscommawill.com/guides/python-library-development/) by [Will McGinnis](https://mcginniscommawill.com/). See these posts for deeper coverage:
-
-- [Defining Library Scope](https://mcginniscommawill.com/posts/2025-01-17-defining-library-scope/)
-- [Dependency Management](https://mcginniscommawill.com/posts/2025-01-21-dependency-management/)
-- [Licensing Your Project](https://mcginniscommawill.com/posts/2025-01-24-licensing-your-project/)
-- [pyproject.toml Explained](https://mcginniscommawill.com/posts/2025-01-26-pyproject-toml-explained/)
+For modernization, preserve user files and migrate only the requested pieces.
+Validate generated metadata, package discovery and the relevant build/import or
+check commands in an isolated environment. Stop when the selected scaffold/setup
+works; global configuration, publication and every optional tool are not implied.

@@ -1,206 +1,37 @@
 ---
 name: page-keeper
 domain: frontend
-description: Create a repo-specific maintenance skill for a personal website. Use this skill whenever the user wants to turn a website repo into a reusable maintenance workflow, codify site-specific editing rules, teach an agent which website sections can change and which must stay fixed, or generate a maintenance skill for an academic site, portfolio, blog, lab page, or personal homepage. Use it even if the user does not explicitly say "skill" but clearly wants persistent AI-safe maintenance rules for a website repo.
+description: Create a reusable maintenance skill for a specific website repository from its structure and established rules. Use when the user wants persistent site-maintenance instructions; not for a one-off website content edit alone.
+metadata:
+  version: "1.0.1"
 ---
 
-# Page Keeper
+# Website Maintenance Skill Builder
 
-`page-keeper` is a meta-skill. Its job is not to directly maintain the website. Its job is to inspect a website repo, extract structure and rules, ask only the missing high-value questions, and then generate a repo-specific maintenance skill for that site.
+Inspect the target repository and relevant local instructions before asking questions.
+Identify its framework, content sources, routes, shared renderers, assets and actual
+build/check commands. Use [repo-discovery-checklist.md](references/repo-discovery-checklist.md)
+for unfamiliar structure, not as a requirement to inventory unrelated subsystems.
 
-Optimize for personal websites generally. Be especially alert to academic and tech personal-site patterns such as publications, CVs, profile sections, project pages, news, downloadable assets, and repo-specific formatting contracts.
+Separate evidence-backed repo facts from user preferences or permissions. Reuse
+known choices from the conversation and repository. Ask only about consequential
+unknowns such as protected identity wording, publication-status changes or the
+scope of future restructuring; do not reconfirm routine choices already authorized.
+[question-catalog.md](references/question-catalog.md) is an optional aid.
 
-## What To Produce
+Write a self-contained downstream skill that identifies the actual site/repository
+in its discovery contract. Record canonical content/data sources, duplication risks,
+formatting/date/path rules and validation that matters to that site. Preserve exact
+user wording and evidence for identity/affiliation/publication facts; do not invent
+permissions, affiliations or future dates from a generic personal-site pattern.
 
-Always work toward these outputs, in order:
+Use [generated-skill-template.md](references/generated-skill-template.md) only for
+needed structure. A separate rulebook via [rulebook-schema.md](references/rulebook-schema.md)
+can help a complex site, but should not duplicate the whole skill. Do not require
+eight sequential reports or a placeholder outline when the user wants a final skill.
 
-1. `Repo assessment`
-2. `Discovered rules`
-3. `Questions for the user`
-4. `Confirmed rules`
-5. `Rulebook`
-6. `Repo-specific maintenance skill outline`
-7. `Final downstream SKILL.md draft`
-8. `Suggested eval prompts`
-
-Do not jump directly to the downstream skill.
-
-## Default Workflow
-
-### 1. Inspect the repo first
-
-Start with repo exploration, not questions.
-
-Identify:
-- framework and stack
-- route pages and entrypoints
-- layouts, templates, includes, or shared components
-- data files and config files
-- content directories for homepage, projects, publications, CV, blog/news, and personal pages
-- repeated renderers and duplication patterns
-- file naming and versioning conventions
-- special logic for publications, references, CVs, downloadable files, and profile metadata
-
-Use [references/repo-discovery-checklist.md](references/repo-discovery-checklist.md) as the inspection checklist.
-
-### 2. Build a repo map
-
-Summarize the repo in a compact map with:
-- framework
-- main routes/pages
-- content sources
-- shared renderers
-- configuration sources
-- data-driven sections
-- section duplication risks
-- special derived-value rules such as dates, versions, or filenames
-
-### 3. Split inferred rules from user-only rules
-
-Always classify findings into two buckets.
-
-#### Inferred from repo
-
-Infer these directly when possible:
-- framework and layout chain
-- section inventory
-- where content lives
-- shared partials or includes
-- rendering order and grouping
-- bibliography or CV logic
-- asset naming conventions
-- duplication and centralization patterns
-- existing tone and formatting patterns
-
-#### Must be confirmed with the user
-
-Ask before freezing these:
-- which sections may be edited proactively
-- which sections must use exact user wording
-- what content is sensitive or must never be inferred
-- what visual/style freedom is allowed
-- which formatting preferences are intentional rather than accidental
-- how references and publications should be grouped when multiple valid styles exist
-- what future agents may restructure versus only lightly edit
-
-Use [references/question-catalog.md](references/question-catalog.md) to guide the question pass.
-
-### 4. Ask only high-impact questions
-
-After inspection, ask only questions that materially change the downstream maintenance skill.
-
-Focus on:
-- site purpose and audience
-- editable versus locked sections
-- exact-wording-only sections
-- style and tone preferences
-- publication/reference formatting preferences
-- date and version display rules
-- duplication versus centralization preferences
-- approval-required change categories
-
-Do not ask questions the repo already answers.
-
-### 5. Build a normalized rulebook
-
-Before drafting the downstream skill, create a rulebook using the schema in [references/rulebook-schema.md](references/rulebook-schema.md).
-
-The rulebook must cover:
-- framework and architecture
-- content inventory
-- editable sections
-- restricted sections
-- exact-wording sections
-- formatting contracts
-- reference and publication rules
-- versioning and date rules
-- style and voice rules
-- duplication and centralization rules
-- approval-required changes
-- verification checklist
-
-### 6. Generate the downstream maintenance skill
-
-Use [references/generated-skill-template.md](references/generated-skill-template.md) as the template for the repo-specific maintenance skill.
-
-The downstream skill must teach future agents to:
-- inspect before editing
-- prefer shared renderers over duplicated edits
-- preserve repo-specific formatting contracts
-- ask before editing restricted sections
-- respect exact-wording-only zones
-- keep homepage and dedicated pages consistent
-- derive dates, versions, and asset paths from config or naming rules instead of hardcoding them
-
-## Output Contract
-
-Use this section order in your response when running `page-keeper`:
-
-### Repo assessment
-State the framework, core directories, shared renderers, data sources, and special conventions.
-
-### Discovered rules
-List the rules that can already be inferred from the repo.
-
-### Questions for the user
-List only unresolved, high-impact questions.
-
-### Confirmed rules
-After user response, restate the rules that are now fixed.
-
-### Rulebook
-Write the normalized rulebook.
-
-### Repo-specific maintenance skill outline
-Summarize the sections and behavior of the downstream skill.
-
-### Final downstream SKILL.md draft
-Provide the full draft or write it to disk when the user asked for implementation.
-
-### Suggested eval prompts
-Provide 2-3 realistic test prompts for the downstream skill.
-
-## Common Website Patterns To Recognize
-
-### General personal-site patterns
-- homepage/about page
-- project list and project detail pages
-- blog or news collection
-- downloadable CV or resume
-- profile metadata block
-- shared header/footer/nav
-- duplicated content across homepage and dedicated pages
-
-### Academic and tech-site patterns
-- publication pages driven by BibTeX, YAML, JSON, or custom data
-- accepted versus published versus preprint distinctions
-- conference posters and presentations
-- CV versioning or file naming rules
-- institution and affiliation sensitivity
-- project pages tied to publications
-- exact display rules for badges, authorship markers, and manuscript status
-
-Do not assume these exist, but actively check for them.
-
-## Safety and Scope Boundaries
-
-- Do not rewrite protected sections without explicit user approval.
-- Do not infer sensitive facts such as affiliations, job status, future plans, or publication status if the repo does not support them.
-- Do not treat formatting inconsistencies as mistakes until you have checked whether they are intentional.
-- Do not overgeneralize from one page; always look for shared renderers and templates first.
-- Prefer centralization rules over one-off edits when the repo structure supports it.
-
-## Example Prompts
-
-**Example 1**
-User: "Turn my academic website repo into a maintenance skill so future agents know which sections they can polish and which parts require my exact wording."
-
-**Example 2**
-User: "Inspect this portfolio website and create an AI-safe maintenance skill for it. I want the site style preserved and duplicated content kept in sync."
-
-**Example 3**
-User: "I want a reusable skill that understands my personal homepage repo and asks me about the rules it cannot infer."
-
-## Suggested Eval Prompts
-
-See [evals/evals.json](evals/evals.json) for starter prompts covering academic, portfolio, and duplication-heavy personal sites.
+Validate target paths, trigger precision, usable references and a few relevant
+maintenance scenarios. `evals/evals.json` contains optional starter cases, not
+mandatory external model runs. Keep applicable version/registry/UI conventions.
+Stop when the requested site-specific skill is usable and verified; installation,
+publication and unrelated website changes are separate scope decisions.

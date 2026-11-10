@@ -1,6 +1,6 @@
 # Maintenance Loop
 
-Use this loop for most wiki tasks.
+Select the relevant workflow and scope it to the requested outcome.
 
 ## Build or restructure
 
@@ -24,7 +24,7 @@ Use this loop for most wiki tasks.
 1. Start with map and index pages.
 2. Read canonical pages before drilling into source detail.
 3. Answer with clear grounding.
-4. File reusable syntheses back into the wiki when they have lasting value.
+4. Save a synthesis only if the user requested write-back or an applicable vault contract requires it; an ordinary query remains read-only.
 
 ## Lint
 

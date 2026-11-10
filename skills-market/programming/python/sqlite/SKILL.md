@@ -1,78 +1,55 @@
 ---
 name: SQLite
 domain: programming
-description: Use SQLite correctly with proper concurrency, pragmas, and type handling.
-metadata: {"clawdbot":{"emoji":"🪶","requires":{"bins":["sqlite3"]},"os":["linux","darwin","win32"]}}
+description: Design or repair SQLite transactions, concurrency, schema changes, query plans or backups. Use for SQLite-specific behavior and integrity questions; not a blanket migration recommendation for every web application.
+metadata:
+  version: "1.0.1"
+  clawdbot:
+    emoji: 🪶
+    requires:
+      bins:
+      - sqlite3
+    os:
+    - linux
+    - darwin
+    - win32
 ---
 
-## Concurrency (Biggest Gotcha)
+# SQLite Integrity and Concurrency
 
-- Only one writer at a time—concurrent writes queue or fail; not for high-write workloads
-- Enable WAL mode: `PRAGMA journal_mode=WAL`—allows reads during writes, huge improvement
-- Set busy timeout: `PRAGMA busy_timeout=5000`—waits 5s before SQLITE_BUSY instead of failing immediately
-- WAL needs `-wal` and `-shm` files—don't forget to copy them with main database
-- `BEGIN IMMEDIATE` to grab write lock early—prevents deadlocks in read-then-write patterns
+Inspect the linked SQLite version, journal mode, connection/transaction settings
+and workload before changing pragmas. SQLite permits many readers but one writer
+at a time; suitability depends on write duration/contention, not merely having
+multiple users. A busy timeout helps bounded contention but does not fix long
+transactions or remove SQLITE_BUSY handling.
 
-## Foreign Keys (Off by Default!)
+- In WAL mode, readers can coexist with a writer. `BEGIN IMMEDIATE` acquires a
+  write transaction early; it can still fail when another writer is active.
+  `BEGIN EXCLUSIVE` and IMMEDIATE behave the same in WAL; outside WAL, EXCLUSIVE
+  also prevents other connections reading during that transaction.
+- Enable/check `PRAGMA foreign_keys` on every relevant connection before relying
+  on constraints; configure outside an active transaction. Preserve connection
+  ownership and use savepoints for nested rollback scopes.
+- Type affinity is not a validation contract. Check actual version/STRICT support;
+  model booleans, timestamps/timezones and floating-point precision explicitly.
+- Schema rebuilds need preserved indexes, triggers, foreign keys and data, with
+  a transaction/migration test appropriate to the change. Confirm the installed
+  ALTER TABLE capabilities rather than assuming an old feature list.
+- Use bound parameters for data values. Query plans and representative timings
+  should justify indexes/pragmas; durability settings change failure behavior.
 
-- `PRAGMA foreign_keys=ON` required per connection—not persisted in database
-- Without it, foreign key constraints silently ignored—data integrity broken
-- Check before relying: `PRAGMA foreign_keys` returns 0 or 1
-- ON DELETE CASCADE only works if foreign_keys is ON
+## Backups and maintenance
 
-## Type System
+Use the online backup API, shell `.backup`, or supported `VACUUM INTO` for a
+consistent standalone copy. Do not copy a live database and its WAL/SHM files in
+separate filesystem operations and call that an atomic backup. Verify a backup
+can be opened and contains the expected data before replacing a source.
 
-- Type affinity, not strict types—INTEGER column accepts "hello" without error
-- `STRICT` tables enforce types—but only SQLite 3.37+ (2021)
-- No native DATE/TIME—use TEXT as ISO8601 or INTEGER as Unix timestamp
-- BOOLEAN doesn't exist—use INTEGER 0/1; TRUE/FALSE are just aliases
-- REAL is 8-byte float—same precision issues as any float
+VACUUM rewrites the database and needs time, space and suitable locking. It is
+optional maintenance when space reclamation or another concrete goal warrants it,
+not mandatory after every bulk delete. Preserve explicit primary keys rather than
+assuming anonymous ROWIDs remain stable across rewrites. `:memory:` normally names
+a separate database per connection; a shared URI has connection-lifetime constraints.
 
-## Schema Changes
-
-- `ALTER TABLE` very limited—can add column, rename table/column; that's mostly it
-- Can't change column type, add constraints, or drop columns (until 3.35)
-- Workaround: create new table, copy data, drop old, rename—wrap in transaction
-- `ALTER TABLE ADD COLUMN` can't have PRIMARY KEY, UNIQUE, or NOT NULL without default
-
-## Performance Pragmas
-
-- `PRAGMA optimize` before closing long-running connections—updates query planner stats
-- `PRAGMA cache_size=-64000` for 64MB cache—negative = KB; default very small
-- `PRAGMA synchronous=NORMAL` with WAL—good balance of safety and speed
-- `PRAGMA temp_store=MEMORY` for temp tables in RAM—faster sorts and temp results
-
-## Vacuum & Maintenance
-
-- Deleted data doesn't shrink file—`VACUUM` rewrites entire database, reclaims space
-- `VACUUM` needs 2x disk space temporarily—ensure enough room
-- `PRAGMA auto_vacuum=INCREMENTAL` with `PRAGMA incremental_vacuum`—partial reclaim without full rewrite
-- After bulk deletes, always vacuum or file stays bloated
-
-## Backup Safety
-
-- Never copy database file while open—corrupts if write in progress
-- Use `.backup` command in sqlite3—or `sqlite3_backup_*` API
-- WAL mode: `-wal` and `-shm` must be copied atomically with main file
-- `VACUUM INTO 'backup.db'` creates standalone copy (3.27+)
-
-## Indexing
-
-- Covering indexes work—add extra columns to avoid table lookup
-- Partial indexes supported (3.8+): `CREATE INDEX ... WHERE condition`
-- Expression indexes (3.9+): `CREATE INDEX ON t(lower(name))`
-- `EXPLAIN QUERY PLAN` shows index usage—simpler than PostgreSQL EXPLAIN
-
-## Transactions
-
-- Autocommit by default—each statement is own transaction; slow for bulk inserts
-- Batch inserts: `BEGIN; INSERT...; INSERT...; COMMIT`—10-100x faster
-- `BEGIN EXCLUSIVE` for exclusive lock—blocks all other connections
-- Nested transactions via `SAVEPOINT name` / `RELEASE name` / `ROLLBACK TO name`
-
-## Common Mistakes
-
-- Using SQLite for web app with concurrent users—one writer blocks all; use PostgreSQL
-- Assuming ROWID is stable—`VACUUM` can change ROWIDs; use explicit INTEGER PRIMARY KEY
-- Not setting busy_timeout—random SQLITE_BUSY errors under any concurrency
-- In-memory database `':memory:'`—each connection gets different database; use `file::memory:?cache=shared` for shared
+Stop when the scoped query, transaction, migration or backup is verified. References:
+[transactions](https://sqlite.org/lang_transaction.html), [backup API](https://sqlite.org/backup.html).

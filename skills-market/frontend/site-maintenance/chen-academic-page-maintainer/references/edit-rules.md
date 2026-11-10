@@ -1,5 +1,7 @@
 # Edit Rules
 
+Explicit scope and exact wording already supplied by the user satisfy the applicable authorization requirement. Ask only for unresolved consequential information, not routine confirmation.
+
 ## Freely editable
 
 Future agents may polish these without confirmation as long as meaning stays the same and structure is preserved:
@@ -57,6 +59,7 @@ Only change from direct user wording:
 
 ## Uncovered-case policy
 
-- If the skill does not explicitly define how to handle an issue, stop and ask the user.
-- Do not infer new governance rules from a single ambiguous example.
-- After the user answers, ask whether that rule should be added to the skill for future reuse.
+Use the user's request and established rules for routine reversible decisions.
+Ask only when a new case leaves a consequential factual, protected-wording or scope
+ambiguity. Do not infer permanent governance from an incidental example. Update this
+skill's rules only when maintaining the skill is requested or clearly included.

@@ -10,6 +10,7 @@ Use the top-level [README.md](../README.md) for repository overview, installatio
 |---------|---------|
 | [`catalogs/`](./catalogs/) | Domain-by-domain skill inventories with links to the source `SKILL.md` files |
 | [`guides/`](./guides/) | Worked examples and practical usage notes |
+| [`audits/`](./audits/) | Dated skill reviews, evidence, and prioritized update plans |
 
 ## Catalogs
 
@@ -20,13 +21,19 @@ Use the top-level [README.md](../README.md) for repository overview, installatio
 | [AI/ML Skills](./catalogs/ai-ml.md) | Model identifiability, deep learning, LLM tooling, and training infrastructure |
 | [Python Skills](./catalogs/python.md) | Python library engineering, quality, packaging, and release workflows |
 | [Computational Biology Skills](./catalogs/computational-biology.md) | Single-cell, multi-omics, spatial omics, structural biology, databases, and workflow tools |
-| [Writing Skills](./catalogs/writing.md) | Academic editing, technical English, LaTeX, and note-taking |
+| [Writing Skills](./catalogs/writing.md) | Academic editing, technical English, Marp slides, LaTeX, and note-taking |
 
 ## Guides
 
 | Guide | Scope |
 |-------|-------|
 | [Workflow Examples](./guides/examples.md) | Example analysis and pipeline snippets, currently focused on computational biology |
+
+## Audits
+
+- [2026-11-10: implemented improvements](./audits/2026-11-10-improvements.md) — all 111 decisions, version changes, helper repairs, validation, and remaining limits; [structured ledger](./audits/2026-11-10-improvements.json).
+- [2026-11-10: all 111 active skills](./audits/2026-11-10-active-skills-audit.md) — individual findings, update priorities, version baseline, and validation limits.
+- [Version and conflict policy](./guides/architecture.md#skill-versions-and-conflicts) — version locations, bump rules, and comparing conflicting copies.
 
 ## Documentation Conventions
 

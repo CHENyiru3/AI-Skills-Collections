@@ -1,109 +1,37 @@
 ---
 name: obsidian-cli
 domain: writing
-description: Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.
+description: Use a configured Obsidian CLI for a requested vault operation or Obsidian plugin/theme debugging. Target an explicit vault/file; not a requirement to launch the app or use CLI for every local Markdown edit.
+metadata:
+  version: "1.0.1"
 ---
 
 # Obsidian CLI
 
-Use the `obsidian` CLI to interact with a running Obsidian instance. Requires Obsidian to be open.
-
-If the task involves images and the user wants a hosted image URL rather than a vault-local file, use `imgur-cli` to upload the image and store the returned Imgur link in the note instead of only creating a local attachment.
-
-## Command reference
-
-Run `obsidian help` to see all available commands. This is always up to date. Full docs: https://help.obsidian.md/cli
-
-## Syntax
-
-**Parameters** take a value with `=`. Quote values with spaces:
+Discover the installed `obsidian help` contract and application availability.
+CLI behavior changes with version; use command-specific help rather than guessing.
+Choose the target vault explicitly as the first parameter, especially before a
+mutation. Defaults can depend on the current directory or active vault/file.
 
 ```bash
-obsidian create name="My Note" content="Hello world"
+obsidian vault="My Vault" read path="folder/note.md"
+obsidian vault="My Vault" search query="search term" limit=10
 ```
 
-**Flags** are boolean switches with no value:
+Use `path=` for an exact vault-relative target when name resolution is ambiguous;
+`file=` follows wikilink-like lookup. Quote spaces and shell-sensitive content.
+Multiline CLI text uses supported `\n`/`\t` escapes; check saved content rather than
+assuming shell quoting produced the intended newlines.
 
-```bash
-obsidian create name="My Note" silent overwrite
-```
+Read before writing, preserve current author edits and choose a non-overwriting
+create operation by default. Use `overwrite`, permanent deletion, clipboard copying,
+plugin reload or arbitrary app-context eval only for their named, authorized task.
+A query should not alter the active note or publish images through a chosen service.
 
-For multiline content use `\n` for newline and `\t` for tab.
+For plugin/theme debugging, reload only the target plugin and inspect its errors,
+console and relevant DOM/rendering. Restore task-created debug state when needed;
+do not change global appearance or other plugins to validate a local edit.
 
-## File targeting
-
-Many commands accept `file` or `path` to target a file. Without either, the active file is used.
-
-- `file=<name>` — resolves like a wikilink (name only, no path or extension needed)
-- `path=<path>` — exact path from vault root, e.g. `folder/note.md`
-
-## Vault targeting
-
-Commands target the most recently focused vault by default. Use `vault=<name>` as the first parameter to target a specific vault:
-
-```bash
-obsidian vault="My Vault" search query="test"
-```
-
-## Common patterns
-
-```bash
-obsidian read file="My Note"
-obsidian create name="New Note" content="# Hello" template="Template" silent
-obsidian append file="My Note" content="New line"
-obsidian search query="search term" limit=10
-obsidian daily:read
-obsidian daily:append content="- [ ] New task"
-obsidian property:set name="status" value="done" file="My Note"
-obsidian tasks daily todo
-obsidian tags sort=count counts
-obsidian backlinks file="My Note"
-```
-
-Use `--copy` on any command to copy output to clipboard. Use `silent` to prevent files from opening. Use `total` on list commands to get a count.
-
-## Plugin development
-
-### Develop/test cycle
-
-After making code changes to a plugin or theme, follow this workflow:
-
-1. **Reload** the plugin to pick up changes:
-   ```bash
-   obsidian plugin:reload id=my-plugin
-   ```
-2. **Check for errors** — if errors appear, fix and repeat from step 1:
-   ```bash
-   obsidian dev:errors
-   ```
-3. **Verify visually** with a screenshot or DOM inspection:
-   ```bash
-   obsidian dev:screenshot path=screenshot.png
-   obsidian dev:dom selector=".workspace-leaf" text
-   ```
-4. **Check console output** for warnings or unexpected logs:
-   ```bash
-   obsidian dev:console level=error
-   ```
-
-### Additional developer commands
-
-Run JavaScript in the app context:
-
-```bash
-obsidian eval code="app.vault.getFiles().length"
-```
-
-Inspect CSS values:
-
-```bash
-obsidian dev:css selector=".workspace-leaf" prop=background-color
-```
-
-Toggle mobile emulation:
-
-```bash
-obsidian dev:mobile on
-```
-
-Run `obsidian help` to see additional developer commands including CDP and debugger controls.
+Verify the actual target/result, not just command status. Report unavailable app/CLI
+capabilities and use another suitable path when allowed. Stop at the requested vault
+operation. Reference: [Obsidian CLI](https://help.obsidian.md/cli).

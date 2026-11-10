@@ -22,6 +22,8 @@ INPUT_FILE = 'data/raw_counts.h5ad'  # Change to your input file
 OUTPUT_DIR = 'results/'
 FIGURES_DIR = 'figures/'
 
+# Example QC parameters: inspect per-sample distributions and organism/IDs first.
+MT_PREFIXES = ('MT-',)  # Replace from the actual feature annotation.
 # QC parameters
 MIN_GENES = 200          # Minimum genes per cell
 MIN_CELLS = 3            # Minimum cells per gene
@@ -62,7 +64,7 @@ print("QUALITY CONTROL")
 print("=" * 80)
 
 # Identify mitochondrial genes
-adata.var['mt'] = adata.var_names.str.startswith('MT-')
+adata.var['mt'] = adata.var_names.str.startswith(MT_PREFIXES)
 
 # Calculate QC metrics
 sc.pp.calculate_qc_metrics(adata, qc_vars=['mt'], percent_top=None,
@@ -80,7 +82,7 @@ print(f"\nBefore filtering: {adata.n_obs} cells, {adata.n_vars} genes")
 
 sc.pp.filter_cells(adata, min_genes=MIN_GENES)
 sc.pp.filter_genes(adata, min_cells=MIN_CELLS)
-adata = adata[adata.obs.pct_counts_mt < MT_THRESHOLD, :]
+adata = adata[adata.obs.pct_counts_mt < MT_THRESHOLD, :].copy()
 
 print(f"After filtering: {adata.n_obs} cells, {adata.n_vars} genes")
 
@@ -92,6 +94,9 @@ print("\n" + "=" * 80)
 print("NORMALIZATION")
 print("=" * 80)
 
+# Requires X to contain verified counts. Preserve the retained feature counts.
+adata.layers["counts"] = adata.X.copy()
+
 # Normalize to 10,000 counts per cell
 sc.pp.normalize_total(adata, target_sum=1e4)
 
@@ -99,7 +104,7 @@ sc.pp.normalize_total(adata, target_sum=1e4)
 sc.pp.log1p(adata)
 
 # Store normalized data
-adata.raw = adata
+adata.raw = adata.copy()  # Log-normalized snapshot, not raw counts.
 
 # ============================================================================
 # 4. FEATURE SELECTION
@@ -118,7 +123,7 @@ sc.pl.highly_variable_genes(adata, save='_hvg')
 print(f"Selected {sum(adata.var.highly_variable)} highly variable genes")
 
 # Subset to highly variable genes
-adata = adata[:, adata.var.highly_variable]
+adata = adata[:, adata.var.highly_variable].copy()
 
 # ============================================================================
 # 5. SCALING AND REGRESSION
@@ -129,7 +134,8 @@ print("SCALING AND REGRESSION")
 print("=" * 80)
 
 # Regress out unwanted sources of variation
-sc.pp.regress_out(adata, ['total_counts', 'pct_counts_mt'])
+# Optional only when scientifically justified; may remove biology/densify data.
+# sc.pp.regress_out(adata, ['total_counts', 'pct_counts_mt'])
 
 # Scale data
 sc.pp.scale(adata, max_value=10)
@@ -143,7 +149,9 @@ print("DIMENSIONALITY REDUCTION")
 print("=" * 80)
 
 # PCA
-sc.tl.pca(adata, svd_solver='arpack')
+if min(adata.shape) <= N_PCS:
+    raise ValueError('Choose N_PCS below both retained dimensions before running PCA.')
+sc.tl.pca(adata, n_comps=N_PCS, svd_solver='arpack')
 sc.pl.pca_variance_ratio(adata, log=True, save='_pca_variance')
 
 # Compute neighborhood graph
@@ -215,14 +223,7 @@ for cell_type, genes in marker_genes.items():
                    save=f'_{cell_type.replace(" ", "_")}')
 
 # Manual annotation based on marker expression (customize this mapping)
-cluster_to_celltype = {
-    '0': 'CD4 T cells',
-    '1': 'CD14+ Monocytes',
-    '2': 'B cells',
-    '3': 'CD8 T cells',
-    '4': 'NK cells',
-    # Add more mappings based on your marker analysis
-}
+cluster_to_celltype = {}  # Populate only after reviewing marker/reference evidence.
 
 # Apply annotations
 adata.obs['cell_type'] = adata.obs['leiden'].map(cluster_to_celltype)
@@ -240,8 +241,8 @@ print("ADDITIONAL ANALYSES")
 print("=" * 80)
 
 # PAGA trajectory analysis (optional)
-sc.tl.paga(adata, groups='leiden')
-sc.pl.paga(adata, color='leiden', save='_paga')
+# sc.tl.paga(adata, groups='leiden')
+# sc.pl.paga(adata, color='leiden', save='_paga')
 
 # Gene set scoring (optional)
 # example_gene_set = ['CD3D', 'CD3E', 'CD3G']

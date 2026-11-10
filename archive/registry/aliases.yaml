@@ -1,0 +1,9 @@
+aliases:
+  document-skills/skill-seekers: skill-seekers
+  agent/hermes-agent: hermes-agent
+  agent/opencode: opencode
+  agent/zed: zed
+  ai-ml-skills/llm/cursor-usage-checker: cursor-usage-checker
+  ai-ml-skills/utility/bitwarden: bitwarden
+  compbio-skills/spatial-omics/visium/visium: visium
+  codebti: codebti

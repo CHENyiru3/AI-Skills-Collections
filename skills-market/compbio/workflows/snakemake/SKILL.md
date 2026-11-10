@@ -1,224 +1,35 @@
 ---
 name: snakemake
 domain: compbio
-description: Workflow management system for bioinformatics. Use for creating reproducible and scalable computational biology pipelines.
+description: Create, inspect, or debug Snakemake rules, dependency graphs, configuration, environments, resources, and execution profiles for a reproducible computational workflow.
 license: MIT license
 metadata:
-    skill-author: Eric Yiru
+  version: "1.0.1"
+  skill-author: Eric Yiru
 ---
 
-# Snakemake: Workflow Management
+# Snakemake workflows
 
-## Overview
+Read the installed Snakemake version, existing Snakefile/modules, config, sample sheet, environments, profiles, and intended final targets. Preserve the project's execution conventions.
 
-Snakemake is a workflow management system that allows you to create reproducible and scalable data analysis pipelines. It is widely used in bioinformatics for automating computational biology workflows.
+## Rule and scientific contracts
 
-## When to Use This Skill
+- Define final deliverables in the default target, then trace dependencies backward. Every declared output must be produced with the expected path and format by its rule; unused rules are not part of a completed pipeline.
+- Specify named inputs/outputs, constrained wildcards, parameters, logs, threads, and resources. Keep sample identity and read pairing explicit. Use proper shell quoting, including Snakemake's `:q` formatting where appropriate.
+- Validate config/sample metadata before launching work. Separate reference FASTA, aligner index, annotation, organism/assembly, assay, and library layout; a tool name is not enough to choose a pipeline.
+- A SAM stream does not become BAM by changing its filename. An aligner command needs its actual index/reference and conversion/sorting steps if BAM is the declared output. Verify each tool's real output names.
+- For droplet single-cell assays, preserve barcode/UMI extraction, chemistry, cell calling, and count semantics. Bulk alignment plus featureCounts is not a complete generic scRNA-seq pipeline.
 
-This skill should be used when:
-- Creating automated analysis pipelines
-- Ensuring reproducibility
-- Scaling workflows to clusters/cloud
-- Managing complex dependencies
-- Building single-cell analysis pipelines
+## Environments and execution
 
-## Quick Start
+Pin the relevant tool/environment or container revisions. Use installed executor/storage plugins and profiles supported by this Snakemake version; do not copy retired cloud/remote flags blindly. Set resources for the actual executor and bounded local cores for local runs.
 
-### Installation
+Keep temporary/intermediate outputs, directory outputs, checkpoints, and protected outputs deliberate. Avoid cleanup, overwrite, rerun-all, or unlock operations unless the actual state justifies them and they fit the task. Do not discard a running workflow's lock.
 
-```bash
-# Using conda
-conda install -c conda-forge snakemake
+## Verify
 
-# Using pip
-pip install snakemake
-```
+1. Run the version's lint and a dry run for the requested targets. Inspect the DAG for missing steps, wildcard expansion, duplicate outputs, and unintended samples.
+2. Exercise a small representative fixture when rule commands or file contracts changed. Check file content/format and promised QC metrics, not only process exit.
+3. Record environment, config, sample/reference versions, commands, output locations, and failed/incomplete jobs. A dry run validates planning, not the scientific result or runtime tool compatibility.
 
-### Basic Workflow
-
-```python
-# snakefile
-rule all:
-    input:
-        "results/aligned.bam"
-
-rule align:
-    input:
-        "data/sample.fastq"
-    output:
-        "results/aligned.bam"
-    shell:
-        "bwa mem {input} > {output}"
-```
-
-## Single-Cell Example
-
-### Complete scRNA-seq Pipeline
-
-```python
-# snakefile
-configfile: "config.yaml"
-
-rule all:
-    input:
-        expand("results/{sample}/qc_report.html", sample=config["samples"])
-
-rule qc:
-    input:
-        "data/{sample}.fastq.gz"
-    output:
-        html="results/{sample}/qc_report.html",
-        json="results/{sample}/qc_metrics.json"
-    shell:
-        """
-        fastqc {input} -o results/{wildcards.sample}/
-        multiqc results/{wildcards.sample}/ -o {output.html}
-        """
-
-rule trimming:
-    input:
-        "data/{sample}.fastq.gz"
-    output:
-        "results/{sample}/trimmed.fastq.gz"
-    shell:
-        "trim_galore {input} -o results/{wildcards.sample}/"
-
-rule alignment:
-    input:
-        "results/{sample}/trimmed.fastq.gz"
-    output:
-        "results/{sample}/aligned.bam"
-    shell:
-        "star --genomeDir {config[genome]} --readFilesIn {input} --outFileNamePrefix results/{wildcards.sample}/"
-
-rule count:
-    input:
-        "results/{sample}/aligned.bam"
-    output:
-        "results/{sample}/counts.txt"
-    shell:
-        "featureCounts -a {config[gtf]} -o {output} {input}"
-```
-
-## Running Snakemake
-
-### Local Execution
-
-```bash
-# Dry run
-snakemake -n
-
-# Run with visualization
-snakemake --dag | dot -Tpdf dag.pdf
-```
-
-### Cluster Execution
-
-```bash
-# SLURM
-snakemake --profile slurm
-
-# PBS
-snakemake --profile pbs
-
-# SGE
-snakemake --profile sge
-```
-
-### Cloud Execution
-
-```bash
-# Google Life Sciences
-snakemake --google-lifesciences
-
-# AWS
-snakemake --default-remote-provider S3 --default-remote-prefix my-bucket
-```
-
-## Key Concepts
-
-### Rules
-
-```python
-rule my_rule:
-    input:
-        file1="data/input1.txt",
-        file2="data/input2.txt"
-    output:
-        "results/output.txt"
-    params:
-        extra="--option value"
-    shell:
-        "command {input.file1} {input.file2} {params.extra} > {output}"
-```
-
-### Wildcards
-
-```python
-# Using wildcards
-rule everything:
-    input:
-        "data/{sample}.txt"
-    output:
-        "results/{sample}_processed.txt"
-    shell:
-        "process {input} > {output}"
-```
-
-### Resources
-
-```python
-rule:
-    input: ...
-    output: ...
-    resources:
-        mem_mb=8000,
-        runtime=120
-```
-
-### Containers
-
-```python
-rule:
-    input: ...
-    output: ...
-    container:
-        "docker://myimage:latest"
-    shell: ...
-```
-
-## Advanced Features
-
-### Grouping
-
-```python
-rule align:
-    group: "alignment"
-    ...
-
-rule sort:
-    group: "alignment"
-    ...
-```
-
-### Subworkflows
-
-```python
-subworkflow other_workflow:
-    workdir: "../other-project"
-    snakefile: "Snakefile"
-```
-
-## Best Practices
-
-1. **Use config files**: Separate configuration from logic
-2. **Version control**: Keep workflows in git
-3. **Test locally**: Verify before cluster execution
-4. **Use containers**: Ensure reproducibility
-5. **Document**: Add comments and README
-
-## Additional Resources
-
-- **Documentation**: https://snakemake.readthedocs.io/
-- **Tutorial**: https://snakemake-tutorial.readthedocs.io/
-- **GitHub**: https://github.com/snakemake/snakemake
+Consult [official Snakemake documentation](https://snakemake.readthedocs.io/) for version-specific rules, modules, profiles, plugins, and CLI options. Reuse a maintained assay-specific workflow when appropriate instead of labeling an incomplete sketch as a full analysis.

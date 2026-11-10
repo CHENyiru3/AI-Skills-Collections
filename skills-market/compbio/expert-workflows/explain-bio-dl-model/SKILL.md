@@ -1,16 +1,28 @@
 ---
 name: explain-bio-dl-model
 domain: compbio
-description: Translates complex deep learning architectures (VQ-VAE, Transformers, Neural ODEs) into standard biological manuscript text, focusing on the biological rationale for the architecture.
+description: Explain a supplied deep-learning architecture in biological manuscript prose with accurate data flow and evidence boundaries. Use for model-to-text translation; not inventing biological rationale, validation or causal conclusions.
+metadata:
+  version: "1.0.1"
 ---
 
-# Deep Learning Architecture Explainer
+# Biological Deep-Learning Model Explanation
 
-Translate the model architecture details provided in $ARGUMENTS into a manuscript-ready text block suitable for a journal like *Nature Computational Science* or *Bioinformatics*.
+Trace the actual model from input representation through transformations/objective
+to outputs. Preserve tensor axes, masks, units, data splits and the distinction
+between training targets and inference inputs where they affect interpretation.
+Resolve details from supplied code/configuration rather than architecture names.
 
-Follow this specific mapping framework:
-1. **The Biological Problem:** Start by defining the biological constraint the model overcomes (e.g., noisy single-cell dropout, missing spatial z-axis resolution, high-dimensional perturbation spaces).
-2. **The Architecture Rationale:** Explain *why* the specific architecture was chosen for this biological data.
-   * *Example:* "A Vector Quantized-Variational Autoencoder (VQ-VAE) was implemented to force the highly variable gene expression profiles into a discrete latent space, effectively isolating distinct cellular states from continuous technical noise."
-3. **Data Flow:** Describe the journey of the data from the input biological matrix, through the embedding layers, to the final biological prediction (e.g., predicting spatial perturbation responses).
-4. **Validation:** End by stating how the model's embeddings are biologically validated (e.g., comparing generated gene embeddings against established Hallmark pathways).
+Connect each design choice to the stated task only when rationale is documented
+or clearly labeled as a possible interpretation. A discrete latent space does not
+by itself separate biological states from technical noise; an attention map is
+not automatically an explanation or causal regulatory relationship.
+
+Separate mechanism, intended benefit and empirical evidence. State validation only
+when results support it, with the relevant comparator, dataset and uncertainty.
+If rationale or biological evaluation is unavailable, describe the computation
+faithfully and identify the gap; do not manufacture a satisfying narrative ending.
+
+Deliver the requested paragraph/section at the reader's technical level, preserving
+necessary mathematical definitions. Stop when the architecture and support limits
+are clear; additional experiments and a full manuscript rewrite are separate tasks.

@@ -1,93 +1,31 @@
 ---
 name: vitessce
 domain: compbio
-description: Visual integration tool for exploration of spatial single-cell data. Use for creating interactive visualizations and dashboards for multi-modal and spatial omics data.
+description: Prepare data and build or debug Vitessce view configurations, widgets, and linked spatial/single-cell visualizations. Use when Vitessce is requested or already part of the project.
 license: MIT license
 metadata:
-    skill-author: Eric Yiru
+  version: "1.0.1"
+  skill-author: Eric Yiru
 ---
 
-# Vitessce: Visual Integration Tool
+# Vitessce
 
-## Overview
+Identify the Python/JavaScript client versions, view-config schema version, deployment context, supported file loaders, and intended dataset. Do not assume a raw H5AD URL works with every loader.
 
-Vitessce is a web-based visualization framework for exploring multi-modal and spatial single-cell data. It enables the creation of interactive dashboards combining gene expression, protein, spatial, and image data.
+## Prepare and configure
 
-## When to Use This Skill
+1. Inspect observation/feature identifiers, embeddings, expression layers, cell sets, segmentations, and image coordinate systems. Preserve mappings across these assets.
+2. Choose a supported wrapper or file schema from the installed package. Convert or expose data in the required format, with explicit paths to arrays and metadata.
+3. Construct a `VitessceConfig` using documented dataset, file/wrapper, view, layout, and coordination APIs for that version. Verify enum and method names before use; do not copy unverified `ViewConf`, `FileType.H5AD`, `export_plugins`, or CLI initialization examples.
+4. Link the relevant coordination scopes so selections, cell sets, gene selection, spatial view, and embeddings refer to the same observations. A dashboard that renders independent views is not necessarily coordinated.
+5. Export through a supported config method and validate against the matching schema. Use actual accessible asset URLs or local serving paths, not a placeholder domain.
 
-This skill should be used when:
-- Creating interactive dashboards for spatial omics
-- Visualizing multi-modal single-cell data
-- Building data portals for single-cell data
-- Sharing visualizations with collaborators
-- Combining different data types in one view
+## Serve and inspect
 
-## Quick Start
+Check browser network requests, range-request requirements, CORS, authentication, mixed content, and asset size. Notebook-local paths and temporary local servers may not work for collaborators. Do not make protected datasets publicly accessible merely to resolve a loader error.
 
-### Installation
+Open the intended widget or viewer, confirm the selected matrix/layer, and test linked selection, feature coloring, cell sets, and image/segmentation alignment. Inspect console and network errors as well as the screenshot. Distinguish a valid JSON config from a functioning visualization.
 
-```bash
-# Install Vitessce Python package
-pip install vitessce
+Deliver the config plus required assets/serving instructions and version information. Publish or upload only within the requested scope; describe external resources and access limitations.
 
-# Create a Vitessce config
-vitessce --init
-```
-
-### Creating a Dashboard
-
-```python
-from vitessce import (
-    VitessceConfig,
-    ViewConf,
-    FileType,
-    DataType,
-)
-
-# Create configuration
-vc = VitessceConfig()
-
-# Add dataset
-dataset = vc.add_dataset("My Dataset")
-
-# Add files
-dataset.add_file(
-    url="https://example.com/expression.h5ad",
-    file_type=FileType.H5AD,
-    data_type=DataType.OBS_COUNT_MATRIX,
-)
-
-# Add view
-scatterplot = vc.add_view(dataset, ViewConf.SCATTERPLOT, x=0, y=0, w=6, h=8)
-
-# Export
-vc.export_plugins()
-vc.export("config.json")
-```
-
-## Configuration
-
-### Views
-
-- **Scatterplot**: 2D embeddings (UMAP, t-SNE)
-- **Spatial**: Spatial gene expression
-- **Heatmap**: Gene expression matrices
-- **CellSets**: Cell type annotations
-- **Genes**: Gene lists
-
-### Data Types
-
-- Expression matrices (H5AD, Zarr)
-- Cell segmentations
-- Image stores (OME-TIFF, Zarr)
-
-## Best Practices
-
-1. **Prepare data in Python/R**: Use scanpy/Seurat first
-2. **Use appropriate formats**: H5AD for expression, OME-TIFF for images
-3. **Test locally**: Verify before deployment
-
-## Additional Resources
-
-- **Documentation**: https://vitessce.io/
-- **GitHub**: https://github.com/vitessce/vitessce
+Use the [Python documentation](https://python-docs.vitessce.io/) and [core Vitessce documentation](https://vitessce.io/) for loaders, wrappers, configuration schemas, and supported components.

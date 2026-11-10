@@ -1,135 +1,36 @@
 ---
 name: improving-python-code-quality
 domain: programming
-description: Improves Python library code quality with Ruff, mypy, type hints, project structure, and targeted refactoring. Use this skill whenever a user asks to lint Python code, add or fix type annotations, clean up Pythonic anti-patterns, configure static analysis, or raise the maintainability bar of a Python package.
+description: Fix Python lint/type-checking problems or perform a requested focused maintainability refactor. Use the project’s configured tools and supported Python versions; not a mandatory reconfiguration for every Python edit.
+metadata:
+  version: "1.0.1"
 ---
 
 # Python Code Quality
 
-## Quick Reference
+Inspect `pyproject.toml`, supported Python versions and existing Ruff/type-checker
+configuration before changing rules or syntax. Run the relevant existing checks
+without autofix first when diagnosing a problem; limit edits to the requested scope.
 
-| Tool | Purpose | Command |
-|------|---------|---------|
-| ruff | Lint + format | `ruff check src && ruff format src` |
-| mypy | Type check | `mypy src` |
+Distinguish behavior fixes from mechanical style changes. Avoid a formatter sweep
+that obscures a small functional diff. Keep public names, exception behavior and
+mutation semantics unless an interface change is requested.
 
-## Ruff Configuration
+For types, model real optional/union cases and ownership rather than silencing
+errors with `Any`, ignores or casts. Respect the project's strictness and version
+floor; do not impose Python 3.10 syntax or strict mypy on an older codebase. Add a
+`py.typed` marker only when distributing a typed package, including it in the build.
 
-Minimal config in pyproject.toml:
+When replacing a mutable default with `None`, initialize only when the value is
+`None`; `items or []` can discard the identity of a valid empty container. Catch
+specific expected exceptions without swallowing failures or logging secrets.
 
-```toml
-[tool.ruff]
-line-length = 88
-target-version = "py310"
+Load only the relevant resource:
 
-[tool.ruff.lint]
-select = ["E", "W", "F", "I", "B", "C4", "UP"]
-```
+- [RUFF_CONFIG.md](RUFF_CONFIG.md) for a requested lint configuration change.
+- [MYPY_CONFIG.md](MYPY_CONFIG.md) for strictness/override choices.
+- [TYPE_PATTERNS.md](TYPE_PATTERNS.md) for protocols and advanced typing.
 
-For full configuration options, see **[RUFF_CONFIG.md](RUFF_CONFIG.md)**.
-
-## MyPy Configuration
-
-```toml
-[tool.mypy]
-python_version = "3.10"
-disallow_untyped_defs = true
-warn_return_any = true
-```
-
-For strict settings and overrides, see **[MYPY_CONFIG.md](MYPY_CONFIG.md)**.
-
-## Type Hints Patterns
-
-```python
-# Basic
-def process(items: list[str]) -> dict[str, int]: ...
-
-# Optional
-def fetch(url: str, timeout: int | None = None) -> bytes: ...
-
-# Callable
-def apply(func: Callable[[int], str], value: int) -> str: ...
-
-# Generic
-T = TypeVar("T")
-def first(items: Sequence[T]) -> T | None: ...
-```
-
-For protocols and advanced patterns, see **[TYPE_PATTERNS.md](TYPE_PATTERNS.md)**.
-
-## Common Anti-Patterns
-
-```python
-# Bad: Mutable default
-def process(items: list = []):  # Bug!
-    ...
-
-# Good: None default
-def process(items: list | None = None):
-    items = items or []
-    ...
-```
-
-```python
-# Bad: Bare except
-try:
-    ...
-except:
-    pass
-
-# Good: Specific exception
-try:
-    ...
-except ValueError as e:
-    logger.error(e)
-```
-
-## Pythonic Idioms
-
-```python
-# Iteration
-for item in items:           # Not: for i in range(len(items))
-for i, item in enumerate(items):  # When index needed
-
-# Dictionary access
-value = d.get(key, default)  # Not: if key in d: value = d[key]
-
-# Context managers
-with open(path) as f:        # Not: f = open(path); try: finally: f.close()
-
-# Comprehensions (simple only)
-squares = [x**2 for x in numbers]
-```
-
-## Module Organization
-
-```
-src/my_library/
-├── __init__.py      # Public API exports
-├── _internal.py     # Private (underscore prefix)
-├── exceptions.py    # Custom exceptions
-├── types.py         # Type definitions
-└── py.typed         # Type hint marker
-```
-
-## Checklist
-
-```
-Code Quality:
-- [ ] ruff check passes
-- [ ] mypy passes (strict mode)
-- [ ] Public API has type hints
-- [ ] Public API has docstrings
-- [ ] No mutable default arguments
-- [ ] Specific exception handling
-- [ ] py.typed marker present
-```
-
-## Learn More
-
-This skill is based on the [Code Quality](https://mcginniscommawill.com/guides/python-library-development/#code-quality-the-foundation) section of the [Guide to Developing High-Quality Python Libraries](https://mcginniscommawill.com/guides/python-library-development/) by [Will McGinnis](https://mcginniscommawill.com/). See these posts for deeper coverage:
-
-- [Linting & Formatting with Ruff](https://mcginniscommawill.com/posts/2025-01-30-linting-formatting-ruff/)
-- [Understanding McCabe Complexity](https://mcginniscommawill.com/posts/2025-04-24-understanding-mccabe-complexity/)
-- [Adding Type Hints](https://mcginniscommawill.com/posts/2025-04-03-pygeohash-type-hints/)
+Re-run changed-file checks and tests for behavior the refactor can affect. Report
+pre-existing failures separately. Stop when the requested quality issue is resolved;
+new tools, full coverage and repository-wide cleanup are not automatic prerequisites.

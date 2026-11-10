@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Cutter"
+  short_description: "Audit and trim skills without losing their core"
+  default_prompt: "Use $skill-cutter to audit this skill and recommend focused cuts; apply edits only when I request them."

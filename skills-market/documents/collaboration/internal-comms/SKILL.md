@@ -1,33 +1,27 @@
 ---
 name: internal-comms
 domain: documents
-description: A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).
+description: Draft an internal 3P update, newsletter, FAQ or other requested team communication using supplied organizational context. Do not infer a company identity or send/publish the draft merely because it was written.
 license: Complete terms in LICENSE.txt
+metadata:
+  version: "1.0.1"
 ---
 
-## When to use this skill
-To write internal communications, use this skill for:
-- 3P updates (Progress, Plans, Problems)
-- Company newsletters
-- FAQ responses
-- Status reports
-- Leadership updates
-- Project updates
-- Incident reports
+# Internal Communications
 
-## How to use this skill
+Use the stated audience, purpose, facts and existing company format. Do not invent
+status, commitments, metrics, policy or a company voice from this generic resource.
+If the format is clear, draft directly; ask only for a missing consequential fact.
 
-To write any internal communication:
+Load the matching optional example, rather than all formats:
 
-1. **Identify the communication type** from the request
-2. **Load the appropriate guideline file** from the `examples/` directory:
-    - `examples/3p-updates.md` - For Progress/Plans/Problems team updates
-    - `examples/company-newsletter.md` - For company-wide newsletters
-    - `examples/faq-answers.md` - For answering frequently asked questions
-    - `examples/general-comms.md` - For anything else that doesn't explicitly match one of the above
-3. **Follow the specific instructions** in that file for formatting, tone, and content gathering
+- [3P updates](examples/3p-updates.md): progress, plans, problems.
+- [Company newsletter](examples/company-newsletter.md): a broader update.
+- [FAQ answers](examples/faq-answers.md): source-backed concise answers.
+- [General communications](examples/general-comms.md): other formats.
 
-If the communication type doesn't match any existing guideline, ask for clarification or more context about the desired format.
-
-## Keywords
-3P updates, company newsletter, company comms, weekly update, faqs, common questions, updates, internal comms
+Treat their interview/format suggestions as aids, not mandatory questions already
+answered in the conversation. Lead with the information or action the reader needs,
+keep uncertainty visible and protect sensitive details. Verify dates, owners and
+links from supplied evidence. Deliver the requested draft; sending to Slack/email
+or publishing requires that explicit scope. Stop when the communication is usable.

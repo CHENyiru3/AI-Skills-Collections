@@ -1,127 +1,34 @@
 ---
 name: optimizing-python-performance
 domain: programming
-description: Optimizes Python library performance through profiling, memory analysis, benchmarking, and regression prevention. Use this skill whenever a user asks why Python code is slow, wants CPU or memory profiling, needs benchmarking, suspects a memory leak, or wants performance work grounded in measurements instead of guesses.
+description: Profile and improve Python CPU, memory or throughput behavior using representative measurements. Use for an explicit performance investigation or optimization; not mandatory benchmarking for an unrelated edit.
+metadata:
+  version: "1.0.1"
 ---
 
-# Python Performance Optimization
+# Python Performance Work
 
-## Profiling Quick Start
+Define the workload, environment, measured problem and correctness contract.
+Capture a representative baseline before changing code; distinguish startup,
+I/O, compute, allocation and retained memory rather than guessing from syntax.
+Profiling executes code, so select a suitable environment for unfamiliar inputs.
 
-```bash
-# PyInstrument (statistical, readable output)
-python -m pyinstrument script.py
+Choose the needed lens: CPU sampling/cProfile for hot paths, tracemalloc for Python
+allocations, or a native-aware profiler when Python-only evidence is insufficient.
+Read [PROFILING.md](PROFILING.md) for a relevant tool and verify its installed CLI.
+Do not install a profiling stack globally as an automatic first step.
 
-# cProfile (detailed, built-in)
-python -m cProfile -s cumulative script.py
+Compare like with like: inputs, warmup, caches, threads, device synchronization and
+measurement units. Report repetitions/variability when they affect the conclusion.
+Distinguish list indexing from value lookup; hash lookup is expected/amortized, not
+a universal constant-time guarantee. Consider memory and ordering/duplicate semantics
+before replacing a list with a set or caching a computation.
 
-# Memory profiling
-pip install memray
-memray run script.py
-memray flamegraph memray-*.bin
-```
+Optimize a measured bottleneck, then check that outputs, precision, side effects
+and relevant resource bounds remain valid. Speed claims must name the workload
+and baseline; do not extrapolate a microbenchmark to all users.
 
-## PyInstrument Usage
-
-```python
-from pyinstrument import Profiler
-
-profiler = Profiler()
-profiler.start()
-result = my_function()
-profiler.stop()
-print(profiler.output_text(unicode=True, color=True))
-```
-
-## Memory Analysis
-
-```python
-import tracemalloc
-
-tracemalloc.start()
-# ... code ...
-snapshot = tracemalloc.take_snapshot()
-for stat in snapshot.statistics('lineno')[:10]:
-    print(stat)
-```
-
-## Benchmarking (pytest-benchmark)
-
-```python
-def test_encode_benchmark(benchmark):
-    result = benchmark(encode, 37.7749, -122.4194)
-    assert len(result) == 12
-```
-
-```bash
-pytest tests/ --benchmark-only
-pytest tests/ --benchmark-compare
-```
-
-## Common Optimizations
-
-```python
-# Use set for membership (O(1) vs O(n))
-valid = set(items)
-if item in valid: ...
-
-# Use deque for queue operations
-from collections import deque
-queue = deque()
-queue.popleft()  # O(1) vs list.pop(0) O(n)
-
-# Use generators for large data
-def process(items):
-    for item in items:
-        yield transform(item)
-
-# Cache expensive computations
-from functools import lru_cache
-
-@lru_cache(maxsize=1000)
-def expensive(x):
-    return compute(x)
-
-# String building
-result = "".join(str(x) for x in items)  # Not += in loop
-```
-
-## Algorithm Complexity
-
-| Operation | list | set | dict |
-|-----------|------|-----|------|
-| Lookup | O(n) | O(1) | O(1) |
-| Insert | O(1) | O(1) | O(1) |
-| Delete | O(n) | O(1) | O(1) |
-
-For detailed strategies, see:
-- **[PROFILING.md](PROFILING.md)** - Advanced profiling techniques
-- **[BENCHMARKS.md](BENCHMARKS.md)** - CI benchmark regression testing
-
-## Optimization Checklist
-
-```
-Before Optimizing:
-- [ ] Confirm there's a real problem
-- [ ] Profile to find actual bottleneck
-- [ ] Establish baseline measurements
-
-Process:
-- [ ] Algorithm improvements first
-- [ ] Then data structures
-- [ ] Then implementation details
-- [ ] Measure after each change
-
-After:
-- [ ] Add benchmarks to prevent regression
-- [ ] Verify correctness unchanged
-- [ ] Document why optimization needed
-```
-
-## Learn More
-
-This skill is based on the [Performance](https://mcginniscommawill.com/guides/python-library-development/#performance-beyond-raw-speed) section of the [Guide to Developing High-Quality Python Libraries](https://mcginniscommawill.com/guides/python-library-development/) by [Will McGinnis](https://mcginniscommawill.com/). See these posts for deeper coverage:
-
-- [Performance Benchmarking](https://mcginniscommawill.com/posts/2025-02-22-testing-benchmark/)
-- [Profiling with PyInstrument](https://mcginniscommawill.com/posts/2025-02-25-testing-profiling-pyinstrument/)
-- [Memory Profiling with Memray](https://mcginniscommawill.com/posts/2025-03-01-testing-profiling-memray/)
+Read [BENCHMARKS.md](BENCHMARKS.md) for requested sustained regression tracking.
+Adding a permanent benchmark suite or CI threshold is optional unless needed for
+the agreed outcome. Stop when the requested measurement or improvement is verified,
+and report remaining bottlenecks without expanding into unrelated tuning.

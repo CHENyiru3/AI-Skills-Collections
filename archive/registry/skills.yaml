@@ -1,0 +1,363 @@
+skills:
+  beamer:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: null
+    original_entry:
+      id: beamer
+      name: Beamer
+      canonical_path: skills-market/writing/beamer
+      domain: writing
+      category: presentations
+      tags:
+      - beamer
+      - latex
+      - slides
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: missing
+      dependencies: []
+      profiles:
+      - macos-personal
+      taskpacks: []
+  bitwarden:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: archive/skills/core/security/bitwarden
+    original_entry:
+      name: Bitwarden
+      canonical_path: skills-market/core/security/bitwarden
+      old_paths:
+      - ai-ml-skills/utility/bitwarden
+      domain: core
+      category: security
+      tags:
+      - bitwarden
+      - password
+      - credentials
+      - security
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: active
+      id: bitwarden
+      dependencies: []
+      profiles: []
+      taskpacks: []
+  clawd-animation:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: null
+    original_entry:
+      id: clawd-animation
+      name: Clawd Animation
+      canonical_path: skills-market/frontend/clawd-animation
+      domain: frontend
+      category: animation
+      tags:
+      - animation
+      - html
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: missing
+      dependencies: []
+      profiles:
+      - macos-personal
+      taskpacks: []
+  clawd-animation-lite:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: null
+    original_entry:
+      id: clawd-animation-lite
+      name: Clawd Animation Lite
+      canonical_path: skills-market/frontend/clawd-animation-lite
+      domain: frontend
+      category: animation
+      tags:
+      - animation
+      - html
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: missing
+      dependencies: []
+      profiles:
+      - macos-personal
+      taskpacks: []
+  codebti:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: archive/skills/projects/codebti
+    original_entry:
+      name: CODEBTI
+      canonical_path: skills-market/projects/codebti
+      old_paths:
+      - codebti
+      domain: projects
+      category: projects
+      tags:
+      - codebti
+      - project
+      - bioinformatics
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: active
+      id: codebti
+      dependencies: []
+      profiles: []
+      taskpacks: []
+  cursor-usage-checker:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: archive/skills/ai-ml/llm/cursor-usage-checker
+    original_entry:
+      name: Cursor Usage Checker
+      canonical_path: skills-market/ai-ml/llm/cursor-usage-checker
+      old_paths:
+      - ai-ml-skills/llm/cursor-usage-checker
+      domain: ai-ml
+      category: llm
+      tags:
+      - cursor
+      - usage
+      - monitoring
+      - llm
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: active
+      id: cursor-usage-checker
+      dependencies: []
+      profiles: []
+      taskpacks: []
+  hermes-agent:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: archive/skills/agents/hermes-agent
+    original_entry:
+      name: Hermes Agent
+      canonical_path: skills-market/agents/hermes-agent
+      old_paths:
+      - agent/hermes-agent
+      domain: agents
+      category: agent
+      tags:
+      - hermes
+      - nous-research
+      - agent
+      - coding
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: active
+      id: hermes-agent
+      dependencies: []
+      profiles: []
+      taskpacks: []
+  minimax-cli:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: archive/skills/ai-ml/llm/minimax-cli
+    original_entry:
+      name: MiniMax CLI
+      canonical_path: skills-market/ai-ml/llm/minimax-cli
+      old_paths: []
+      domain: ai-ml
+      category: llm
+      tags:
+      - minimax
+      - mmx
+      - multimodal
+      - cli
+      - llm
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: active
+      id: minimax-cli
+      dependencies: []
+      profiles: []
+      taskpacks: []
+  neat-freak:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: null
+    original_entry:
+      id: neat-freak
+      name: Neat Freak
+      canonical_path: skills-market/agents/neat-freak
+      domain: agents
+      category: maintenance
+      tags:
+      - maintenance
+      - cleanup
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: missing
+      dependencies: []
+      profiles:
+      - macos-personal
+      taskpacks: []
+  opencode:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: archive/skills/agents/opencode
+    original_entry:
+      name: OpenCode
+      canonical_path: skills-market/agents/opencode
+      old_paths:
+      - agent/opencode
+      domain: agents
+      category: agent
+      tags:
+      - opencode
+      - agent
+      - coding
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: active
+      id: opencode
+      dependencies: []
+      profiles: []
+      taskpacks: []
+  skill-seekers:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: archive/skills/core/dev/skill-seekers
+    original_entry:
+      name: Skill Seekers
+      canonical_path: skills-market/core/dev/skill-seekers
+      old_paths:
+      - document-skills/skill-seekers
+      domain: core
+      category: dev
+      tags:
+      - skill
+      - discovery
+      - codebase
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: active
+      id: skill-seekers
+      dependencies: []
+      profiles: []
+      taskpacks: []
+  the-pirate-bay:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: null
+    original_entry:
+      id: the-pirate-bay
+      name: The Pirate Bay
+      canonical_path: skills-market/platforms/the-pirate-bay
+      domain: platforms
+      category: media
+      tags:
+      - torrent
+      - search
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: missing
+      dependencies: []
+      profiles:
+      - macos-personal
+      taskpacks: []
+  visium:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: archive/skills/compbio/spatial-omics/platforms/visium
+    original_entry:
+      name: Visium
+      canonical_path: skills-market/compbio/spatial-omics/platforms/visium
+      old_paths:
+      - compbio-skills/spatial-omics/visium/visium
+      domain: compbio
+      category: spatial-omics
+      tags:
+      - visium
+      - spatial
+      - 10x
+      - transcriptomics
+      supported_hosts:
+      - macos
+      - linux
+      - server
+      - hpc
+      install_weight: medium
+      status: active
+      id: visium
+      dependencies: []
+      profiles: []
+      taskpacks: []
+  zed:
+    archived_on: '2026-11-10'
+    reason: Removed from the active market at the owner's request; retained for possible
+      future recovery.
+    archived_path: archive/skills/agents/zed
+    original_entry:
+      name: Zed
+      canonical_path: skills-market/agents/zed
+      old_paths:
+      - agent/zed
+      domain: agents
+      category: agent
+      tags:
+      - zed
+      - agent
+      - coding
+      - editor
+      supported_hosts:
+      - macos
+      - linux
+      - windows
+      install_weight: light
+      status: active
+      id: zed
+      dependencies: []
+      profiles: []
+      taskpacks: []

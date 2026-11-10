@@ -1,232 +1,193 @@
 #!/usr/bin/env python3
+"""UniProt REST helpers. Search defaults to one page; request all_pages explicitly.
+
+JSON pages are merged without discarding failedIds. TSV/FASTA/plain-text pages can
+be joined; paginated XML/RDF/binary output must use a dedicated download workflow.
+Every request has a timeout, mapping polling has a deadline, and paging is bounded.
 """
-UniProt REST API Client
+from __future__ import annotations
 
-A Python client for interacting with the UniProt REST API.
-Provides helper functions for common operations including search,
-retrieval, ID mapping, and streaming.
-
-Usage examples:
-    # Search for proteins
-    results = search_proteins("insulin AND organism_name:human", format="json")
-
-    # Get a single protein
-    protein = get_protein("P12345", format="fasta")
-
-    # Map IDs
-    mapped = map_ids(["P12345", "P04637"], from_db="UniProtKB_AC-ID", to_db="PDB")
-
-    # Stream large results
-    for batch in stream_results("taxonomy_id:9606 AND reviewed:true", format="fasta"):
-        process(batch)
-"""
-
-import requests
+import json
 import sys
 import time
-import json
-from typing import List, Dict, Optional, Generator
-from urllib.parse import urlencode
+from typing import Dict, Generator, List, Optional
+
+import requests
 
 BASE_URL = "https://rest.uniprot.org"
-POLLING_INTERVAL = 3  # seconds
+POLLING_INTERVAL = 3
+REQUEST_TIMEOUT = 30
+MAX_PAGES = 1000
 
 
-def search_proteins(query: str, format: str = "json",
-                   fields: Optional[List[str]] = None,
-                   size: int = 25) -> Dict:
-    """
-    Search UniProt database with a query.
+def _decode(response, format):
+    if format == "json":
+        return response.json()
+    if format == "xlsx":
+        raise ValueError("Use an explicit binary download for XLSX; this helper returns JSON/text")
+    return response.text
 
-    Args:
-        query: Search query (e.g., "insulin AND organism_name:human")
-        format: Response format (json, tsv, xlsx, xml, fasta, txt, rdf)
-        fields: List of fields to return (e.g., ["accession", "gene_names", "organism_name"])
-        size: Number of results per page (default 25, max 500)
 
-    Returns:
-        Response data in requested format
-    """
+def _pages(endpoint, params, max_pages=MAX_PAGES):
+    """Yield responses; next links already contain their cursor/query parameters."""
+    seen = set()
+    for _ in range(max_pages):
+        if endpoint in seen:
+            raise RuntimeError("Repeated next-page URL; retrieval incomplete")
+        seen.add(endpoint)
+        response = requests.get(endpoint, params=params, timeout=REQUEST_TIMEOUT)
+        response.raise_for_status()
+        yield response
+        endpoint = response.links.get("next", {}).get("url")
+        if not endpoint:
+            return
+        if not endpoint.startswith(BASE_URL + "/"):
+            raise RuntimeError("Unexpected pagination host")
+        params = None
+    raise RuntimeError(f"Page limit {max_pages} reached; retrieval incomplete")
+
+
+def _collect_pages(endpoint, params, format):
+    combined = None
+    text_parts = []
+    header = None
+    for response in _pages(endpoint, params):
+        page = _decode(response, format)
+        if format == "json":
+            if not isinstance(page, dict):
+                raise ValueError("Expected a JSON object page")
+            if combined is None:
+                combined = dict(page)
+                for key in ("results", "failedIds"):
+                    if key in page:
+                        combined[key] = list(page[key])
+            else:
+                for key in ("results", "failedIds"):
+                    if key in page:
+                        combined.setdefault(key, []).extend(page[key])
+        elif format in ("tsv", "fasta", "txt"):
+            if format == "tsv":
+                lines = page.splitlines()
+                if not lines:
+                    continue
+                if header is None:
+                    header = lines[0]
+                elif lines[0] != header:
+                    raise ValueError("TSV page headers differ")
+                else:
+                    lines = lines[1:]
+                text_parts.append("\n".join(lines))
+            else:
+                text_parts.append(page.rstrip("\n"))
+        else:
+            raise ValueError("All-pages merging supports JSON, TSV, FASTA and TXT only")
+    return combined if format == "json" else "\n".join(text_parts) + ("\n" if text_parts else "")
+
+
+def iter_search_pages(query: str, format: str = "json",
+                      fields: Optional[List[str]] = None, size: int = 500):
+    """Yield all search pages. Inspect/stream pages rather than materializing huge queries."""
+    if not 1 <= size <= 500:
+        raise ValueError("size must be between 1 and 500")
+    params = {"query": query, "format": format, "size": size}
+    if fields:
+        params["fields"] = ",".join(fields)
+    for response in _pages(f"{BASE_URL}/uniprotkb/search", params):
+        yield _decode(response, format)
+
+
+def search_proteins(query: str, format: str = "json", fields: Optional[List[str]] = None,
+                    size: int = 25, all_pages: bool = False):
+    """Return one page by default, or merge all supported-format pages explicitly."""
+    if not 1 <= size <= 500:
+        raise ValueError("size must be between 1 and 500")
+    params = {"query": query, "format": format, "size": size}
+    if fields:
+        params["fields"] = ",".join(fields)
     endpoint = f"{BASE_URL}/uniprotkb/search"
+    if all_pages:
+        return _collect_pages(endpoint, params, format)
+    response = requests.get(endpoint, params=params, timeout=REQUEST_TIMEOUT)
+    response.raise_for_status()
+    return _decode(response, format)
 
-    params = {
-        "query": query,
-        "format": format,
-        "size": size
-    }
 
+def get_protein(accession: str, format: str = "json"):
+    response = requests.get(f"{BASE_URL}/uniprotkb/{accession}.{format}", timeout=REQUEST_TIMEOUT)
+    response.raise_for_status()
+    return _decode(response, format)
+
+
+def batch_retrieve(accessions: List[str], format: str = "json", fields: Optional[List[str]] = None):
+    """Bound query size and retrieve all matching pages. Preserve absent-ID accounting yourself."""
+    if not accessions or len(accessions) > 500:
+        raise ValueError("Use nonempty batches of at most 500 accessions; combine by ID explicitly")
+    query = " OR ".join(f"accession:{accession}" for accession in accessions)
+    return search_proteins(query, format=format, fields=fields, size=500, all_pages=True)
+
+
+def stream_results(query: str, format: str = "fasta", fields: Optional[List[str]] = None,
+                   chunk_size: int = 8192) -> Generator[str, None, None]:
+    params = {"query": query, "format": format}
     if fields:
         params["fields"] = ",".join(fields)
-
-    response = requests.get(endpoint, params=params)
-    response.raise_for_status()
-
-    if format == "json":
-        return response.json()
-    else:
-        return response.text
-
-
-def get_protein(accession: str, format: str = "json") -> str:
-    """
-    Retrieve a single protein entry by accession number.
-
-    Args:
-        accession: UniProt accession number (e.g., "P12345")
-        format: Response format (json, txt, xml, fasta, gff, rdf)
-
-    Returns:
-        Protein data in requested format
-    """
-    endpoint = f"{BASE_URL}/uniprotkb/{accession}.{format}"
-
-    response = requests.get(endpoint)
-    response.raise_for_status()
-
-    if format == "json":
-        return response.json()
-    else:
-        return response.text
+    if format == "xlsx":
+        raise ValueError("Use an explicit binary download for XLSX")
+    with requests.get(f"{BASE_URL}/uniprotkb/stream", params=params, stream=True,
+                      timeout=REQUEST_TIMEOUT) as response:
+        response.raise_for_status()
+        response.encoding = response.encoding or "utf-8"
+        for chunk in response.iter_content(chunk_size=chunk_size, decode_unicode=True):
+            if chunk:
+                yield chunk
 
 
-def batch_retrieve(accessions: List[str], format: str = "json",
-                  fields: Optional[List[str]] = None) -> str:
-    """
-    Retrieve multiple protein entries efficiently.
-
-    Args:
-        accessions: List of UniProt accession numbers
-        format: Response format
-        fields: List of fields to return
-
-    Returns:
-        Combined results in requested format
-    """
-    query = " OR ".join([f"accession:{acc}" for acc in accessions])
-    return search_proteins(query, format=format, fields=fields, size=len(accessions))
-
-
-def stream_results(query: str, format: str = "fasta",
-                  fields: Optional[List[str]] = None,
-                  chunk_size: int = 8192) -> Generator[str, None, None]:
-    """
-    Stream large result sets without pagination.
-
-    Args:
-        query: Search query
-        format: Response format
-        fields: List of fields to return
-        chunk_size: Size of chunks to yield
-
-    Yields:
-        Chunks of response data
-    """
-    endpoint = f"{BASE_URL}/uniprotkb/stream"
-
-    params = {
-        "query": query,
-        "format": format
-    }
-
-    if fields:
-        params["fields"] = ",".join(fields)
-
-    response = requests.get(endpoint, params=params, stream=True)
-    response.raise_for_status()
-
-    for chunk in response.iter_content(chunk_size=chunk_size, decode_unicode=True):
-        if chunk:
-            yield chunk
-
-
-def map_ids(ids: List[str], from_db: str, to_db: str,
-           format: str = "json") -> Dict:
-    """
-    Map protein identifiers between different database systems.
-
-    Args:
-        ids: List of identifiers to map (max 100,000)
-        from_db: Source database (e.g., "UniProtKB_AC-ID", "Gene_Name")
-        to_db: Target database (e.g., "PDB", "Ensembl", "RefSeq_Protein")
-        format: Response format
-
-    Returns:
-        Mapping results
-
-    Note:
-        - Maximum 100,000 IDs per job
-        - Results stored for 7 days
-        - See id_mapping_databases.md for all supported databases
-    """
-    if len(ids) > 100000:
-        raise ValueError("Maximum 100,000 IDs allowed per mapping job")
-
-    # Step 1: Submit job
-    submit_endpoint = f"{BASE_URL}/idmapping/run"
-
-    data = {
-        "from": from_db,
-        "to": to_db,
-        "ids": ",".join(ids)
-    }
-
-    response = requests.post(submit_endpoint, data=data)
+def map_ids(ids: List[str], from_db: str, to_db: str, format: str = "json",
+            max_wait: float = 300):
+    """Submit once, poll with a deadline, preserve failed IDs, and retrieve all result pages."""
+    if not ids or len(ids) > 100000 or max_wait <= 0:
+        raise ValueError("Use 1..100000 IDs and a positive polling deadline")
+    response = requests.post(f"{BASE_URL}/idmapping/run",
+                             data={"from": from_db, "to": to_db, "ids": ",".join(ids)},
+                             timeout=REQUEST_TIMEOUT)
     response.raise_for_status()
     job_id = response.json()["jobId"]
-
-    # Step 2: Poll for completion
-    status_endpoint = f"{BASE_URL}/idmapping/status/{job_id}"
-
+    deadline = time.monotonic() + max_wait
     while True:
-        response = requests.get(status_endpoint)
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise TimeoutError(f"Mapping job {job_id} did not finish before the deadline")
+        response = requests.get(f"{BASE_URL}/idmapping/status/{job_id}",
+                                timeout=min(REQUEST_TIMEOUT, remaining))
         response.raise_for_status()
         status = response.json()
-
-        if "results" in status or "failedIds" in status:
+        job_status = status.get("jobStatus")
+        if job_status == "FINISHED" or (job_status is None and
+                                                ("results" in status or "failedIds" in status)):
             break
-
-        time.sleep(POLLING_INTERVAL)
-
-    # Step 3: Retrieve results
-    results_endpoint = f"{BASE_URL}/idmapping/results/{job_id}"
-
-    params = {"format": format}
-    response = requests.get(results_endpoint, params=params)
-    response.raise_for_status()
-
-    if format == "json":
-        return response.json()
-    else:
-        return response.text
+        if job_status not in ("NEW", "RUNNING"):
+            raise RuntimeError(f"Mapping job {job_id} returned terminal/unknown status: {job_status!r}")
+        time.sleep(min(POLLING_INTERVAL, max(0, deadline - time.monotonic())))
+    details = requests.get(f"{BASE_URL}/idmapping/details/{job_id}", timeout=REQUEST_TIMEOUT)
+    details.raise_for_status()
+    endpoint = details.json()["redirectURL"]
+    if not endpoint.startswith(BASE_URL + "/"):
+        raise RuntimeError("Unexpected mapping results host")
+    result = _collect_pages(endpoint, {"format": format, "size": 500}, format)
+    if format == "json" and status.get("failedIds"):
+        result["failedIds"] = list(dict.fromkeys(result.get("failedIds", []) + status["failedIds"]))
+    return result
 
 
 def get_available_fields() -> List[Dict]:
-    """
-    Get list of all available fields for queries.
-
-    Returns:
-        List of field definitions with names and descriptions
-    """
-    endpoint = f"{BASE_URL}/configure/uniprotkb/result-fields"
-
-    response = requests.get(endpoint)
+    response = requests.get(f"{BASE_URL}/configure/uniprotkb/result-fields", timeout=REQUEST_TIMEOUT)
     response.raise_for_status()
-
     return response.json()
 
 
 def get_id_mapping_databases() -> Dict:
-    """
-    Get list of all supported databases for ID mapping.
-
-    Returns:
-        Dictionary of database groups and their supported databases
-    """
-    endpoint = f"{BASE_URL}/configure/idmapping/fields"
-
-    response = requests.get(endpoint)
+    response = requests.get(f"{BASE_URL}/configure/idmapping/fields", timeout=REQUEST_TIMEOUT)
     response.raise_for_status()
-
     return response.json()
 
 
@@ -285,6 +246,7 @@ Examples:
     parser.add_argument('--to', dest='to_db',
                        help='Target database for ID mapping')
 
+    parser.add_argument('--all-pages', action='store_true', help='Retrieve all search pages (bounded to 1000 pages)')
     args = parser.parse_args()
 
     try:
@@ -302,7 +264,8 @@ Examples:
                 args.search,
                 format=args.format,
                 fields=fields_list,
-                size=args.size
+                size=args.size,
+                all_pages=args.all_pages
             )
             if args.format == 'json':
                 print(json.dumps(results, indent=2))

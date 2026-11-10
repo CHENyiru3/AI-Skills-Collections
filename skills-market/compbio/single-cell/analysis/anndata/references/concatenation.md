@@ -257,41 +257,30 @@ adata_combined = ad.concat([adata1, adata2], uns_merge='unique')
 
 ## Lazy Concatenation (AnnCollection)
 
-For very large datasets, use lazy concatenation that doesn't load all data:
+The experimental API accepts AnnData objects, not filenames. Check the installed
+version's supported joins and conversion/materialization behavior.
 
 ```python
 from anndata.experimental import AnnCollection
 
-# Create collection from file paths (doesn't load data)
-files = ['data1.h5ad', 'data2.h5ad', 'data3.h5ad']
-collection = AnnCollection(
-    files,
-    join_obs='outer',
-    join_vars='inner',
-    label='dataset',
-    keys=['dataset1', 'dataset2', 'dataset3']
-)
-
-# Access data lazily
-print(collection.n_obs)  # Total observations
-print(collection.obs.head())  # Metadata loaded, not X
-
-# Convert to regular AnnData when needed (loads all data)
-adata = collection.to_adata()
+sources = [ad.read_h5ad(path, backed='r')
+           for path in ['data1.h5ad', 'data2.h5ad']]
+try:
+    collection = AnnCollection(sources, join_vars='inner', label='dataset',
+                               keys=['dataset1', 'dataset2'])
+    batch = collection[:100]
+    print(batch.X.shape)  # Access may materialize this selected matrix.
+finally:
+    for source in sources:
+        source.file.close()
 ```
 
-### Working with AnnCollection
-```python
-# Subset without loading data
-subset = collection[collection.obs['cell_type'] == 'T cell']
-
-# Iterate through datasets
-for adata in collection:
-    print(adata.shape)
-
-# Access specific dataset
-first_dataset = collection[0]
-```
+Keep source handles alive for all collection accesses. An observation slice selects
+rows across the combined collection; it does not select an underlying source file.
+Do not assume iterating the collection returns its original AnnData objects or that
+`to_adata()` automatically includes every expression/layer array. Inspect the
+[official API](https://anndata.readthedocs.io/en/stable/generated/anndata.experimental.AnnCollection.html)
+for the version in use.
 
 ## Concatenation on Disk
 

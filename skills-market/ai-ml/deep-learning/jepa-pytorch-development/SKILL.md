@@ -1,6 +1,8 @@
 ---
 name: jepa-pytorch-development
 description: Design, implement, adapt, or debug JEPA representation learners and latent world models in PyTorch. Use for masked EMA-teacher JEPA, V-JEPA dense/deep supervision, teacher-free LeJEPA/SIGReg, or action-conditioned latent prediction, including token and mask contracts, gradient flow, collapse diagnostics, distributed losses, and checkpointing.
+metadata:
+  version: "1.0.0"
 ---
 
 # JEPA development in PyTorch

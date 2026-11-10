@@ -1,85 +1,30 @@
 ---
 name: human-cell-atlas
 domain: compbio
-description: Human Cell Atlas data portal. Use for accessing single-cell reference datasets, cell type markers, and standard atlases.
+description: Find, select, and retrieve Human Cell Atlas projects, matrices, files, and associated metadata from the HCA Data Portal and its documented APIs. Use for HCA-specific data access and provenance.
 license: MIT license
 metadata:
-    skill-author: Eric Yiru
+  version: "1.0.1"
+  skill-author: Eric Yiru
 ---
 
-# Human Cell Atlas: Reference Atlas
+# Human Cell Atlas data access
 
-## Overview
+Use the [HCA Data Portal](https://data.humancellatlas.org/), [quick-start guide](https://data.humancellatlas.org/guides/quick-start-guide), and [documented APIs](https://data.humancellatlas.org/apis). HCA and CZ CELLxGENE Census are distinct access systems with different inventories and identifiers; a Census query is not a generic HCA download API.
 
-The Human Cell Atlas (HCA) is a global effort to create a comprehensive reference map of all human cells. The HCA data portal provides access to thousands of single-cell datasets spanning multiple tissues, cell types, and conditions.
+## Select the resource
 
-## When to Use This Skill
+1. Define tissue/organism, disease/developmental state, assay, donor criteria, desired raw or processed output, and analysis purpose.
+2. Inspect project-level metadata, publication, protocols, donor/specimen counts, processing provenance, access conditions, and available matrices/files.
+3. Select the actual project/matrix/file identifiers. Distinguish project-supplied matrices, portal-generated matrices, and raw sequencing files. Do not assume every project supplies H5AD or every file is an independent sample.
+4. Export the file manifest and associated metadata through the current portal/API. Preserve the filter/query, project and file IDs, URLs, checksums, retrieval date, and revision information exposed by the source.
 
-This skill should be used when:
-- Finding reference single-cell datasets
-- Accessing cell type markers and gene expression
-- Downloading curated atlases
-- Comparing your data to references
-- Finding data for specific tissues
+## Download and curate
 
-## Quick Start
+Bound downloads by the requested files and estimated size. Follow the selected file URLs and documented paging/export flow rather than inventing a package argument such as `get_anndata(tissue=...)`.
 
-### Accessing Data
+Verify transfer status/checksums where supplied and keep metadata with the matrices. Join cell/library/sample/donor identifiers using documented keys; check one-to-many relationships and duplicate cells across related matrices or atlas releases.
 
-```python
-# Using cellxgene-census (for HCA data)
-import cellxgene_census
+For reference use, inspect annotation provenance, feature identifiers, count/normalized layers, organism/reference, assay differences, and representation of the target population. A portal filter or cell-type label alone does not validate a marker set or reference-mapping conclusion.
 
-# Get census
-census = cellxgene_census.open_soma()
-
-# Query specific tissue
-adata = cellxgene_census.get_anndata(
-    census,
-    organism="Homo sapiens",
-    tissue="lung"
-)
-```
-
-### Direct Download
-
-1. Visit https://data.humancellatlas.org/
-2. Browse projects and datasets
-3. Download in desired format (h5ad, loom, csv)
-
-## Data Portal
-
-### Browsing Projects
-
-- **Website**: https://data.humancellatlas.org/
-- **Filter by**: Tissue, organism, disease, technology
-- **Metadata**: Detailed sample information
-
-### Available Data Types
-
-- Single-cell RNA-seq
-- Single-cell ATAC-seq
-- Spatial transcriptomics
-- Multi-omics
-
-## Common Uses
-
-### Reference Mapping
-
-```python
-# Map your data to HCA references
-# Use Seurat or scanpy integration
-```
-
-### Marker Discovery
-
-```python
-# Find markers for cell types
-# Query HCA for specific cell types
-```
-
-## Additional Resources
-
-- **HCA Data Portal**: https://data.humancellatlas.org/
-- **DCP**: https://data.humancellatlas.org/explore
-- **CellxGene Census**: https://cellxgene-census.readthedocs.io/
+Deliver an evidence-linked selection/download inventory and explicit exclusions or missing metadata. Cite source projects and data versions. Treat unavailable access and absent data as unresolved rather than filling them from a different atlas silently.

@@ -1,49 +1,25 @@
 ---
 name: officecli-pptx
 domain: documents
-description: Use this skill any time a `.pptx` file is involved, including creating slide decks, presentations, or editing existing presentations with charts, tables, images, animations, and notes.
+description: Create or edit PPTX through OfficeCLI when that backend is requested, selected by the project or already in use. Exclude Marp source decks and presentations being handled through another chosen backend.
+metadata:
+  version: "1.0.1"
 ---
 
-# OfficeCLI PPTX Skill
+# OfficeCLI PPTX
 
-## First Check
+Inspect the installed OfficeCLI help and the deck's slides, outline, notes and
+actual shape paths. Read [creating.md](creating.md) for a new deck or
+[editing.md](editing.md) for a targeted update. Preserve an existing template,
+master/layout, reading order and intended animations unless the task changes them.
 
-```bash
-command -v officecli
-officecli --version
-```
+Quote indexed paths such as `"/slide[1]/shape[1]"`. Re-query after z-order or shape
+changes because indices can shift. Use installed `pptx set shape`/`pptx add` help
+rather than guessing properties. A blank layout is suitable for a custom slide,
+not a reason to discard an existing master.
 
-## Workflow
-
-1. Inspect first: `view`, `get`, `query`
-2. For new decks, read [creating.md](creating.md)
-3. For existing decks, read [editing.md](editing.md)
-4. Run QA with `view issues`, visual preview, and `validate`
-
-## Reading
-
-```bash
-officecli view slides.pptx text --start 1 --end 5
-officecli view slides.pptx outline
-officecli view slides.pptx annotated
-officecli view slides.pptx stats
-officecli view slides.pptx issues
-officecli get slides.pptx /slide[1] --depth 1
-officecli query slides.pptx 'shape:contains("Revenue")'
-```
-
-## Editing Rules
-
-- Quote indexed paths in zsh: `"/slide[1]/shape[1]"`
-- Use `layout=blank` for custom-designed slides
-- Re-query slide contents after z-order changes because shape indices can shift
-- Use `officecli pptx set shape` or `officecli pptx add` before guessing properties
-- Prefer `html` preview for multi-slide QA
-
-## QA
-
-```bash
-officecli view slides.pptx issues
-officecli view slides.pptx html --browser
-officecli validate slides.pptx
-```
+Inspect changed slides visually with a supported preview/rendering tool and check
+structure with `view issues` and `validate`. Check text fit, contrast, overlaps and
+notes/links affected by edits. Valid XML alone does not prove readable layout.
+Fix actual defects; no forced defect-finding, extra polish cycle or independent
+agent is required for an already acceptable result. Stop at the requested deck edit.

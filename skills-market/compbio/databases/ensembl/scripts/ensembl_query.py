@@ -15,6 +15,8 @@ import json
 import argparse
 from typing import Dict, List, Optional, Any
 
+REQUEST_TIMEOUT = 30
+
 
 class EnsemblAPIClient:
     """Client for querying the Ensembl REST API with rate limiting and error handling."""
@@ -27,7 +29,9 @@ class EnsemblAPIClient:
             server: Base URL for the Ensembl REST API
             rate_limit: Maximum requests per second (default 15 for anonymous users)
         """
-        self.server = server
+        if rate_limit <= 0:
+            raise ValueError("rate_limit must be positive")
+        self.server = server.rstrip("/")
         self.rate_limit = rate_limit
         self.request_count = 0
         self.last_request_time = 0
@@ -53,7 +57,8 @@ class EnsemblAPIClient:
         params: Optional[Dict] = None,
         max_retries: int = 3,
         method: str = "GET",
-        data: Optional[Dict] = None
+        data: Optional[Dict] = None,
+        response_format: str = "json"
     ) -> Any:
         """
         Make an API request with error handling and retries.
@@ -71,7 +76,12 @@ class EnsemblAPIClient:
         Raises:
             Exception: If request fails after max retries
         """
-        headers = {"Content-Type": "application/json"}
+        if response_format not in ("json", "fasta", "text"):
+            raise ValueError("format must be json, fasta or text")
+        if max_retries < 1:
+            raise ValueError("max_retries must be positive")
+        accept = {"json": "application/json", "fasta": "text/x-fasta", "text": "text/plain"}[response_format]
+        headers = {"Content-Type": "application/json" if method == "POST" else accept, "Accept": accept}
         url = f"{self.server}{endpoint}"
 
         for attempt in range(max_retries):
@@ -80,15 +90,17 @@ class EnsemblAPIClient:
 
             try:
                 if method == "POST":
-                    response = requests.post(url, headers=headers, json=data)
+                    response = requests.post(url, headers=headers, json=data, timeout=REQUEST_TIMEOUT)
                 else:
-                    response = requests.get(url, headers=headers, params=params)
+                    response = requests.get(url, headers=headers, params=params, timeout=REQUEST_TIMEOUT)
 
                 if response.status_code == 200:
-                    return response.json()
+                    return response.json() if response_format == "json" else response.text
                 elif response.status_code == 429:
                     # Rate limited - wait and retry
-                    retry_after = int(response.headers.get('Retry-After', 1))
+                    retry_after = max(0, float(response.headers.get('Retry-After', 1)))
+                    if retry_after > 60:
+                        raise RuntimeError(f'Provider requests a {retry_after:g}-second wait; retry later')
                     print(f"Rate limited. Waiting {retry_after} seconds...")
                     time.sleep(retry_after)
                 elif response.status_code == 404:
@@ -153,13 +165,7 @@ class EnsemblAPIClient:
         endpoint = f"/sequence/id/{ensembl_id}"
         params = {"type": seq_type}
 
-        if format == "fasta":
-            headers = {"Content-Type": "text/x-fasta"}
-            url = f"{self.server}{endpoint}"
-            response = requests.get(url, headers=headers, params=params)
-            return response.text
-
-        return self._make_request(endpoint, params=params)
+        return self._make_request(endpoint, params=params, response_format=format)
 
     def get_region_sequence(
         self,
@@ -180,13 +186,7 @@ class EnsemblAPIClient:
         """
         endpoint = f"/sequence/region/{species}/{region}"
 
-        if format == "fasta":
-            headers = {"Content-Type": "text/x-fasta"}
-            url = f"{self.server}{endpoint}"
-            response = requests.get(url, headers=headers)
-            return response.text
-
-        return self._make_request(endpoint)
+        return self._make_request(endpoint, response_format=format)
 
     def get_variant(self, species: str, variant_id: str, include_pops: bool = True) -> Dict:
         """

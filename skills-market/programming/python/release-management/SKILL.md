@@ -1,130 +1,39 @@
 ---
 name: managing-python-releases
 domain: programming
-description: Manages Python library releases with semantic versioning, changelogs, tags, GitHub releases, PyPI publishing, and deprecation planning. Use this skill whenever a user is cutting a release, deciding version bumps, writing a changelog, automating release pipelines, or preparing users for breaking changes.
+description: Prepare a Python package version/changelog or perform an explicitly requested release. Use for release planning, deprecations and publication workflows; local preparation alone does not authorize tagging, pushing or uploading.
+metadata:
+  version: "1.0.1"
 ---
 
 # Python Release Management
 
-## Semantic Versioning
+Separate preparation from publication. Identify the project/version source, base
+and target commit, intended artifacts and requested destination. Preserve unrelated
+working-tree changes and existing release conventions.
 
-```
-MAJOR.MINOR.PATCH (e.g., 1.2.3)
+Choose a version by observable compatibility: compatible correction → PATCH,
+compatible added capability → MINOR, incompatible public contract → MAJOR, subject
+to the project's documented scheme. Record deprecations and a practical migration
+path; do not promise a removal date or support policy the maintainers did not choose.
 
-PATCH: Bug fixes, no API changes
-MINOR: New features, backward compatible
-MAJOR: Breaking changes
-```
+Update the authoritative version source and derived metadata consistently. Use
+`scripts/bump_version.py --help` and `--dry-run` only for a project with a static
+three-component version. The helper supports this limited scheme, not all Python
+version forms or dynamic backends; inspect its proposed files before applying it.
+Read [MIGRATION.md](MIGRATION.md) for a needed migration guide and
+[AUTOMATION.md](AUTOMATION.md) for requested release automation.
 
-## Changelog Format (Keep a Changelog)
+Build/inspect fresh artifacts and run checks relevant to changed behavior and
+supported environments. A packaging task is complete when the requested artifacts
+are reviewable; it need not publish them to establish correctness.
 
-```markdown
-# Changelog
+For an authorized release, stage only intended files, inspect the exact commit
+and create/push only the intended tag/ref. Avoid `git commit -am`, `git add -A` and
+`git push --tags` recipes that include unrelated work. Check tag-triggered workflows
+before pushing; publication may start immediately. Confirm artifact/version/index
+identity and report the observed result rather than treating a successful push as
+proof that downstream publication completed.
 
-## [Unreleased]
-### Added
-- New `batch_encode()` function
-
-## [1.2.0] - 2024-03-15
-### Added
-- Support for custom formats (#123)
-
-### Fixed
-- Edge case at -180 longitude (#145)
-
-### Deprecated
-- `old_function()` - use `new_function()` instead
-
-[Unreleased]: https://github.com/user/repo/compare/v1.2.0...HEAD
-[1.2.0]: https://github.com/user/repo/releases/tag/v1.2.0
-```
-
-**Categories:** Added, Changed, Deprecated, Removed, Fixed, Security
-
-## Version in Code
-
-```python
-# src/package/__init__.py
-__version__ = "1.2.3"
-
-# Or use importlib.metadata
-from importlib.metadata import version
-__version__ = version("my-package")
-```
-
-## GitHub Actions Release
-
-```yaml
-# .github/workflows/release.yml
-on:
-  push:
-    tags: ['v*']
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-      - run: pip install build && python -m build
-      - uses: softprops/action-gh-release@v1
-        with:
-          files: dist/*
-      - uses: pypa/gh-action-pypi-publish@release/v1
-```
-
-## Deprecation Process
-
-```python
-import warnings
-
-def old_function():
-    """Deprecated: Use new_function() instead."""
-    warnings.warn(
-        "old_function() deprecated, will be removed in 2.0.0",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-    return new_function()
-```
-
-## Release Process
-
-```bash
-# 1. Update CHANGELOG.md (move Unreleased to version)
-# 2. Bump version in pyproject.toml and __init__.py
-# 3. Commit and tag
-git commit -am "Release v1.2.0"
-git tag -a v1.2.0 -m "Release v1.2.0"
-git push origin main --tags
-# 4. CI publishes automatically
-```
-
-For detailed workflows, see:
-- **[AUTOMATION.md](AUTOMATION.md)** - Version bump scripts
-- **[MIGRATION.md](MIGRATION.md)** - Migration guide template
-
-## Checklist
-
-```
-Before Release:
-- [ ] All tests pass
-- [ ] CHANGELOG updated
-- [ ] Version bumped
-- [ ] Documentation current
-
-After Release:
-- [ ] PyPI shows new version
-- [ ] pip install works
-- [ ] GitHub release created
-- [ ] Docs updated
-```
-
-## Learn More
-
-This skill is based on the [Maintenance](https://mcginniscommawill.com/guides/python-library-development/#maintenance-the-long-game) section of the [Guide to Developing High-Quality Python Libraries](https://mcginniscommawill.com/guides/python-library-development/) by [Will McGinnis](https://mcginniscommawill.com/). See these posts for deeper coverage:
-
-- [Semantic Versioning](https://mcginniscommawill.com/posts/2025-01-28-semantic-versioning/)
+Stop at the requested preparation or release outcome. Do not repeatedly republish
+immutable versions or broaden a failed release into repository-wide changes.

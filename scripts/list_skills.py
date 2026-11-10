@@ -98,10 +98,10 @@ def main():
         print(json.dumps(output, indent=2, ensure_ascii=False))
     else:
         # Table format
-        print(f"{'ID':<40} {'DOMAIN':<12} {'STATUS':<12} {'CANONICAL PATH'}")
+        print(f"{'ID':<40} {'VERSION':<10} {'DOMAIN':<12} {'STATUS':<12} {'CANONICAL PATH'}")
         print("-" * 120)
         for sid, meta in filtered:
-            print(f"{sid:<40} {meta.get('domain',''):<12} {meta.get('status','active'):<12} {meta.get('canonical_path','')}")
+            print(f"{sid:<40} {meta.get('version',''):<10} {meta.get('domain',''):<12} {meta.get('status','active'):<12} {meta.get('canonical_path','')}")
         print(f"\n{len(filtered)} skills")
 
     if args.profile:

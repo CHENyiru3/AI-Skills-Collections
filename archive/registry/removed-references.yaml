@@ -1,0 +1,21 @@
+skill_references:
+  deployments/agent-coding.yaml:
+  - opencode
+  - hermes-agent
+  - zed
+  deployments/gpu-server.yaml:
+  - cursor-usage-checker
+  deployments/macos-personal.yaml:
+  - beamer
+  - the-pirate-bay
+  - minimax-cli
+  - hermes-agent
+  - opencode
+  - zed
+  - neat-freak
+  - clawd-animation
+  - clawd-animation-lite
+  deployments/base.yaml:
+  - skill-seekers
+  taskpacks/spatial-omics-analysis.yaml:
+  - visium

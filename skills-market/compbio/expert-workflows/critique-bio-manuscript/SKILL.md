@@ -1,19 +1,34 @@
 ---
 name: critique-bio-manuscript
 domain: compbio
-description: Acts as a peer review assistant to evaluate bioinformatics manuscripts. Identifies missing baselines, methodological flaws, and data leakage.
+description: Critique a bioinformatics/computational biology manuscript for supported claims, study design, leakage and evaluation limits. Use for an explicit manuscript review; not a rewrite or an assumption that every study needs new biological experiments.
 disable-model-invocation: true
 allowed-tools: Read
+metadata:
+  version: "1.0.1"
 ---
 
-# Bioinformatics Peer Review Assistant
+# Bioinformatics Manuscript Critique
 
-I am acting as a peer reviewer for the manuscript provided in $ARGUMENTS. Your task is to assist me in critiquing the methodology and results. You are NOT writing the paper; you are tearing it down constructively.
+Assess the supplied manuscript and evidence against its actual claims and intended
+use. Report confirmed flaws, plausible concerns and missing information separately.
+A constructive review need not find a major flaw if none is supported.
 
-Evaluate the manuscript against the following strict criteria and generate a markdown report:
-1. **Baseline Comparisons:** Does the manuscript compare its novel method against the current state-of-the-art benchmarks? Flag if it only compares against outdated models.
-2. **Data Leakage:** Critically examine the train/test splits. Is there any evidence that spatial coordinates or highly correlated single-cell profiles leaked across the training boundary?
-3. **Biological Validation:** Does the paper rely solely on *in silico* metrics (like AUROC or RMSE), or does it validate the findings against known biological ground truths (e.g., known TCR binding affinities, established regulatory pathways)?
-4. **Limitations:** Did the authors adequately address the limitations of their approach?
+Prioritize relevant questions:
 
-Format the output as a formal reviewer critique: Major Comments (methodological flaws) and Minor Comments (typos, graph formatting).
+- Are baselines appropriate to the task and comparison budget? Call a method
+  outdated only with version/date evidence; supplied text alone may not establish
+  current state of the art. State literature coverage limits.
+- Are train/tune/test units independent at the relevant donor, specimen, site or
+  spatial/temporal level? Inspect preprocessing, feature selection, annotation and
+  checkpoint selection for leakage across those boundaries.
+- Do metrics and uncertainty support the claim? Distinguish predictive performance,
+  implementation correctness and biological interpretation. Established annotations
+  or pathways can be useful evidence but are not infallible biological ground truth.
+- Are data exclusions, confounding, failure modes and generalization limits visible?
+  Recommend additional analyses only when they can resolve a material claim gap.
+
+Use locations and concrete effects in major/minor comments when that format is
+requested. Preserve strengths and uncertainty; do not invent missing experiments
+as universal acceptance gates or claim a literature search that was not performed.
+Stop at the scoped critique unless drafting or new analyses were also requested.

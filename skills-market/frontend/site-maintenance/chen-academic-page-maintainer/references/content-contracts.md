@@ -41,7 +41,7 @@
 - Source page: `_pages/tech-blog.md`
 - RSS feed: `_pages/tech-blog-feed.xml`, rendered at `/tech-blog/feed.xml`
 - Post source: `_posts/*.md`
-- External mirror/draft source: `/Users/eric_yiru/Desktop/Home/Main_branch/Notes/03_Resources/Website_management/TechBlog/*.md`
+- External mirror/draft source: `<management-workspace>/TechBlog/*.md`
 - The Tech Blog page should list only posts with `categories: tech-blog`, `categories: tech`, or `tags: tech`.
 - The Tech Blog RSS feed should use the same intentional-post filter as the Tech Blog page.
 - Keep the route `/tech-blog/` and navigation title `Tech Blog`.
@@ -56,7 +56,7 @@
 ## Life
 
 - Source: `_pages/life.md`
-- External mirror/draft source: `/Users/eric_yiru/Desktop/Home/Main_branch/Notes/03_Resources/Website_management/Life/*.md`
+- External mirror/draft source: `<management-workspace>/Life/*.md`
 - Keep each interest section as short prose, adding a responsive photo grid only when that section has confirmed real photos.
 - Do not create fake photo frames for sections with no confirmed images.
 - When replacing placeholders with photos, verify image paths and preserve alt text / accessible labels.
@@ -64,8 +64,8 @@
 
 ## Website Management Notes
 
-- Path: `/Users/eric_yiru/Desktop/Home/Main_branch/Notes/03_Resources/Website_management`
-- Git root: `/Users/eric_yiru/Desktop/Home/Main_branch/Notes`
+- Path: `<management-workspace>`
+- Git root: `<notes-root>`
 - The notes workspace contains editable mirrors, guides, and templates for About, Life, Project, TechBlog, Publications, CV, and News requests.
 - `Website Source Map.md` is the first-read routing table for mapping notes to website source files.
 - `Current ...` notes are editable mirrors of current website content; verify the actual website repo before applying edits.

@@ -4,15 +4,20 @@
 from __future__ import annotations
 
 import argparse
+from datetime import date
+import json
+import keyword
 import re
 from pathlib import Path
 from textwrap import dedent
 
 
 def slug_to_package(name: str) -> str:
+    if not re.fullmatch(r"[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?", name):
+        raise ValueError("project name must be a distribution name, not a path")
     normalized = re.sub(r"[^a-zA-Z0-9]+", "_", name).strip("_").lower()
-    if not normalized:
-        raise ValueError("project name must contain at least one letter or number")
+    if not normalized.isidentifier() or keyword.iskeyword(normalized):
+        raise ValueError("project name must produce a valid Python package identifier")
     return normalized
 
 
@@ -23,6 +28,9 @@ def write_file(path: Path, content: str) -> None:
 
 def scaffold(project_root: Path, package_name: str, author: str) -> None:
     project_name = project_root.name
+    if not package_name.isidentifier() or keyword.iskeyword(package_name):
+        raise ValueError("invalid Python package identifier")
+    project_root.mkdir(parents=True, exist_ok=False)
 
     write_file(
         project_root / "pyproject.toml",
@@ -33,19 +41,20 @@ def scaffold(project_root: Path, package_name: str, author: str) -> None:
             build-backend = "setuptools.build_meta"
 
             [project]
-            name = "{project_name}"
+            name = {json.dumps(project_name, ensure_ascii=False)}
             version = "0.1.0"
             description = "Short project description."
             readme = "README.md"
             requires-python = ">=3.10"
-            license = {{text = "MIT"}}
-            authors = [{{name = "{author}"}}]
+            license = {{file = "LICENSE"}}
+            authors = [{{name = {json.dumps(author, ensure_ascii=False)}}}]
             dependencies = []
 
             [project.optional-dependencies]
             dev = [
                 "mypy>=1.8",
                 "pytest>=8.0",
+                "pre-commit>=3.0",
                 "ruff>=0.4",
             ]
 
@@ -96,7 +105,28 @@ def scaffold(project_root: Path, package_name: str, author: str) -> None:
     )
 
     write_file(project_root / "CHANGELOG.md", "# Changelog\n\n## [Unreleased]\n")
-    write_file(project_root / "LICENSE", "MIT License\n")
+    write_file(project_root / "LICENSE", f"""MIT License
+
+Copyright (c) {date.today().year} {author}
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+""")
     write_file(project_root / ".gitignore", ".venv/\n__pycache__/\n.pytest_cache/\n.mypy_cache/\ndist/\nbuild/\n")
     write_file(
         project_root / "Makefile",

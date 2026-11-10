@@ -1,118 +1,35 @@
 ---
 name: testing-python-libraries
 domain: programming
-description: Designs pytest-based test suites for Python libraries with fixtures, parametrization, mocking, coverage, property-based testing, and CI integration. Use this skill whenever a user asks to add tests, improve Python coverage, structure `tests/`, mock dependencies, use Hypothesis, or make a Python package safer to change.
+description: Design or repair meaningful pytest tests for a Python package, including fixtures, parametrization or property checks. Use for a requested test strategy or regression case; not mandatory coverage infrastructure for every reversible edit.
+metadata:
+  version: "1.0.1"
 ---
 
-# Python Library Testing
+# Python Testing Strategy
 
-## Quick Start
+Identify the observable contract and the failure the test should distinguish.
+Use the repository's existing test runner/configuration and supported environments.
+Prefer a focused regression over assertions that mirror implementation details or
+merely match generated wording.
 
-```bash
-pytest                              # Run tests
-pytest --cov=my_library             # With coverage
-pytest -x                           # Stop on first failure
-pytest -k "test_encode"             # Run matching tests
-```
+- Cover consequential valid, boundary and failure behavior, selecting cases from
+  actual risks rather than a universal public-API/coverage checklist.
+- Use temporary paths and isolated state; create valid input fixtures explicitly.
+  Restore environment, working directories and patched dependencies after a test.
+- Mock at the boundary where a dependency is looked up. The `mocker` fixture needs
+  pytest-mock; use existing tooling or pytest's monkeypatch instead of assuming it.
+- Keep unit tests independent of live credentials/services. Add an integration
+  test only when its environment and side effects are intentional and controlled.
+- For randomized/property tests, state the invariant and relevant domain; preserve
+  failing examples/seeds. Avoid arbitrary output snapshots that conceal semantics.
 
-## Pytest Configuration
+Read [FIXTURES.md](FIXTURES.md) for complex fixture scopes,
+[HYPOTHESIS.md](HYPOTHESIS.md) for property testing, and [CI.md](CI.md) only for
+requested CI work. Verify current plugin APIs before copying examples.
 
-```toml
-# pyproject.toml
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-addopts = "-ra -q --cov=my_library --cov-fail-under=85"
-
-[tool.coverage.run]
-branch = true
-source = ["src/my_library"]
-```
-
-## Test Structure
-
-```
-tests/
-├── conftest.py           # Shared fixtures
-├── test_encoding.py
-└── test_decoding.py
-```
-
-## Essential Patterns
-
-**Basic test:**
-```python
-def test_encode_valid_input():
-    result = encode(37.7749, -122.4194)
-    assert isinstance(result, str)
-    assert len(result) == 12
-```
-
-**Parametrization:**
-```python
-@pytest.mark.parametrize("lat,lon,expected", [
-    (37.7749, -122.4194, "9q8yy"),
-    (40.7128, -74.0060, "dr5ru"),
-])
-def test_known_values(lat, lon, expected):
-    assert encode(lat, lon, precision=5) == expected
-```
-
-**Fixtures:**
-```python
-@pytest.fixture
-def sample_data():
-    return [(37.7749, -122.4194), (40.7128, -74.0060)]
-
-def test_batch(sample_data):
-    results = batch_encode(sample_data)
-    assert len(results) == 2
-```
-
-**Mocking:**
-```python
-def test_api_call(mocker):
-    mocker.patch("my_lib.client.fetch", return_value={"data": []})
-    result = my_lib.get_data()
-    assert result == []
-```
-
-**Exception testing:**
-```python
-def test_invalid_raises():
-    with pytest.raises(ValueError, match="latitude"):
-        encode(91.0, 0.0)
-```
-
-For detailed patterns, see:
-- **[FIXTURES.md](FIXTURES.md)** - Advanced fixture patterns
-- **[HYPOTHESIS.md](HYPOTHESIS.md)** - Property-based testing
-- **[CI.md](CI.md)** - CI/CD test configuration
-
-## Test Principles
-
-| Principle | Meaning |
-|-----------|---------|
-| Independent | No shared state between tests |
-| Deterministic | Same result every run |
-| Fast | Unit tests < 100ms each |
-| Focused | Test behavior, not implementation |
-
-## Checklist
-
-```
-Testing:
-- [ ] Tests exist for public API
-- [ ] Edge cases covered (empty, boundary, error)
-- [ ] No external service dependencies (mock them)
-- [ ] Coverage > 85%
-- [ ] Tests run in CI
-```
-
-## Learn More
-
-This skill is based on the [Code Quality](https://mcginniscommawill.com/guides/python-library-development/#code-quality-the-foundation) section of the [Guide to Developing High-Quality Python Libraries](https://mcginniscommawill.com/guides/python-library-development/) by [Will McGinnis](https://mcginniscommawill.com/). See these posts for deeper coverage:
-
-- [Testing with Pytest](https://mcginniscommawill.com/posts/2025-02-04-testing-pytest-intro/)
-- [Testing Coverage](https://mcginniscommawill.com/posts/2025-02-09-testing-coverage/)
-- [Testing with Tox](https://mcginniscommawill.com/posts/2025-02-13-testing-tox/)
-- [Testing with Mocking](https://mcginniscommawill.com/posts/2025-02-16-testing-mocking/)
+Run the smallest test set that can detect the changed behavior; broaden on a real
+failure or unresolved dependency concern. Coverage reports reveal unexercised code,
+not correctness, and 85 percent or sub-100ms limits are not universal acceptance
+criteria. Report what ran, failed or was unavailable, then stop when the requested
+behavior has relevant evidence.

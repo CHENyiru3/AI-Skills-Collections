@@ -1,6 +1,8 @@
 ---
 name: computational-biology-retrospective
 description: "Review computational biology algorithm-development projects and consolidate past experiments into an evidence-linked Markdown experience report. Use for experiment retrospectives, learning from biological or technical failures, and recovering reusable lessons from mixed project folders. Start from the project index or research log, then trace relevant scripts, configurations, results, and reports. Not for running new experiments or drafting a manuscript alone."
+metadata:
+  version: "1.0.0"
 ---
 
 # Computational Biology Retrospective

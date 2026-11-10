@@ -3,6 +3,24 @@
 # Exit on error
 set -e
 
+# Validate the destination before invoking a package manager.
+if [ "${1:-}" = "--help" ] || [ "${1:-}" = "-h" ]; then
+  echo "Usage: init-artifact.sh <new-project-directory-name>"
+  exit 0
+fi
+if [[ ! "${1:-}" =~ ^[a-zA-Z0-9][a-zA-Z0-9_-]*$ ]]; then
+  echo "Use a simple new directory name, not a path." >&2
+  exit 1
+fi
+if [ -e "$1" ]; then
+  echo "Refusing to overwrite existing destination: $1" >&2
+  exit 1
+fi
+if ! command -v node >/dev/null || ! command -v pnpm >/dev/null; then
+  echo "This optional starter needs Node and pnpm; use the project's configured tools or install them separately." >&2
+  exit 1
+fi
+
 # Detect Node version
 NODE_VERSION=$(node -v | cut -d'v' -f2 | cut -d'.' -f1)
 
@@ -32,8 +50,8 @@ fi
 
 # Check if pnpm is installed
 if ! command -v pnpm &> /dev/null; then
-  echo "📦 pnpm not found. Installing pnpm..."
-  npm install -g pnpm
+  echo "pnpm is unavailable; no global installation was performed." >&2
+  exit 1
 fi
 
 # Check if project name is provided

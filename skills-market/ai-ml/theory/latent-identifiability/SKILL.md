@@ -1,6 +1,8 @@
 ---
 name: latent-identifiability
-description: "Develop, prove, or audit identifiability claims for latent-variable and representation-learning models, including VAEs, nonlinear ICA, and spatial or multi-view biological models. Use to turn a model idea into a quantified theorem, identify the remaining symmetries, construct a lemma-based proof, or find counterexamples. Includes a SIMVI worked example and checks connecting theory to estimators. Not a substitute for empirical benchmarking or a general manuscript-editing workflow."
+description: Develop, prove, or audit identifiability claims for latent-variable and representation-learning models, including VAEs, nonlinear ICA, and spatial or multi-view biological models. Use to turn a model idea into a quantified theorem, identify the remaining symmetries, construct a lemma-based proof, or find counterexamples. Includes a SIMVI worked example and checks connecting theory to estimators. Not a substitute for empirical benchmarking or a general manuscript-editing workflow.
+metadata:
+  version: "1.0.1"
 ---
 
 # Latent Identifiability
@@ -13,7 +15,7 @@ Use the user's model, notes, equations, code, and requested destination. Ask onl
 
 Enter at the appropriate stage: informal idea -> formal specification; specified model -> symmetry search; candidate theorem -> proof or attack; existing proof -> line-by-line audit. An empirical performance question does not need to become a theorem task.
 
-This is self-contained. It adapts the supplied `flow-idea-to-proof` sequence (stress-test, assumptions, claim, lemmas, attack, write-up), but does not depend on its singleton skills or require delegation. If that router is available and explicitly used, this skill can supply the identifiability-specific reasoning within its stages. Do not make the user complete a proof step merely to preserve the router's teaching format.
+This workflow is self-contained. Enter at the stage required by the mathematical question; no external router or delegation is required.
 
 ## 1. Define what the data can identify
 
@@ -47,7 +49,7 @@ State whether the result is global, local, generic, or almost everywhere. For a 
 
 ## 3. Build an assumption ledger
 
-For each assumption record: exact statement and quantifiers; objects constrained; proof step using it; domain justification; an example satisfying it; failure mode; and whether the implementation enforces, encourages, or ignores it.
+For load-bearing assumptions, record exact statements/quantifiers and where the proof uses them. Add domain justification, a satisfying example, failure mode and implementation enforcement when those questions affect the claim. Scale the ledger to the task; a single-lemma audit does not need an unrelated full-project table.
 
 Separate structural restrictions, symmetry-breaking information, analytic regularity, sampling conditions, and estimator/optimization conditions. Do not call an assumption necessary merely because the selected proof uses it. Necessity needs an admissible counterexample or a separate result.
 
@@ -81,7 +83,7 @@ When an attack succeeds, report the original claim, the witness, and the narrowe
 
 Read [implementation and estimands](references/implementation-and-estimands.md) when the claim is applied to a VAE, graph encoder, posterior mean, regression, or causal effect.
 
-Produce a theory-to-implementation table. Check likelihood specification, decoder injectivity, prior/conditional-law restrictions, latent dimensions, penalties versus hard constraints, variational approximation, population versus empirical objectives, optimizer requirements, and sampling dependence. Distinguish consistency of a model from exact recovery of noisy individual latents.
+When connecting the claim to a learning implementation, produce a focused theory-to-implementation comparison; a standalone lemma question does not require this table. Check likelihood specification, decoder injectivity, prior/conditional-law restrictions, latent dimensions, penalties versus hard constraints, variational approximation, population versus empirical objectives, optimizer requirements, and sampling dependence. Distinguish consistency of a model from exact recovery of noisy individual latents.
 
 Check downstream invariance under the theorem's residual symmetry. General nonlinear equivalence does not preserve linear regressions or Euclidean neighborhoods. An invertible affine map does not generally preserve distances. A transformed treatment needs a feasible reference and overlap on its actual support. Identifiable coordinates do not by themselves establish causal effects.
 

@@ -1,6 +1,6 @@
 # Standard Scanpy Workflow for Single-Cell Analysis
 
-This document outlines the standard workflow for analyzing single-cell RNA-seq data using scanpy.
+This is a count-input workflow example to adapt, not an automatic analysis. Choose QC, organism annotations, features, graphs, and biological comparisons from the real data; preserve donor/sample IDs. Sections with placeholders need project-specific choices.
 
 ## Complete Analysis Pipeline
 
@@ -24,6 +24,8 @@ adata = sc.read_10x_mtx('path/to/data/')  # For 10X data
 ### 2. Quality Control (QC)
 
 ```python
+# Example human-symbol annotation; replace for the actual organism/feature IDs.
+adata.var['mt'] = adata.var_names.str.startswith('MT-')
 # Calculate QC metrics
 sc.pp.calculate_qc_metrics(adata, qc_vars=['mt'], percent_top=None, log1p=False, inplace=True)
 
@@ -44,6 +46,8 @@ sc.pl.scatter(adata, x='total_counts', y='n_genes_by_counts')
 ### 3. Normalization
 
 ```python
+# Requires verified counts in X; preserve before normalization.
+adata.layers["counts"] = adata.X.copy()
 # Normalize to 10,000 counts per cell
 sc.pp.normalize_total(adata, target_sum=1e4)
 
@@ -51,7 +55,7 @@ sc.pp.normalize_total(adata, target_sum=1e4)
 sc.pp.log1p(adata)
 
 # Store normalized data in raw for later use
-adata.raw = adata
+adata.raw = adata.copy()  # Log-normalized snapshot, not raw counts.
 ```
 
 ### 4. Feature Selection
@@ -71,7 +75,8 @@ adata = adata[:, adata.var.highly_variable]
 
 ```python
 # Regress out effects of total counts per cell and percent mitochondrial genes
-sc.pp.regress_out(adata, ['total_counts', 'pct_counts_mt'])
+# Optional only with justification; may remove biology and densify data.
+# sc.pp.regress_out(adata, ['total_counts', 'pct_counts_mt'])
 
 # Scale data to unit variance and zero mean
 sc.pp.scale(adata, max_value=10)
@@ -130,14 +135,8 @@ sc.pl.umap(adata, color=['leiden', 'CST3', 'NKG7'])
 
 ```python
 # Manual annotation based on marker genes
-cluster_annotations = {
-    '0': 'CD4 T cells',
-    '1': 'CD14+ Monocytes',
-    '2': 'B cells',
-    '3': 'CD8 T cells',
-    # ... add more annotations
-}
-adata.obs['cell_type'] = adata.obs['leiden'].map(cluster_annotations)
+cluster_annotations = {}  # Fill from reviewed markers/reference evidence.
+adata.obs['cell_type'] = adata.obs['leiden'].map(cluster_annotations).fillna('Unknown')
 
 # Visualize annotated cell types
 sc.pl.umap(adata, color='cell_type', legend_loc='on data')
@@ -164,19 +163,21 @@ sc.tl.paga(adata, groups='leiden')
 sc.pl.paga(adata, color=['leiden'])
 
 # Diffusion pseudotime (DPT)
-adata.uns['iroot'] = np.flatnonzero(adata.obs['leiden'] == '0')[0]
+# Set root_cell_id from biological evidence, not an arbitrary cluster number.
+root_cell_id = 'REPLACE_WITH_JUSTIFIED_CELL_ID'
+adata.uns['iroot'] = adata.obs_names.get_loc(root_cell_id)
+sc.tl.diffmap(adata)
 sc.tl.dpt(adata)
 sc.pl.umap(adata, color=['dpt_pseudotime'])
 ```
 
 ### Differential Expression Between Conditions
 
-```python
-# Compare conditions within a cell type
-sc.tl.rank_genes_groups(adata, groupby='condition', groups=['treated'],
-                         reference='control', method='wilcoxon')
-sc.pl.rank_genes_groups(adata, groups=['treated'])
-```
+Use independent donors/samples as replicates. For a condition comparison within a
+cell type, consider donor-by-cell-type pseudobulk counts and an estimable design.
+Cell-level rank tests can describe exploratory differences but do not replace
+biological replication or resolve confounding. Keep cluster-marker testing and
+confirmatory condition inference separate.
 
 ### Gene Set Scoring
 
@@ -199,7 +200,7 @@ sc.pl.umap(adata, color='T_cell_score')
 ## Best Practices
 
 1. Always visualize QC metrics before filtering
-2. Save raw counts before normalization (`adata.raw = adata`)
+2. Save raw counts before normalization (`adata.raw = adata.copy()  # Log-normalized snapshot, not raw counts.`)
 3. Use Leiden instead of Louvain for clustering (more efficient)
 4. Try multiple clustering resolutions to find optimal granularity
 5. Validate cell type annotations with known marker genes

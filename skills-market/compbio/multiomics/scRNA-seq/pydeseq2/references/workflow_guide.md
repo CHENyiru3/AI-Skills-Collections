@@ -393,12 +393,12 @@ Before running PyDESeq2:
 
 ### 2. Design Formula Best Practices
 
-**Order matters:** Put adjustment variables before the variable of interest
+**Specify the tested contrast explicitly:** additive formula term order does not determine an explicit condition contrast.
 ```python
 # Correct: control for batch, test condition
 design = "~batch + condition"
 
-# Less ideal: condition listed first
+# Equivalent additive terms when the contrast is specified explicitly
 design = "~condition + batch"
 ```
 
@@ -460,7 +460,8 @@ dds = DeseqDataSet(
 )
 
 # Process in batches if needed
-# (split genes into chunks, analyze separately, combine results)
+# Do not fit independent gene chunks and concatenate p-values blindly: global
+# size-factor/dispersion estimation and multiple testing must remain coherent.
 ```
 
 ---
@@ -498,9 +499,10 @@ ValueError: All genes have zero total counts
 # Check data orientation
 print(f"Counts shape: {counts_df.shape}")
 
-# If genes > samples, likely needs transpose
-if counts_df.shape[1] < counts_df.shape[0]:
-    counts_df = counts_df.T
+# Determine orientation from sample identifiers, not matrix dimensions.
+# Transpose only when the source columns are the sample IDs.
+assert set(counts_df.index) == set(metadata.index)
+metadata = metadata.loc[counts_df.index]
 ```
 
 ### Warning: Many genes filtered out
@@ -535,10 +537,9 @@ genes_to_keep = counts_df.columns[counts_df.sum(axis=0) >= 5]
 # Check design confounding
 print(pd.crosstab(metadata.condition, metadata.batch))
 
-# Either remove confounded variable or add interaction term
-design = "~condition"  # Drop batch
-# OR
-design = "~condition + batch + condition:batch"  # Add interaction
+# Complete batch-condition confounding cannot identify a separate condition effect.
+# Neither dropping batch nor adding an interaction repairs the evidence.
+# Inspect rank/replication and stop this contrast until the question/data support it.
 ```
 
 ### Issue: No significant genes found
@@ -578,5 +579,6 @@ dds = DeseqDataSet(..., n_cpus=1)
 genes_to_keep = counts_df.columns[counts_df.sum(axis=0) >= 20]
 
 # 3. Process in batches
-# Split analysis by gene subsets and combine results
+# Use supported inference/memory controls; arbitrary separate gene fits change
+# shared normalization, dispersion estimation, and the testing family.
 ```

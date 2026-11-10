@@ -22,43 +22,52 @@ import pickle
 import sys
 from pathlib import Path
 
-import pandas as pd
-
-try:
-    from pydeseq2.dds import DeseqDataSet
-    from pydeseq2.ds import DeseqStats
-except ImportError:
-    print("Error: pydeseq2 not installed. Install with: pip install pydeseq2")
-    sys.exit(1)
 
 
 def load_and_validate_data(counts_path, metadata_path, transpose_counts=True):
     """Load count matrix and metadata, perform basic validation."""
+    import csv
+    import numpy as np
+    import pandas as pd
+
+    with open(counts_path, newline="") as handle:
+        labels = next(csv.reader(handle))[1:]
+    if not labels or len(labels) != len(set(labels)):
+        raise ValueError("Count column identifiers must be present and unique")
     print(f"Loading count data from {counts_path}...")
-    counts_df = pd.read_csv(counts_path, index_col=0)
+    counts_df = pd.read_csv(counts_path, converters={0: str})
+    counts_df = counts_df.set_index(counts_df.columns[0])
 
     if transpose_counts:
         print("Transposing count matrix to samples × genes format...")
         counts_df = counts_df.T
 
     print(f"Loading metadata from {metadata_path}...")
-    metadata = pd.read_csv(metadata_path, index_col=0)
+    metadata = pd.read_csv(metadata_path, converters={0: str})
+    metadata = metadata.set_index(metadata.columns[0])
 
     print(f"\nData loaded:")
     print(f"  Counts shape: {counts_df.shape} (samples × genes)")
     print(f"  Metadata shape: {metadata.shape} (samples × variables)")
 
-    # Validate
-    if not all(counts_df.index == metadata.index):
-        print("\nWarning: Sample indices don't match perfectly. Taking intersection...")
-        common_samples = counts_df.index.intersection(metadata.index)
-        counts_df = counts_df.loc[common_samples]
-        metadata = metadata.loc[common_samples]
-        print(f"  Using {len(common_samples)} common samples")
-
-    # Check for negative or non-integer values
-    if (counts_df < 0).any().any():
-        raise ValueError("Count matrix contains negative values")
+    if any(not str(value).strip() for value in counts_df.index) or any(not str(value).strip() for value in metadata.index):
+        raise ValueError("Sample identifiers must not be empty")
+    if counts_df.empty or metadata.empty:
+        raise ValueError("Counts and metadata must be nonempty")
+    if not counts_df.index.is_unique or not metadata.index.is_unique:
+        raise ValueError("Sample identifiers must be unique")
+    if not counts_df.columns.is_unique:
+        raise ValueError("Gene identifiers must be unique")
+    if set(counts_df.index) != set(metadata.index):
+        raise ValueError("Count sample IDs must match metadata exactly; check --no-transpose and sample inclusion")
+    metadata = metadata.loc[counts_df.index].copy()
+    counts_df = counts_df.apply(pd.to_numeric, errors="raise")
+    values = counts_df.to_numpy()
+    if not np.isfinite(values).all() or (values < 0).any() or (values % 1 != 0).any():
+        raise ValueError("Counts must be finite non-negative integers; normalized expression is not count input")
+    if (values >= 2**63).any():
+        raise ValueError("Counts exceed supported int64 range")
+    counts_df = counts_df.astype("int64")
 
     return counts_df, metadata
 
@@ -76,14 +85,13 @@ def filter_data(counts_df, metadata, min_counts=10, condition_col=None):
     genes_removed = initial_genes - counts_df.shape[1]
     print(f"  Removed {genes_removed} genes with < {min_counts} total counts")
 
-    # Filter samples with missing condition data
-    if condition_col and condition_col in metadata.columns:
-        samples_to_keep = ~metadata[condition_col].isna()
-        counts_df = counts_df.loc[samples_to_keep]
-        metadata = metadata.loc[samples_to_keep]
-        samples_removed = initial_samples - counts_df.shape[0]
-        if samples_removed > 0:
-            print(f"  Removed {samples_removed} samples with missing '{condition_col}' data")
+    if condition_col:
+        if condition_col not in metadata:
+            raise ValueError(f"Missing contrast variable: {condition_col}")
+        if metadata[condition_col].isna().any():
+            raise ValueError("Missing contrast metadata; resolve and document sample exclusions before fitting")
+    if counts_df.empty:
+        raise ValueError("No genes remain after filtering")
 
     print(f"  Final data shape: {counts_df.shape[0]} samples × {counts_df.shape[1]} genes")
 
@@ -94,12 +102,15 @@ def run_deseq2(counts_df, metadata, design, n_cpus=1):
     """Run DESeq2 normalization and fitting."""
     print(f"\nInitializing DeseqDataSet with design: {design}")
 
+    from pydeseq2.dds import DeseqDataSet
+    from pydeseq2.default_inference import DefaultInference
+
     dds = DeseqDataSet(
         counts=counts_df,
         metadata=metadata,
         design=design,
         refit_cooks=True,
-        n_cpus=n_cpus,
+        inference=DefaultInference(n_cpus=n_cpus),
         quiet=False
     )
 
@@ -119,11 +130,13 @@ def run_deseq2(counts_df, metadata, design, n_cpus=1):
     return dds
 
 
-def run_statistical_tests(dds, contrast, alpha=0.05, shrink_lfc=True):
+def run_statistical_tests(dds, contrast, alpha=0.05, shrink_lfc=False, shrink_coeff=None):
     """Perform Wald tests and compute p-values."""
     print(f"\nPerforming statistical tests...")
     print(f"  Contrast: {contrast}")
     print(f"  Significance threshold: {alpha}")
+
+    from pydeseq2.ds import DeseqStats
 
     ds = DeseqStats(
         dds,
@@ -146,13 +159,16 @@ def run_statistical_tests(dds, contrast, alpha=0.05, shrink_lfc=True):
     # Optional LFC shrinkage
     if shrink_lfc:
         print("\nApplying LFC shrinkage for visualization...")
-        ds.lfc_shrink()
+        if not shrink_coeff:
+            raise ValueError("LFC shrinkage requires an explicit supported coefficient matching the contrast")
+        ds.unshrunk_results = ds.results_df.copy()
+        ds.lfc_shrink(coeff=shrink_coeff)
         print("✓ LFC shrinkage complete")
 
     return ds
 
 
-def save_results(ds, dds, output_dir, shrink_lfc=True):
+def save_results(ds, dds, output_dir, shrink_lfc=False, alpha=0.05):
     """Save results and intermediate objects."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -164,8 +180,11 @@ def save_results(ds, dds, output_dir, shrink_lfc=True):
     ds.results_df.to_csv(results_path)
     print(f"  Saved: {results_path}")
 
+    if shrink_lfc and hasattr(ds, "unshrunk_results"):
+        ds.unshrunk_results.to_csv(output_dir / "deseq2_results_unshrunk.csv")
+
     # Save significant genes
-    significant = ds.results_df[ds.results_df.padj < 0.05]
+    significant = ds.results_df[ds.results_df.padj < alpha]
     sig_path = output_dir / "significant_genes.csv"
     significant.to_csv(sig_path)
     print(f"  Saved: {sig_path} ({len(significant)} significant genes)")
@@ -187,7 +206,7 @@ def save_results(ds, dds, output_dir, shrink_lfc=True):
     print("ANALYSIS SUMMARY")
     print(f"{'='*60}")
     print(f"Total genes tested: {len(ds.results_df)}")
-    print(f"Significant genes (padj < 0.05): {len(significant)}")
+    print(f"Significant genes (padj < {alpha:g}): {len(significant)}")
     print(f"Upregulated: {len(significant[significant.log2FoldChange > 0])}")
     print(f"Downregulated: {len(significant[significant.log2FoldChange < 0])}")
     print(f"{'='*60}")
@@ -199,7 +218,7 @@ def save_results(ds, dds, output_dir, shrink_lfc=True):
     return results_path
 
 
-def create_plots(ds, output_dir):
+def create_plots(ds, output_dir, alpha=0.05):
     """Create basic visualization plots."""
     try:
         import matplotlib.pyplot as plt
@@ -214,10 +233,10 @@ def create_plots(ds, output_dir):
     print("\nGenerating plots...")
 
     # Volcano plot
-    results["-log10(padj)"] = -np.log10(results.padj.fillna(1))
+    results["-log10(padj)"] = -np.log10(results.padj.clip(lower=np.finfo(float).tiny))
 
     plt.figure(figsize=(10, 6))
-    significant = results.padj < 0.05
+    significant = results.padj < alpha
     plt.scatter(
         results.loc[~significant, "log2FoldChange"],
         results.loc[~significant, "-log10(padj)"],
@@ -226,9 +245,9 @@ def create_plots(ds, output_dir):
     plt.scatter(
         results.loc[significant, "log2FoldChange"],
         results.loc[significant, "-log10(padj)"],
-        alpha=0.6, s=10, c='red', label='Significant (padj < 0.05)'
+        alpha=0.6, s=10, c='red', label=f'Significant (padj < {alpha:g})'
     )
-    plt.axhline(-np.log10(0.05), color='blue', linestyle='--', linewidth=1, alpha=0.5)
+    plt.axhline(-np.log10(alpha), color='blue', linestyle='--', linewidth=1, alpha=0.5)
     plt.axvline(1, color='gray', linestyle='--', linewidth=1, alpha=0.5)
     plt.axvline(-1, color='gray', linestyle='--', linewidth=1, alpha=0.5)
     plt.xlabel("Log2 Fold Change", fontsize=12)
@@ -251,7 +270,7 @@ def create_plots(ds, output_dir):
     plt.scatter(
         np.log10(results.loc[significant, "baseMean"] + 1),
         results.loc[significant, "log2FoldChange"],
-        alpha=0.6, s=10, c='red', label='Significant (padj < 0.05)'
+        alpha=0.6, s=10, c='red', label=f'Significant (padj < {alpha:g})'
     )
     plt.axhline(0, color='blue', linestyle='--', linewidth=1, alpha=0.5)
     plt.xlabel("Log10(Base Mean + 1)", fontsize=12)
@@ -310,7 +329,15 @@ Examples:
     parser.add_argument("--plots", action="store_true",
                        help="Generate volcano and MA plots")
 
+    parser.add_argument("--shrink-coeff", help="Opt in to LFC shrinkage for this exact supported coefficient; verify it matches the contrast")
+
     args = parser.parse_args()
+    if not 0 < args.alpha < 1:
+        parser.error("--alpha must be between 0 and 1")
+    if args.min_counts < 0 or args.n_cpus < 1:
+        parser.error("--min-counts must be nonnegative and --n-cpus positive")
+    if args.no_shrink and args.shrink_coeff:
+        parser.error("--no-shrink and --shrink-coeff cannot be combined")
 
     # Load data
     counts_df, metadata = load_and_validate_data(
@@ -336,15 +363,16 @@ Examples:
         dds,
         contrast=args.contrast,
         alpha=args.alpha,
-        shrink_lfc=not args.no_shrink
+        shrink_lfc=bool(args.shrink_coeff),
+        shrink_coeff=args.shrink_coeff
     )
 
     # Save results
-    save_results(ds, dds, args.output, shrink_lfc=not args.no_shrink)
+    save_results(ds, dds, args.output, shrink_lfc=bool(args.shrink_coeff), alpha=args.alpha)
 
     # Create plots if requested
     if args.plots:
-        create_plots(ds, args.output)
+        create_plots(ds, args.output, alpha=args.alpha)
 
     print(f"\n✓ Analysis complete! Results saved to {args.output}/")
 

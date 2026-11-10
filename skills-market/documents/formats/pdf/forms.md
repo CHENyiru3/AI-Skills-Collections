@@ -1,7 +1,7 @@
-**CRITICAL: You MUST complete these steps in order. Do not skip ahead to writing code.**
+Identify the form type and actual field/coordinate contract before filling it. Use the relevant branch below; do not preload both workflows.
 
 If you need to fill out a PDF form, first check to see if the PDF has fillable form fields. Run this script from this file's directory:
- `python scripts/check_fillable_fields <file.pdf>`, and depending on the result go to either the "Fillable fields" or "Non-fillable fields" and follow those instructions.
+ `python scripts/check_fillable_fields.py <file.pdf>`, and depending on the result go to either the "Fillable fields" or "Non-fillable fields" and follow those instructions.
 
 # Fillable fields
 If the PDF has fillable form fields:

@@ -1,121 +1,36 @@
 ---
 name: designing-python-apis
 domain: programming
-description: Designs and reviews Python library APIs for clarity, consistency, naming, parameters, return types, exceptions, and compatibility. Use this skill whenever a user is shaping a public Python API, renaming functions or classes, choosing argument patterns, planning deprecations, or asking how a package interface should feel to downstream users.
+description: 'Design or review a public Python package API: signatures, return/error contracts, naming and compatibility. Use for explicit interface design or deprecation work; not every internal function edit.'
+metadata:
+  version: "1.0.1"
 ---
 
 # Python API Design
 
-## Core Principles
+Start from representative calling code and the package's current supported users.
+Preserve established naming and behavior unless the requested change includes a
+migration. Optimize a common call without making exceptional use impossible.
 
-1. **Simplicity**: Simple things simple, complex things possible
-2. **Consistency**: Similar operations work similarly
-3. **Least Surprise**: Behave as users expect
-4. **Discoverability**: Find via autocomplete and help
+- Distinguish public exports from internal implementation. A new abstraction needs
+  a concrete caller; underscore naming alone does not enforce privacy.
+- Specify accepted types/shapes, mutability/ownership, return types and side effects.
+  Decide whether an iterable may be consumed once, copied or modified in place.
+- Use keyword-only options when adjacent positional values are ambiguous. Preserve
+  positional/keyword compatibility when changing an existing signature.
+- Distinguish absent values from valid false/empty values. Avoid mutable defaults
+  and coercions that silently erase caller intent.
+- Document actionable exception types and failure conditions; keep diagnostic
+  messages useful without exposing secrets. Do not invent exception classes that
+  the package does not define.
+- For a deprecation, identify affected callers, a replacement, a supported warning
+  path and removal policy. Test that compatibility wrappers preserve results and
+  warning attribution. A rename is not compatible merely because it reads better.
 
-## Progressive Disclosure Pattern
+Read [EVOLUTION.md](EVOLUTION.md) for migration work and [PATTERNS.md](PATTERNS.md)
+when a builder/factory solves an actual interface problem. Treat examples as
+illustrative, not a mandate to add patterns.
 
-```python
-# Level 1: Simple functions
-from mylib import encode, decode
-result = encode(37.7749, -122.4194)
-
-# Level 2: Configurable classes
-from mylib import Encoder
-encoder = Encoder(precision=15)
-
-# Level 3: Low-level access
-from mylib.internals import BitEncoder
-```
-
-## Naming Conventions
-
-```python
-# Actions: verbs
-encode(), decode(), validate()
-
-# Retrieval: get_*
-get_user(), get_config()
-
-# Boolean: is_*, has_*, can_*
-is_valid(), has_permission()
-
-# Conversion: to_*, from_*
-to_dict(), from_json()
-```
-
-## Error Handling
-
-```python
-class MyLibError(Exception):
-    """Base exception with helpful messages."""
-    def __init__(self, message: str, *, hint: str = None):
-        super().__init__(message)
-        self.hint = hint
-
-# Usage
-raise ValidationError(
-    f"Latitude must be -90 to 90, got {lat}",
-    hint="Did you swap latitude and longitude?"
-)
-```
-
-## Deprecation
-
-```python
-import warnings
-
-def old_function():
-    warnings.warn(
-        "old_function() deprecated, use new_function()",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-    return new_function()
-```
-
-## Anti-Patterns
-
-```python
-# Bad: Boolean trap
-process(data, True, False, True)
-
-# Good: Keyword arguments
-process(data, validate=True, cache=False)
-
-# Bad: Mutable default
-def process(items: list = []):
-
-# Good: None default
-def process(items: list | None = None):
-```
-
-For detailed patterns, see:
-- **[PATTERNS.md](PATTERNS.md)** - Builder, factory, and advanced patterns
-- **[EVOLUTION.md](EVOLUTION.md)** - API versioning and migration guides
-
-## Review Checklist
-
-```
-Naming:
-- [ ] Clear, self-documenting names
-- [ ] Consistent patterns throughout
-- [ ] Boolean params read naturally
-
-Parameters:
-- [ ] Minimal required parameters
-- [ ] Sensible defaults
-- [ ] Keyword-only after positional clarity
-
-Errors:
-- [ ] Custom exceptions with context
-- [ ] Helpful error messages
-- [ ] Documented in docstrings
-```
-
-## Learn More
-
-This skill is based on the [Ergonomics](https://mcginniscommawill.com/guides/python-library-development/#ergonomics-the-joy-of-good-design) section of the [Guide to Developing High-Quality Python Libraries](https://mcginniscommawill.com/guides/python-library-development/) by [Will McGinnis](https://mcginniscommawill.com/). See these posts for deeper coverage:
-
-- [The Art of API Design](https://mcginniscommawill.com/posts/2025-02-03-art-of-api-design/)
-- [Designing for Developer Joy](https://mcginniscommawill.com/posts/2025-02-06-designing-for-developer-joy/)
+Validate representative calls and a relevant error/compatibility case. Stop when
+the requested interface contract is clear and verified; do not require a package
+redesign for a narrow API question.

@@ -11,11 +11,14 @@ Validates registry/skills.yaml for:
 6. No alias points to unknown skill ID
 7. All status values are valid
 8. All install_weight values are valid
+9. All release versions use quoted MAJOR.MINOR.PATCH strings
 """
 
 import sys
 import yaml
 from pathlib import Path
+
+from skill_versions import valid_version
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "registry"
@@ -33,9 +36,31 @@ VALID_DOMAINS = {
 VALID_HOSTS = {"macos", "linux", "windows", "server", "hpc", "gpu-server"}
 
 
+class UniqueKeyLoader(yaml.SafeLoader):
+    """Reject keys that ordinary YAML loading would silently overwrite."""
+
+
+def construct_unique_mapping(loader, node, deep=False):
+    mapping = {}
+    for key_node, value_node in node.value:
+        key = loader.construct_object(key_node, deep=deep)
+        if key in mapping:
+            raise yaml.constructor.ConstructorError(
+                "while reading registry YAML", node.start_mark,
+                f"duplicate key: {key}", key_node.start_mark,
+            )
+        mapping[key] = loader.construct_object(value_node, deep=deep)
+    return mapping
+
+
+UniqueKeyLoader.add_constructor(
+    yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, construct_unique_mapping,
+)
+
+
 def load_yaml(path):
     with open(path, "r") as f:
-        return yaml.safe_load(f)
+        return yaml.load(f, Loader=UniqueKeyLoader)
 
 
 def check_skill_ids_unique(skills):
@@ -138,6 +163,15 @@ def check_status_values(skills):
     return errors
 
 
+def check_version_values(skills):
+    """Every current registry entry has a comparable release version."""
+    return [
+        f"[{sid}] version must be a quoted MAJOR.MINOR.PATCH string"
+        for sid, meta in skills.items()
+        if not valid_version(meta.get("version"))
+    ]
+
+
 def check_install_weight_values(skills):
     """8. All install_weight values are valid."""
     errors = []
@@ -203,6 +237,7 @@ def main():
     all_errors += check_source_exists(skills)
     all_errors += check_no_duplicate_canonical_paths(skills)
     all_errors += check_status_values(skills)
+    all_errors += check_version_values(skills)
     all_errors += check_install_weight_values(skills)
     all_errors += check_domain_values(skills)
     all_errors += check_supported_hosts(skills)

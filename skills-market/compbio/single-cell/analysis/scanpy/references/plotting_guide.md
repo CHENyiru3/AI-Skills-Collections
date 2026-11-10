@@ -333,7 +333,7 @@ for gene in ['CD3D', 'CD14', 'MS4A1']:
 - `palette`: Color palette (e.g., 'Set1', 'viridis')
 - `cmap`: Colormap for continuous variables
 - `vmin`, `vmax`: Color scale limits
-- `use_raw`: Use raw counts for gene expression
+- `use_raw`: Use the `adata.raw` snapshot; this may be log-normalized and does not imply counts
 
 ### Saving Parameters
 - `save`: Filename suffix for saving

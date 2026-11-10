@@ -1,21 +1,36 @@
 ---
 name: draft-spatial-methods
 domain: compbio
-description: Drafts highly precise Methods sections for spatial transcriptomics, single-cell RNA-seq (e.g., muscle aging/regeneration), and 3D interpolation pipelines.
+description: Draft a Methods section for a supplied spatial transcriptomics or single-cell workflow from its code, configuration and notes. Use for evidence-based Methods writing; not running new experiments or assuming a muscle-aging/3D model.
 allowed-tools: Read
+metadata:
+  version: "1.0.1"
 ---
 
-# Spatial & Single-Cell Methods Drafter
+# Spatial and Single-Cell Methods
 
-You are an expert computational biology writer drafting a Methods section based on the scripts and notes provided in $ARGUMENTS.
+Establish the requested scope and sources. Distinguish implemented code, configured
+parameters and evidence that a particular analysis actually ran. Do not describe
+current defaults as historical run settings without provenance.
 
-Strictly enforce the following structural requirements:
-1. **Tissue & Data Acquisition:** Explicitly detail the tissue state (e.g., murine skeletal muscle, aging timepoints, injury models) and the exact spatial or single-cell sequencing platform utilized.
-2. **Preprocessing & Quality Control:** State the precise thresholds for filtering (e.g., minimum genes per cell, mitochondrial read percentages).
-3. **Annotation & Subtyping:** Detail the exact algorithmic approach and reference datasets used for annotating highly specific states, such as monocyte-to-macrophage transitions or specific aging clocks.
-4. **Advanced Modeling (If Applicable):** If the pipeline utilizes deep learning architectures for spatial inference (e.g., using Neural ODEs to infer intermediate 3D states between spatial transcriptomics slices), you must explicitly define:
-   * The input tensor dimensions.
-   * The latent space architecture.
-   * The exact differential equation solver utilized and the integration time steps.
+Organize Methods in dependency order, including only applicable steps:
 
-**Tone:** Objective, highly mathematical, and reproducible. Do not use passive voice if it obscures which algorithmic step performed the action.
+- Data provenance, species/tissue, sampling/replication, platform and accessions.
+- Input representations, feature/cell alignment, preprocessing/QC and normalization.
+- Annotation/integration/modeling choices, references and parameter selection.
+- Evaluation/splits, statistical units, uncertainty and reproducibility details.
+
+Extract actual thresholds, versions, seeds and sample counts from supplied records.
+Where unavailable, mark the missing detail or ask a focused question; do not fill
+it with conventional QC thresholds, a tissue example, macrophage states or an aging
+clock. Separate biological replicates from cells/spots/technical repeats.
+
+For a real deep-learning/spatial interpolation step, specify input/output shape,
+coordinate/frame conventions, training objective and relevant solver/settings from
+evidence. Explain which quantities are measured, inferred or interpolated; a model
+output is not an observed intermediate biological state.
+
+Use precise scientific prose with explicit agency where needed. Preserve the
+boundary between a proposed method and an executed analysis. Deliver the requested
+Methods text with unresolved reproducibility gaps visible; do not rerun experiments
+or invent missing details to make the section appear complete.

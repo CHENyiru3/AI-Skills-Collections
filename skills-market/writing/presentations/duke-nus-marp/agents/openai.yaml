@@ -1,0 +1,4 @@
+interface:
+  display_name: "Duke-NUS Marp Slides"
+  short_description: "Academic Marp slides with Duke-NUS and Harvard style"
+  default_prompt: "Use $duke-nus-marp to create an academic slide deck from my material with Harvard citations and checked HTML/PDF exports."

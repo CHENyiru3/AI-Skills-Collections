@@ -122,57 +122,40 @@ for batch in iterator:
     process_batch(batch)
 ```
 
-**Pattern: Incremental statistics (mean/variance)**
+**Pattern: summaries including implicit zeros**
+
+Sparse tables enumerate stored entries. To compute a matrix-wide mean or variance,
+accumulate the sum and squared sum, then divide by the number of **eligible cell
+by feature measurements**, including implicit zeros. Verify measurement presence;
+an unmeasured feature is not an observed zero.
+
 ```python
-# Using Welford's online algorithm
-n = 0
-mean = 0
-M2 = 0
-
-iterator = query.X("raw").tables()
-for batch in iterator:
-    values = batch["soma_data"].to_numpy()
-    for x in values:
-        n += 1
-        delta = x - mean
-        mean += delta / n
-        delta2 = x - mean
-        M2 += delta * delta2
-
-variance = M2 / (n - 1) if n > 1 else 0
+# For a query with the same eligible observation population for every feature:
+n = query.n_obs * query.n_vars
+sum_x = 0.0
+sum_x2 = 0.0
+for batch in query.X("raw").tables():
+    values = batch["soma_data"].to_numpy().astype("float64")
+    sum_x += values.sum()
+    sum_x2 += (values * values).sum()
+mean = sum_x / n if n else float("nan")
+variance = max(0.0, (sum_x2 - sum_x * sum_x / n) / (n - 1)) if n > 1 else float("nan")
 ```
+
+This is a scalar across the selected matrix, not a per-gene mean. For per-gene
+summaries accumulate by feature join ID and divide by each feature's eligible
+measured-cell count. Use stable/compensated algorithms when cancellation matters.
 
 ### 4. PyTorch Integration (Machine Learning)
 
 Use `experiment_dataloader()` for training models.
 
 **Pattern: Create training dataloader**
-```python
-from cellxgene_census.experimental.ml import experiment_dataloader
-import torch
-
-with cellxgene_census.open_soma() as census:
-    # Create dataloader
-    dataloader = experiment_dataloader(
-        census["census_data"]["homo_sapiens"],
-        measurement_name="RNA",
-        X_name="raw",
-        obs_value_filter="tissue_general == 'liver' and is_primary_data == True",
-        obs_column_names=["cell_type"],
-        batch_size=128,
-        shuffle=True,
-    )
-
-    # Training loop
-    for epoch in range(num_epochs):
-        for batch in dataloader:
-            X = batch["X"]  # Gene expression
-            labels = batch["obs"]["cell_type"]  # Cell type labels
-            # Train model...
-```
-
-**Pattern: Train/test split**
-```python
+Split by independent donor/study/dataset IDs before constructing loaders. Keep
+related/duplicate cells together, then use the installed experimental loader API
+for the resulting selection. A random cell split is not evidence of generalization
+to unseen donors or studies. Verify actual batch return types for the release.
+python
 from cellxgene_census.experimental.ml import ExperimentDataset
 
 # Create dataset from query

@@ -10,6 +10,7 @@ For each active skill:
 3. Has required content sections
 4. No empty placeholder content
 5. Registry entry points to a real canonical path under skills-market/
+6. metadata.version is valid and agrees with the registry version
 
 For each SKILL.md found in skills-market/ but NOT in registry:
 - Warn (orphan file)
@@ -25,6 +26,8 @@ import json
 import re
 import yaml
 from pathlib import Path
+
+from skill_versions import valid_version
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_SKILLS = ROOT / "registry" / "skills.yaml"
@@ -52,7 +55,7 @@ def parse_frontmatter(content):
     return (meta or {}), body
 
 
-def check_skill_md(skill_path, sid):
+def check_skill_md(skill_path, sid, expected_version=None):
     """Check a single SKILL.md file. Returns list of (severity, message)."""
     issues = []
     try:
@@ -62,6 +65,13 @@ def check_skill_md(skill_path, sid):
         return issues
 
     meta, body = parse_frontmatter(content)
+
+    metadata = meta.get("metadata")
+    version = metadata.get("version") if isinstance(metadata, dict) else None
+    if not valid_version(version):
+        issues.append(("ERROR", f"[{sid}] metadata.version must be a quoted MAJOR.MINOR.PATCH string"))
+    elif expected_version is not None and version != expected_version:
+        issues.append(("ERROR", f"[{sid}] metadata.version '{version}' differs from registry version '{expected_version}'"))
 
     # Check required frontmatter
     for field in REQUIRED_FRONTMATTER:
@@ -130,7 +140,7 @@ def check_all():
             errors.append(("ERROR", f"[{sid}] SKILL.md missing in {skill_dir}"))
             continue
 
-        issues = check_skill_md(skill_md, sid)
+        issues = check_skill_md(skill_md, sid, meta.get("version"))
         for sev, msg in issues:
             if sev == "ERROR":
                 errors.append((sev, msg))

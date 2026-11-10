@@ -1,11 +1,11 @@
 # Generated Skill Template
 
-Use this template when drafting the repo-specific downstream maintenance skill.
+Use only the relevant sections. Fill the site identity and actual repository target before delivery; do not preserve placeholders or invent new approval gates.
 
 ```markdown
 ---
 name: <site-specific-skill-name>
-description: Maintain this specific website repo safely and consistently. Use this skill whenever the user asks to update, review, polish, reorganize, or extend this website, especially when the request touches governed sections, publication formatting, CV assets, shared templates, or duplicated content.
+description: Maintain <identified site/repository> for its documented content and rendering contracts. Use only for that target or explicit adoption of this workflow; exclude unrelated sites.
 ---
 
 # <Site Specific Skill Name>
@@ -28,7 +28,7 @@ Point to:
 2. Check whether the requested section is freely editable, restricted, or exact-wording-only.
 3. Prefer shared includes or single sources of truth over duplicated edits.
 4. Preserve formatting contracts, ordering, labels, and derived values.
-5. Ask before changing restricted or sensitive content.
+5. Use established authorization/exact wording for protected changes; ask only when a consequential ambiguity remains.
 6. Verify that all mirrored sections stay consistent.
 
 ## Edit permissions

@@ -8,10 +8,14 @@ Usage:
     python bump_version.py 1.5.0   # Set specific version
 """
 
+from __future__ import annotations
+
 import argparse
 import re
 import sys
 from pathlib import Path
+
+PROJECT_VERSION_PATTERN = r'''(?ms)^(\[project\][^\n]*\n(?:(?!^\[).)*?^[ \t]*version[ \t]*=[ \t]*["'])([^"'\n]+)(["'])'''
 
 
 def get_current_version(project_path: Path) -> str | None:
@@ -21,15 +25,15 @@ def get_current_version(project_path: Path) -> str | None:
         return None
 
     content = pyproject.read_text()
-    match = re.search(r'version\s*=\s*"([^"]+)"', content)
-    return match.group(1) if match else None
+    match = re.search(PROJECT_VERSION_PATTERN, content)
+    return match.group(2) if match else None
 
 
 def parse_version(version: str) -> tuple[int, int, int]:
     """Parse version string into tuple."""
-    parts = version.split(".")
-    if len(parts) != 3:
+    if not re.fullmatch(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)", version):
         raise ValueError(f"Invalid version format: {version}")
+    parts = version.split(".")
     return int(parts[0]), int(parts[1]), int(parts[2])
 
 
@@ -84,13 +88,13 @@ def update_version(
 
     # pyproject.toml
     pyproject = project_path / "pyproject.toml"
-    if update_file(
-        pyproject,
-        r'version\s*=\s*"[^"]+"',
-        f'version = "{new_version}"',
-        dry_run,
-    ):
-        updated_files.append(str(pyproject))
+    if pyproject.exists():
+        content = pyproject.read_text()
+        updated = re.sub(PROJECT_VERSION_PATTERN, lambda m: f"{m[1]}{new_version}{m[3]}", content, count=1)
+        if updated != content:
+            if not dry_run:
+                pyproject.write_text(updated)
+            updated_files.append(str(pyproject))
 
     # __init__.py files
     for init_file in project_path.rglob("src/**/__init__.py"):
@@ -228,10 +232,8 @@ def main():
     else:
         print(f"\nVersion bumped to {new_version}")
         print("\nNext steps:")
-        print("  git add -A")
-        print(f'  git commit -m "Bump version to {new_version}"')
-        print(f'  git tag -a v{new_version} -m "Release v{new_version}"')
-        print("  git push origin main --tags")
+        print("  Inspect the diff and stage only the intended release files.")
+        print("  Confirm the target commit and requested publication scope before tagging or pushing.")
 
 
 if __name__ == "__main__":

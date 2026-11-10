@@ -1,6 +1,6 @@
 # AI/ML Skills Catalog
 
-This catalog covers the 15 skills under `skills-market/ai-ml/`.
+This catalog covers the 13 active skills under `skills-market/ai-ml/`.
 
 ## Model Theory
 
@@ -24,9 +24,7 @@ This catalog covers the 15 skills under `skills-market/ai-ml/`.
 | [`peft`](../../skills-market/ai-ml/llm/peft/SKILL.md) | `ai-ml/llm/peft` | LoRA, QLoRA, and adapter-based fine-tuning |
 | [`trl`](../../skills-market/ai-ml/llm/trl/SKILL.md) | `ai-ml/llm/trl` | SFT, DPO, PPO, and preference-learning workflows |
 | [`bitsandbytes`](../../skills-market/ai-ml/llm/bitsandbytes/SKILL.md) | `ai-ml/llm/bitsandbytes` | 8-bit and 4-bit quantization for large models |
-| [`cursor-usage-checker`](../../skills-market/ai-ml/llm/cursor-usage-checker/SKILL.md) | `ai-ml/llm/cursor-usage-checker` | Monitor Cursor IDE usage and limits |
 | [`browser-use`](../../skills-market/ai-ml/llm/browser-use/SKILL.md) | `ai-ml/llm/browser-use` | Browser-use agent workflows with LLMs |
-| [`minimax-cli`](../../skills-market/ai-ml/llm/minimax-cli/SKILL.md) | `ai-ml/llm/minimax-cli` | Unified MiniMax CLI workflows for text, image, video, speech, music, vision, search, and quota checks |
 
 ## Training Infrastructure
 
@@ -43,5 +41,4 @@ This catalog covers the 15 skills under `skills-market/ai-ml/`.
 - Start with `pytorch` for custom model work.
 - Use `jepa-pytorch-development` for masked EMA-teacher JEPA, dense/deep supervision, LeJEPA/SIGReg, or action-conditioned latent prediction.
 - Layer `transformers`, `peft`, `trl`, and `bitsandbytes` on top when the task is model-centric.
-- Use `minimax-cli` when the task is MiniMax-specific or needs a terminal-driven multimodal generation workflow.
 - Use `accelerate` or `deepspeed` when scale or hardware complexity becomes the bottleneck.

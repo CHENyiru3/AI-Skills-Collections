@@ -19,6 +19,9 @@ import socket
 import time
 import sys
 import argparse
+import os
+import signal
+import tempfile
 
 def is_server_ready(port, timeout=30):
     """Wait for server to be ready by polling the port."""
@@ -59,18 +62,26 @@ def main():
         servers.append({'cmd': cmd, 'port': port})
 
     server_processes = []
+    server_logs = []
 
     try:
         # Start all servers
         for i, server in enumerate(servers):
+            if not 1 <= server['port'] <= 65535:
+                raise ValueError('Server port must be between 1 and 65535')
+            if is_server_ready(server['port'], timeout=0.05):
+                raise RuntimeError(f"Port {server['port']} is already occupied; refusing to reuse or stop another server")
             print(f"Starting server {i+1}/{len(servers)}: {server['cmd']}")
 
             # Use shell=True to support commands with cd and &&
+            log = tempfile.TemporaryFile(mode='w+t')
+            server_logs.append(log)
             process = subprocess.Popen(
                 server['cmd'],
                 shell=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE
+                stdout=log,
+                stderr=subprocess.STDOUT,
+                start_new_session=True,
             )
             server_processes.append(process)
 
@@ -78,6 +89,8 @@ def main():
             print(f"Waiting for server on port {server['port']}...")
             if not is_server_ready(server['port'], timeout=args.timeout):
                 raise RuntimeError(f"Server failed to start on port {server['port']} within {args.timeout}s")
+            if process.poll() is not None:
+                raise RuntimeError(f"Server exited before readiness on port {server['port']}")
 
             print(f"Server ready on port {server['port']}")
 
@@ -93,12 +106,28 @@ def main():
         print(f"\nStopping {len(server_processes)} server(s)...")
         for i, process in enumerate(server_processes):
             try:
-                process.terminate()
+                if os.name == 'posix':
+                    os.killpg(process.pid, signal.SIGTERM)
+                else:
+                    process.terminate()
                 process.wait(timeout=5)
+            except ProcessLookupError:
+                pass
             except subprocess.TimeoutExpired:
-                process.kill()
+                if os.name == 'posix':
+                    os.killpg(process.pid, signal.SIGKILL)
+                else:
+                    process.kill()
                 process.wait()
+            finally:
+                if os.name == 'posix':
+                    try:
+                        os.killpg(process.pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
             print(f"Server {i+1} stopped")
+        for log in server_logs:
+            log.close()
         print("All servers stopped")
 
 

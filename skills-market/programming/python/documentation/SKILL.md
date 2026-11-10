@@ -1,130 +1,33 @@
 ---
 name: documenting-python-libraries
 domain: programming
-description: Creates Python library documentation, including docstrings, README structure, Sphinx configuration, API references, tutorials, and docs deployment. Use this skill whenever a user mentions docstrings, Sphinx, Read the Docs, API docs, tutorials, documentation gaps, or wants a Python package to be easier for other developers to learn and adopt.
+description: Write or repair Python package docstrings, usage guides, API references or documentation builds. Use for an explicit package documentation task; a product mention alone does not require Sphinx or deployment setup.
+metadata:
+  version: "1.0.1"
 ---
 
-# Python Library Documentation
+# Python Package Documentation
 
-## Docstring Style (Google)
+Use the project's existing documentation system and docstring convention. Start
+with the user's audience and the specific missing or incorrect contract; one
+function's docstring does not require rebuilding the whole documentation stack.
 
-```python
-def encode(latitude: float, longitude: float, *, precision: int = 12) -> str:
-    """Encode geographic coordinates to a quadtree string.
+Document accepted inputs, shapes/units, return ownership, side effects and meaningful
+errors. Keep examples aligned with real exports and installed versions. Label
+illustrative values; do not invent benchmark outputs or suggest placeholders were
+executed. Distinguish optional extras from ordinary install requirements.
 
-    Args:
-        latitude: The latitude in degrees (-90 to 90).
-        longitude: The longitude in degrees (-180 to 180).
-        precision: Number of characters in output. Defaults to 12.
+For a tutorial, choose a runnable path through the intended task and explain its
+important assumptions. For a reference, document actual behavior rather than an
+aspirational interface. Public API completeness is relevant to a full reference
+request, not a prerequisite to correcting one page.
 
-    Returns:
-        A string representing the encoded location.
+Read [SPHINX_CONFIG.md](SPHINX_CONFIG.md) only for Sphinx configuration and
+[TUTORIALS.md](TUTORIALS.md) for a substantial tutorial. Check current extension and
+hosting inputs before changing a build; importing modules for autodoc can execute
+package code. Use the existing isolated development environment where appropriate.
 
-    Raises:
-        ValidationError: If coordinates are out of valid range.
-
-    Example:
-        >>> encode(37.7749, -122.4194)
-        '9q8yy9h7wr3z'
-    """
-```
-
-## Sphinx Quick Setup
-
-```bash
-# Install
-pip install sphinx furo myst-parser sphinx-copybutton
-
-# Initialize
-sphinx-quickstart docs/
-```
-
-**conf.py essentials:**
-```python
-extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon',  # Google docstrings
-    'myst_parser',          # Markdown support
-]
-html_theme = 'furo'
-```
-
-## pyproject.toml Dependencies
-
-```toml
-[project.optional-dependencies]
-docs = [
-    "sphinx>=7.0",
-    "furo>=2024.0",
-    "myst-parser>=2.0",
-]
-```
-
-## README Template
-
-```markdown
-# Package Name
-
-[![PyPI](https://badge.fury.io/py/package.svg)](https://pypi.org/project/package/)
-
-Short description of what it does.
-
-## Installation
-
-pip install package
-
-## Quick Start
-
-from package import function
-result = function(args)
-
-## Documentation
-
-Full docs at [package.readthedocs.io](https://package.readthedocs.io/)
-```
-
-## ReadTheDocs (.readthedocs.yaml)
-
-```yaml
-version: 2
-build:
-  os: ubuntu-22.04
-  tools:
-    python: "3.11"
-sphinx:
-  configuration: docs/conf.py
-python:
-  install:
-    - method: pip
-      path: .
-      extra_requirements: [docs]
-```
-
-For detailed setup, see:
-- **[SPHINX_CONFIG.md](SPHINX_CONFIG.md)** - Full Sphinx configuration
-- **[TUTORIALS.md](TUTORIALS.md)** - Tutorial writing guide
-
-## Checklist
-
-```
-README:
-- [ ] Clear project description
-- [ ] Installation instructions
-- [ ] Quick start example
-- [ ] Link to full documentation
-
-API Docs:
-- [ ] All public functions documented
-- [ ] Args, Returns, Raises sections
-- [ ] Examples in docstrings
-- [ ] Type hints included
-```
-
-## Learn More
-
-This skill is based on the [Documentation](https://mcginniscommawill.com/guides/python-library-development/#documentation-your-librarys-ambassador) section of the [Guide to Developing High-Quality Python Libraries](https://mcginniscommawill.com/guides/python-library-development/) by [Will McGinnis](https://mcginniscommawill.com/). See these posts for deeper coverage:
-
-- [Writing Effective Docstrings](https://mcginniscommawill.com/posts/2025-03-06-writing-effective-docstrings/)
-- [Getting Started with Sphinx](https://mcginniscommawill.com/posts/2025-03-15-getting-started-sphinx/)
-- [Automating Docs Deployment](https://mcginniscommawill.com/posts/2025-03-23-automating-docs-deployment/)
-- [Documenting Your Library's API](https://mcginniscommawill.com/posts/2025-03-30-documenting-library-api/)
+Validate affected links, example calls and the relevant doc build when available.
+Report unavailable dependencies and existing warnings accurately. Publishing to
+Read the Docs or another host is separate from preparing a local documentation
+change. Stop when the requested documentation is correct and reviewable.

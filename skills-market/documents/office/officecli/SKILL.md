@@ -1,110 +1,38 @@
 ---
 name: officecli
 domain: documents
-description: Create, inspect, validate, and modify Office documents (.docx, .xlsx, .pptx) using the locally installed `officecli` binary. Use when the user wants to create, read, check formatting, find issues, add charts, or modify Office documents.
+description: Use the local OfficeCLI backend to inspect or modify Office files when OfficeCLI is requested, selected by the project, or already in use. Route format-specific work to its adapter; do not override a requested Marp, native Office or other backend.
+metadata:
+  version: "1.0.1"
 ---
 
-# officecli
+# OfficeCLI Backend
 
-Use the local binary at `~/.local/bin/officecli`.
+Discover `officecli` with `command -v officecli` and inspect its version/help.
+A user-local binary such as `~/.local/bin/officecli` is a fallback only if it exists;
+do not assume that installation path or install/upgrade globally by default.
 
-## First Check
-
-Before using the tool:
-
-```bash
-command -v officecli
-officecli --version
-```
-
-If `officecli` is missing from `PATH`, use the absolute path:
+Read before editing: use `view`, `get`, `query` or `validate` to identify the file
+and actual element paths. Prefer structured DOM operations over raw XML when they
+cover the task. Use the installed property help rather than inventing selectors:
 
 ```bash
-$HOME/.local/bin/officecli --version
-```
-
-## Strategy
-
-Prefer this progression:
-
-1. L1 read: `view`, `get`, `query`, `validate`
-2. L2 DOM edit: `set`, `add`, `remove`, `move`, `swap`, `batch`
-3. L3 raw XML: `raw`, `raw-set`, `add-part`
-
-Always add `--json` when structured output helps.
-
-## Help System
-
-When unsure about element names, paths, or properties, run help instead of guessing:
-
-```bash
-officecli pptx set
+officecli docx set paragraph
 officecli pptx set shape
-officecli pptx set shape.fill
-officecli docx add
 officecli xlsx get
 ```
 
-## Core Commands
+Quote indexed paths in shells such as zsh. Prefer structured JSON output when
+parsing results. Re-query after operations that can shift element indices; stale
+paths can edit the wrong object.
 
-```bash
-officecli create <file>
-officecli view <file> <mode>
-officecli get <file> <path> --depth N
-officecli query <file> <selector>
-officecli set <file> <path> --prop key=value
-officecli add <file> <parent> --type <type> --prop key=value
-officecli remove <file> <path>
-officecli move <file> <path> --to <parent> --index N
-officecli swap <file> <path1> <path2>
-officecli validate <file>
-officecli batch <file>
-officecli raw <file> <part>
-officecli raw-set <file> <part> --xpath "..." --action replace --xml '<xml/>'
-```
+For repeated edits, consider batch or resident mode only when supported and useful.
+Close/flush a resident file before inspecting its saved result. The number of
+operations alone does not require a stateful session. Use raw part edits only with
+a known package/relationship contract and validate the resulting file.
 
-## Performance
-
-For 3 or more operations on one file, prefer resident mode:
-
-```bash
-officecli open file.docx
-officecli set file.docx ...
-officecli add file.docx ...
-officecli close file.docx
-```
-
-For many edits, prefer batch mode:
-
-```bash
-cat <<'EOF' | officecli batch file.xlsx
-[
-  {"command":"set","path":"/Sheet1/A1","props":{"value":"Name","bold":"true"}}
-]
-EOF
-```
-
-## Validation
-
-Before considering the document done:
-
-```bash
-officecli view file.docx issues
-officecli validate file.docx
-```
-
-For large files, use targeted reads:
-
-```bash
-officecli view file.docx text --max-lines 100
-officecli view file.xlsx text --start 1 --end 40 --cols A,B,C
-officecli view file.pptx text --start 1 --end 5
-```
-
-## Specialized Skills
-
-Use these more specific skills when the format is clear:
-
-- `officecli-docx` for Word documents
-- `officecli-pptx` for PowerPoint presentations
-- `officecli-xlsx` for Excel workbooks
+Use `officecli-docx`, `officecli-pptx` or `officecli-xlsx` only for the matching
+format when this backend is selected. Preserve the original template/content and
+check changed structure plus the relevant rendering or formulas. A tool's issue
+list is evidence, not proof that layout or calculations are correct. Stop after
+the requested changes and relevant verification; do not demand a full-file rewrite.

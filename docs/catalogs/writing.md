@@ -1,6 +1,6 @@
 # Writing Skills Catalog
 
-This catalog covers the 13 skills under `skills-market/writing/`.
+This catalog covers the 14 active skills under `skills-market/writing/`.
 
 ## General Academic
 
@@ -23,6 +23,12 @@ Source: [danyuchn/asd-ste100-skill](https://github.com/danyuchn/asd-ste100-skill
 | Skill | Location | Focus |
 |-------|----------|-------|
 | [`zotpilot`](../../skills-market/writing/literature/zotpilot/SKILL.md) | `writing/literature/zotpilot` | Zotero library search, indexing, literature review, citation, and paper-organization workflows |
+
+## Academic Slides
+
+| Skill | Location | Focus |
+|-------|----------|-------|
+| [`duke-nus-marp`](../../skills-market/writing/presentations/duke-nus-marp/SKILL.md) | `writing/presentations/duke-nus-marp` | Duke-NUS Marp decks with bundled theme assets, Harvard citations, and checked exports |
 
 ## LaTeX
 

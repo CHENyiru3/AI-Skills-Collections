@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scientific Figure Polish"
+  short_description: "Compact scientific figures with consistent alignment"
+  default_prompt: "Use $scientific-figure-polish to review and refine these figures in my compact publication style, with consistent fonts and precisely aligned subpanels."

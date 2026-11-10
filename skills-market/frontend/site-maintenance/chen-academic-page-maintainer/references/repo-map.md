@@ -54,8 +54,8 @@ Inspect shared renderers before editing repeated content on visible pages.
 - Tech Blog RSS feed: `_pages/tech-blog-feed.xml`, using the same intentional-post filter as `_pages/tech-blog.md`
 - News items: `_news/*.md`
 - Research Radar digests: `_research_radar/*.md`
-- External Website Management notes: `/Users/eric_yiru/Desktop/Home/Main_branch/Notes/03_Resources/Website_management`
-- External notes git root: `/Users/eric_yiru/Desktop/Home/Main_branch/Notes`
+- External Website Management notes: `<management-workspace>`
+- External notes git root: `<notes-root>`
 
 ## Derived-value rules already present
 

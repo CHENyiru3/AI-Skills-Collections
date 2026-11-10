@@ -1,50 +1,29 @@
 ---
 name: officecli-xlsx
 domain: documents
-description: Use this skill any time a `.xlsx` file is involved, including creating spreadsheets, financial models, dashboards, trackers, or editing existing workbooks with formulas, charts, validations, and named ranges.
+description: Inspect or edit XLSX through OfficeCLI when that backend is requested, selected by the project or already in use. Not a universal spreadsheet router or a requirement to recalculate unrelated workbook ranges.
+metadata:
+  version: "1.0.1"
 ---
 
-# OfficeCLI XLSX Skill
+# OfficeCLI XLSX
 
-## First Check
+Discover installed OfficeCLI help, then inspect sheet names, affected ranges,
+formulas and workbook features. Read [creating.md](creating.md) for a new workbook
+or [editing.md](editing.md) for an existing one. Preserve formulas, named ranges,
+validation, formats and the template outside the requested change.
 
-```bash
-command -v officecli
-officecli --version
-```
+Quote indexed paths such as `"/Sheet1/row[1]"`. Check actual cell property names
+with `officecli xlsx set cell` before editing. Batch updates can help many cells;
+resident mode is optional and must be flushed before inspecting the saved result.
 
-## Workflow
+Use formulas when the result should update with workbook inputs; static source
+exports need not become dynamic models. Keep references, units and source facts
+traceable. Check cross-sheet/relative references and distinguish formula text from
+fresh calculated values; discover a suitable calculation engine if needed.
 
-1. Inspect first: `view`, `get`, `query`
-2. For new workbooks, read [creating.md](creating.md)
-3. For existing workbooks, read [editing.md](editing.md)
-4. Run QA: `view issues`, formula checks, `validate`
-
-## Reading
-
-```bash
-officecli view data.xlsx text --start 1 --end 40 --cols A,B,C
-officecli view data.xlsx outline
-officecli view data.xlsx annotated
-officecli view data.xlsx stats
-officecli view data.xlsx issues
-officecli get data.xlsx "/Sheet1/A1"
-officecli query data.xlsx 'cell:has(formula)'
-```
-
-## Editing Rules
-
-- Quote indexed paths in zsh: `"/Sheet1/row[1]"`
-- Use formulas for calculated values instead of hardcoding results
-- Use `officecli xlsx set cell` or `officecli xlsx add` before guessing properties
-- Prefer batch mode for many cell updates
-- Verify cross-sheet formulas after writing them
-
-## QA
-
-```bash
-officecli view data.xlsx issues
-officecli query data.xlsx 'cell:contains("#REF!")'
-officecli query data.xlsx 'cell:contains("#DIV/0!")'
-officecli validate data.xlsx
-```
+Validate affected formulas and their dependency ranges. Inspect new errors and
+explain intentional error signals or pre-existing defects separately. `#REF!` or
+`#DIV/0!` queries are useful leads but are not a complete formula audit. Check
+structure and relevant visual output, then stop when the scoped workbook change
+is valid. Do not alter user macros or install a calculation engine automatically.

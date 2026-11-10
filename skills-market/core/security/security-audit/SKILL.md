@@ -1,106 +1,63 @@
 ---
 name: auditing-python-security
 domain: core
-description: Audits Python libraries for security issues using Bandit, pip-audit, secrets scanning, CI checks, and secure coding patterns. Use this skill whenever a user asks for a Python security review, dependency vulnerability scan, secret detection, hardening against injection and deserialization bugs, or wants security checks wired into CI for a Python package.
+description: Audit Python source, dependency vulnerabilities or secret exposure, or implement requested security checks. Use for an explicit Python security review or hardening task; ordinary code edits do not require a full audit.
+metadata:
+  version: "1.0.1"
 ---
 
-# Python Security Auditing
+# Python Security Audit
 
-## Quick Start
+Establish the source/dependency scope and whether the request is inspection,
+remediation or CI integration. Start with static evidence; executing unfamiliar
+project code and installing dependencies require an appropriate isolated context.
+Do not turn a read-only audit into dependency upgrades or CI changes.
+
+## Collect and interpret evidence
+
+Use existing tooling where available. For example:
 
 ```bash
-# Static analysis
-bandit -r src/ -ll                    # High severity only
-pip-audit                             # Dependency vulnerabilities
-detect-secrets scan > .secrets.baseline  # Secrets detection
+bandit -r src/ -ll      # medium severity and above; -lll means high only
+pip-audit -r requirements.txt
 ```
 
-## Tool Configuration
+A tool finding is a lead, not proof of exploitability. Record location, affected
+version, input/control flow and practical impact. Distinguish false positives,
+unavailable checks and accepted risks. Redact secrets rather than reproducing
+values in output; an exposed credential needs revocation/rotation, not just deletion.
 
-**Bandit (.bandit):**
-```yaml
-exclude_dirs: [tests/, docs/, .venv/]
-skips: [B101]  # assert_used - OK in tests
-```
+Keep these distinctions explicit:
 
-**pip-audit:**
-```bash
-pip-audit -r requirements.txt         # Scan requirements
-pip-audit --fix                       # Auto-fix vulnerabilities
-```
+- B608 concerns SQL query construction; bind values instead of interpolating them.
+- B602 flags shell use; assess input control and shell semantics before proposing
+  an argv replacement. An argv list still needs care with option injection.
+- B108 concerns hardcoded temporary paths, not path traversal. For traversal,
+  resolve the candidate relative to the allowed root and check containment;
+  consider symlink/race behavior if the filesystem can change concurrently.
+- Untrusted pickle/YAML deserialization can execute code. Select a non-executing
+  format/loader appropriate to the actual data contract.
+- Password hashing, encryption and non-security checksums have different needs;
+  do not replace password hashing with a fast SHA digest.
 
-## Common Vulnerabilities
+Use [VULNERABILITIES.md](VULNERABILITIES.md) for a relevant vulnerability pattern,
+checking its examples against the current API and threat model. These are examples,
+not a universal checklist.
 
-| Issue | Bandit ID | Fix |
-|-------|-----------|-----|
-| SQL injection | B608 | Use parameterized queries |
-| Command injection | B602 | subprocess without shell=True |
-| Hardcoded secrets | B105, B106 | Environment variables |
-| Weak crypto | B303 | Use SHA-256+, bcrypt for passwords |
-| Pickle untrusted data | B301 | Use JSON instead |
-| Path traversal | B108 | Validate with Path.resolve() |
+## Remediate only within the requested scope
 
-## Secure Patterns
+Separate an advisory dependency finding from a package change. Inspect proposed
+updates and compatibility before using automated fixes such as `pip-audit --fix`;
+verify the affected path or dependency lock afterwards. Avoid blanket exclusions
+that suppress production findings just to obtain a clean scan.
 
-```python
-# SQL - Parameterized query
-conn.execute("SELECT * FROM users WHERE id = ?", (user_id,))
+For requested CI integration, consult [CI_SECURITY.md](CI_SECURITY.md) and adapt
+paths, dependency setup and permissions to the repository. Scan cadence and a
+particular tool stack are recommendations, not audit completion conditions.
 
-# Commands - No shell
-subprocess.run(["cat", filename], check=True)
+Deliver scoped findings, evidence, fixes made and relevant verification. Stop
+when the requested assessment or repair is complete; do not require zero findings,
+new infrastructure or a weekly scanning rollout for an inspection request.
 
-# Secrets - Environment
-API_KEY = os.environ.get("API_KEY")
-
-# Paths - Validate
-base = Path("/data").resolve()
-file_path = (base / filename).resolve()
-if not file_path.is_relative_to(base):
-    raise ValueError("Invalid path")
-```
-
-## CI Integration
-
-```yaml
-# .github/workflows/security.yml
-- run: bandit -r src/ -ll
-- run: pip-audit
-- run: detect-secrets scan --all-files
-```
-
-For detailed patterns, see:
-- **[VULNERABILITIES.md](VULNERABILITIES.md)** - Full vulnerability examples
-- **[CI_SECURITY.md](CI_SECURITY.md)** - Complete CI workflow
-
-## Audit Checklist
-
-```
-Code:
-- [ ] No SQL injection (parameterized queries)
-- [ ] No command injection (no shell=True)
-- [ ] No hardcoded secrets
-- [ ] No weak crypto (MD5/SHA1)
-- [ ] Input validation on external data
-- [ ] Path traversal prevention
-
-Dependencies:
-- [ ] pip-audit clean
-- [ ] Minimal dependencies
-- [ ] From trusted sources
-
-CI:
-- [ ] Security scan on every PR
-- [ ] Weekly dependency scan
-```
-
-## Learn More
-
-This skill is based on the [Security](https://mcginniscommawill.com/guides/python-library-development/#security-a-matter-of-trust) section of the [Guide to Developing High-Quality Python Libraries](https://mcginniscommawill.com/guides/python-library-development/) by [Will McGinnis](https://mcginniscommawill.com/). See these posts for deeper coverage:
-
-- [Avoiding Injection Flaws](https://mcginniscommawill.com/posts/2025-01-18-avoiding-injection-flaws/)
-- [Intro to Bandit](https://mcginniscommawill.com/posts/2025-01-25-intro-to-bandit/)
-- [Advanced Bandit Configuration](https://mcginniscommawill.com/posts/2025-08-22-advanced-bandit-configuration/)
-- [SQL Injection Detection](https://mcginniscommawill.com/posts/2025-08-25-sql-injection-detection-b608/)
-- [Dependency Security with pip-audit](https://mcginniscommawill.com/posts/2025-01-27-dependency-security-pip-audit/)
-- [Handling Sensitive Data](https://mcginniscommawill.com/posts/2025-01-29-handling-sensitive-data/)
-- [Secure Coding Practices](https://mcginniscommawill.com/posts/2025-02-02-secure-coding-practices/)
+CLI references: [Bandit](https://bandit.readthedocs.io/en/latest/man/bandit.html),
+[B108](https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html).

@@ -1,42 +1,31 @@
 ---
 name: defuddle
 domain: writing
-description: Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page. Do NOT use for URLs ending in .md — those are already markdown, use WebFetch directly.
+description: Extract a clutter-reduced Markdown representation of a standard HTML page using Defuddle when that extraction is requested or useful. Not a universal replacement for connected/browser access, authenticated pages or raw Markdown URLs.
+metadata:
+  version: "1.0.1"
 ---
 
-# Defuddle
+# Defuddle Extraction
 
-Use Defuddle CLI to extract clean readable content from web pages. Prefer over WebFetch for standard web pages — it removes navigation, ads, and clutter, reducing token usage.
+Use an available Defuddle CLI when the task benefits from removing article-page
+navigation and clutter. Check `defuddle --help`/`defuddle parse --help` for the
+installed version. Do not install it globally simply because a URL was provided.
+Prefer existing connected/browser access for authenticated or dynamically rendered
+content and read raw Markdown directly when appropriate.
 
-If not installed: `npm install -g defuddle`
-
-## Usage
-
-Always use `--md` for markdown output:
-
-```bash
-defuddle parse <url> --md
-```
-
-Save to file:
+A typical extraction is:
 
 ```bash
-defuddle parse <url> --md -o content.md
+defuddle parse https://example.com/article --md -o content.md
 ```
 
-Extract specific metadata:
+Choose the actual URL/output destination and inspect extraction quality. Confirm
+that relevant tables, captions, references and code survived, and preserve source
+URL/title/date provenance needed by the task. Empty or partial extraction is not
+evidence that the original page lacks the content. Fall back to the source/browser
+when needed rather than treating cleaned output as authoritative completeness.
 
-```bash
-defuddle parse <url> -p title
-defuddle parse <url> -p description
-defuddle parse <url> -p domain
-```
-
-## Output formats
-
-| Flag | Format |
-|------|--------|
-| `--md` | Markdown (default choice) |
-| `--json` | JSON with both HTML and markdown |
-| (none) | HTML |
-| `-p <name>` | Specific metadata property |
+Save only when the user requested an artifact or the task convention requires it.
+Stop when the requested content is available in a usable form; no new reader stack
+or global npm configuration is implied.

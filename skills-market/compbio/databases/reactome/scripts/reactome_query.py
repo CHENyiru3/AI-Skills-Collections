@@ -25,6 +25,21 @@ import requests
 from typing import List, Dict, Optional
 
 
+
+def _get(url, **kwargs):
+    return requests.get(url, timeout=30, **kwargs)
+
+
+def _post(url, **kwargs):
+    return requests.post(url, timeout=60, **kwargs)
+
+
+def analysis_pathway(row):
+    """Analysis Service nests pathway identity under pathway."""
+    identity = row.get("pathway", row)
+    return identity.get("stId", "unknown"), identity.get("name", identity.get("displayName", "unknown"))
+
+
 class ReactomeClient:
     """Client for interacting with Reactome REST APIs"""
 
@@ -33,29 +48,29 @@ class ReactomeClient:
 
     def get_version(self) -> str:
         """Get Reactome database version"""
-        response = requests.get(f"{self.CONTENT_BASE}/data/database/version")
+        response = _get(f"{self.CONTENT_BASE}/data/database/version")
         response.raise_for_status()
         return response.text.strip()
 
     def query_pathway(self, pathway_id: str) -> Dict:
         """Query pathway information by ID"""
-        response = requests.get(f"{self.CONTENT_BASE}/data/query/{pathway_id}")
+        response = _get(f"{self.CONTENT_BASE}/data/query/{pathway_id}")
         response.raise_for_status()
         return response.json()
 
     def get_pathway_entities(self, pathway_id: str) -> List[Dict]:
         """Get participating entities in a pathway"""
-        response = requests.get(
+        response = _get(
             f"{self.CONTENT_BASE}/data/event/{pathway_id}/participatingPhysicalEntities"
         )
         response.raise_for_status()
         return response.json()
 
-    def search_pathways(self, term: str) -> List[Dict]:
+    def search_pathways(self, term: str) -> Dict:
         """Search for pathways by name"""
-        response = requests.get(
-            f"{self.CONTENT_BASE}/data/query",
-            params={"name": term}
+        response = _get(
+            f"{self.CONTENT_BASE}/search/query",
+            params={"query": term, "types": "Pathways", "cluster": "true", "rows": 20}
         )
         response.raise_for_status()
         return response.json()
@@ -63,7 +78,7 @@ class ReactomeClient:
     def analyze_genes(self, gene_list: List[str]) -> Dict:
         """Perform pathway enrichment analysis on gene list"""
         data = "\n".join(gene_list)
-        response = requests.post(
+        response = _post(
             f"{self.ANALYSIS_BASE}/identifiers/",
             headers={"Content-Type": "text/plain"},
             data=data
@@ -73,7 +88,7 @@ class ReactomeClient:
 
     def get_analysis_by_token(self, token: str) -> Dict:
         """Retrieve analysis results by token"""
-        response = requests.get(f"{self.ANALYSIS_BASE}/token/{token}")
+        response = _get(f"{self.ANALYSIS_BASE}/token/{token}")
         response.raise_for_status()
         return response.json()
 
@@ -155,18 +170,8 @@ def command_search(term: str):
     client = ReactomeClient()
     try:
         results = client.search_pathways(term)
-        print(f"Search results for '{term}': {len(results)} found\n")
-
-        for result in results[:20]:  # Show first 20
-            print(f"{result['stId']}: {result['displayName']}")
-            if 'species' in result and result['species']:
-                species = result['species'][0]['displayName']
-                print(f"  Species: {species}")
-            print(f"  Type: {result['schemaClass']}")
-            print()
-
-        if len(results) > 20:
-            print(f"... and {len(results) - 20} more results")
+        print(f"Search response for {term!r} (one page; inspect totals/paging in JSON):")
+        print_json(results)
 
     except requests.HTTPError as e:
         print(f"Error: {e}")
@@ -191,24 +196,25 @@ def command_analyze(gene_file: str):
         result = client.analyze_genes(genes)
 
         # Display summary
-        summary = result['summary']
-        print(f"\nAnalysis Type: {summary['type']}")
-        print(f"Token: {summary['token']} (valid for 7 days)")
+        summary = result.get('summary', {})
+        print(f"\nAnalysis Type: {summary.get('type', 'not returned')}")
+        print(f"Token: {summary.get('token', 'not returned')} (save source/version; service retention is limited)")
         print(f"Species: {summary.get('species', 'N/A')}")
 
         # Display pathways
         pathways = result.get('pathways', [])
-        print(f"\nEnriched Pathways: {len(pathways)} found")
+        print(f"\nReturned Pathways: {len(pathways)} found")
 
         # Show significant pathways (FDR < 0.05)
-        significant = [p for p in pathways if p['entities']['fdr'] < 0.05]
+        significant = [p for p in pathways if isinstance(p.get('entities', {}).get('fdr'), (int, float)) and p['entities']['fdr'] < 0.05]
         print(f"Significant (FDR < 0.05): {len(significant)}\n")
 
         # Display top 10 pathways
         print("Top 10 Pathways:")
         for i, pathway in enumerate(pathways[:10], 1):
-            print(f"\n{i}. {pathway['name']}")
-            print(f"   ID: {pathway['stId']}")
+            pathway_id, pathway_name = analysis_pathway(pathway)
+            print(f"\n{i}. {pathway_name}")
+            print(f"   ID: {pathway_id}")
             entities = pathway['entities']
             print(f"   Found: {entities['found']}/{entities['total']} entities")
             print(f"   p-value: {entities['pValue']:.6e}")
@@ -217,14 +223,16 @@ def command_analyze(gene_file: str):
         # Generate browser URL for top pathway
         if pathways:
             token = summary['token']
-            top_pathway = pathways[0]['stId']
+            top_pathway, _ = analysis_pathway(pathways[0])
             url = f"https://reactome.org/PathwayBrowser/#{top_pathway}&DTAB=AN&ANALYSIS={token}"
             print(f"\nView top result in browser:")
             print(url)
 
         # Save full results
-        output_file = gene_file.replace('.txt', '_results.json')
-        with open(output_file, 'w') as f:
+        from pathlib import Path
+        source = Path(gene_file)
+        output_file = source.with_name(source.stem + '_results.json')
+        with open(output_file, 'x') as f:
             json.dump(result, f, indent=2)
         print(f"\nFull results saved to: {output_file}")
 
@@ -239,9 +247,9 @@ def print_usage():
 
 
 def main():
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 2 or sys.argv[1] in ("--help", "-h"):
         print_usage()
-        sys.exit(1)
+        sys.exit(0 if len(sys.argv) > 1 else 1)
 
     command = sys.argv[1].lower()
 

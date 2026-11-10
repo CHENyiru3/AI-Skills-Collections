@@ -37,6 +37,7 @@ This decoupling lets you reorganize folders without breaking deployments.
 
 ```text
 skills-market/   ← canonical skill library (human-readable org)
+archive/         ← retired files and recovery records, excluded from active discovery
 registry/        ← source of truth: stable IDs, paths, metadata
 deployments/     ← machine/profile install plans
 taskpacks/      ← project/workflow-specific skill bundles
@@ -54,11 +55,9 @@ ai_skills/
     core/
       dev/
         skill-creator/
-        skill-seekers/
       documentation/
       security/
         security-audit/
-        bitwarden/
       performance/
         performance/
       usage/
@@ -87,7 +86,6 @@ ai_skills/
         peft/
         trl/
         bitsandbytes/
-        cursor-usage-checker/
       training/
         pytorch-lightning/
         accelerate/
@@ -121,7 +119,6 @@ ai_skills/
           vitessce/
         platforms/
           stereo-seq/
-          visium/
       multiomics/
         scRNA-seq/
           pydeseq2/
@@ -145,6 +142,8 @@ ai_skills/
         nextflow/
 
     writing/
+      presentations/
+        duke-nus-marp/
       academic/
         academic-writing-editor/
         humanizer/
@@ -191,8 +190,6 @@ ai_skills/
     agents/
       claude-code/
       codex/
-      hermes-agent/
-      opencode/
       ag-ui/
       mcp/
         mcp-builder/
@@ -205,7 +202,6 @@ ai_skills/
         chen-academic-page-maintainer/
 
     projects/
-      codebti/
 
     experimental/
       incubating/
@@ -240,7 +236,6 @@ ai_skills/
     spatial-omics-analysis.yaml
     bio-databases.yaml
     workflow-engineering.yaml
-    codebti.yaml
     feast.yaml
     thesis-defense.yaml
 
@@ -363,7 +358,7 @@ Web artifacts, UI, academic page, frontend development.
 
 ### `agent-coding.yaml` — extends base
 
-Coding-agent environment: Codex, Claude Code, OpenCode, MCP, agent UI.
+Coding-agent environment: Codex, Claude Code, MCP, agent UI.
 
 ## Taskpacks
 
@@ -404,10 +399,6 @@ Biological database access and annotation.
 ### `workflow-engineering.yaml`
 
 Reproducible computational biology workflow engineering.
-
-### `codebti.yaml`
-
-CODEBTI project-specific bundle.
 
 ## Skill ID Naming Convention
 

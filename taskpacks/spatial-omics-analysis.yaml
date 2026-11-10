@@ -1,6 +1,6 @@
 # Spatial transcriptomics and spatial omics analysis.
 id: spatial-omics-analysis
-description: Spatial transcriptomics and spatial omics analysis — Visium, Squidpy, Giotto, Stereo-seq.
+description: Spatial transcriptomics and spatial omics analysis — Squidpy, Giotto, Stereo-seq.
 skills:
   - scanpy
   - anndata
@@ -9,5 +9,4 @@ skills:
   - spatialdata
   - vitessce
   - stereo-seq
-  - visium
   - draft-spatial-methods

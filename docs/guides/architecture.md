@@ -29,7 +29,8 @@ This decoupling lets you reorganize folders without breaking deployments.
 ## Four-Layer Architecture
 
 ```text
-skills-market/   ← canonical skill library (human-readable org)
+skills-market/   ← active canonical skill library (human-readable org)
+archive/         ← retired skill files and metadata, excluded from active discovery
 registry/        ← source of truth: stable IDs, paths, metadata
 deployments/     ← machine/profile install plans
 taskpacks/      ← project/workflow-specific skill bundles
@@ -40,14 +41,14 @@ scripts/         ← tooling layer
 
 These rules are checked by `scripts/validate_registry.py` and `scripts/check_skill_docs.py`:
 
-1. **Registry is authoritative.** Every skill has an entry in `registry/skills.yaml`.
+1. **Registry is authoritative for current skills.** Every current skill has an entry in `registry/skills.yaml`; retired entries are preserved separately in `archive/registry/skills.yaml`.
 2. **Profiles and taskpacks reference skill IDs, never paths.** Use `scanpy`, not `skills-market/compbio/single-cell/analysis/scanpy`.
 3. **Active skills must have `SKILL.md`.** `status: active` implies `canonical_path/SKILL.md` exists on disk.
-4. **Canonical paths live only under `skills-market/`.** No skill is installed outside this directory.
+4. **Active canonical paths live only under `skills-market/`.** Retired files live under `archive/` and are excluded from active registries and installation.
 5. **Old paths are represented only in `aliases.yaml`.** Do not create new paths outside `skills-market/`.
 6. **Deprecated entries are not installable.** They point to the replacement ID.
 7. **Missing skills are not installable.** `status: missing` means no `SKILL.md` exists yet.
-8. **Marketplace is generated, not hand-maintained.** Run `python scripts/build_marketplace.py` after editing `registry/skills.yaml`.
+8. **Marketplace is generated, not hand-maintained.** Run `python scripts/build_marketplace.py` after editing `registry/skills.yaml`. Use `python scripts/build_marketplace.py --check` to verify generated-file agreement, plugin-relative skill paths, containment, and `SKILL.md` existence without writing.
 9. **Deployment profiles describe machines.** Use `deployments/` for machine-level install plans (e.g., `gpu-server.yaml`, `macos-personal.yaml`).
 10. **Taskpacks describe workflows/projects.** Use `taskpacks/` for task-specific bundles (e.g., `single-cell-analysis.yaml`, `paper-writing.yaml`).
 11. **Skill IDs are unique, lowercase, kebab-case.** No path separators in IDs.
@@ -111,6 +112,7 @@ Each skill entry in `skills.yaml`:
 ```yaml
 scanpy:
   id: scanpy                          # stable kebab-case ID
+  version: "1.0.0"                    # matches SKILL.md metadata.version
   name: Scanpy                        # display name
   canonical_path: skills-market/...   # path relative to repo root
   old_paths:                           # legacy paths (for alias resolution)
@@ -144,6 +146,44 @@ scanpy:
 4. Run `python scripts/build_marketplace.py` to update `marketplace.json`
 5. Run `python scripts/validate_registry.py` to verify
 6. Run `python scripts/check_skill_docs.py` to verify SKILL.md quality
+
+## Skill Versions and Conflicts
+
+Every active skill carries a quoted `metadata.version` in its `SKILL.md` frontmatter and the same `version` in `registry/skills.yaml`. Use three numeric components, `MAJOR.MINOR.PATCH`, without leading zeros:
+
+```yaml
+---
+name: example-skill
+description: A specific capability and its trigger conditions.
+metadata:
+  version: "1.0.0"
+---
+```
+
+Existing version declarations were retained during initial versioning, with `3.0` normalized to `3.0.0`. Previously unversioned skills start at `1.0.0` as a local market baseline; this does not claim an upstream release. Legacy top-level `version` fields were moved to `metadata.version`.
+
+For subsequent edits to instructions, scripts, references, UI metadata, or assets, bump PATCH for compatible corrections, MINOR for compatible added capabilities, and MAJOR for incompatible behavioral or file-contract changes. Update the skill and registry together. Purely external catalog edits do not change a skill's version. The marketplace's own plugin/package version is separate from individual skill versions.
+
+Use `python scripts/list_skills.py` to see versions, or `--format json` for structured output. `validate_registry.py` checks the version format; `check_skill_docs.py` also checks that the frontmatter and registry agree.
+
+`validate_registry.py` rejects duplicate YAML keys so a repeated skill ID or field cannot silently replace another value. The [2026-11-10 implementation ledger](../audits/2026-11-10-improvements.json) records per-skill versions, changed files, and folder content hashes for that update.
+
+When two copies conflict, first compare their stable IDs and versions, then inspect their actual differences. A higher version indicates intended release order, not permission to overwrite local work. Different content at the same version requires review and a version bump after reconciliation. Do not infer the newer release from file modification times or compare version strings lexicographically.
+
+## Archiving and Restoring Skills
+
+The active registry, catalogs, deployment profiles, taskpacks, and generated marketplace contain current skills only. Keep retired names and recovery records inside `archive/`; do not add archived entries to the active registry with a new lifecycle status.
+
+To archive a skill:
+
+1. Move its complete folder from `skills-market/<relative-path>` to `archive/skills/<relative-path>`, preserving scripts, references, and assets.
+2. Save its full registry entry in `archive/registry/skills.yaml`, wrapped with `archived_on`, `reason`, and `archived_path`. Keep the original entry under `original_entry`. For an already missing skill, use `archived_path: null`; do not create placeholder content.
+3. Remove the entry from `registry/skills.yaml`. Move its legacy aliases to `archive/registry/aliases.yaml`.
+4. Remove references from deployment profiles and active taskpacks, and record removed skill IDs by source file in `archive/registry/removed-references.yaml`. Move a taskpack dedicated to the retired skill into `archive/taskpacks/`.
+5. Remove its listings from README, catalogs, and architecture examples; update active counts. Preserve historical migration logs.
+6. Regenerate the marketplace and run the registry, skill-documentation, and profile validators.
+
+To restore a skill, move the archived folder back to its original `canonical_path`, return `original_entry` to the active registry, and restore the needed aliases and profile/taskpack references. Add matching registry and frontmatter versions if the archived record predates versioning. A missing record needs a real `SKILL.md` before it can become active. Update catalogs and counts, regenerate the marketplace, validate, then remove the restored record from the archive manifest.
 
 ## Migrating a Skill to a New Path
 
@@ -189,5 +229,5 @@ User requests → Skill author creates SKILL.md
 | `frontend` | Site maintenance | page-keeper |
 | `platforms` | Platform integrations | github-* |
 | `programming` | Python library development | project-setup, testing-strategy |
-| `projects` | Project-specific bundles | codebti |
+| `projects` | Project-specific bundles | Project-specific workflows |
 | `writing` | Academic, literature, notes | zotpilot, latex-writing |

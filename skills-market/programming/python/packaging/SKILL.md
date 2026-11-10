@@ -1,133 +1,42 @@
 ---
 name: packaging-python-libraries
 domain: programming
-description: Packages and distributes Python libraries with modern `pyproject.toml`, wheels, source distributions, build backends, and PyPI publishing workflows. Use this skill whenever a user mentions packaging, `pyproject.toml`, wheels, `python -m build`, Twine, trusted publishing, PyPI release problems, or making a Python package installable outside the repo.
+description: 'Build, inspect or repair an installable Python distribution: metadata, wheels, source archives and package data. Use for packaging work; publication to an index requires that requested scope, and an unrelated pyproject edit does not trigger this workflow.'
+metadata:
+  version: "1.0.1"
 ---
 
-# Python Library Packaging
+# Python Packaging
 
-## pyproject.toml Essentials
+Inspect the existing backend, metadata/version source, supported Python versions
+and intended distribution files. Preserve the backend unless a migration is part
+of the task. Distribution names and import names can differ; test the installed
+package rather than assuming the repository directory is the import contract.
 
-```toml
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+Build in an appropriate isolated environment. If using the common PyPA tools,
+`python -m build` needs `build`, and `python -m twine check` needs `twine` installed
+there. Inspect only the artifacts from this build, not a wildcard over stale `dist/`.
+A build executes backend hooks; treat unfamiliar projects accordingly.
 
-[project]
-name = "my-package"
-version = "1.0.0"
-description = "Short description"
-readme = "README.md"
-requires-python = ">=3.10"
-license = {text = "MIT"}
-dependencies = []
+Verify metadata and archive contents: importable modules, required data, license
+files, optional extras and compiled-extension/platform tags where relevant. Test a
+wheel in a clean environment outside the source tree. For an sdist, verify the
+needed build inputs are included. An editable import alone does not prove either.
 
-[project.optional-dependencies]
-dev = ["pytest>=7.0", "ruff>=0.1", "mypy>=1.0"]
+Keep declared requirements compatible with actual support: minimums, upper bounds
+and exact pins need a concrete reason; lockfiles and library dependency ranges
+serve different purposes. Declare optional capabilities without making ordinary
+imports depend on an uninstalled extra.
 
-[project.urls]
-Homepage = "https://github.com/user/package"
-Documentation = "https://package.readthedocs.io"
+Use [PYPROJECT_FULL.md](PYPROJECT_FULL.md) for a relevant metadata pattern and
+[CONDA.md](CONDA.md) only for Conda packaging. Check evolving metadata/licensing
+syntax against the chosen backend's version before reusing templates.
 
-[project.scripts]
-mycli = "my_package.cli:main"
+Preparing artifacts does not imply uploading to TestPyPI, PyPI or GitHub. For a
+requested publication, confirm the index/project identity, exact artifacts and
+existing authorization; prefer configured protected credentials or supported
+trusted publishing without putting secrets in commands/output. Inspect current
+provider documentation for action inputs and token scopes.
 
-[tool.setuptools.packages.find]
-where = ["src"]
-```
-
-## Building
-
-```bash
-pip install build
-python -m build              # Creates dist/
-twine check dist/*           # Validate
-```
-
-## Publishing to PyPI
-
-**First time setup:**
-```bash
-# Create API token at pypi.org/manage/account/token/
-export TWINE_USERNAME=__token__
-export TWINE_PASSWORD=pypi-xxx...
-```
-
-**Publish:**
-```bash
-twine upload --repository testpypi dist/*  # Test first
-twine upload dist/*                         # Production
-```
-
-## GitHub Actions (Trusted Publishing)
-
-```yaml
-# .github/workflows/publish.yml
-on:
-  release:
-    types: [published]
-
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-      - run: pip install build && python -m build
-      - uses: pypa/gh-action-pypi-publish@release/v1
-```
-
-## Dependency Best Practices
-
-```toml
-# DO: Minimum versions
-dependencies = ["requests>=2.28", "click>=8.0"]
-
-# DON'T: Exact pins (locks users)
-dependencies = ["requests==2.28.1"]
-
-# DO: Optional for features
-[project.optional-dependencies]
-cli = ["click>=8.0"]
-```
-
-## Including Package Data
-
-```toml
-[tool.setuptools.package-data]
-my_package = ["py.typed", "data/*.json"]
-```
-
-```python
-from importlib.resources import files
-data = files("my_package.data").joinpath("file.json").read_text()
-```
-
-For detailed templates, see:
-- **[PYPROJECT_FULL.md](PYPROJECT_FULL.md)** - Complete pyproject.toml
-- **[CONDA.md](CONDA.md)** - Conda packaging guide
-
-## Checklist
-
-```
-Before Release:
-- [ ] pyproject.toml valid
-- [ ] README.md informative
-- [ ] LICENSE file exists
-- [ ] Version set correctly
-- [ ] twine check passes
-
-After Release:
-- [ ] pip install works
-- [ ] Import works
-- [ ] GitHub release created
-```
-
-## Learn More
-
-This skill is based on the [Distribution](https://mcginniscommawill.com/guides/python-library-development/#distribution-reaching-your-users) section of the [Guide to Developing High-Quality Python Libraries](https://mcginniscommawill.com/guides/python-library-development/) by [Will McGinnis](https://mcginniscommawill.com/). See these posts for deeper coverage:
-
-- [pyproject.toml Explained](https://mcginniscommawill.com/posts/2025-01-26-pyproject-toml-explained/)
-- [Publishing PyGeohash](https://mcginniscommawill.com/posts/2025-04-06-pygeohash-publishing/)
+Report artifacts and verification, then stop at the requested packaging or
+publication outcome. Reference: [PyPA packaging guide](https://packaging.python.org/en/latest/tutorials/packaging-projects/).

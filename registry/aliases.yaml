@@ -20,12 +20,8 @@ aliases:
   document-skills/imgur-cli: imgur-cli
   document-skills/slack-gif-creator: slack-gif-creator
   document-skills/skill-creator: skill-creator
-  document-skills/skill-seekers: skill-seekers
   agent/claude-code: claude-code
   agent/codex: codex
-  agent/hermes-agent: hermes-agent
-  agent/opencode: opencode
-  agent/zed: zed
   agent/mcp-builder: mcp-builder
   agent/karpathy-guidelines: karpathy-guidelines
   Font_end/page-keeper: page-keeper
@@ -49,13 +45,11 @@ aliases:
   ai-ml-skills/llm/peft: peft
   ai-ml-skills/llm/trl: trl
   ai-ml-skills/llm/bitsandbytes: bitsandbytes
-  ai-ml-skills/llm/cursor-usage-checker: cursor-usage-checker
   ai-ml-skills/llm/browser-use: browser-use
   ai-ml-skills/training/pytorch-lightning: pytorch-lightning
   ai-ml-skills/training/accelerate: accelerate
   ai-ml-skills/training/datasets: datasets
   ai-ml-skills/training/deepspeed: deepspeed
-  ai-ml-skills/utility/bitwarden: bitwarden
   compbio-skills/single-cell/analysis/scanpy: scanpy
   compbio-skills/single-cell/analysis/seurat: seurat
   compbio-skills/single-cell/analysis/scvi-tools: scvi-tools
@@ -71,7 +65,6 @@ aliases:
   compbio-skills/spatial-omics/analysis-tools/spatialdata: spatialdata
   compbio-skills/spatial-omics/analysis-tools/vitessce: vitessce
   compbio-skills/spatial-omics/stereo-seq/stereo-seq: stereo-seq
-  compbio-skills/spatial-omics/visium/visium: visium
   compbio-skills/multiomics/scRNA-seq/pydeseq2: pydeseq2
   compbio-skills/multiomics/scATAC-seq/archr: archr
   compbio-skills/multiomics/scATAC-seq/signac: signac
@@ -103,7 +96,6 @@ aliases:
   writing/Obsidian/json-canvas: json-canvas
   writing/Obsidian/defuddle: defuddle
   writing/Obsidian/wiki-keeper: wiki-keeper
-  codebti: codebti
   document-skills/mcp-builder: mcp-builder
   platforms/github/codebase-inspection: github-codebase-inspection
   platforms/github/github-auth: github-auth

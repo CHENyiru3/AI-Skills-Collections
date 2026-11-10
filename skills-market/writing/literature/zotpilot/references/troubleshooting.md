@@ -1,147 +1,28 @@
-# ZotPilot Troubleshooting
+# ZotPilot troubleshooting
 
-## Quick Fix Table
+Diagnose the failing layer before changing configuration. Discover the actual
+connected tool/CLI version; examples in older tool guides may use different names.
 
-| Symptom | Likely cause | Fix |
-|---------|-------------|-----|
-| `zotpilot: command not found` | CLI not installed | `python3 scripts/run.py status` (auto-installs) |
-| `uv: command not found` | uv not installed | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
-| status shows `config_exists: false` | Never ran setup | `zotpilot setup --non-interactive` |
-| status shows `zotero_dir_valid: false` | Wrong Zotero path | `zotpilot setup --non-interactive --zotero-dir /correct/path` |
-| `GEMINI_API_KEY not set` | Missing API key | Set env var: `export GEMINI_API_KEY=...` Get key at https://aistudio.google.com/apikey |
-| `DASHSCOPE_API_KEY not set` | Missing API key | Set env var: `export DASHSCOPE_API_KEY=...` Get key at https://bailian.console.aliyun.com/ |
-| `index_ready: false, doc_count: 0` | Never indexed | `zotpilot index` (full) or `zotpilot index --limit 10` (test) |
-| Search returns empty results | Query too specific or index empty | Check `get_index_stats`. Try broader query or `search_boolean` |
-| `ZOTERO_API_KEY not set` | Write operation without credentials | See "Enable Write Operations" below |
-| `Document has no DOI` | Paper missing DOI in Zotero | Cannot use citation tools — add DOI in Zotero first |
-| MCP tools not available | MCP not registered | See "MCP Registration by Platform" below |
-| Indexing fails on specific PDFs | Corrupted or scanned PDF | Try `--no-vision` flag, or use `--item-key` to skip |
-| ChromaDB lock error | Another process using the index | Stop other zotpilot processes, wait 60s, retry |
-| Not sure what's wrong | Unknown | Run `zotpilot doctor` for detailed diagnostics |
+| Symptom | Targeted response |
+| --- | --- |
+| CLI unavailable | Use an existing connector or configure PATH; install only when requested with wrapper `--install`. |
+| Missing configuration/library | Inspect setup help and the selected Zotero library/data path; preserve other profiles. |
+| Empty search | Check query, collection/library scope and indexing coverage; do not equate an empty index with an empty Zotero library. |
+| Provider credential/rate failure | Check actual error and provider settings; respect retry guidance, avoid exposing keys or switching providers without authorization. |
+| Local model missing | A first download can require network access; an installed local model can then run without a cloud embedding API. |
+| Read succeeds but write fails | Check API permission/library identity and network reachability separately; do not rotate credentials solely because DNS failed. |
+| Newly registered tools unavailable | Reload the affected connection when required, then inspect tool discovery. |
+| Partial indexing/write failures | Report affected item keys; retry only failed items after resolving the cause. |
+| Index lock | Identify the owning process and its state; do not stop unrelated sessions or delete database locks blindly. |
 
-## Embedding Provider Issues
+For setup, use [install-steps.md](install-steps.md). Confirm current command flags
+with installed help. Provider pricing, quotas and model quality are not fixed facts
+of this skill; check primary documentation only when that choice matters.
 
-**Gemini (default):**
-- Free tier: ~1,000 requests/day (after Dec 2025 reduction)
-- If rate limited: wait 60s or switch to dashscope/local
-- Key from: https://aistudio.google.com/apikey
+Compare live Zotero items with index contents before duplicate cleanup. DOI and
+attachment hashes can support identity; a similar title/embedding is a review lead,
+not authorization to merge/delete. Preserve annotations and attachment ownership.
 
-**DashScope / Bailian (Alibaba Cloud):**
-- Recommended for users in China (no VPN needed)
-- Model: text-embedding-v4 (1024 dimensions)
-- Pricing: ¥0.0005/1k tokens — very affordable
-- Key from: https://bailian.console.aliyun.com/
-- Setup: `zotpilot setup --non-interactive --provider dashscope`
-
-**Local (all-MiniLM-L6-v2):**
-- No API key needed, fully offline
-- Lower quality than Gemini/DashScope but works everywhere
-- First run downloads the model (~80MB)
-
-## Indexing Issues
-
-**Indexing is slow:**
-- Normal: ~2-5 seconds per paper (PDF extraction + embedding)
-- Use `--limit N` to index in batches
-- Use `-v` for verbose logging to see progress
-
-**Indexing crashes:**
-- Try `--no-vision` to disable vision-based extraction
-- Index specific papers with `--item-key KEY`
-- Check disk space (ChromaDB needs ~1MB per 100 papers)
-
-**Re-indexing:**
-- Force re-index all: `zotpilot index --force`
-- Re-index by title pattern: `zotpilot index --title "transformer"`
-
-## MCP Registration by Platform
-
-### Claude Code
-
-```bash
-# Without env vars (local embeddings)
-claude mcp add -s user zotpilot -- zotpilot
-
-# With Gemini API key
-claude mcp add -s user -e GEMINI_API_KEY=<key> zotpilot -- zotpilot
-
-# Verify
-claude mcp list
-```
-
-If tools still not showing, restart Claude Code or run `/mcp`.
-
-### OpenCode
-
-```bash
-opencode mcp add
-# Follow prompts: name=zotpilot, command=zotpilot, transport=stdio
-```
-
-### OpenClaw
-
-1. Install MCP bridge plugin:
-   ```bash
-   openclaw plugins install @aiwerk/openclaw-mcp-bridge
-   ```
-2. Edit `~/.openclaw/openclaw.json`:
-   ```json
-   {
-     "plugins": {
-       "entries": {
-         "openclaw-mcp-bridge": {
-           "config": {
-             "servers": {
-               "zotpilot": {
-                 "transport": "stdio",
-                 "command": "zotpilot",
-                 "args": [],
-                 "env": { "GEMINI_API_KEY": "${GEMINI_API_KEY}" }
-               }
-             }
-           }
-         }
-       }
-     }
-   }
-   ```
-3. Restart: `openclaw gateway restart`
-
-## Enable Write Operations
-
-Tag and collection management requires Zotero Web API credentials:
-
-1. Go to https://www.zotero.org/settings/keys
-2. Create a new key with "Allow library access" and "Allow write access"
-3. Find your User ID (number on the same page, not your username)
-4. Re-register MCP with additional env vars:
-
-**Claude Code:**
-```bash
-claude mcp remove zotpilot
-claude mcp add -s user -e GEMINI_API_KEY=<key> -e ZOTERO_API_KEY=<key> -e ZOTERO_USER_ID=<id> zotpilot -- zotpilot
-```
-
-**OpenCode / OpenClaw:** Add the env vars to the existing MCP config.
-
-5. Restart your AI agent.
-
-## Complete Reset
-
-If nothing works, start fresh:
-
-```bash
-# Remove config
-rm -rf ~/.config/zotpilot/
-
-# Remove index data
-rm -rf ~/.local/share/zotpilot/
-
-# Reinstall CLI
-uv tool uninstall zotpilot
-python3 scripts/run.py status    # auto-reinstalls
-
-# Re-setup
-zotpilot setup
-zotpilot index --limit 10
-```
+A reset is a last-resort, explicitly scoped repair. Identify exact config/index paths,
+retain a recoverable copy when needed, and determine whether targeted repair/reindex
+can solve the issue. Never apply a generic `rm -rf` recipe to the user's library.

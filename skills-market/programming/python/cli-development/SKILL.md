@@ -1,125 +1,36 @@
 ---
 name: building-python-clis
 domain: programming
-description: Builds Python CLIs with Click or Typer, including command groups, options, stdin and stdout handling, shell completion, exit codes, and CLI testing. Use this skill whenever a user mentions a command-line tool, subcommands, `click`, `typer`, `argparse`, console entry points, or wants a Python package to expose a usable terminal interface.
+description: Create, change or test a Python command-line interface, including arguments, streams and exit behavior. Use for Python CLI development with the chosen framework; not merely running a command-line tool.
+metadata:
+  version: "1.0.1"
 ---
 
 # Python CLI Development
 
-## Framework Selection
+Use the existing argparse, Click or Typer stack when practical. Select a new
+framework from dependency constraints and required interaction, not a universal
+preference. Match the command's install/entry-point contract to package metadata.
 
-**Click** (Recommended): Mature, extensive features
-**Typer**: Modern, type-hint focused
-**argparse**: Zero dependencies, standard library
+Define the command as a process interface:
 
-## Click Quick Start
+- Keep machine-readable results on stdout and diagnostics/progress on stderr.
+  Use nonzero status for failures and avoid contaminating piped data with banners.
+- Define whether `-` means stdin/stdout; a path type requiring an existing file
+  does not automatically implement stream support.
+- Make overwrite and destructive behavior explicit. Parse/validate arguments
+  before opening an output file that could truncate user data.
+- Preserve documented flags, defaults and exit codes when changing an interface.
+  Obtain the version from package metadata rather than duplicating release values.
+- Declare a CLI framework as a runtime dependency if the ordinary console entry
+  point imports it; optional extras need a deliberate missing-extra experience.
 
-```python
-import click
+For Click-specific patterns read [CLICK_PATTERNS.md](CLICK_PATTERNS.md); for Typer
+read [TYPER_GUIDE.md](TYPER_GUIDE.md). Verify version-sensitive completion and test
+runner APIs against the installed version before copying examples.
 
-@click.group()
-@click.version_option(version='1.0.0')
-def cli():
-    """My CLI tool."""
-    pass
-
-@cli.command()
-@click.argument('input_file', type=click.Path(exists=True))
-@click.option('--output', '-o', default='-', help='Output file')
-@click.option('--verbose', '-v', is_flag=True)
-def process(input_file, output, verbose):
-    """Process an input file."""
-    if verbose:
-        click.echo(f"Processing {input_file}")
-    # ...
-
-if __name__ == '__main__':
-    cli()
-```
-
-## Entry Point (pyproject.toml)
-
-```toml
-[project.scripts]
-mycli = "my_package.cli:cli"
-
-[project.optional-dependencies]
-cli = ["click>=8.0"]
-```
-
-## Common Patterns
-
-```python
-# File I/O with stdin/stdout support
-@click.argument('input', type=click.File('r'), default='-')
-@click.argument('output', type=click.File('w'), default='-')
-
-# Progress bar
-with click.progressbar(items, label='Processing') as bar:
-    for item in bar:
-        process(item)
-
-# Colored output
-click.secho("Success!", fg='green', bold=True)
-click.secho("Error!", fg='red', err=True)
-
-# Error handling
-if not valid:
-    raise click.BadParameter(f'Invalid value: {value}')
-```
-
-## Testing with CliRunner
-
-```python
-from click.testing import CliRunner
-from mypackage.cli import cli
-
-def test_process():
-    runner = CliRunner()
-    result = runner.invoke(cli, ['process', 'input.txt'])
-    assert result.exit_code == 0
-    assert 'expected output' in result.output
-
-def test_stdin():
-    runner = CliRunner()
-    result = runner.invoke(cli, ['process', '-'], input='test data\n')
-    assert result.exit_code == 0
-```
-
-## Shell Completion
-
-```bash
-# Generate completion scripts
-_MYCLI_COMPLETE=bash_source mycli > ~/.mycli-complete.bash
-_MYCLI_COMPLETE=zsh_source mycli > ~/.mycli-complete.zsh
-```
-
-For detailed patterns, see:
-- **[CLICK_PATTERNS.md](CLICK_PATTERNS.md)** - Advanced Click usage
-- **[TYPER_GUIDE.md](TYPER_GUIDE.md)** - Typer alternative
-
-## CLI Checklist
-
-```
-Setup:
-- [ ] Entry point in pyproject.toml
-- [ ] --help works for all commands
-- [ ] --version displays version
-
-UX:
-- [ ] Errors go to stderr with non-zero exit
-- [ ] Helpful error messages
-- [ ] stdin/stdout support where appropriate
-
-Testing:
-- [ ] Tests for all commands
-- [ ] Test error cases
-- [ ] Test stdin processing
-```
-
-## Learn More
-
-This skill is based on the [Guide to Developing High-Quality Python Libraries](https://mcginniscommawill.com/guides/python-library-development/) by [Will McGinnis](https://mcginniscommawill.com/). See these posts for related coverage:
-
-- [Makefiles for Python Development](https://mcginniscommawill.com/posts/2025-04-08-makefiles-for-python/)
-- [pyproject.toml Explained](https://mcginniscommawill.com/posts/2025-01-26-pyproject-toml-explained/)
+Test the changed command through its public entry point: `--help`, a representative
+success and an important failure. Use a temporary filesystem and create real input
+fixtures before invoking an existing-path argument. Test stdin only when the command
+supports it. Check stream separation and exit status, not just a substring in output.
+Do not write shell startup files or install completion unless requested.

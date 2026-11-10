@@ -1,5 +1,7 @@
 # KEGG Database Reference
 
+
+Use current provider documentation for operation-specific limits. Pace the entire workload to at most 3 requests/second; do not generalize the get-entry limit to every operation. Image responses are binary.
 ## Overview
 
 KEGG (Kyoto Encyclopedia of Genes and Genomes) is a comprehensive bioinformatics resource that maintains manually curated pathway maps and molecular interaction networks. It provides "wiring diagrams of molecular interactions, reactions and relations" for understanding biological systems.
@@ -262,9 +264,9 @@ Chronological classification and target-based classification
 ## API Limitations and Best Practices
 
 ### Rate Limits and Restrictions
-- Maximum 10 entries per single operation (except image/kgml: 1 entry)
+- Apply operation-specific limits: get accepts at most 10 entries, with single-entry restrictions for some output options. Do not apply this cap to every operation.
 - Academic use only - commercial use requires separate licensing
-- No explicit rate limit documented, but avoid rapid-fire requests
+- Limit requests to at most 3 per second across the workload, including retries.
 
 ### HTTP Status Codes
 - `200` - Success

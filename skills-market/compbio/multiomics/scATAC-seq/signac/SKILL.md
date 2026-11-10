@@ -1,213 +1,42 @@
 ---
 name: signac
 domain: compbio
-description: R package for chromatin analysis. Use for single-cell ATAC-seq analysis, chromatin accessibility, and integration with Seurat.
+description: Implement or debug Signac ChromatinAssay workflows for scATAC-seq QC, TF-IDF/LSI, accessibility, gene activity, fragments, genomic annotations, and Seurat multimodal integration.
 license: MIT license
 metadata:
-    skill-author: Eric Yiru
+  version: "1.0.1"
+  skill-author: Eric Yiru
 ---
 
-# Signac: Chromatin Analysis in R
+# Signac chromatin analysis
 
-## Overview
+Inspect Signac/Seurat versions, peak-by-cell counts, fragment file/index, barcode mapping, genome assembly and annotations. Preserve the selected assay and coordinate conventions.
 
-Signac is an R package for analyzing single-cell chromatin data, particularly scATAC-seq. It integrates seamlessly with Seurat for combined analysis of gene expression and chromatin accessibility.
+## Build and preprocess
 
-## When to Use This Skill
+- Construct a supported `ChromatinAssay` with peaks/counts, fragment mapping, and compatible genomic ranges, then place it in a Seurat object.
+- Match annotation assembly, chromosome names, coordinate conventions, and gene identifiers to fragments/peaks. Check fragment barcode coverage and selected cells explicitly.
+- Assess TSS enrichment, nucleosome signal, fragments/reads in peaks, blacklist metrics, and doublets per sample. Choose thresholds from data and assay context.
+- Use supported TF-IDF, feature-selection, and `RunSVD` operations for LSI. Inspect component/depth correlation before choosing dimensions; do not always discard component 1 without evidence. Use that named reduction for neighbors, clustering and UMAP.
 
-This skill should be used when:
-- Analyzing single-cell ATAC-seq data
-- Performing chromatin accessibility analysis
-- Creating gene activity matrices from ATAC
-- Integrating with Seurat for multi-modal analysis
-- Finding cell type-specific regulatory elements
+## Gene activity and integration
 
-## Quick Start
-
-### Installation
+`GeneActivity` returns a matrix, not a replacement Seurat object. For an existing compatible object, a typical pattern is:
 
 ```r
-# Install Signac
-install.packages("Signac")
-
-# From GitHub
-devtools::install_github("satijalab/Signac")
+activity <- GeneActivity(pbmc)
+pbmc[["ACTIVITY"]] <- CreateAssayObject(counts = activity)
+pbmc <- NormalizeData(pbmc, assay = "ACTIVITY")
 ```
 
-### Basic Setup
+Check barcode/feature alignment before assignment. Gene activity is an accessibility-derived proxy and should retain that meaning rather than being labeled measured RNA.
 
-```r
-library(Signac)
-library(Seurat)
-library(GenomeInfoDb)
-library(ggplot2)
-```
+For paired multiome data, verify shared cell IDs and use an appropriate multimodal/WNN workflow with separately processed RNA and ATAC representations. For an unpaired RNA reference, use supported transfer/mapping procedures and assess uncertainty. Do not integrate unlike RNA-gene and ATAC-peak matrices as if their features were equivalent.
 
-## Creating Objects
+## Testing and interpretation
 
-### From Fragments
+For differential accessibility, account for depth and biological replication with a design appropriate to the claim. Cell-level cluster markers are exploratory; condition inference needs donor/sample-aware analysis. Use matched backgrounds for motif/enrichment questions.
 
-```r
-# Create Seurat object from fragments
-counts <- Read10X_h5(filename = "filtered_peak_bc_matrix.h5")
-fragfile <- "atac_v1_pbmc_10k.fragments.tsv.gz"
+Inspect coverage tracks and genomic ranges on the intended genome, selected reduction/assay, cell labels, and metadata. Save the Seurat object with versions and keep fragment/index dependencies accessible. Verify reopen and selected signal values; a saved object may still reference external files.
 
-# Create object
-chrom_assay <- CreateChromatinAssay(
-  counts = counts,
-  fragments = fragfile,
-  min.cells = 10,
-  min.features = 200
-)
-
-# Create Seurat object
-pbmc <- CreateSeuratObject(
-  counts = chrom_assay,
-  assay = "ATAC"
-)
-```
-
-## Analysis Workflow
-
-### Peak Information
-
-```r
-# Add peak information
-Annotation(pbmc) <- annotations
-
-# Compute nucleosome signal
-pbmc <- NucleosomeSignal(pbmc)
-
-# Compute TSS enrichment
-pbmc <- TSSEnrichment(pbmc, fast = FALSE)
-```
-
-### Dimensionality Reduction
-
-```r
-# Feature selection
-pbmc <- FindTopFeatures(pbmc, min.cells = 10)
-
-# Run TF-IDF
-pbmc <- RunTFIDF(pbmc)
-
-# Run SVD
-pbmc <- FindSVD(pbmc, assay = "ATAC")
-```
-
-### Clustering
-
-```r
-# Find neighbors
-pbmc <- FindNeighbors(pbmc, reduction = "lsi", dims = 2:50)
-
-# Find clusters
-pbmc <- FindClusters(pbmc, resolution = 0.4)
-
-# Run UMAP
-pbmc <- RunUMAP(pbmc, reduction = "lsi", dims = 2:50)
-
-# Visualize
-DimPlot(pbmc, label = TRUE)
-```
-
-## Gene Activity
-
-### Create Gene Activity Matrix
-
-```r
-# Create gene activity matrix
-pbmc <- GeneActivity(
-  pbmc,
-  assay = "ATAC"
-)
-
-# Add to object
-pbmc[["RNA"]] <- CreateAssayObject(counts = pbmc@assays$GeneActivity)
-pbmc <- NormalizeData(pbmc, assay = "RNA")
-```
-
-### Visualization
-
-```r
-# Plot gene activity
-FeaturePlot(
-  pbmc,
-  features = c("MS4A1", "CD3D"),
-  assay = "RNA"
-)
-```
-
-## Integration with RNA
-
-### Multi-Modal Integration
-
-```r
-# Load RNA data
-rna <- CreateSeuratObject(counts = rna_counts, assay = "RNA")
-
-# Find anchors
-anchors <- FindIntegrationAnchors(
-  object.list = list(rna = rna, atac = pbmc),
-  assay = c("RNA", "ATAC"),
-  reduction = "cca"
-)
-
-# Integrate
-combined <- IntegrateData(
-  anchorset = anchors,
-  assay = c("RNA", "ATAC")
-)
-
-# Analysis
-DefaultAssay(combined) <- "integrated"
-combined <- ScaleData(combined)
-combined <- RunPCA(combined)
-combined <- RunUMAP(combined)
-```
-
-## Peak Analysis
-
-### Find Markers
-
-```r
-# Find differential peaks
-da_peaks <- FindAllMarkers(
-  pbmc,
-  assay = "ATAC",
-  test.use = "chisq"
-)
-```
-
-### Coverage Plots
-
-```r
-# Plot accessibility around genes
-CoveragePlot(
-  pbmc,
-  region = "CD4",
-  extend.upstream = 1000,
-  extend.downstream = 1000
-)
-```
-
-## Key Parameters
-
-### CreateChromatinAssay
-
-- `counts`: Peak-by-cell matrix
-- `fragments`: Fragment file path
-- `min.cells`: Minimum cells per peak
-- `min.features`: Minimum peaks per cell
-
-## Best Practices
-
-1. **Filter quality cells**: Check nucleosome signal and TSS enrichment
-2. **Use correct genome**: Ensure annotation matches
-3. **Peak calling**: Use appropriate peak caller first (MACS2)
-
-## Additional Resources
-
-- **GitHub**: https://github.com/satijalab/Signac
-- **Tutorials**: https://satijalab.org/seurat/articles/atac_vignette.html
-- **Related**: Seurat, ArchR
+Use the [official Signac vignette](https://stuartlab.org/signac/articles/pbmc_vignette) and installed function help for exact APIs and Seurat-version compatibility.

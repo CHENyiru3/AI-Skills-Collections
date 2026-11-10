@@ -1,6 +1,8 @@
 ---
 name: chimerax-mcp
 description: Install, configure, troubleshoot, and use dovas-net/chimeraX-mcp through MCP or CLI/API access. Use for ChimeraX molecular visualization, hydrogen bonds, salt bridges, van der Waals contacts, electrostatic surfaces, sessions, and requested figure export.
+metadata:
+  version: "1.0.0"
 ---
 
 # ChimeraX MCP

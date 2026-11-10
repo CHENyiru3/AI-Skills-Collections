@@ -1,6 +1,6 @@
 # Computational Biology Skills Catalog
 
-This catalog covers the 37 skills under `skills-market/compbio/`.
+This catalog covers the 36 active skills under `skills-market/compbio/`.
 
 ## Single-Cell Analysis
 
@@ -22,8 +22,8 @@ This catalog covers the 37 skills under `skills-market/compbio/`.
 
 | Skill | Location | Focus |
 |-------|----------|-------|
-| [`seurat-v5`](../../skills-market/compbio/single-cell/integration/seurat-v5/SKILL.md) | `compbio/single-cell/integration/seurat-v5` | Multi-modal integration in Seurat v5 |
-| [`harmony`](../../skills-market/compbio/single-cell/integration/harmony/SKILL.md) | `compbio/single-cell/integration/harmony` | Fast batch correction in R |
+| [`seurat-v5`](../../skills-market/compbio/single-cell/integration/seurat-v5/SKILL.md) | `compbio/single-cell/integration/seurat-v5` | Seurat v5 layers, integration, and WNN contracts |
+| [`harmony`](../../skills-market/compbio/single-cell/integration/harmony/SKILL.md) | `compbio/single-cell/integration/harmony` | Harmony embedding integration and biological-preservation checks |
 | [`scanorama`](../../skills-market/compbio/single-cell/integration/scanorama/SKILL.md) | `compbio/single-cell/integration/scanorama` | Python-based integration across batches |
 | [`bbknn`](../../skills-market/compbio/single-cell/integration/bbknn/SKILL.md) | `compbio/single-cell/integration/bbknn` | Batch-balanced k-nearest-neighbor integration |
 
@@ -34,7 +34,7 @@ This catalog covers the 37 skills under `skills-market/compbio/`.
 | [`pydeseq2`](../../skills-market/compbio/multiomics/scRNA-seq/pydeseq2/SKILL.md) | `compbio/multiomics/scRNA-seq/pydeseq2` | Differential expression with a Python DESeq2 interface |
 | [`archr`](../../skills-market/compbio/multiomics/scATAC-seq/archr/SKILL.md) | `compbio/multiomics/scATAC-seq/archr` | Single-cell ATAC-seq analysis in R |
 | [`signac`](../../skills-market/compbio/multiomics/scATAC-seq/signac/SKILL.md) | `compbio/multiomics/scATAC-seq/signac` | Chromatin accessibility analysis with Seurat |
-| [`scribble`](../../skills-market/compbio/multiomics/integration-tools/scribble/SKILL.md) | `compbio/multiomics/integration-tools/scribble` | Multi-omic integration across modalities |
+| [`scribble`](../../skills-market/compbio/multiomics/integration-tools/scribble/SKILL.md) | `compbio/multiomics/integration-tools/scribble` | Unverified package identity; identification gate before use |
 | [`metabolomics-workbench`](../../skills-market/compbio/multiomics/metabolomics/metabolomics-workbench/SKILL.md) | `compbio/multiomics/metabolomics/metabolomics-workbench` | NIH metabolomics database workflows |
 | [`uniprot`](../../skills-market/compbio/multiomics/proteomics/uniprot/SKILL.md) | `compbio/multiomics/proteomics/uniprot` | Protein search, retrieval, and ID mapping |
 
@@ -48,12 +48,11 @@ This catalog covers the 37 skills under `skills-market/compbio/`.
 
 | Skill | Location | Focus |
 |-------|----------|-------|
-| [`squidpy`](../../skills-market/compbio/spatial-omics/analysis-tools/squidpy/SKILL.md) | `compbio/spatial-omics/analysis-tools/squidpy` | Spatial omics analysis in Python |
-| [`giotto`](../../skills-market/compbio/spatial-omics/analysis-tools/giotto/SKILL.md) | `compbio/spatial-omics/analysis-tools/giotto` | Spatial genomics workflows in R |
-| [`spatialdata`](../../skills-market/compbio/spatial-omics/analysis-tools/spatialdata/SKILL.md) | `compbio/spatial-omics/analysis-tools/spatialdata` | Unified framework for multimodal spatial data |
-| [`vitessce`](../../skills-market/compbio/spatial-omics/analysis-tools/vitessce/SKILL.md) | `compbio/spatial-omics/analysis-tools/vitessce` | Interactive visualization for spatial and single-cell data |
-| [`visium`](../../skills-market/compbio/spatial-omics/visium/visium/SKILL.md) | `compbio/spatial-omics/visium/visium` | 10x Visium analysis workflows |
-| [`stereo-seq`](../../skills-market/compbio/spatial-omics/stereo-seq/stereo-seq/SKILL.md) | `compbio/spatial-omics/stereo-seq/stereo-seq` | Stereo-seq platform workflows |
+| [`squidpy`](../../skills-market/compbio/spatial-omics/analysis/squidpy/SKILL.md) | `compbio/spatial-omics/analysis/squidpy` | Spatial omics analysis in Python |
+| [`giotto`](../../skills-market/compbio/spatial-omics/analysis/giotto/SKILL.md) | `compbio/spatial-omics/analysis/giotto` | Spatial genomics workflows in R |
+| [`spatialdata`](../../skills-market/compbio/spatial-omics/analysis/spatialdata/SKILL.md) | `compbio/spatial-omics/analysis/spatialdata` | Unified framework for multimodal spatial data |
+| [`vitessce`](../../skills-market/compbio/spatial-omics/visualization/vitessce/SKILL.md) | `compbio/spatial-omics/visualization/vitessce` | Interactive visualization for spatial and single-cell data |
+| [`stereo-seq`](../../skills-market/compbio/spatial-omics/platforms/stereo-seq/SKILL.md) | `compbio/spatial-omics/platforms/stereo-seq` | Stereo-seq platform workflows |
 
 ## Databases and Pathways
 
@@ -76,9 +75,9 @@ This catalog covers the 37 skills under `skills-market/compbio/`.
 
 | Skill | Location | Focus |
 |-------|----------|-------|
-| [`anndatar`](../../skills-market/compbio/expert-workflows/anndatar/SKILL.md) | `compbio/expert-workflows/anndatar` | H5AD interchange between Python and R |
-| [`schard`](../../skills-market/compbio/expert-workflows/schard/SKILL.md) | `compbio/expert-workflows/schard` | H5AD conversion for Seurat and SingleCellExperiment |
-| [`monocle3`](../../skills-market/compbio/expert-workflows/monocle3/SKILL.md) | `compbio/expert-workflows/monocle3` | Trajectory and pseudotime analysis |
+| [`anndatar`](../../skills-market/compbio/single-cell/analysis/anndatar/SKILL.md) | `compbio/single-cell/analysis/anndatar` | H5AD interchange between Python and R |
+| [`schard`](../../skills-market/compbio/single-cell/analysis/schard/SKILL.md) | `compbio/single-cell/analysis/schard` | H5AD conversion for Seurat and SingleCellExperiment |
+| [`monocle3`](../../skills-market/compbio/single-cell/analysis/monocle3/SKILL.md) | `compbio/single-cell/analysis/monocle3` | Trajectory and pseudotime analysis |
 | [`draft-spatial-methods`](../../skills-market/compbio/expert-workflows/draft-spatial-methods/SKILL.md) | `compbio/expert-workflows/draft-spatial-methods` | Methods-section drafting for spatial and single-cell workflows |
 | [`explain-bio-dl-model`](../../skills-market/compbio/expert-workflows/explain-bio-dl-model/SKILL.md) | `compbio/expert-workflows/explain-bio-dl-model` | Manuscript-ready explanations of deep learning models |
 | [`critique-bio-manuscript`](../../skills-market/compbio/expert-workflows/critique-bio-manuscript/SKILL.md) | `compbio/expert-workflows/critique-bio-manuscript` | Peer-review style critique of bioinformatics manuscripts |

@@ -1,6 +1,7 @@
 $schema: ./schema.skill.yaml
 skills:
   officecli:
+    version: "1.0.1"
     name: OfficeCLI
     canonical_path: skills-market/documents/office/officecli
     old_paths:
@@ -22,6 +23,7 @@ skills:
     profiles: []
     taskpacks: []
   officecli-docx:
+    version: "1.0.1"
     name: OfficeCLI DOCX
     canonical_path: skills-market/documents/office/officecli-docx
     old_paths:
@@ -44,6 +46,7 @@ skills:
     profiles: []
     taskpacks: []
   officecli-pptx:
+    version: "1.0.1"
     name: OfficeCLI PPTX
     canonical_path: skills-market/documents/office/officecli-pptx
     old_paths:
@@ -66,6 +69,7 @@ skills:
     profiles: []
     taskpacks: []
   officecli-xlsx:
+    version: "1.0.1"
     name: OfficeCLI XLSX
     canonical_path: skills-market/documents/office/officecli-xlsx
     old_paths:
@@ -88,6 +92,7 @@ skills:
     profiles: []
     taskpacks: []
   xlsx:
+    version: "1.0.1"
     name: XLSX
     canonical_path: skills-market/documents/formats/xlsx
     old_paths:
@@ -109,6 +114,7 @@ skills:
     profiles: []
     taskpacks: []
   docx:
+    version: "1.0.1"
     name: DOCX
     canonical_path: skills-market/documents/formats/docx
     old_paths:
@@ -130,6 +136,7 @@ skills:
     profiles: []
     taskpacks: []
   pptx:
+    version: "1.0.1"
     name: PPTX
     canonical_path: skills-market/documents/formats/pptx
     old_paths:
@@ -151,6 +158,7 @@ skills:
     profiles: []
     taskpacks: []
   pdf:
+    version: "1.0.1"
     name: PDF
     canonical_path: skills-market/documents/formats/pdf
     old_paths:
@@ -171,6 +179,7 @@ skills:
     profiles: []
     taskpacks: []
   jupyter:
+    version: "1.0.1"
     name: Jupyter
     canonical_path: skills-market/programming/python/jupyter
     old_paths:
@@ -192,6 +201,7 @@ skills:
     profiles: []
     taskpacks: []
   algorithmic-art:
+    version: "1.0.1"
     name: Algorithmic Art
     canonical_path: skills-market/documents/design/algorithmic-art
     old_paths:
@@ -214,6 +224,7 @@ skills:
     profiles: []
     taskpacks: []
   brand-guidelines:
+    version: "1.0.1"
     name: Brand Guidelines
     canonical_path: skills-market/documents/design/brand-guidelines
     old_paths:
@@ -235,6 +246,7 @@ skills:
     profiles: []
     taskpacks: []
   canvas-design:
+    version: "1.0.1"
     name: Canvas Design
     canonical_path: skills-market/documents/design/canvas-design
     old_paths:
@@ -257,6 +269,7 @@ skills:
     profiles: []
     taskpacks: []
   frontend-design:
+    version: "1.0.1"
     name: Frontend Design
     canonical_path: skills-market/documents/design/frontend-design
     old_paths:
@@ -278,7 +291,32 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
+  scientific-figure-polish:
+    version: "1.0.1"
+    name: Scientific Figure Polish
+    canonical_path: skills-market/documents/design/scientific-figure-polish
+    old_paths: []
+    domain: documents
+    category: design
+    tags:
+    - scientific-figures
+    - publication-figures
+    - multi-panel-layout
+    - typography
+    - pdf
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: scientific-figure-polish
+    dependencies:
+    - pdf
+    profiles: []
+    taskpacks: []
   theme-factory:
+    version: "1.0.1"
     name: Theme Factory
     canonical_path: skills-market/documents/design/theme-factory
     old_paths:
@@ -300,6 +338,7 @@ skills:
     profiles: []
     taskpacks: []
   web-artifacts-builder:
+    version: "1.0.1"
     name: Web Artifacts Builder
     canonical_path: skills-market/documents/design/web-artifacts-builder
     old_paths:
@@ -322,6 +361,7 @@ skills:
     profiles: []
     taskpacks: []
   webapp-testing:
+    version: "1.0.1"
     name: Webapp Testing
     canonical_path: skills-market/documents/design/webapp-testing
     old_paths:
@@ -344,6 +384,7 @@ skills:
     profiles: []
     taskpacks: []
   doc-coauthoring:
+    version: "1.0.1"
     name: Doc Coauthoring
     canonical_path: skills-market/documents/collaboration/doc-coauthoring
     old_paths:
@@ -365,6 +406,7 @@ skills:
     profiles: []
     taskpacks: []
   internal-comms:
+    version: "1.0.1"
     name: Internal Comms
     canonical_path: skills-market/documents/collaboration/internal-comms
     old_paths:
@@ -386,6 +428,7 @@ skills:
     profiles: []
     taskpacks: []
   imgur-cli:
+    version: "1.0.1"
     name: Imgur CLI
     canonical_path: skills-market/documents/media/imgur-cli
     old_paths:
@@ -408,6 +451,7 @@ skills:
     profiles: []
     taskpacks: []
   slack-gif-creator:
+    version: "1.0.1"
     name: Slack GIF Creator
     canonical_path: skills-market/documents/media/slack-gif-creator
     old_paths:
@@ -429,6 +473,7 @@ skills:
     profiles: []
     taskpacks: []
   skill-creator:
+    version: "1.0.1"
     name: Skill Creator
     canonical_path: skills-market/core/dev/skill-creator
     old_paths:
@@ -449,28 +494,8 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
-  skill-seekers:
-    name: Skill Seekers
-    canonical_path: skills-market/core/dev/skill-seekers
-    old_paths:
-    - document-skills/skill-seekers
-    domain: core
-    category: dev
-    tags:
-    - skill
-    - discovery
-    - codebase
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: active
-    id: skill-seekers
-    dependencies: []
-    profiles: []
-    taskpacks: []
   project-setup:
+    version: "1.0.1"
     name: Project Setup
     canonical_path: skills-market/programming/python/project-setup
     old_paths:
@@ -493,6 +518,7 @@ skills:
     profiles: []
     taskpacks: []
   code-quality:
+    version: "1.0.1"
     name: Code Quality
     canonical_path: skills-market/programming/python/code-quality
     old_paths:
@@ -515,6 +541,7 @@ skills:
     profiles: []
     taskpacks: []
   testing-strategy:
+    version: "1.0.1"
     name: Testing Strategy
     canonical_path: skills-market/programming/python/testing-strategy
     old_paths:
@@ -536,6 +563,7 @@ skills:
     profiles: []
     taskpacks: []
   security-audit:
+    version: "1.0.1"
     name: Security Audit
     canonical_path: skills-market/core/security/security-audit
     old_paths:
@@ -558,6 +586,7 @@ skills:
     profiles: []
     taskpacks: []
   api-design:
+    version: "1.0.1"
     name: API Design
     canonical_path: skills-market/programming/python/api-design
     old_paths:
@@ -580,6 +609,7 @@ skills:
     profiles: []
     taskpacks: []
   documentation:
+    version: "1.0.1"
     name: Documentation
     canonical_path: skills-market/programming/python/documentation
     old_paths:
@@ -602,6 +632,7 @@ skills:
     profiles: []
     taskpacks: []
   packaging:
+    version: "1.0.1"
     name: Packaging
     canonical_path: skills-market/programming/python/packaging
     old_paths:
@@ -624,6 +655,7 @@ skills:
     profiles: []
     taskpacks: []
   release-management:
+    version: "1.0.1"
     name: Release Management
     canonical_path: skills-market/programming/python/release-management
     old_paths:
@@ -646,6 +678,7 @@ skills:
     profiles: []
     taskpacks: []
   performance:
+    version: "1.0.1"
     name: Performance
     canonical_path: skills-market/programming/python/performance
     old_paths:
@@ -668,6 +701,7 @@ skills:
     profiles: []
     taskpacks: []
   cli-development:
+    version: "1.0.1"
     name: CLI Development
     canonical_path: skills-market/programming/python/cli-development
     old_paths:
@@ -690,6 +724,7 @@ skills:
     profiles: []
     taskpacks: []
   community:
+    version: "1.0.1"
     name: Community
     canonical_path: skills-market/programming/python/community
     old_paths:
@@ -712,6 +747,7 @@ skills:
     profiles: []
     taskpacks: []
   library-review:
+    version: "1.0.1"
     name: Library Review
     canonical_path: skills-market/programming/python/library-review
     old_paths:
@@ -734,6 +770,7 @@ skills:
     profiles: []
     taskpacks: []
   sqlite:
+    version: "1.0.1"
     name: SQLite
     canonical_path: skills-market/programming/python/sqlite
     old_paths:
@@ -755,6 +792,7 @@ skills:
     profiles: []
     taskpacks: []
   pytorch:
+    version: "1.0.1"
     name: PyTorch
     canonical_path: skills-market/ai-ml/deep-learning/pytorch
     old_paths:
@@ -777,6 +815,7 @@ skills:
     profiles: []
     taskpacks: []
   transformers:
+    version: "1.0.1"
     name: Transformers
     canonical_path: skills-market/ai-ml/llm/transformers
     old_paths:
@@ -799,6 +838,7 @@ skills:
     profiles: []
     taskpacks: []
   huggingface-hub:
+    version: "1.0.1"
     name: HuggingFace Hub
     canonical_path: skills-market/ai-ml/llm/huggingface-hub
     old_paths:
@@ -821,6 +861,7 @@ skills:
     profiles: []
     taskpacks: []
   peft:
+    version: "1.0.1"
     name: PEFT
     canonical_path: skills-market/ai-ml/llm/peft
     old_paths:
@@ -843,6 +884,7 @@ skills:
     profiles: []
     taskpacks: []
   trl:
+    version: "1.0.1"
     name: TRL
     canonical_path: skills-market/ai-ml/llm/trl
     old_paths:
@@ -866,6 +908,7 @@ skills:
     profiles: []
     taskpacks: []
   bitsandbytes:
+    version: "1.0.1"
     name: BitsAndBytes
     canonical_path: skills-market/ai-ml/llm/bitsandbytes
     old_paths:
@@ -887,29 +930,8 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
-  cursor-usage-checker:
-    name: Cursor Usage Checker
-    canonical_path: skills-market/ai-ml/llm/cursor-usage-checker
-    old_paths:
-    - ai-ml-skills/llm/cursor-usage-checker
-    domain: ai-ml
-    category: llm
-    tags:
-    - cursor
-    - usage
-    - monitoring
-    - llm
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: active
-    id: cursor-usage-checker
-    dependencies: []
-    profiles: []
-    taskpacks: []
   browser-use:
+    version: "1.1.1"
     name: Browser Use
     canonical_path: skills-market/ai-ml/llm/browser-use
     old_paths:
@@ -931,29 +953,8 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
-  minimax-cli:
-    name: MiniMax CLI
-    canonical_path: skills-market/ai-ml/llm/minimax-cli
-    old_paths: []
-    domain: ai-ml
-    category: llm
-    tags:
-    - minimax
-    - mmx
-    - multimodal
-    - cli
-    - llm
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: active
-    id: minimax-cli
-    dependencies: []
-    profiles: []
-    taskpacks: []
   pytorch-lightning:
+    version: "1.0.1"
     name: PyTorch Lightning
     canonical_path: skills-market/ai-ml/training/pytorch-lightning
     old_paths:
@@ -976,6 +977,7 @@ skills:
     profiles: []
     taskpacks: []
   accelerate:
+    version: "1.0.1"
     name: Accelerate
     canonical_path: skills-market/ai-ml/training/accelerate
     old_paths:
@@ -998,6 +1000,7 @@ skills:
     profiles: []
     taskpacks: []
   datasets:
+    version: "1.0.1"
     name: Datasets
     canonical_path: skills-market/ai-ml/training/datasets
     old_paths:
@@ -1020,6 +1023,7 @@ skills:
     profiles: []
     taskpacks: []
   deepspeed:
+    version: "1.0.1"
     name: DeepSpeed
     canonical_path: skills-market/ai-ml/training/deepspeed
     old_paths:
@@ -1040,29 +1044,8 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
-  bitwarden:
-    name: Bitwarden
-    canonical_path: skills-market/core/security/bitwarden
-    old_paths:
-    - ai-ml-skills/utility/bitwarden
-    domain: core
-    category: security
-    tags:
-    - bitwarden
-    - password
-    - credentials
-    - security
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: active
-    id: bitwarden
-    dependencies: []
-    profiles: []
-    taskpacks: []
   scanpy:
+    version: "1.0.1"
     name: Scanpy
     canonical_path: skills-market/compbio/single-cell/analysis/scanpy
     old_paths:
@@ -1086,6 +1069,7 @@ skills:
     profiles: []
     taskpacks: []
   seurat:
+    version: "1.0.1"
     name: Seurat
     canonical_path: skills-market/compbio/single-cell/analysis/seurat
     old_paths:
@@ -1109,6 +1093,7 @@ skills:
     profiles: []
     taskpacks: []
   scvi-tools:
+    version: "1.0.1"
     name: scvi-tools
     canonical_path: skills-market/compbio/single-cell/analysis/scvi-tools
     old_paths:
@@ -1132,6 +1117,7 @@ skills:
     profiles: []
     taskpacks: []
   anndata:
+    version: "1.0.1"
     name: AnnData
     canonical_path: skills-market/compbio/single-cell/analysis/anndata
     old_paths:
@@ -1155,6 +1141,7 @@ skills:
     profiles: []
     taskpacks: []
   schard:
+    version: "1.0.1"
     name: Schard
     canonical_path: skills-market/compbio/single-cell/analysis/schard
     old_paths:
@@ -1178,6 +1165,7 @@ skills:
     profiles: []
     taskpacks: []
   anndatar:
+    version: "1.0.1"
     name: anndataR
     canonical_path: skills-market/compbio/single-cell/analysis/anndatar
     old_paths:
@@ -1202,6 +1190,7 @@ skills:
     profiles: []
     taskpacks: []
   monocle3:
+    version: "1.0.1"
     name: Monocle3
     canonical_path: skills-market/compbio/single-cell/analysis/monocle3
     old_paths:
@@ -1225,6 +1214,7 @@ skills:
     profiles: []
     taskpacks: []
   seurat-v5:
+    version: "1.0.1"
     name: Seurat v5
     canonical_path: skills-market/compbio/single-cell/integration/seurat-v5
     old_paths:
@@ -1249,6 +1239,7 @@ skills:
     profiles: []
     taskpacks: []
   harmony:
+    version: "1.0.1"
     name: Harmony
     canonical_path: skills-market/compbio/single-cell/integration/harmony
     old_paths:
@@ -1272,6 +1263,7 @@ skills:
     profiles: []
     taskpacks: []
   scanorama:
+    version: "1.0.1"
     name: Scanorama
     canonical_path: skills-market/compbio/single-cell/integration/scanorama
     old_paths:
@@ -1295,6 +1287,7 @@ skills:
     profiles: []
     taskpacks: []
   bbknn:
+    version: "1.0.1"
     name: BBKNN
     canonical_path: skills-market/compbio/single-cell/integration/bbknn
     old_paths:
@@ -1318,6 +1311,7 @@ skills:
     profiles: []
     taskpacks: []
   cellxgene:
+    version: "1.0.1"
     name: cellxgene
     canonical_path: skills-market/compbio/single-cell/visualization/cellxgene
     old_paths:
@@ -1341,6 +1335,7 @@ skills:
     profiles: []
     taskpacks: []
   cellxgene-census:
+    version: "1.0.1"
     name: CELLxGENE Census
     canonical_path: skills-market/compbio/single-cell/visualization/cellxgene-census
     old_paths:
@@ -1364,6 +1359,7 @@ skills:
     profiles: []
     taskpacks: []
   squidpy:
+    version: "1.0.1"
     name: Squidpy
     canonical_path: skills-market/compbio/spatial-omics/analysis/squidpy
     old_paths:
@@ -1387,6 +1383,7 @@ skills:
     profiles: []
     taskpacks: []
   giotto:
+    version: "1.0.1"
     name: Giotto
     canonical_path: skills-market/compbio/spatial-omics/analysis/giotto
     old_paths:
@@ -1410,6 +1407,7 @@ skills:
     profiles: []
     taskpacks: []
   spatialdata:
+    version: "1.0.1"
     name: SpatialData
     canonical_path: skills-market/compbio/spatial-omics/analysis/spatialdata
     old_paths:
@@ -1433,6 +1431,7 @@ skills:
     profiles: []
     taskpacks: []
   vitessce:
+    version: "1.0.1"
     name: Vitessce
     canonical_path: skills-market/compbio/spatial-omics/visualization/vitessce
     old_paths:
@@ -1455,6 +1454,7 @@ skills:
     profiles: []
     taskpacks: []
   stereo-seq:
+    version: "1.0.1"
     name: Stereo-seq
     canonical_path: skills-market/compbio/spatial-omics/platforms/stereo-seq
     old_paths:
@@ -1477,30 +1477,8 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
-  visium:
-    name: Visium
-    canonical_path: skills-market/compbio/spatial-omics/platforms/visium
-    old_paths:
-    - compbio-skills/spatial-omics/visium/visium
-    domain: compbio
-    category: spatial-omics
-    tags:
-    - visium
-    - spatial
-    - 10x
-    - transcriptomics
-    supported_hosts:
-    - macos
-    - linux
-    - server
-    - hpc
-    install_weight: medium
-    status: active
-    id: visium
-    dependencies: []
-    profiles: []
-    taskpacks: []
   pydeseq2:
+    version: "2.0.0"
     name: PyDESeq2
     canonical_path: skills-market/compbio/multiomics/scRNA-seq/pydeseq2
     old_paths:
@@ -1524,6 +1502,7 @@ skills:
     profiles: []
     taskpacks: []
   archr:
+    version: "1.0.1"
     name: ArchR
     canonical_path: skills-market/compbio/multiomics/scATAC-seq/archr
     old_paths:
@@ -1547,6 +1526,7 @@ skills:
     profiles: []
     taskpacks: []
   signac:
+    version: "1.0.1"
     name: Signac
     canonical_path: skills-market/compbio/multiomics/scATAC-seq/signac
     old_paths:
@@ -1570,6 +1550,7 @@ skills:
     profiles: []
     taskpacks: []
   scribble:
+    version: "1.0.1"
     name: Scribble
     canonical_path: skills-market/compbio/multiomics/integration-tools/scribble
     old_paths:
@@ -1593,6 +1574,7 @@ skills:
     profiles: []
     taskpacks: []
   metabolomics-workbench:
+    version: "1.0.1"
     name: Metabolomics Workbench
     canonical_path: skills-market/compbio/multiomics/metabolomics/metabolomics-workbench
     old_paths:
@@ -1615,6 +1597,7 @@ skills:
     profiles: []
     taskpacks: []
   uniprot:
+    version: "1.1.0"
     name: UniProt
     canonical_path: skills-market/compbio/multiomics/proteomics/uniprot
     old_paths:
@@ -1637,6 +1620,7 @@ skills:
     profiles: []
     taskpacks: []
   chimerax-mcp:
+    version: "1.0.0"
     id: chimerax-mcp
     name: ChimeraX MCP
     canonical_path: skills-market/compbio/structural-biology/chimerax-mcp
@@ -1663,6 +1647,7 @@ skills:
     profiles: []
     taskpacks: []
   computational-biology-retrospective:
+    version: "1.0.0"
     name: Computational Biology Retrospective
     canonical_path: skills-market/compbio/expert-workflows/computational-biology-retrospective
     old_paths: []
@@ -1685,6 +1670,7 @@ skills:
     profiles: []
     taskpacks: []
   critique-bio-manuscript:
+    version: "1.0.1"
     name: Critique Bio Manuscript
     canonical_path: skills-market/compbio/expert-workflows/critique-bio-manuscript
     old_paths:
@@ -1707,6 +1693,7 @@ skills:
     profiles: []
     taskpacks: []
   explain-bio-dl-model:
+    version: "1.0.1"
     name: Explain Bio DL Model
     canonical_path: skills-market/compbio/expert-workflows/explain-bio-dl-model
     old_paths:
@@ -1729,6 +1716,7 @@ skills:
     profiles: []
     taskpacks: []
   draft-spatial-methods:
+    version: "1.0.1"
     name: Draft Spatial Methods
     canonical_path: skills-market/compbio/expert-workflows/draft-spatial-methods
     old_paths:
@@ -1751,6 +1739,7 @@ skills:
     profiles: []
     taskpacks: []
   kegg:
+    version: "1.0.1"
     name: KEGG
     canonical_path: skills-market/compbio/databases/kegg
     old_paths:
@@ -1773,6 +1762,7 @@ skills:
     profiles: []
     taskpacks: []
   reactome:
+    version: "1.0.1"
     name: Reactome
     canonical_path: skills-market/compbio/databases/reactome
     old_paths:
@@ -1795,6 +1785,7 @@ skills:
     profiles: []
     taskpacks: []
   geo:
+    version: "1.0.1"
     name: GEO
     canonical_path: skills-market/compbio/databases/geo
     old_paths:
@@ -1817,6 +1808,7 @@ skills:
     profiles: []
     taskpacks: []
   human-cell-atlas:
+    version: "1.0.1"
     name: Human Cell Atlas
     canonical_path: skills-market/compbio/databases/human-cell-atlas
     old_paths:
@@ -1839,6 +1831,7 @@ skills:
     profiles: []
     taskpacks: []
   ensembl:
+    version: "1.0.1"
     name: Ensembl
     canonical_path: skills-market/compbio/databases/ensembl
     old_paths:
@@ -1861,6 +1854,7 @@ skills:
     profiles: []
     taskpacks: []
   snakemake:
+    version: "1.0.1"
     name: Snakemake
     canonical_path: skills-market/compbio/workflows/snakemake
     old_paths:
@@ -1884,6 +1878,7 @@ skills:
     profiles: []
     taskpacks: []
   nextflow:
+    version: "1.0.1"
     name: Nextflow
     canonical_path: skills-market/compbio/workflows/nextflow
     old_paths:
@@ -1907,6 +1902,7 @@ skills:
     profiles: []
     taskpacks: []
   academic-writing-editor:
+    version: "1.0.1"
     name: Academic Writing Editor
     canonical_path: skills-market/writing/academic/academic-writing-editor
     old_paths:
@@ -1929,6 +1925,7 @@ skills:
     profiles: []
     taskpacks: []
   humanizer:
+    version: "3.0.1"
     name: Humanizer
     canonical_path: skills-market/writing/academic/humanizer
     old_paths:
@@ -1950,6 +1947,7 @@ skills:
     profiles: []
     taskpacks: []
   humanizer-zh:
+    version: "1.0.1"
     name: Humanizer ZH
     canonical_path: skills-market/writing/academic/humanizer-zh
     old_paths:
@@ -1972,6 +1970,7 @@ skills:
     profiles: []
     taskpacks: []
   zotpilot:
+    version: "1.0.1"
     name: ZotPilot
     canonical_path: skills-market/writing/literature/zotpilot
     old_paths:
@@ -1994,6 +1993,7 @@ skills:
     profiles: []
     taskpacks: []
   latex-writing:
+    version: "1.0.1"
     name: LaTeX Writing
     canonical_path: skills-market/writing/latex/latex-writing
     old_paths:
@@ -2016,6 +2016,7 @@ skills:
     profiles: []
     taskpacks: []
   compile-latex:
+    version: "1.0.1"
     name: Compile LaTeX
     canonical_path: skills-market/writing/latex/compile-latex
     old_paths:
@@ -2038,6 +2039,7 @@ skills:
     profiles: []
     taskpacks: []
   obsidian-markdown:
+    version: "1.0.1"
     name: Obsidian Markdown
     canonical_path: skills-market/writing/obsidian/obsidian-markdown
     old_paths:
@@ -2060,6 +2062,7 @@ skills:
     profiles: []
     taskpacks: []
   obsidian-cli:
+    version: "1.0.1"
     name: Obsidian CLI
     canonical_path: skills-market/writing/obsidian/obsidian-cli
     old_paths:
@@ -2082,6 +2085,7 @@ skills:
     profiles: []
     taskpacks: []
   obsidian-bases:
+    version: "1.0.1"
     name: Obsidian Bases
     canonical_path: skills-market/writing/obsidian/obsidian-bases
     old_paths:
@@ -2104,6 +2108,7 @@ skills:
     profiles: []
     taskpacks: []
   json-canvas:
+    version: "1.0.1"
     name: JSON Canvas
     canonical_path: skills-market/writing/obsidian/json-canvas
     old_paths:
@@ -2126,6 +2131,7 @@ skills:
     profiles: []
     taskpacks: []
   defuddle:
+    version: "1.0.1"
     name: Defuddle
     canonical_path: skills-market/writing/obsidian/defuddle
     old_paths:
@@ -2148,6 +2154,7 @@ skills:
     profiles: []
     taskpacks: []
   wiki-keeper:
+    version: "1.0.1"
     name: Wiki Keeper
     canonical_path: skills-market/writing/obsidian/wiki-keeper
     old_paths:
@@ -2170,6 +2177,7 @@ skills:
     profiles: []
     taskpacks: []
   claude-code:
+    version: "2.2.1"
     name: Claude Code
     canonical_path: skills-market/agents/claude-code
     old_paths:
@@ -2192,6 +2200,7 @@ skills:
     profiles: []
     taskpacks: []
   codex:
+    version: "1.0.1"
     name: Codex
     canonical_path: skills-market/agents/codex
     old_paths:
@@ -2213,72 +2222,8 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
-  hermes-agent:
-    name: Hermes Agent
-    canonical_path: skills-market/agents/hermes-agent
-    old_paths:
-    - agent/hermes-agent
-    domain: agents
-    category: agent
-    tags:
-    - hermes
-    - nous-research
-    - agent
-    - coding
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: active
-    id: hermes-agent
-    dependencies: []
-    profiles: []
-    taskpacks: []
-  opencode:
-    name: OpenCode
-    canonical_path: skills-market/agents/opencode
-    old_paths:
-    - agent/opencode
-    domain: agents
-    category: agent
-    tags:
-    - opencode
-    - agent
-    - coding
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: active
-    id: opencode
-    dependencies: []
-    profiles: []
-    taskpacks: []
-  zed:
-    name: Zed
-    canonical_path: skills-market/agents/zed
-    old_paths:
-    - agent/zed
-    domain: agents
-    category: agent
-    tags:
-    - zed
-    - agent
-    - coding
-    - editor
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: active
-    id: zed
-    dependencies: []
-    profiles: []
-    taskpacks: []
   mcp-builder:
+    version: "1.0.1"
     name: MCP Builder
     canonical_path: skills-market/agents/mcp/mcp-builder
     old_paths:
@@ -2302,6 +2247,7 @@ skills:
     profiles: []
     taskpacks: []
   karpathy-guidelines:
+    version: "1.0.1"
     name: Karpathy Guidelines
     canonical_path: skills-market/agents/guidelines/karpathy-guidelines
     old_paths:
@@ -2324,6 +2270,7 @@ skills:
     profiles: []
     taskpacks: []
   page-keeper:
+    version: "1.0.1"
     name: Page Keeper
     canonical_path: skills-market/frontend/site-maintenance/page-keeper
     old_paths:
@@ -2345,6 +2292,7 @@ skills:
     profiles: []
     taskpacks: []
   chen-academic-page-maintainer:
+    version: "1.0.1"
     name: CHEN Academic Page Maintainer
     canonical_path: skills-market/frontend/site-maintenance/chen-academic-page-maintainer
     old_paths:
@@ -2369,6 +2317,7 @@ skills:
     profiles: []
     taskpacks: []
   github-codebase-inspection:
+    version: "1.0.1"
     name: GitHub Codebase Inspection
     canonical_path: skills-market/platforms/github/codebase-inspection
     old_paths:
@@ -2391,6 +2340,7 @@ skills:
     profiles: []
     taskpacks: []
   github-auth:
+    version: "1.1.1"
     name: GitHub Auth
     canonical_path: skills-market/platforms/github/github-auth
     old_paths:
@@ -2413,6 +2363,7 @@ skills:
     profiles: []
     taskpacks: []
   github-code-review:
+    version: "1.1.1"
     name: GitHub Code Review
     canonical_path: skills-market/platforms/github/github-code-review
     old_paths:
@@ -2434,6 +2385,7 @@ skills:
     profiles: []
     taskpacks: []
   github-issues:
+    version: "1.1.1"
     name: GitHub Issues
     canonical_path: skills-market/platforms/github/github-issues
     old_paths:
@@ -2455,6 +2407,7 @@ skills:
     profiles: []
     taskpacks: []
   github-pr-workflow:
+    version: "1.1.1"
     name: GitHub PR Workflow
     canonical_path: skills-market/platforms/github/github-pr-workflow
     old_paths:
@@ -2477,6 +2430,7 @@ skills:
     profiles: []
     taskpacks: []
   github-repo-management:
+    version: "1.1.1"
     name: GitHub Repo Management
     canonical_path: skills-market/platforms/github/github-repo-management
     old_paths:
@@ -2498,126 +2452,8 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
-    profiles: []
-    taskpacks: []
-  beamer:
-    id: beamer
-    name: Beamer
-    canonical_path: skills-market/writing/beamer
-    domain: writing
-    category: presentations
-    tags:
-    - beamer
-    - latex
-    - slides
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: missing
-    dependencies: []
-    profiles:
-    - macos-personal
-    taskpacks: []
-  the-pirate-bay:
-    id: the-pirate-bay
-    name: The Pirate Bay
-    canonical_path: skills-market/platforms/the-pirate-bay
-    domain: platforms
-    category: media
-    tags:
-    - torrent
-    - search
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: missing
-    dependencies: []
-    profiles:
-    - macos-personal
-    taskpacks: []
-  clawd-animation:
-    id: clawd-animation
-    name: Clawd Animation
-    canonical_path: skills-market/frontend/clawd-animation
-    domain: frontend
-    category: animation
-    tags:
-    - animation
-    - html
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: missing
-    dependencies: []
-    profiles:
-    - macos-personal
-    taskpacks: []
-  clawd-animation-lite:
-    id: clawd-animation-lite
-    name: Clawd Animation Lite
-    canonical_path: skills-market/frontend/clawd-animation-lite
-    domain: frontend
-    category: animation
-    tags:
-    - animation
-    - html
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: missing
-    dependencies: []
-    profiles:
-    - macos-personal
-    taskpacks: []
-  neat-freak:
-    id: neat-freak
-    name: Neat Freak
-    canonical_path: skills-market/agents/neat-freak
-    domain: agents
-    category: maintenance
-    tags:
-    - maintenance
-    - cleanup
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: missing
-    dependencies: []
-    profiles:
-    - macos-personal
-    taskpacks: []
-  codebti:
-    name: CODEBTI
-    canonical_path: skills-market/projects/codebti
-    old_paths:
-    - codebti
-    domain: projects
-    category: projects
-    tags:
-    - codebti
-    - project
-    - bioinformatics
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: active
-    id: codebti
-    dependencies: []
-    profiles: []
-    taskpacks: []
   asd-ste100:
+    version: "0.4.1"
     id: asd-ste100
     name: ASD-STE100 Simplified Technical English
     canonical_path: skills-market/writing/technical/asd-ste100
@@ -2641,6 +2477,7 @@ skills:
     - writing-workstation
     taskpacks: []
   latent-identifiability:
+    version: "1.0.1"
     id: latent-identifiability
     name: Latent Identifiability
     canonical_path: skills-market/ai-ml/theory/latent-identifiability
@@ -2665,6 +2502,7 @@ skills:
     taskpacks:
     - pytorch-model-dev
   jepa-pytorch-development:
+    version: "1.0.0"
     id: jepa-pytorch-development
     name: JEPA PyTorch Development
     canonical_path: skills-market/ai-ml/deep-learning/jepa-pytorch-development
@@ -2691,3 +2529,48 @@ skills:
     profiles: []
     taskpacks:
     - pytorch-model-dev
+  skill-cutter:
+    version: "1.0.1"
+    id: skill-cutter
+    name: Skill Cutter
+    canonical_path: skills-market/core/dev/skill-cutter
+    old_paths: []
+    domain: core
+    category: dev
+    tags:
+    - skill-authoring
+    - skill-audit
+    - context-optimization
+    - trigger-design
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  duke-nus-marp:
+    version: "1.0.1"
+    id: duke-nus-marp
+    name: Duke-NUS Marp
+    canonical_path: skills-market/writing/presentations/duke-nus-marp
+    old_paths: []
+    domain: writing
+    category: presentations
+    tags:
+    - academic-slides
+    - marp
+    - duke-nus
+    - harvard-citations
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    dependencies: []
+    profiles:
+    - macos-personal
+    taskpacks: []

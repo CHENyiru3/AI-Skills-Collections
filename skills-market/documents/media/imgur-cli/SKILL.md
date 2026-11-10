@@ -2,11 +2,13 @@
 name: imgur-cli
 domain: documents
 description: Upload or delete images through the locally installed `imgur` command from `@rasch/imgur-cli`. Use when the user wants to send a local image file or remote image URL to Imgur, retrieve the public link plus `deletehash`, remove a prior upload by `deletehash`, or verify/troubleshoot the local Imgur CLI installation.
+metadata:
+  version: "1.0.1"
 ---
 
 # imgur-cli
 
-Use the local binary at `~/.local/bin/imgur`.
+Discover the installed `imgur` command and its help. Use `~/.local/bin/imgur` only if that fallback exists; do not assume a fixed installation.
 
 ## First Check
 
@@ -50,7 +52,7 @@ The upstream CLI ships with a default anonymous Imgur client ID. Override it whe
 IMGUR_CLIENTID=<client-id> imgur path/to/image.png
 ```
 
-If uploads fail with authorization or rate-limit issues, retry with an explicit `IMGUR_CLIENTID`.
+For authorization/rate-limit failures, inspect the actual status and the installed client/provider contract. Use an explicit configured `IMGUR_CLIENTID` when appropriate; do not retry indefinitely or expose credentials. Upload only the image/URL the user authorized for this public service.
 
 ## Behavior From Source
 

@@ -1,225 +1,37 @@
 ---
 name: anndatar
 domain: compbio
-description: |
-  Convert between .h5ad (AnnData) files and R single-cell data formats (Seurat, SingleCellExperiment) using anndataR.
-  Use this skill whenever the user mentions: h5ad files, AnnData objects, converting between Python scanpy and R (Seurat/SingleCellExperiment),
-  moving single-cell data between Python and R ecosystems, or needs to read/write .h5ad files from R.
-  This skill provides pure R H5AD interface without Python dependencies.
+description: Read/write H5AD or convert AnnData, Seurat, and SingleCellExperiment objects using the R package anndataR. Use for anndataR-specific interoperability with explicit assay/layer and identifier mapping.
+metadata:
+  version: "1.0.1"
 ---
 
-# anndataR: H5AD to R Data Conversion
+# anndataR interoperability
 
-This skill enables seamless conversion between `.h5ad` files (AnnData format from Python/scanpy) and R single-cell objects (Seurat, SingleCellExperiment) using the anndataR package.
+Inspect the installed anndataR version, source object/file, target format, matrix meanings, dimensions, and memory budget. Use its matching Bioconductor documentation; do not promise lossless conversion across all object features.
 
-## Installation
+## Read and map
 
-Install anndataR using BiocManager:
-
-```r
-if (!requireNamespace("BiocManager", quietly = TRUE)) {
-  install.packages("BiocManager")
-}
-BiocManager::install("anndataR")
-```
-
-## Core Conversion Functions
-
-### Reading .h5ad Files
-
-**Read as AnnData object (default - in-memory):**
 ```r
 library(anndataR)
-h5ad_path <- "path/to/your/file.h5ad"
-adata <- read_h5ad(h5ad_path)
+adata <- read_h5ad("input.h5ad")
 ```
 
-**Read as SingleCellExperiment:**
-```r
-sce <- read_h5ad(h5ad_path, as = "SingleCellExperiment")
-```
+For a supported release, `read_h5ad(..., as = "Seurat")`, `as = "SingleCellExperiment"`, or an HDF5-backed AnnData representation can select the target. Check accepted representations and conversion arguments in installed help before a large conversion.
 
-**Read as Seurat:**
-```r
-obj <- read_h5ad(h5ad_path, as = "Seurat")
-```
+- AnnData is observations by features; Seurat/SCE assays are features by cells. Inspect names and orientation through the converter rather than manually transposing every slot.
+- Establish what `X`, each layer, and any `raw` snapshot contain. A field named `raw` is not proof of integer counts. Choose target assays/layers explicitly when automatic mapping is ambiguous.
+- Preserve unique cell/feature IDs, metadata types/categories, embeddings, loadings, graph matrices, and spatial information that the target supports. Check row/column mapping independently for each.
+- Do not replace identifiers with generated names merely to make dimensions fit. Record any duplicate-name repair and retain the original IDs.
 
-**Read as HDF5-backed AnnData (memory-efficient for large files):**
-```r
-adata <- read_h5ad(h5ad_path, as = "HDF5AnnData")
-```
+## Convert, subset, and write
 
-### Converting Between Formats
+Use documented `as_AnnData`, `as_Seurat`, `as_SingleCellExperiment`, or object methods for the installed version. Check view versus materialized/backed behavior before mutating or closing source files. Backed access can reduce eager loading but does not guarantee every conversion stays out of memory.
 
-**AnnData → SingleCellExperiment:**
-```r
-sce <- adata$as_SingleCellExperiment()
-```
+Write to a new destination through the supported `write_h5ad` path. Preserve the source until validation passes. Some R-specific attributes, dimension names, reductions, or nested metadata may require an explicit mapping or cannot round-trip.
 
-**AnnData → Seurat:**
-```r
-obj <- adata$as_Seurat()
-```
+## Verify the result
 
-**SingleCellExperiment → AnnData:**
-```r
-adata <- as_AnnData(sce)
-```
+Reopen the output and compare cell/feature names and order, shapes, selected count values/library totals, sparse structure, assay/layer meanings, metadata, embeddings, and any spatial mappings needed downstream. Report every unsupported or dropped component. A file that opens is not sufficient evidence of semantic equivalence.
 
-**Seurat → AnnData:**
-```r
-adata <- as_AnnData(obj)
-```
-
-### Writing .h5ad Files
-
-**Write AnnData to disk:**
-```r
-tmpfile <- tempfile(fileext = ".h5ad")
-adata$write_h5ad(tmpfile)
-# Or: write_h5ad(adata, tmpfile)
-```
-
-**Write SingleCellExperiment to disk:**
-```r
-write_h5ad(sce, tmpfile)
-```
-
-**Write Seurat to disk:**
-```r
-write_h5ad(obj, tmpfile)
-```
-
-## Working with AnnData Objects
-
-### Accessing Slots
-
-```r
-# Dimensions
-dim(adata)
-nrow(adata)
-ncol(adata)
-
-# Observation metadata (cells)
-adata$obs        # Returns data.frame
-adata$obs[1:5, ]  # First 5 cells
-
-# Variable metadata (genes)
-adata$var         # Returns data.frame
-adata$var[1:5, ]  # First 5 genes
-
-# Main expression matrix
-adata$X
-
-# Additional matrices (layers)
-adata$layers$counts
-adata$layers$dense_X
-
-# Embeddings (obsm)
-adata$obsm$X_pca
-adata$obsm$X_umap
-
-# Gene loadings (varm)
-adata$varm$PCsstructured metadata
-
-# Un (uns)
-adata$uns$leiden
-adata$uns$pca
-```
-
-### Subsetting AnnData Objects
-
-anndataR supports standard R subsetting with lazy evaluation (returns views):
-
-```r
-# Subset by condition - cells
-view1 <- adata[adata$obs$cell_type == "A", ]
-
-# Subset by condition - genes
-view2 <- adata[, adata$var$highly_variable]
-
-# Combined subsetting
-view3 <- adata[adata$obs$cell_type == "A", adata$var$highly_variable]
-
-# Numeric indices
-view4 <- adata[1:5, 1:3]
-
-# Character names
-rownames(adata) <- paste0("cell_", 1:nrow(adata))
-colnames(adata) <- paste0("gene_", 1:ncol(adata))
-view5 <- adata[c("cell_1", "cell_2"), c("gene_1", "gene_3")]
-
-# Convert view to concrete object
-concrete <- view3$as_InMemoryAnnData()
-```
-
-### Manually Creating AnnData Objects
-
-```r
-adata <- AnnData(
-  X = matrix(rnorm(100), nrow = 10, ncol = 10),
-  obs = data.frame(
-    cell_type = factor(rep(c("A", "B"), each = 5)),
-    score = runif(10)
-  ),
-  var = data.frame(
-    gene_name = paste0("gene_", 1:10),
-    highly_variable = rep(c(TRUE, FALSE), 5)
-  )
-)
-```
-
-## Common Workflows
-
-### Python → R Pipeline
-
-1. Process data in Python with scanpy
-2. Save as .h5ad: `adata.write('data.h5ad')`
-3. In R:
-```r
-library(anndataR)
-library(Seurat)
-adata <- read_h5ad("data.h5ad")
-seurat_obj <- adata$as_Seurat()
-# Continue with Seurat analysis
-```
-
-### R → Python Pipeline
-
-1. Process data in R with Seurat
-2. Convert and save:
-```r
-library(anndataR)
-adata <- as_AnnData(seurat_obj)
-adata$write_h5ad("data.h5ad")
-```
-3. In Python:
-```python
-import scanpy as sc
-adata = sc.read_h5ad("data.h5ad")
-# Continue with scanpy analysis
-```
-
-## Comparison with Other Packages
-
-| Feature | anndataR | zellkonverter | anndata (CRAN) |
-|---------|----------|---------------|----------------|
-| Python dependency | No | Yes (reticulate) | Yes |
-| Native H5AD reading | Yes | Via basilisk | No |
-| Seurat conversion | Yes | Yes | Yes |
-| SCE conversion | Yes | Yes | Yes |
-
-anndataR is recommended when:
-- You want to avoid Python dependencies
-- You need a pure R solution
-- You want simpler installation and setup
-
-Use zellkonverter if you need bidirectional Python-R integration with more features.
-
-## Troubleshooting
-
-**Matrix column names warning:** When writing Seurat objects, matrix column names in obsm slots cannot be preserved. Store embeddings as data.frames instead of matrices if column names are important.
-
-**Memory issues:** For large .h5ad files, use `read_h5ad(path, as = "HDF5AnnData")` for memory-efficient backed access instead of loading entirely into memory.
-
-**Unsupported dtypes:** anndataR handles most common data types. If you encounter unsupported types, you may need to preprocess in Python first.
+Use [anndataR on Bioconductor](https://bioconductor.org/packages/release/bioc/html/anndataR.html) and its versioned vignettes for conversion arguments and supported data types.

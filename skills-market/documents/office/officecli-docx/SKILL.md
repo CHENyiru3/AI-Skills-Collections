@@ -1,50 +1,28 @@
 ---
 name: officecli-docx
 domain: documents
-description: Use this skill any time a `.docx` file is involved, including creating Word documents, reports, letters, memos, proposals, or editing existing documents with tables, headers, footers, and comments.
+description: Inspect or edit DOCX through OfficeCLI when that backend is requested, selected by the project or already in use. Not a universal router for every Word document or a substitute for a chosen document backend.
+metadata:
+  version: "1.0.1"
 ---
 
-# OfficeCLI DOCX Skill
+# OfficeCLI DOCX
 
-## First Check
+Discover the installed OfficeCLI version/help, then inspect the document's text,
+outline and relevant DOM nodes before editing. Use [editing.md](editing.md) for an
+existing document or [creating.md](creating.md) for a new one; verify example
+properties with installed help.
 
-```bash
-command -v officecli
-officecli --version
-```
+Quote indexed paths such as `"/body/p[1]"` in zsh. Reuse named paragraph styles
+and actual section/page settings. Prefer paragraph spacing to empty paragraphs
+for layout, while preserving intentional content and the user's template.
 
-## Workflow
+Inspect tracked changes, comments and fields before changing affected ranges.
+Do not accept/reject revisions or remove comments merely to simplify editing.
+For raw XML, preserve run formatting, relationships and whitespace semantics.
+Batch/resident mode is optional; close/flush before checking the saved file.
 
-1. Inspect first: `view`, `get`, `query`
-2. For existing docs, read [editing.md](editing.md)
-3. For new docs, read [creating.md](creating.md)
-4. Run QA: `view issues`, `view outline`, `validate`
-
-## Reading
-
-```bash
-officecli view doc.docx text --max-lines 200
-officecli view doc.docx outline
-officecli view doc.docx annotated
-officecli view doc.docx stats
-officecli view doc.docx issues
-officecli get doc.docx /body --depth 1
-officecli query doc.docx 'paragraph[style=Heading1]'
-```
-
-## Editing Rules
-
-- Quote indexed paths in zsh: `"/body/p[1]"`
-- Use paragraph spacing, not empty paragraphs, for layout
-- Define or reuse styles instead of spraying inline formatting everywhere
-- Run `officecli docx set paragraph` or `officecli docx add` before guessing properties
-- For 3+ operations, prefer `open`/`close` or `batch`
-
-## QA
-
-```bash
-officecli view doc.docx issues
-officecli query doc.docx 'p:empty'
-officecli query doc.docx 'image:no-alt'
-officecli validate doc.docx
-```
+Check affected text, outline and structure with `view`/`validate`, and inspect a
+rendered preview when layout changed. Queries for empty paragraphs or missing alt
+text are leads, not a reason to delete intentional content. Stop when the requested
+edit is valid and readable; preserve the explicit output path and original file.

@@ -128,14 +128,17 @@ adata = adata.T
 
 ### 10X Genomics formats
 ```python
+# Scanpy supplies 10x readers; these are not AnnData methods.
+import scanpy as sc
+
 # Read 10X h5 format
-adata = ad.read_10x_h5('filtered_feature_bc_matrix.h5')
+adata = sc.read_10x_h5('filtered_feature_bc_matrix.h5')
 
 # Read 10X MTX directory
-adata = ad.read_10x_mtx('filtered_feature_bc_matrix/')
+adata = sc.read_10x_mtx('filtered_feature_bc_matrix/')
 
 # Specify genome if multiple present
-adata = ad.read_10x_h5('data.h5', genome='GRCh38')
+adata = sc.read_10x_h5('data.h5', genome='GRCh38')
 ```
 
 ### Loom
@@ -358,8 +361,9 @@ for i in range(0, adata.n_obs, chunk_size):
 ```python
 from anndata.experimental import AnnCollection
 
-# Create collection without loading data
-adatas = [f'dataset_{i}.h5ad' for i in range(10)]
+# Open supported backed AnnData objects; keep file handles alive.
+# Backed mode does not guarantee that every slot/operation stays lazy.
+adatas = [ad.read_h5ad(f'dataset_{i}.h5ad', backed='r') for i in range(10)]
 collection = AnnCollection(
     adatas,
     join_obs='inner',
@@ -367,7 +371,8 @@ collection = AnnCollection(
 )
 
 # Process collection lazily
-# Data is loaded only when accessed
+# Inspect materialization behavior for the slots/operations used.
+# Close each source with adata.file.close() after collection use is complete.
 ```
 
 ## Common Issues and Solutions
