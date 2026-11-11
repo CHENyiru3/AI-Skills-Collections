@@ -1,0 +1,4 @@
+interface:
+  display_name: Scientific Brainstorming
+  short_description: Generate and challenge research directions
+  default_prompt: Use $scientific-brainstorming to propose and challenge directions for this research question.

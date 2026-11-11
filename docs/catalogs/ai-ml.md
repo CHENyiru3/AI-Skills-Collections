@@ -1,12 +1,13 @@
 # AI/ML Skills Catalog
 
-This catalog covers the 13 active skills under `skills-market/ai-ml/`.
+This catalog covers the 14 active skills under `skills-market/ai-ml/`.
 
 ## Model Theory
 
 | Skill | Location | Focus |
 |-------|----------|-------|
 | [`latent-identifiability`](../../skills-market/ai-ml/theory/latent-identifiability/SKILL.md) | `ai-ml/theory/latent-identifiability` | Formulate and audit latent-model identifiability proofs, including symmetries, assumptions, lemmas, and implementation limits |
+| [`vi-methodology-development`](../../skills-market/ai-ml/theory/vi-methodology-development/SKILL.md) | `ai-ml/theory/vi-methodology-development` | Generative assumptions, variational inference, ELBOs, posterior queries, and implementation evidence |
 
 ## Deep Learning
 

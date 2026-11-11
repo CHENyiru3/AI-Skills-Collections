@@ -1,0 +1,4 @@
+interface:
+  display_name: Google Workspace CLI Mechanics
+  short_description: Resolve gws syntax, auth, and pagination
+  default_prompt: Use $gws-shared for the requested google workspace cli mechanics task.

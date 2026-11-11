@@ -2574,3 +2574,239 @@ skills:
     profiles:
     - macos-personal
     taskpacks: []
+  computational-biology-project-manager:
+    version: "1.0.0"
+    name: Computational Biology Project Manager
+    canonical_path: skills-market/compbio/expert-workflows/computational-biology-project-manager
+    old_paths: []
+    domain: compbio
+    category: expert-workflows
+    tags:
+    - expert-workflows
+    - computational-biology-project-manager
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    - server
+    - hpc
+    install_weight: light
+    status: active
+    id: computational-biology-project-manager
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  gws-drive:
+    version: "0.22.6"
+    name: Google Drive CLI
+    canonical_path: skills-market/platforms/google-workspace/gws-drive
+    old_paths: []
+    domain: platforms
+    category: google-workspace
+    tags:
+    - google-workspace
+    - gws-drive
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: gws-drive
+    dependencies:
+    - gws-shared
+    profiles: []
+    taskpacks: []
+  gws-drive-upload:
+    version: "0.22.6"
+    name: Google Drive Upload
+    canonical_path: skills-market/platforms/google-workspace/gws-drive-upload
+    old_paths: []
+    domain: platforms
+    category: google-workspace
+    tags:
+    - google-workspace
+    - gws-drive-upload
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: gws-drive-upload
+    dependencies:
+    - gws-shared
+    - gws-drive
+    profiles: []
+    taskpacks: []
+  gws-shared:
+    version: "0.22.6"
+    name: Google Workspace CLI Mechanics
+    canonical_path: skills-market/platforms/google-workspace/gws-shared
+    old_paths: []
+    domain: platforms
+    category: google-workspace
+    tags:
+    - google-workspace
+    - gws-shared
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: gws-shared
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  handoff:
+    version: "1.0.0"
+    name: Session Handoff
+    canonical_path: skills-market/agents/workflows/handoff
+    old_paths: []
+    domain: agents
+    category: workflows
+    tags:
+    - workflows
+    - handoff
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: handoff
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  pertpy:
+    version: "1.0.0"
+    name: Pertpy
+    canonical_path: skills-market/compbio/single-cell/analysis/pertpy
+    old_paths: []
+    domain: compbio
+    category: single-cell
+    tags:
+    - single-cell
+    - pertpy
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: pertpy
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  scientific-brainstorming:
+    version: "1.4.1"
+    name: Scientific Brainstorming
+    canonical_path: skills-market/core/research/scientific-brainstorming
+    old_paths: []
+    domain: core
+    category: research
+    tags:
+    - research
+    - scientific-brainstorming
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: scientific-brainstorming
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  scientific-coding-governance:
+    version: "1.0.0"
+    name: Scientific Coding Governance
+    canonical_path: skills-market/core/research/scientific-coding-governance
+    old_paths: []
+    domain: core
+    category: research
+    tags:
+    - research
+    - scientific-coding-governance
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    - server
+    - hpc
+    install_weight: light
+    status: active
+    id: scientific-coding-governance
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  ub-mode:
+    version: "1.0.0"
+    name: Reduced Engineering Principles
+    canonical_path: skills-market/agents/guidelines/ub-mode
+    old_paths: []
+    domain: agents
+    category: guidelines
+    tags:
+    - guidelines
+    - ub-mode
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: ub-mode
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  vi-methodology-development:
+    version: "1.0.0"
+    name: VI Methodology Development
+    canonical_path: skills-market/ai-ml/theory/vi-methodology-development
+    old_paths: []
+    domain: ai-ml
+    category: theory
+    tags:
+    - theory
+    - vi-methodology-development
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    - server
+    - hpc
+    install_weight: medium
+    status: active
+    id: vi-methodology-development
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  yiru-google-drive:
+    version: "1.0.0"
+    name: Configured Google Drive Transfers
+    canonical_path: skills-market/platforms/google-workspace/yiru-google-drive
+    old_paths: []
+    domain: platforms
+    category: google-workspace
+    tags:
+    - google-workspace
+    - yiru-google-drive
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: yiru-google-drive
+    dependencies:
+    - gws-shared
+    - gws-drive
+    - gws-drive-upload
+    profiles: []
+    taskpacks: []

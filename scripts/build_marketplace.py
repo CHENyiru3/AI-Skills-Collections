@@ -42,13 +42,13 @@ PLUGIN_DEFINITIONS = {
     },
     "ai-ml": {
         "name": "ai-ml",
-        "description": "AI/ML — PyTorch, Transformers, HuggingFace, PEFT, TRL, DeepSpeed, training utilities",
+        "description": "AI/ML — VI methodology, PyTorch, Transformers, PEFT, TRL, distributed training",
         "source_prefix": "./skills-market/ai-ml",
-        "subdirs": ["deep-learning", "llm", "training", "utility"],
+        "subdirs": ["deep-learning", "llm", "training", "theory", "utility"],
     },
     "compbio": {
         "name": "compbio",
-        "description": "Computational biology — single-cell, spatial omics, multi-omics, databases, workflows",
+        "description": "Computational biology — perturbation analysis, single-cell, spatial omics, databases, project continuity",
         "source_prefix": "./skills-market/compbio",
         "subdirs": ["single-cell", "spatial-omics", "multiomics", "databases", "workflows", "expert-workflows"],
     },
@@ -60,9 +60,9 @@ PLUGIN_DEFINITIONS = {
     },
     "agents": {
         "name": "agents",
-        "description": "Coding agents — Claude Code, Codex, MCP, guidelines",
+        "description": "Coding agents — Claude Code, Codex, MCP, handoffs, engineering guidelines",
         "source_prefix": "./skills-market/agents",
-        "subdirs": ["claude-code", "codex", "mcp", "guidelines", "ag-ui"],
+        "subdirs": ["claude-code", "codex", "mcp", "guidelines", "workflows", "ag-ui"],
     },
     "frontend": {
         "name": "frontend",
@@ -72,15 +72,15 @@ PLUGIN_DEFINITIONS = {
     },
     "platforms": {
         "name": "platforms",
-        "description": "Platform integrations — GitHub, GitLab, HuggingFace, Zotero",
+        "description": "Platform integrations — GitHub workflows and Google Workspace CLI/Drive transfers",
         "source_prefix": "./skills-market/platforms",
-        "subdirs": ["github", "gitlab", "huggingface", "zotero"],
+        "subdirs": ["github", "google-workspace", "gitlab", "huggingface", "zotero"],
     },
     "core": {
         "name": "core",
-        "description": "Core utilities — skill authoring, security, performance",
+        "description": "Core utilities — skill authoring, security, scientific ideation and coding governance",
         "source_prefix": "./skills-market/core",
-        "subdirs": ["dev", "security", "performance"],
+        "subdirs": ["dev", "security", "performance", "research"],
     },
     "projects": {
         "name": "projects",

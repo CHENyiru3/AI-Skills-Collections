@@ -1,0 +1,6 @@
+interface:
+  display_name: Session Handoff
+  short_description: Write a compact temporary agent handoff
+  default_prompt: Use $handoff to prepare a temporary handoff for the next session.
+policy:
+  allow_implicit_invocation: false

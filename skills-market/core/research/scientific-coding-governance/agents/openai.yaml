@@ -1,0 +1,4 @@
+interface:
+  display_name: Scientific Coding Governance
+  short_description: Preserve scientific scope and research results
+  default_prompt: Use $scientific-coding-governance to implement this research analysis within its approved scientific boundary.

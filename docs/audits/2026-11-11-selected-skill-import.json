@@ -1,0 +1,313 @@
+{
+  "date": "2026-11-11",
+  "scope": "11 selected installed skills curated into the active source collection using skill-cutter and skill-creator conventions.",
+  "installed_consumers_modified": false,
+  "backup_created": false,
+  "acceptance": "Each selected skill is categorized and registered with matching semantic version, focused trigger and aligned UI; useful resources are retained, local links resolve, applicable validators and helper smoke checks pass, and catalogs/marketplace agree. Stop after delivering/publishing this reviewed import.",
+  "version_policy": {
+    "unversioned": "1.0.0 first collection baseline",
+    "gws": "0.22.5 source -> 0.22.6 compatible instruction revision; CLI generator version retained separately",
+    "scientific-brainstorming": "1.4-local.2 -> 1.4.1 valid semantic version for the reviewed adaptation; original source version retained"
+  },
+  "verification": {
+    "local_links": 48,
+    "python_helpers_parsed": 4,
+    "python_examples_parsed": 14,
+    "helper_behavior": [
+      "Scaffold preserves explicit date and pending state",
+      "Existing register is not overwritten without --force",
+      "Validator accepts the empty pending scaffold without implying scientific validation",
+      "Documented weighted-matrix example yields scores 65 and 60",
+      "Matrix retains qualitative evidence, four sensitivity scenarios, and no automatic decision"
+    ],
+    "repository": {
+      "registry": "passed; 19 informational first-registration old_paths warnings",
+      "skill_docs": "passed for all 122",
+      "profiles_taskpacks": "passed for 19 profiles/taskpacks",
+      "marketplace": "passed: 9 plugins and 122 skill references",
+      "whitespace": "passed"
+    }
+  },
+  "external_checks": [
+    {
+      "source": "https://github.com/googleworkspace/cli",
+      "scope": "Upstream project/CLI discovery context; local installed +upload and files list help checked directly without Drive operations."
+    },
+    {
+      "source": "https://pertpy.scverse.org/en/stable/api.html",
+      "scope": "Public tool names and routing; this is not a full signature or statistical execution audit."
+    },
+    {
+      "source": "https://pypi.org/project/pertpy/1.4.0/",
+      "scope": "The historical 1.4.0 anchor exists; newer releases are available."
+    }
+  ],
+  "limitations": [
+    "No live Drive transfer or account changes were performed.",
+    "No statistical fits, training runs, scientific reproduction, or independent model/agent review were performed.",
+    "VI publisher/DOI retrieval was unavailable; original source annotations were preserved as dated review provenance.",
+    "Optional brainstorming helpers are retained unchanged; static parsing and representative local CLI behavior checks do not establish scientific validity.",
+    "References are retained for concrete conditional workflows; they were not moved out of the entrypoint merely to improve its line count."
+  ],
+  "skills": [
+    {
+      "id": "computational-biology-project-manager",
+      "canonical_path": "skills-market/compbio/expert-workflows/computational-biology-project-manager",
+      "before": {
+        "entry_lines": 111,
+        "entry_words": 1349,
+        "files": 5,
+        "total_words": 2794
+      },
+      "after": {
+        "entry_lines": 61,
+        "entry_words": 389,
+        "files": 4,
+        "total_words": 1034
+      },
+      "version": "1.0.0",
+      "review": {
+        "keep": "Project-root/index/recap contracts, raw-data preservation, scientific boundary, merge rules, useful document templates.",
+        "condense": "Bootstrap/resume/maintain/distill routing and proportional continuity checks.",
+        "remove": "Duplicate authority taxonomy, mandatory companion-install offers, duplicated handoff skill template, repeated approval/completion rules.",
+        "trigger": "Only requested project continuity or authorized skill distillation; excludes method selection and interpretation.",
+        "portability": "English documentation/Chinese recap are explicit defaults, subordinate to project/user language choices; local discovery uses the target host convention."
+      }
+    },
+    {
+      "id": "gws-drive",
+      "canonical_path": "skills-market/platforms/google-workspace/gws-drive",
+      "before": {
+        "entry_lines": 138,
+        "entry_words": 1514,
+        "files": 1,
+        "total_words": 1514
+      },
+      "after": {
+        "entry_lines": 46,
+        "entry_words": 290,
+        "files": 2,
+        "total_words": 313
+      },
+      "version": "0.22.6",
+      "review": {
+        "keep": "Drive IDs, resource keys, native export distinction, pagination completeness, retry/duplicate risk, shared-drive parameters.",
+        "condense": "Common operations into a decision guide with live help/schema discovery.",
+        "remove": "Generated full API resource catalog, deprecated teamdrives inventory, automatic skill regeneration.",
+        "trigger": "Requested Drive API operations through gws; routes simple new-file uploads separately."
+      }
+    },
+    {
+      "id": "gws-drive-upload",
+      "canonical_path": "skills-market/platforms/google-workspace/gws-drive-upload",
+      "before": {
+        "entry_lines": 53,
+        "entry_words": 191,
+        "files": 1,
+        "total_words": 191
+      },
+      "after": {
+        "entry_lines": 28,
+        "entry_words": 181,
+        "files": 2,
+        "total_words": 204
+      },
+      "version": "0.22.6",
+      "review": {
+        "keep": "Actual upload syntax, optional parent/name, new-item semantics, duplicate-safe retry, replacement via ID.",
+        "condense": "Examples and flags into two commands plus operational constraints.",
+        "remove": "Repeated blanket confirmation for an upload already requested.",
+        "trigger": "New local-file upload; excludes overwrite and recursive synchronization."
+      }
+    },
+    {
+      "id": "gws-shared",
+      "canonical_path": "skills-market/platforms/google-workspace/gws-shared",
+      "before": {
+        "entry_lines": 82,
+        "entry_words": 379,
+        "files": 1,
+        "total_words": 379
+      },
+      "after": {
+        "entry_lines": 48,
+        "entry_words": 314,
+        "files": 2,
+        "total_words": 338
+      },
+      "version": "0.22.6",
+      "review": {
+        "keep": "Authentication reuse, JSON argument serialization, binary output distinction, bounded pagination and dry-run limits.",
+        "condense": "CLI discovery/flags into guidance that changes request construction.",
+        "remove": "Repeated approval for all writes, generic installation advice, incorrect zsh quoting warning, promotional star/issue/comment instructions.",
+        "trigger": "Shared gws mechanics, not any mention of a Google product."
+      }
+    },
+    {
+      "id": "handoff",
+      "canonical_path": "skills-market/agents/workflows/handoff",
+      "before": {
+        "entry_lines": 51,
+        "entry_words": 336,
+        "files": 2,
+        "total_words": 361
+      },
+      "after": {
+        "entry_lines": 29,
+        "entry_words": 207,
+        "files": 2,
+        "total_words": 233
+      },
+      "version": "1.0.0",
+      "review": {
+        "keep": "Unique OS-temporary destination, focus/state/authorization continuity, factual provenance, redaction, explicit-only invocation.",
+        "condense": "Content and completion guidance without a transcript or duplicate project records.",
+        "remove": "Assumption that every agent exposes a tool literally named Skill.",
+        "trigger": "Explicit session transfer; excludes automatic project logging and underlying-task execution."
+      }
+    },
+    {
+      "id": "pertpy",
+      "canonical_path": "skills-market/compbio/single-cell/analysis/pertpy",
+      "before": {
+        "entry_lines": 44,
+        "entry_words": 669,
+        "files": 9,
+        "total_words": 4855
+      },
+      "after": {
+        "entry_lines": 47,
+        "entry_words": 671,
+        "files": 9,
+        "total_words": 4865
+      },
+      "version": "1.0.0",
+      "review": {
+        "keep": "Workflow table, count/representation provenance, independent replication, controls, MuData alignment, mutation/return semantics, version-aware API references.",
+        "condense": "Discovery description only; expert reference detail was already useful and selectively routed.",
+        "remove": "Any implication that the 1.4.0 snapshot is the latest package behavior.",
+        "trigger": "Concrete pertpy workflow; excludes general Scanpy preprocessing and unrelated prediction frameworks.",
+        "limits": "References preserve the 2026-10-08 review of pertpy 1.4.0. No full statistical workflows or new-release signature audit were run."
+      }
+    },
+    {
+      "id": "scientific-brainstorming",
+      "canonical_path": "skills-market/core/research/scientific-brainstorming",
+      "before": {
+        "entry_lines": 397,
+        "entry_words": 2740,
+        "files": 13,
+        "total_words": 17655
+      },
+      "after": {
+        "entry_lines": 91,
+        "entry_words": 606,
+        "files": 13,
+        "total_words": 14878
+      },
+      "version": "1.4.1",
+      "review": {
+        "keep": "Ideas versus evidence/decisions, actual participation/provenance, counterarguments, search limits, uncertainty and sensitivity, no automatic winner; MIT license and optional helper contracts.",
+        "condense": "Ten-stage workshop and bias-control duplication into the requested ideation outcome; preserve existing selectively loaded method/evaluation references.",
+        "remove": "Project-specific PertCCC coupling, fixed user paths, mandatory recap language across projects, promotional manuscript citation mandate, repeated workshop/approval rituals.",
+        "trigger": "Requested scientific ideation/prioritization; excludes validation, clinical advice, or implied experimental execution.",
+        "limits": "Helper smoke checks are deterministic and local. Preserved dated reference/policy summaries require current source checks when applied."
+      }
+    },
+    {
+      "id": "scientific-coding-governance",
+      "canonical_path": "skills-market/core/research/scientific-coding-governance",
+      "before": {
+        "entry_lines": 12,
+        "entry_words": 121,
+        "files": 3,
+        "total_words": 2085
+      },
+      "after": {
+        "entry_lines": 30,
+        "entry_words": 198,
+        "files": 3,
+        "total_words": 780
+      },
+      "version": "1.0.0",
+      "review": {
+        "keep": "Scientist-owned scientific choices, inferred analysis contract, raw-data/result preservation, anomaly diagnosis and separately corrected results, claim/evidence distinction.",
+        "condense": "Authority, verification, interpretation, and output contracts into actionable sections.",
+        "remove": "All-research-code catchall, categorical approvals for routine Git/classes/refactors/tests despite established task scope, repeated anti-overdefense examples.",
+        "trigger": "Research implementation that can affect scientific meaning/results; excludes unrelated mechanical edits.",
+        "limits": "A larger entrypoint exposes the essential boundary without forcing every user to preload the full policy; total folder words fall substantially."
+      }
+    },
+    {
+      "id": "ub-mode",
+      "canonical_path": "skills-market/agents/guidelines/ub-mode",
+      "before": {
+        "entry_lines": 152,
+        "entry_words": 741,
+        "files": 2,
+        "total_words": 987
+      },
+      "after": {
+        "entry_lines": 50,
+        "entry_words": 349,
+        "files": 2,
+        "total_words": 374
+      },
+      "version": "1.0.0",
+      "review": {
+        "keep": "Work/right/practice sequence, data/domain-first design, useful behavior checks, root-cause correction, state ownership, idempotence, scoped cleanup and Git workflow.",
+        "condense": "Repeated engineering slogans into focused decisions.",
+        "remove": "Mandatory external tool scores and mutation runs, action-by-action logs, automatic push-to-main, redundant installation README.",
+        "trigger": "Explicitly chosen reduced coding principles; no automatic process for every edit."
+      }
+    },
+    {
+      "id": "vi-methodology-development",
+      "canonical_path": "skills-market/ai-ml/theory/vi-methodology-development",
+      "before": {
+        "entry_lines": 54,
+        "entry_words": 957,
+        "files": 7,
+        "total_words": 7604
+      },
+      "after": {
+        "entry_lines": 67,
+        "entry_words": 486,
+        "files": 7,
+        "total_words": 7102
+      },
+      "version": "1.0.0",
+      "review": {
+        "keep": "Explicit joint/q/objective/query, identification assumptions, measurement support/missingness, gradient ownership, claim-specific validation and framework/version references.",
+        "condense": "Repeated modeling cautions and routing while retaining the equation/design references and brief template.",
+        "remove": "Originating private project paths and repeated ceremony; no scientific method or helper contract was replaced.",
+        "trigger": "VI/VAE method formulation, implementation, review, or framework integration; excludes routine model use.",
+        "limits": "Original paper-review annotations are historical provenance. Publisher/DOI fetches were unavailable during this import, so the paper analyses were not independently reverified or reproduced."
+      }
+    },
+    {
+      "id": "yiru-google-drive",
+      "canonical_path": "skills-market/platforms/google-workspace/yiru-google-drive",
+      "before": {
+        "entry_lines": 58,
+        "entry_words": 767,
+        "files": 1,
+        "total_words": 767
+      },
+      "after": {
+        "entry_lines": 59,
+        "entry_words": 411,
+        "files": 2,
+        "total_words": 436
+      },
+      "version": "1.0.0",
+      "review": {
+        "keep": "Recursive traversal and pagination, folder/file ID accounting, native exports, shortcut cycles, untrusted names, destination preservation, safe retry and verification.",
+        "condense": "File/tree transfer and verification into a portable configured-CLI workflow.",
+        "remove": "Personal account and OAuth identifiers, credential locations, user/machine executable paths, disk UUID/default storage, historical local test narrative.",
+        "trigger": "Requested transfers with configured gws; excludes provisioning, sharing changes, and deletion synchronization.",
+        "portability": "Retain the historical stable ID; all operator/account/storage setup stays in private runtime configuration."
+      }
+    }
+  ]
+}

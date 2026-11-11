@@ -1,0 +1,4 @@
+interface:
+  display_name: Google Drive Upload
+  short_description: Upload a new local file with gws
+  default_prompt: Use $gws-drive-upload for the requested google drive upload task.

@@ -1,0 +1,4 @@
+interface:
+  display_name: Configured Google Drive Transfers
+  short_description: Transfer files and trees with configured gws
+  default_prompt: Use $yiru-google-drive for the requested configured google drive transfers task.

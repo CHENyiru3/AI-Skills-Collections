@@ -1,0 +1,4 @@
+interface:
+  display_name: VI Methodology Development
+  short_description: Formulate and implement VI research methods
+  default_prompt: Use $vi-methodology-development for the requested vi methodology development task.

@@ -1,6 +1,6 @@
 # Computational Biology Skills Catalog
 
-This catalog covers the 36 active skills under `skills-market/compbio/`.
+This catalog covers the 38 active skills under `skills-market/compbio/`.
 
 ## Single-Cell Analysis
 
@@ -10,6 +10,7 @@ This catalog covers the 36 active skills under `skills-market/compbio/`.
 | [`seurat`](../../skills-market/compbio/single-cell/analysis/seurat/SKILL.md) | `compbio/single-cell/analysis/seurat` | Standard R scRNA-seq analysis workflows |
 | [`scvi-tools`](../../skills-market/compbio/single-cell/analysis/scvi-tools/SKILL.md) | `compbio/single-cell/analysis/scvi-tools` | Probabilistic modeling, integration, and uncertainty-aware analysis |
 | [`anndata`](../../skills-market/compbio/single-cell/analysis/anndata/SKILL.md) | `compbio/single-cell/analysis/anndata` | AnnData structure, IO, and manipulation |
+| [`pertpy`](../../skills-market/compbio/single-cell/analysis/pertpy/SKILL.md) | `compbio/single-cell/analysis/pertpy` | Perturbation workflows, experimental units, controls, and a versioned API reference |
 
 ## Single-Cell Visualization and Access
 
@@ -82,6 +83,7 @@ This catalog covers the 36 active skills under `skills-market/compbio/`.
 | [`explain-bio-dl-model`](../../skills-market/compbio/expert-workflows/explain-bio-dl-model/SKILL.md) | `compbio/expert-workflows/explain-bio-dl-model` | Manuscript-ready explanations of deep learning models |
 | [`critique-bio-manuscript`](../../skills-market/compbio/expert-workflows/critique-bio-manuscript/SKILL.md) | `compbio/expert-workflows/critique-bio-manuscript` | Peer-review style critique of bioinformatics manuscripts |
 | [`computational-biology-retrospective`](../../skills-market/compbio/expert-workflows/computational-biology-retrospective/SKILL.md) | `compbio/expert-workflows/computational-biology-retrospective` | Index-led experiment review, biological and technical outcome assessment, and evidence-linked Markdown lessons for future work |
+| [`computational-biology-project-manager`](../../skills-market/compbio/expert-workflows/computational-biology-project-manager/SKILL.md) | `compbio/expert-workflows/computational-biology-project-manager` | Project initialization, indexes, recaps, and requested local skill distillation |
 
 ## Notes
 

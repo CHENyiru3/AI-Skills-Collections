@@ -1,0 +1,4 @@
+interface:
+  display_name: Google Drive CLI
+  short_description: Operate Drive files and folders with gws
+  default_prompt: Use $gws-drive for the requested google drive cli task.

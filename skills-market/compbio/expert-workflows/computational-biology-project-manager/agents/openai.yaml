@@ -1,0 +1,4 @@
+interface:
+  display_name: Computational Biology Project Manager
+  short_description: Maintain project structure and continuity
+  default_prompt: Use $computational-biology-project-manager for the requested computational biology project manager task.

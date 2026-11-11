@@ -1,0 +1,4 @@
+interface:
+  display_name: Pertpy
+  short_description: Analyze single-cell perturbation data with pertpy
+  default_prompt: Use $pertpy for the requested pertpy task.

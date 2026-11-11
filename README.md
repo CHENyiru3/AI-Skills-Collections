@@ -1,6 +1,6 @@
 # AI Skills — Eric Yiru's Personal Library
 
-> **111 active skills** for Claude Code, Codex, and AI coding agents.
+> **122 active skills** for Claude Code, Codex, and AI coding agents.
 > Computational biology · Deep learning · Academic writing · Document automation · and more.
 
 ---
@@ -17,15 +17,15 @@ When you ask me to analyze a spatial transcriptomics dataset, fine-tune a Llama 
 ## Skills at a Glance
 
 ```
-compbio (36)  ████████████████████████████████████  single-cell · spatial omics · multi-omics · structural biology · databases · workflows
-ai-ml  (13)  █████████████  identifiability theory · JEPA · deep learning · LLM fine-tuning · distributed training
+compbio (38)  ██████████████████████████████████████  single-cell · spatial omics · multi-omics · structural biology · databases · workflows
+ai-ml  (14)  ██████████████  VI methods · identifiability · JEPA · deep learning · LLM training
 programming (13) █████████████  project scaffolding · testing · packaging · API design
 writing  (14)  ██████████████  academic editing · Marp slides · LaTeX · Zotero · Obsidian
 documents (20) ████████████████████  office automation · scientific figures · design · web artifacts
-agents   (4)  ████  Claude Code · Codex · MCP · agent guidelines
-platforms (6) ██████  GitHub workflows · code review · PR management
+agents   (6)  ██████  Claude Code · Codex · MCP · handoffs · agent guidelines
+platforms (10) ██████████  GitHub workflows · Google Workspace CLI · Drive transfers
 frontend  (2) ██  site maintenance
-core     (3) ███  skill authoring · skill auditing · security
+core     (5) █████  skill authoring · auditing · security · research workflows
 ```
 
 ---
@@ -34,19 +34,22 @@ core     (3) ███  skill authoring · skill auditing · security
 
 Every active skill has a quoted `metadata.version` in `SKILL.md`, matching its `version` in `registry/skills.yaml`. Run `python scripts/list_skills.py` to list versions. Previously unversioned skills start at the local baseline `1.0.0`; existing versions are preserved.
 
-Bump PATCH for compatible fixes, MINOR for compatible capabilities, and MAJOR for incompatible changes. Compare actual file differences before resolving conflicts, including when two copies have the same version. See the [version and conflict policy](docs/guides/architecture.md#skill-versions-and-conflicts) and the [individual audit of all 111 active skills](docs/audits/2026-11-10-active-skills-audit.md).
+Bump PATCH for compatible fixes, MINOR for compatible capabilities, and MAJOR for incompatible changes. Compare actual file differences before resolving conflicts, including when two copies have the same version. See the [version and conflict policy](docs/guides/architecture.md#skill-versions-and-conflicts) and the [individual audit of the 111 skills reviewed on 2026-11-10](docs/audits/2026-11-10-active-skills-audit.md).
 
-The [implemented improvements](docs/audits/2026-11-10-improvements.md) cover all 111 active skills: 108 updated and 3 retained. The report includes individual version changes, validation, content hashes, and unresolved limits. Review the PyDESeq2 2.0.0 CLI change before updating an existing copy; Scribble remains an identification-only entry with an unverified package identity.
+The [implemented improvements](docs/audits/2026-11-10-improvements.md) cover the previous 111-skill catalog: 108 updated and 3 retained. The report includes individual version changes, validation, content hashes, and unresolved limits. Review the PyDESeq2 2.0.0 CLI change before updating an existing copy; Scribble remains an identification-only entry with an unverified package identity.
+
+The [reviewed import of 11 selected skills](docs/audits/2026-11-11-selected-skill-import.md) expands the catalog to 122. It records per-skill cutter decisions, before/after sizes, version normalization, checks, and verification limits.
 
 ## By Domain
 
-### Computational Biology — 36 skills
+### Computational Biology — 38 skills
 
 Single-cell RNA-seq, spatial omics, multi-omics integration, structural biology, databases, and workflow engineering.
 
 | Category | Skills |
 |---------|--------|
 | Single-cell analysis | `scanpy`, `seurat`, `scvi-tools`, `anndata` |
+| Perturbation analysis | [`pertpy`](skills-market/compbio/single-cell/analysis/pertpy/SKILL.md) |
 | H5AD interchange | `anndatar`, `schard` |
 | Trajectory analysis | `monocle3` |
 | Integration | `seurat-v5`, `harmony`, `scanorama`, `bbknn` |
@@ -58,14 +61,15 @@ Single-cell RNA-seq, spatial omics, multi-omics integration, structural biology,
 | Databases | `kegg`, `reactome`, `geo`, `ensembl`, `human-cell-atlas` |
 | Workflows | `snakemake`, `nextflow` |
 | Expert workflows | `draft-spatial-methods`, `explain-bio-dl-model`, `critique-bio-manuscript`, [`computational-biology-retrospective`](skills-market/compbio/expert-workflows/computational-biology-retrospective/SKILL.md) |
+| Project continuity | [`computational-biology-project-manager`](skills-market/compbio/expert-workflows/computational-biology-project-manager/SKILL.md) |
 
-### AI / ML — 13 skills
+### AI / ML — 14 skills
 
 Latent-model identifiability, JEPA model development, deep learning, LLM fine-tuning, and distributed training infrastructure.
 
 | Category | Skills |
 |---------|--------|
-| Model theory | [`latent-identifiability`](skills-market/ai-ml/theory/latent-identifiability/SKILL.md) |
+| Model theory | [`latent-identifiability`](skills-market/ai-ml/theory/latent-identifiability/SKILL.md), [`vi-methodology-development`](skills-market/ai-ml/theory/vi-methodology-development/SKILL.md) |
 | Deep learning | `pytorch`, [`jepa-pytorch-development`](skills-market/ai-ml/deep-learning/jepa-pytorch-development/SKILL.md) |
 | LLM ecosystem | `transformers`, `huggingface-hub`, `peft`, `trl`, `bitsandbytes`, `browser-use` |
 | Training | `pytorch-lightning`, `accelerate`, `datasets`, `deepspeed` |
@@ -106,23 +110,25 @@ Office automation, design, and media.
 | Collaboration | `doc-coauthoring`, `internal-comms` |
 | Media | `imgur-cli`, `slack-gif-creator` |
 
-### Agents — 4 skills
+### Agents — 6 skills
 
-Coding agents, MCP development, and behavioral guidelines.
+Coding agents, MCP development, session handoffs, and engineering guidelines.
 
 | Category | Skills |
 |---------|--------|
 | Coding agents | `claude-code`, `codex` |
 | MCP | `mcp-builder` |
-| Guidelines | `karpathy-guidelines` |
+| Guidelines | `karpathy-guidelines`, [`ub-mode`](skills-market/agents/guidelines/ub-mode/SKILL.md) |
+| Session transfer | [`handoff`](skills-market/agents/workflows/handoff/SKILL.md) |
 
-### Platforms — 6 skills
+### Platforms — 10 skills
 
-GitHub workflow integration.
+GitHub workflows and Google Workspace integrations.
 
 | Category | Skills |
 |---------|--------|
 | GitHub | `github-auth`, `github-code-review`, `github-issues`, `github-pr-workflow`, `github-repo-management`, [`github-codebase-inspection`](skills-market/platforms/github/codebase-inspection/SKILL.md) |
+| Google Workspace | [`gws-shared`](skills-market/platforms/google-workspace/gws-shared/SKILL.md), [`gws-drive`](skills-market/platforms/google-workspace/gws-drive/SKILL.md), [`gws-drive-upload`](skills-market/platforms/google-workspace/gws-drive-upload/SKILL.md), [`yiru-google-drive`](skills-market/platforms/google-workspace/yiru-google-drive/SKILL.md) |
 
 ### Frontend — 2 skills
 
@@ -132,14 +138,15 @@ Website maintenance.
 |---------|--------|
 | Site maintenance | `page-keeper`, `chen-academic-page-maintainer` |
 
-### Core — 3 skills
+### Core — 5 skills
 
-Security, performance tooling, and skill authoring.
+Security, skill authoring, and scientific research workflows.
 
 | Category | Skills |
 |---------|--------|
 | Skill authoring | `skill-creator`, [`skill-cutter`](skills-market/core/dev/skill-cutter/SKILL.md) |
 | Security | `security-audit` |
+| Research workflows | [`scientific-brainstorming`](skills-market/core/research/scientific-brainstorming/SKILL.md), [`scientific-coding-governance`](skills-market/core/research/scientific-coding-governance/SKILL.md) |
 
 ---
 

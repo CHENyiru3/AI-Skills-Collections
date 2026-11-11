@@ -1,0 +1,4 @@
+interface:
+  display_name: Reduced Engineering Principles
+  short_description: Apply explicitly requested reduced coding principles
+  default_prompt: Use $ub-mode to apply the reduced engineering principles to this coding task.

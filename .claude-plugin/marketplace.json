@@ -60,7 +60,7 @@
     },
     {
       "name": "ai-ml",
-      "description": "AI/ML — PyTorch, Transformers, HuggingFace, PEFT, TRL, DeepSpeed, training utilities",
+      "description": "AI/ML — VI methodology, PyTorch, Transformers, PEFT, TRL, distributed training",
       "source": "./skills-market/ai-ml",
       "strict": false,
       "skills": [
@@ -73,6 +73,7 @@
         "./llm/transformers",
         "./llm/trl",
         "./theory/latent-identifiability",
+        "./theory/vi-methodology-development",
         "./training/accelerate",
         "./training/datasets",
         "./training/deepspeed",
@@ -81,7 +82,7 @@
     },
     {
       "name": "compbio",
-      "description": "Computational biology — single-cell, spatial omics, multi-omics, databases, workflows",
+      "description": "Computational biology — perturbation analysis, single-cell, spatial omics, databases, project continuity",
       "source": "./skills-market/compbio",
       "strict": false,
       "skills": [
@@ -90,6 +91,7 @@
         "./databases/human-cell-atlas",
         "./databases/kegg",
         "./databases/reactome",
+        "./expert-workflows/computational-biology-project-manager",
         "./expert-workflows/computational-biology-retrospective",
         "./expert-workflows/critique-bio-manuscript",
         "./expert-workflows/draft-spatial-methods",
@@ -103,6 +105,7 @@
         "./single-cell/analysis/anndata",
         "./single-cell/analysis/anndatar",
         "./single-cell/analysis/monocle3",
+        "./single-cell/analysis/pertpy",
         "./single-cell/analysis/scanpy",
         "./single-cell/analysis/schard",
         "./single-cell/analysis/scvi-tools",
@@ -147,14 +150,16 @@
     },
     {
       "name": "agents",
-      "description": "Coding agents — Claude Code, Codex, MCP, guidelines",
+      "description": "Coding agents — Claude Code, Codex, MCP, handoffs, engineering guidelines",
       "source": "./skills-market/agents",
       "strict": false,
       "skills": [
         "./claude-code",
         "./codex",
         "./guidelines/karpathy-guidelines",
-        "./mcp/mcp-builder"
+        "./guidelines/ub-mode",
+        "./mcp/mcp-builder",
+        "./workflows/handoff"
       ]
     },
     {
@@ -169,7 +174,7 @@
     },
     {
       "name": "platforms",
-      "description": "Platform integrations — GitHub, GitLab, HuggingFace, Zotero",
+      "description": "Platform integrations — GitHub workflows and Google Workspace CLI/Drive transfers",
       "source": "./skills-market/platforms",
       "strict": false,
       "skills": [
@@ -178,17 +183,23 @@
         "./github/github-code-review",
         "./github/github-issues",
         "./github/github-pr-workflow",
-        "./github/github-repo-management"
+        "./github/github-repo-management",
+        "./google-workspace/gws-drive",
+        "./google-workspace/gws-drive-upload",
+        "./google-workspace/gws-shared",
+        "./google-workspace/yiru-google-drive"
       ]
     },
     {
       "name": "core",
-      "description": "Core utilities — skill authoring, security, performance",
+      "description": "Core utilities — skill authoring, security, scientific ideation and coding governance",
       "source": "./skills-market/core",
       "strict": false,
       "skills": [
         "./dev/skill-creator",
         "./dev/skill-cutter",
+        "./research/scientific-brainstorming",
+        "./research/scientific-coding-governance",
         "./security/security-audit"
       ]
     }
