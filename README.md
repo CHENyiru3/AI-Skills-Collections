@@ -1,6 +1,6 @@
 # AI Skills — Eric Yiru's Personal Library
 
-> **123 active skills** for Claude Code, Codex, and AI coding agents.
+> **124 active skills** for Claude Code, Codex, and AI coding agents.
 > Computational biology · Deep learning · Academic writing · Document automation · and more.
 
 ---
@@ -22,7 +22,7 @@ ai-ml  (14)  ██████████████  VI methods · identifia
 programming (13) █████████████  project scaffolding · testing · packaging · API design
 writing  (14)  ██████████████  academic editing · Marp slides · LaTeX · Zotero · Obsidian
 documents (20) ████████████████████  office automation · scientific figures · design · web artifacts
-agents   (7)  ███████  Claude Code · Codex · MCP · handoffs · backups · agent guidelines
+agents   (8)  ████████  Claude Code · Codex · MCP · handoffs · backups · agent guidelines
 platforms (10) ██████████  GitHub workflows · Google Workspace CLI · Drive transfers
 frontend  (2) ██  site maintenance
 core     (5) █████  skill authoring · auditing · security · research workflows
@@ -110,7 +110,7 @@ Office automation, design, and media.
 | Collaboration | [`doc-coauthoring`](skills-market/documents/collaboration/doc-coauthoring/SKILL.md), [`internal-comms`](skills-market/documents/collaboration/internal-comms/SKILL.md) |
 | Media | [`imgur-cli`](skills-market/documents/media/imgur-cli/SKILL.md), [`slack-gif-creator`](skills-market/documents/media/slack-gif-creator/SKILL.md) |
 
-### Agents — 7 skills
+### Agents — 8 skills
 
 Coding agents, MCP development, session handoffs, and engineering guidelines.
 
@@ -120,7 +120,7 @@ Coding agents, MCP development, session handoffs, and engineering guidelines.
 | MCP | [`mcp-builder`](skills-market/agents/mcp/mcp-builder/SKILL.md) |
 | Guidelines | [`ub-mode`](skills-market/agents/guidelines/ub-mode/SKILL.md) |
 | Session transfer | [`handoff`](skills-market/agents/workflows/handoff/SKILL.md) |
-| Chat backup | [`codex-backup`](skills-market/agents/workflows/codex-backup/SKILL.md), [`macos-codex-backup`](skills-market/agents/workflows/macos-codex-backup/SKILL.md) |
+| Chat backup | [`codex-backup`](skills-market/agents/workflows/codex-backup/SKILL.md), [`linux-codex-backup`](skills-market/agents/workflows/linux-codex-backup/SKILL.md), [`macos-codex-backup`](skills-market/agents/workflows/macos-codex-backup/SKILL.md) |
 
 ### Platforms — 10 skills
 

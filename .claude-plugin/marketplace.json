@@ -160,6 +160,7 @@
         "./mcp/mcp-builder",
         "./workflows/codex-backup",
         "./workflows/handoff",
+        "./workflows/linux-codex-backup",
         "./workflows/macos-codex-backup"
       ]
     },

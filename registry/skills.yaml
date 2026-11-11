@@ -2677,6 +2677,26 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
+  linux-codex-backup:
+    version: "1.0.0"
+    name: Linux Codex Backup
+    canonical_path: skills-market/agents/workflows/linux-codex-backup
+    old_paths: []
+    domain: agents
+    category: workflows
+    tags:
+    - codex
+    - backup
+    - linux
+    supported_hosts:
+    - linux
+    install_weight: light
+    status: active
+    id: linux-codex-backup
+    dependencies:
+    - codex-backup
+    profiles: []
+    taskpacks: []
   macos-codex-backup:
     version: "1.0.0"
     name: macOS Codex Backup

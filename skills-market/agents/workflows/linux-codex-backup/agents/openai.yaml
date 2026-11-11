@@ -1,0 +1,4 @@
+interface:
+  display_name: "Linux Codex Backup"
+  short_description: "Back up local Codex chats on Linux"
+  default_prompt: "Use $linux-codex-backup with $codex-backup to preview and back up this Linux machine's local Codex chats to my authorized private GitHub repository."
