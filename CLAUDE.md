@@ -194,7 +194,7 @@ ai_skills/
       mcp/
         mcp-builder/
       guidelines/
-        karpathy-guidelines/
+        ub-mode/
 
     frontend/
       site-maintenance/

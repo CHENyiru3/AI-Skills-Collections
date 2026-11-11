@@ -3,6 +3,7 @@ skill_references:
   - opencode
   - hermes-agent
   - zed
+  - karpathy-guidelines
   deployments/gpu-server.yaml:
   - cursor-usage-checker
   deployments/macos-personal.yaml:
@@ -15,6 +16,7 @@ skill_references:
   - neat-freak
   - clawd-animation
   - clawd-animation-lite
+  - karpathy-guidelines
   deployments/base.yaml:
   - skill-seekers
   taskpacks/spatial-omics-analysis.yaml:

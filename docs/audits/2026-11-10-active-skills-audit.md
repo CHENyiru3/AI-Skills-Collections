@@ -306,7 +306,7 @@ Primary documentation checked: [Claude Code programmatic use](https://code.claud
 
 ### 6. karpathy-guidelines — P2
 
-Source: [skills-market/agents/guidelines/karpathy-guidelines/SKILL.md](../../skills-market/agents/guidelines/karpathy-guidelines/SKILL.md) · version `1.0.0`.
+Source: [skills-market/agents/guidelines/karpathy-guidelines/SKILL.md](../../archive/skills/agents/guidelines/karpathy-guidelines/SKILL.md) · version `1.0.0`.
 
 **Retain:** Keep changes scoped, avoid speculative abstractions, and define evidence of success.
 
@@ -322,8 +322,8 @@ Source: [skills-market/agents/guidelines/karpathy-guidelines/SKILL.md](../../ski
 
 **Evidence:**
 
-- [skills-market/agents/guidelines/karpathy-guidelines/SKILL.md:4](../../skills-market/agents/guidelines/karpathy-guidelines/SKILL.md#L4) — `Use when writing, reviewing, or refactoring code`: Near-universal activation overlaps repository policy.
-- [skills-market/agents/guidelines/karpathy-guidelines/SKILL.md:24](../../skills-market/agents/guidelines/karpathy-guidelines/SKILL.md#L24) — `If something is unclear, stop.`: Needs an uncertainty/materiality threshold.
+- [skills-market/agents/guidelines/karpathy-guidelines/SKILL.md:4](../../archive/skills/agents/guidelines/karpathy-guidelines/SKILL.md#L4) — `Use when writing, reviewing, or refactoring code`: Near-universal activation overlaps repository policy.
+- [skills-market/agents/guidelines/karpathy-guidelines/SKILL.md:24](../../archive/skills/agents/guidelines/karpathy-guidelines/SKILL.md#L24) — `If something is unclear, stop.`: Needs an uncertainty/materiality threshold.
 
 <a id="skill-mcp-builder"></a>
 

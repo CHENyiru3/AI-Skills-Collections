@@ -2,6 +2,14 @@
 
 Retired skills are preserved here for possible recovery. This directory is excluded from the active registry, catalogs, marketplace, deployment profiles, and taskpack discovery.
 
+## Archived on 2026-11-11
+
+Archived at the owner's request, with its original version and recovery metadata preserved.
+
+| Skill | Preserved folder |
+|-------|------------------|
+| karpathy-guidelines | [skills/agents/guidelines/karpathy-guidelines](skills/agents/guidelines/karpathy-guidelines/SKILL.md) |
+
 ## Archived on 2026-11-10
 
 The owner selected these skills for removal from the active market because they are no longer expected to be used or may be outdated. This is an owner preference, not an independent assessment of upstream maintenance.
@@ -24,7 +32,7 @@ The requested name `skill-seeker` refers to the existing `skill-seekers` skill.
 
 ## Recovery records
 
-- [registry/skills.yaml](registry/skills.yaml) preserves all 14 original registry entries, archive dates, reasons, and file locations.
+- [registry/skills.yaml](registry/skills.yaml) preserves all 15 original registry entries, archive dates, reasons, and file locations.
 - [registry/aliases.yaml](registry/aliases.yaml) preserves removed legacy aliases.
 - [registry/removed-references.yaml](registry/removed-references.yaml) preserves skill selections removed from deployment profiles and taskpacks.
 - [taskpacks/codebti.yaml](taskpacks/codebti.yaml) preserves the retired project bundle.

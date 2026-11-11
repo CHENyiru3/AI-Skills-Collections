@@ -156,7 +156,6 @@
       "skills": [
         "./claude-code",
         "./codex",
-        "./guidelines/karpathy-guidelines",
         "./guidelines/ub-mode",
         "./mcp/mcp-builder",
         "./workflows/handoff"

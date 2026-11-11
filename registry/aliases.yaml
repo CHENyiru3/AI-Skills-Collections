@@ -23,7 +23,6 @@ aliases:
   agent/claude-code: claude-code
   agent/codex: codex
   agent/mcp-builder: mcp-builder
-  agent/karpathy-guidelines: karpathy-guidelines
   Font_end/page-keeper: page-keeper
   Font_end/chen-academic-page-maintainer: chen-academic-page-maintainer
   python-skills/project-setup: project-setup

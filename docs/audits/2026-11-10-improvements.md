@@ -78,7 +78,7 @@ The order below is the actual sequential implementation order. The ledger retain
 | 3 | [security-audit](../../skills-market/core/security/security-audit/SKILL.md) | 1.0.0 → 1.0.1 | 108 → 63 | 427 → 411 | Updated: Tool patterns and CI into conditional workflows. |
 | 4 | [codex](../../skills-market/agents/codex/SKILL.md) | 1.0.0 → 1.0.1 | 114 → 55 | 527 → 349 | Updated: Batch/review/worktree mechanics into conditional guidance. |
 | 5 | [claude-code](../../skills-market/agents/claude-code/SKILL.md) | 2.2.0 → 2.2.1 | 745 → 69 | 4893 → 428 | Updated: CLI operations into help-driven interaction and execution contracts. |
-| 6 | [karpathy-guidelines](../../skills-market/agents/guidelines/karpathy-guidelines/SKILL.md) | 1.0.0 → 1.0.1 | 70 → 28 | 376 → 184 | Updated: Repeated maxims into concrete decisions. |
+| 6 | [karpathy-guidelines](../../archive/skills/agents/guidelines/karpathy-guidelines/SKILL.md) | 1.0.0 → 1.0.1 | 70 → 28 | 376 → 184 | Updated: Repeated maxims into concrete decisions. |
 | 7 | [mcp-builder](../../skills-market/agents/mcp/mcp-builder/SKILL.md) | 1.0.0 → 1.0.1 | 239 → 59 | 1148 → 434 | Updated: Language/setup guidance into conditional references and pinned-SDK checks. |
 | 8 | [api-design](../../skills-market/programming/python/api-design/SKILL.md) | 1.0.0 → 1.0.1 | 123 → 36 | 387 → 268 | Updated: Naming/style advice and conditional pattern references. |
 | 9 | [cli-development](../../skills-market/programming/python/cli-development/SKILL.md) | 1.0.0 → 1.0.1 | 127 → 36 | 374 → 274 | Updated: Framework catalogs and testing into focused decisions. |

@@ -2246,29 +2246,6 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
-  karpathy-guidelines:
-    version: "1.0.1"
-    name: Karpathy Guidelines
-    canonical_path: skills-market/agents/guidelines/karpathy-guidelines
-    old_paths:
-    - agent/karpathy-guidelines
-    domain: agents
-    category: guidelines
-    tags:
-    - karpathy
-    - guidelines
-    - coding
-    - best-practices
-    supported_hosts:
-    - macos
-    - linux
-    - windows
-    install_weight: light
-    status: active
-    id: karpathy-guidelines
-    dependencies: []
-    profiles: []
-    taskpacks: []
   page-keeper:
     version: "1.0.1"
     name: Page Keeper

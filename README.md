@@ -1,6 +1,6 @@
 # AI Skills — Eric Yiru's Personal Library
 
-> **122 active skills** for Claude Code, Codex, and AI coding agents.
+> **121 active skills** for Claude Code, Codex, and AI coding agents.
 > Computational biology · Deep learning · Academic writing · Document automation · and more.
 
 ---
@@ -22,7 +22,7 @@ ai-ml  (14)  ██████████████  VI methods · identifia
 programming (13) █████████████  project scaffolding · testing · packaging · API design
 writing  (14)  ██████████████  academic editing · Marp slides · LaTeX · Zotero · Obsidian
 documents (20) ████████████████████  office automation · scientific figures · design · web artifacts
-agents   (6)  ██████  Claude Code · Codex · MCP · handoffs · agent guidelines
+agents   (5)  █████  Claude Code · Codex · MCP · handoffs · agent guidelines
 platforms (10) ██████████  GitHub workflows · Google Workspace CLI · Drive transfers
 frontend  (2) ██  site maintenance
 core     (5) █████  skill authoring · auditing · security · research workflows
@@ -38,7 +38,7 @@ Bump PATCH for compatible fixes, MINOR for compatible capabilities, and MAJOR fo
 
 The [implemented improvements](docs/audits/2026-11-10-improvements.md) cover the previous 111-skill catalog: 108 updated and 3 retained. The report includes individual version changes, validation, content hashes, and unresolved limits. Review the [PyDESeq2 2.0.0](skills-market/compbio/multiomics/scRNA-seq/pydeseq2/SKILL.md) CLI change before updating an existing copy; [Scribble](skills-market/compbio/multiomics/integration-tools/scribble/SKILL.md) remains an identification-only entry with an unverified package identity.
 
-The [reviewed import of 11 selected skills](docs/audits/2026-11-11-selected-skill-import.md) expands the catalog to 122. It records per-skill cutter decisions, before/after sizes, version normalization, checks, and verification limits.
+The [reviewed import of 11 selected skills](docs/audits/2026-11-11-selected-skill-import.md) added 11 skills before subsequent archiving. It records per-skill cutter decisions, before/after sizes, version normalization, checks, and verification limits.
 
 ## By Domain
 
@@ -110,7 +110,7 @@ Office automation, design, and media.
 | Collaboration | [`doc-coauthoring`](skills-market/documents/collaboration/doc-coauthoring/SKILL.md), [`internal-comms`](skills-market/documents/collaboration/internal-comms/SKILL.md) |
 | Media | [`imgur-cli`](skills-market/documents/media/imgur-cli/SKILL.md), [`slack-gif-creator`](skills-market/documents/media/slack-gif-creator/SKILL.md) |
 
-### Agents — 6 skills
+### Agents — 5 skills
 
 Coding agents, MCP development, session handoffs, and engineering guidelines.
 
@@ -118,7 +118,7 @@ Coding agents, MCP development, session handoffs, and engineering guidelines.
 |---------|--------|
 | Coding agents | [`claude-code`](skills-market/agents/claude-code/SKILL.md), [`codex`](skills-market/agents/codex/SKILL.md) |
 | MCP | [`mcp-builder`](skills-market/agents/mcp/mcp-builder/SKILL.md) |
-| Guidelines | [`karpathy-guidelines`](skills-market/agents/guidelines/karpathy-guidelines/SKILL.md), [`ub-mode`](skills-market/agents/guidelines/ub-mode/SKILL.md) |
+| Guidelines | [`ub-mode`](skills-market/agents/guidelines/ub-mode/SKILL.md) |
 | Session transfer | [`handoff`](skills-market/agents/workflows/handoff/SKILL.md) |
 
 ### Platforms — 10 skills
