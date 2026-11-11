@@ -53,7 +53,7 @@ py -3 scripts/codex_chat_archive.py sync --profile profile.json
 
 Use `python` in place of `py -3` if your Windows installation provides only `python`. On Linux, install your distribution's `tzdata` package if Python cannot resolve the configured zone. Keep previews in private folders and remove them when finished.
 
-`snapshot` creates local Markdown files. `sync` verifies that the remote is private, updates one file per thread under `sessions/YYYY/MM/`, and pushes changes. The source platform appears in the commit subject. A sync run inside WSL uses `[Linux]`. The commit body summarizes new prompts and replies, while the Git diff shows the text. Run the same `sync` command for later updates. Verify the commit and inspect a transcript before relying on the archive.
+`snapshot` creates local Markdown files. `sync` verifies that the remote is private, updates one file per thread under `sessions/YYYY/MM/`, and pushes the backup commit directly to the repository’s default branch without a pull request. The source platform appears in the commit subject. A sync run inside WSL uses `[Linux]`. The commit body summarizes new prompts and replies, while the Git diff shows the text. Run the same `sync` command for later updates. Verify the commit and inspect a transcript before relying on the archive.
 
 The runner reads supported local Codex SQLite history and older session logs. It exports user-facing text and progress updates. Attachments, raw tool output, background threads, and cloud-only chats are outside this export. If an older copy of a thread lacks messages already archived by another machine, the runner preserves the fuller transcript and reports the thread. If a Codex update changes the storage schema, verify the local preview before pushing.
 
