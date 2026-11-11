@@ -2656,6 +2656,47 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
+  codex-backup:
+    version: "1.0.0"
+    name: Codex Backup
+    canonical_path: skills-market/agents/workflows/codex-backup
+    old_paths: []
+    domain: agents
+    category: workflows
+    tags:
+    - codex
+    - backup
+    - github
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: codex-backup
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  macos-codex-backup:
+    version: "1.0.0"
+    name: macOS Codex Backup
+    canonical_path: skills-market/agents/workflows/macos-codex-backup
+    old_paths: []
+    domain: agents
+    category: workflows
+    tags:
+    - codex
+    - backup
+    - macos
+    supported_hosts:
+    - macos
+    install_weight: light
+    status: active
+    id: macos-codex-backup
+    dependencies:
+    - codex-backup
+    profiles: []
+    taskpacks: []
   pertpy:
     version: "1.0.0"
     name: Pertpy

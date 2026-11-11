@@ -1,0 +1,4 @@
+interface:
+  display_name: "macOS Codex Backup"
+  short_description: "Back up local Codex chats on macOS"
+  default_prompt: "Use $macos-codex-backup to preview and back up this Mac's Codex chats to a private GitHub repository."

@@ -158,7 +158,9 @@
         "./codex",
         "./guidelines/ub-mode",
         "./mcp/mcp-builder",
-        "./workflows/handoff"
+        "./workflows/codex-backup",
+        "./workflows/handoff",
+        "./workflows/macos-codex-backup"
       ]
     },
     {

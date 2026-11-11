@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Backup"
+  short_description: "Back up Codex chats across platforms"
+  default_prompt: "Use $codex-backup to preview and back up my local Codex chats to a private GitHub repository."
