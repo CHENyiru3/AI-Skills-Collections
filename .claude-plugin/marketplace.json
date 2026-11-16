@@ -200,6 +200,8 @@
       "skills": [
         "./dev/skill-creator",
         "./dev/skill-cutter",
+        "./learning/socratic-tutor",
+        "./research/first-principles-thinking",
         "./research/scientific-brainstorming",
         "./research/scientific-coding-governance",
         "./security/security-audit"

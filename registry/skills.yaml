@@ -2739,6 +2739,48 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
+  first-principles-thinking:
+    version: "0.3.0"
+    id: first-principles-thinking
+    name: First Principles Thinking
+    canonical_path: skills-market/core/research/first-principles-thinking
+    old_paths: []
+    domain: core
+    category: research
+    tags:
+    - reasoning
+    - research-design
+    - first-principles
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    dependencies: []
+    profiles: []
+    taskpacks: []
+  socratic-tutor:
+    version: "1.0.0"
+    id: socratic-tutor
+    name: Socratic Tutor
+    canonical_path: skills-market/core/learning/socratic-tutor
+    old_paths: []
+    domain: core
+    category: learning
+    tags:
+    - tutoring
+    - learning
+    - socratic-method
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    dependencies: []
+    profiles: []
+    taskpacks: []
   scientific-brainstorming:
     version: "1.4.1"
     name: Scientific Brainstorming

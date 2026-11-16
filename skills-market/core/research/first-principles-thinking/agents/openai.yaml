@@ -1,0 +1,4 @@
+interface:
+  display_name: "First Principles Thinking"
+  short_description: "Reason from premises and test competing explanations"
+  default_prompt: "Use $first-principles-thinking to evaluate this research or design decision and identify what would change the conclusion."

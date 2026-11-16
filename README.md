@@ -1,6 +1,6 @@
 # AI Skills — Eric Yiru's Personal Library
 
-> **124 active skills** for Claude Code, Codex, and AI coding agents.
+> **126 active skills** for Claude Code, Codex, and AI coding agents.
 > Computational biology · Deep learning · Academic writing · Document automation · and more.
 
 ---
@@ -25,7 +25,7 @@ documents (20) ████████████████████  off
 agents   (8)  ████████  Claude Code · Codex · MCP · handoffs · backups · agent guidelines
 platforms (10) ██████████  GitHub workflows · Google Workspace CLI · Drive transfers
 frontend  (2) ██  site maintenance
-core     (5) █████  skill authoring · auditing · security · research workflows
+core     (7) ███████  skill authoring · security · research reasoning · tutoring
 ```
 
 ---
@@ -139,15 +139,17 @@ Website maintenance.
 |---------|--------|
 | Site maintenance | [`page-keeper`](skills-market/frontend/site-maintenance/page-keeper/SKILL.md), [`chen-academic-page-maintainer`](skills-market/frontend/site-maintenance/chen-academic-page-maintainer/SKILL.md) |
 
-### Core — 5 skills
+### Core — 7 skills
 
-Security, skill authoring, and scientific research workflows.
+Security, skill authoring, scientific research workflows, and tutoring.
 
 | Category | Skills |
 |---------|--------|
 | Skill authoring | [`skill-creator`](skills-market/core/dev/skill-creator/SKILL.md), [`skill-cutter`](skills-market/core/dev/skill-cutter/SKILL.md) |
 | Security | [`security-audit`](skills-market/core/security/security-audit/SKILL.md) |
 | Research workflows | [`scientific-brainstorming`](skills-market/core/research/scientific-brainstorming/SKILL.md), [`scientific-coding-governance`](skills-market/core/research/scientific-coding-governance/SKILL.md) |
+| Research reasoning | [`first-principles-thinking`](skills-market/core/research/first-principles-thinking/SKILL.md) |
+| Learning | [`socratic-tutor`](skills-market/core/learning/socratic-tutor/SKILL.md) |
 
 ---
 
