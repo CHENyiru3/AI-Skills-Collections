@@ -1,40 +1,30 @@
 ---
 name: asd-ste100
-description: Clarify English instructions, tool descriptions, errors or agent messages when ambiguity has a concrete cost, or when STE/plain-language rewriting is explicitly requested. Not a default style for all dense prose, creative writing or marketing.
+description: Clarify ambiguous English in procedures, tool descriptions, errors, and agent messages. Use also when asked to clarify a technical explanation for a particular audience or to rewrite text in plain English or Simplified Technical English (STE).
 metadata:
-  version: "0.4.1"
+  version: "0.5.0"
 ---
 
-# STE-Inspired Clarity
+# STE-inspired technical writing
 
-Read for meaning before rewriting. Preserve facts, actor, conditions, exceptions,
-units, scope and confidence. “May have failed” must not become “failed”; a clearer
-sentence must not invent a cause, measurement or certainty.
+Choose the style for the passage you are editing. A reader following a procedure needs an unambiguous next action. A reader evaluating a technical explanation needs to understand how the evidence supports the conclusion. A single document can serve both purposes.
 
-For a procedure/error/tool contract, use strict structural guidance: one instruction
-per sentence, an explicit actor/object where ambiguity matters, consistent names,
-short noun clusters and unambiguous conditions. Aim for at most 20 words in an
-instruction and 25 in a description, one topic and at most six sentences per paragraph.
-Split semicolon chains and sequences into clear sentences or lists.
+## Technical explanations
 
-For explanatory prose, use those techniques as clarity aids rather than forcing
-an alien voice. Prefer direct verbs and familiar vocabulary; avoid rotating names
-for the same entity. Keep necessary domain terms and define them when needed.
-Simple tenses/active voice help when they preserve temporal meaning and agency;
-retain a compound tense or passive construction when simplifying loses information.
+Lead with the result, decision, or behavior the reader came to understand. Supply enough context to interpret that first claim, then explain the evidence or mechanism it depends on. Introduce a concept before referring to it by a pronoun or abbreviation.
 
-The official approved dictionary is not bundled. Lexical choices are heuristic;
-this skill cannot certify ASD-STE100 compliance. For exact controlled-language
-requirements, use the official standard and an appropriate domain glossary. Read
-[references/writing-rules.md](references/writing-rules.md) for rule categories and
-sources, or [examples/before-after.md](examples/before-after.md) for a relevant case.
+Use the terminology the user and sources use. Keep domain terms that distinguish concepts the reader needs, and explain unfamiliar terms at first use. Prefer active voice when the actor matters. Preserve tense, units, conditions, exceptions, scope, and degree of confidence. If the source says an operation *may have failed*, the rewrite must preserve that uncertainty.
 
-`scripts/ste-lint.py` is an optional structural aid, not proof of meaning or standards
-compliance. Inspect its help for file/stdin, JSON, baseline and rule controls.
-Its hard/advisory categories describe local tooling, not new acceptance policy.
-Do not remove hedges merely to silence a length/style warning.
+Let the relationship between ideas determine sentence length. Keep a condition with the behavior it governs, a measurement with its comparator, or a finding with the qualification that limits it. Split a sentence when the reader has to track a second topic or an independent action. Explanatory prose has no fixed word limit.
 
-Return rewritten text alone by default. On request, show original/revised wording
-and the relevant rule. Briefly explain an unchanged phrase only when simplifying it
-would lose necessary precision. If already clear, preserve it. Stop when ambiguity
-is resolved, not when the text is shortest or every heuristic has been satisfied.
+Write each reader-facing passage afresh for its audience. The final answer should stand on its own if the reader sees none of the progress updates. Carry over the facts and the rationale the reader needs. Leave working shorthand, tool narration, and phrasing from internal notes out of the finished text.
+
+## Procedures, errors, and tool contracts
+
+Give one independently executable instruction per sentence. Put a prerequisite before its action, name the actor or object where responsibility could be ambiguous, and use numbered steps when order matters. In an error message, distinguish what the system observed from a possible cause. In a tool contract, state the condition that selects each outcome.
+
+For strict STE-style passages, aim for at most 20 words per instruction and 25 per descriptive sentence. Keep each paragraph to one topic and up to six sentences. Use the [rule summary](references/writing-rules.md) for controlled-language questions. The optional [structural linter](scripts/ste-lint.py) flags patterns for review. Only the official standard and applicable glossary can establish the vocabulary required for formal STE work.
+
+## Deliver the revision
+
+For a rewrite, return the revised passage alone unless the user asks for an explanation or comparison. Keep wording that already serves the reader. Check that an edit preserves the source's claims and introduces no new facts or obligations. The [worked examples](examples/before-after.md) illustrate both executable instructions and technical explanations.
