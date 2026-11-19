@@ -2430,7 +2430,7 @@ skills:
     profiles: []
     taskpacks: []
   asd-ste100:
-    version: "0.4.1"
+    version: "0.5.0"
     id: asd-ste100
     name: ASD-STE100 Simplified Technical English
     canonical_path: skills-market/writing/technical/asd-ste100

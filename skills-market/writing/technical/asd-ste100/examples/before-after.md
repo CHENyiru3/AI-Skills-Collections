@@ -15,7 +15,7 @@ These illustrate real ASD-STE100 rules, drawn from public secondary sources (see
 
 ## Part 2 — Applied to Agent Output
 
-These are original examples built for this skill's actual use case: rewriting AI agent output so another agent, a translation layer, or a non-native reader can parse it without ambiguity. They are illustrations, not quotes from any real system.
+Examples A–C use strict STE-style guidance. Example D shows how to turn technical notes into an explanation for a colleague. All four examples are illustrative.
 
 Word counts below are whitespace-separated tokens (`text.split()`), punctuation not counted separately. A different tokenizer will produce a different number.
 
@@ -48,7 +48,7 @@ The last sentence branches on whether the conflict was resolved, not on what the
 Not flagged: "may have occurred" and "could be caused by". The message is written by a system that does not know what went wrong. Both hedges are accurate reporting of that ignorance.
 
 **After:**
-> Your request may have failed. The cause may be a data format that does not match what the server expects. An outdated client can cause this mismatch. Check your client version.
+> Your request may have failed. The cause may be a data format that does not match what the server expects. An outdated client can cause this mismatch.
 
 **This example is the reason the modality rule exists.** An earlier version of this file rewrote the first sentence as "The request failed", and the third as "an outdated client **is the most common cause**". Both read better. Both are wrong: the first asserts a failure the system only suspects, and the second invents a frequency claim that appears nowhere in the input. A rewrite that supplies a cause, a frequency, or a mechanism has stopped being a rewrite.
 
@@ -65,28 +65,18 @@ Note also that "may have failed" keeps a compound verb form that the simple-tens
 - 36 words, over the 20-word instruction cap.
 
 **After:**
-> Wait for the upstream job to finish with no errors. Then read the output artifact. Warning: a timeout can produce a partial artifact. Check that the artifact is complete before you use it.
+> The downstream agent should read the output artifact after the upstream job finishes without errors. A timeout can produce a partial artifact.
 
-Two deliberate calls worth stating rather than hiding:
-- "should proceed to consume" became the imperative "read". STE permits this for instructions, where a recommendation addressed to the executing agent is a command. Do not make the same move in descriptive text.
-- The final sentence is **new**. The original warned about partial artifacts without saying what to do about it. Adding the check makes the warning actionable, but it is added content, so it is called out here rather than passed off as a rewrite. If the source's silence was deliberate, drop the sentence.
+The rewrite keeps the completion condition with the recommended action and preserves the strength of “should.” The source gives no instruction to check the artifact.
 
-### Example D — README prose (STE-flavored mode)
+### Example D — Explaining a validation result to a collaborator
 
-**Before:**
-> Our caching layer is designed to slot seamlessly into your existing stack with minimal friction and no vendor lock-in; it leverages semantic similarity to dramatically reduce the cache misses that traditionally plague LLM workloads.
+**Working notes**
 
-**Violations flagged:**
-- Marketing adjectives and claims without measurement ("seamlessly", "minimal friction", "dramatically").
-- Semicolon joining two separate ideas.
-- Nominalization and soft phrasing ("is designed to slot into", "leverages").
-- 34 words, over the 25-word descriptive cap.
+> Validation accuracy = 91%. Split by patient. All visits for each patient on one side. Same two hospitals in training and validation. New hospital performance unknown.
 
-**After:**
-> A normal cache matches requests by exact text, so a small change in wording causes a cache miss. This cache compares the meaning of a new prompt against the prompts it already holds. It runs alongside your current stack and stores no data outside it.
+**Final answer**
 
-Flavored mode kept the explanatory rhythm and did not force one fixed term per concept. It still cut the marketing adjectives, the semicolon, and the length.
+> The model achieved 91% accuracy on validation patients from the two hospitals that supplied the training data. We kept each patient’s visits together when we split the data, so each patient contributed records to only one set. Performance at other hospitals remains unknown.
 
-## How to Read These Examples
-
-Part 1 shows the actual rules this skill is built on. Part 2 shows the transfer: the same discipline — one meaning per word, active voice, simple tense, one instruction per sentence, explicit conditions instead of buried subordinate clauses — makes machine-to-machine and cross-language text safer to parse, not just aircraft manuals.
+The first sentence identifies the result and the population it describes. The second keeps the design choice with its consequence, and the last identifies the limit on generalization. Sentence length follows those relationships.
