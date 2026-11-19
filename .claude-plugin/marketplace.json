@@ -135,6 +135,7 @@
         "./academic/academic-writing-editor",
         "./academic/humanizer",
         "./academic/humanizer-zh",
+        "./correspondence/yiru-email",
         "./latex/compile-latex",
         "./latex/latex-writing",
         "./literature/zotpilot",

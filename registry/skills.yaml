@@ -2890,3 +2890,24 @@ skills:
     - gws-drive-upload
     profiles: []
     taskpacks: []
+  yiru-email:
+    version: "1.0.0"
+    id: yiru-email
+    name: Yiru Email
+    canonical_path: skills-market/writing/correspondence/yiru-email
+    old_paths: []
+    domain: writing
+    category: correspondence
+    tags:
+    - email
+    - professional-correspondence
+    - editing
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    dependencies: []
+    profiles: []
+    taskpacks: []
