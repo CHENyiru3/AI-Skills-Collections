@@ -1,6 +1,6 @@
 # AI Skills — Eric Yiru's Personal Library
 
-> **126 active skills** for Claude Code, Codex, and AI coding agents.
+> **127 active skills** for Claude Code, Codex, and AI coding agents.
 > Computational biology · Deep learning · Academic writing · Document automation · and more.
 
 ---
@@ -20,7 +20,7 @@ When you ask me to analyze a spatial transcriptomics dataset, fine-tune a Llama 
 compbio (38)  ██████████████████████████████████████  single-cell · spatial omics · multi-omics · structural biology · databases · workflows
 ai-ml  (14)  ██████████████  VI methods · identifiability · JEPA · deep learning · LLM training
 programming (13) █████████████  project scaffolding · testing · packaging · API design
-writing  (14)  ██████████████  academic editing · Marp slides · LaTeX · Zotero · Obsidian
+writing  (15)  ███████████████  email · academic editing · Marp slides · LaTeX · Zotero · Obsidian
 documents (20) ████████████████████  office automation · scientific figures · design · web artifacts
 agents   (8)  ████████  Claude Code · Codex · MCP · handoffs · backups · agent guidelines
 platforms (10) ██████████  GitHub workflows · Google Workspace CLI · Drive transfers
@@ -85,13 +85,14 @@ Python library development from zero to production.
 | Quality | [`performance`](skills-market/programming/python/performance/SKILL.md), [`api-design`](skills-market/programming/python/api-design/SKILL.md), [`library-review`](skills-market/programming/python/library-review/SKILL.md), [`community`](skills-market/programming/python/community/SKILL.md) |
 | Utilities | [`sqlite`](skills-market/programming/python/sqlite/SKILL.md), [`jupyter`](skills-market/programming/python/jupyter/SKILL.md) |
 
-### Writing — 14 skills
+### Writing — 15 skills
 
-Academic writing, literature review, LaTeX, and Obsidian knowledge management.
+Professional correspondence, academic writing, literature review, LaTeX, and Obsidian knowledge management.
 
 | Category | Skills |
 |---------|--------|
 | Academic | [`academic-writing-editor`](skills-market/writing/academic/academic-writing-editor/SKILL.md), [`humanizer`](skills-market/writing/academic/humanizer/SKILL.md), [`humanizer-zh`](skills-market/writing/academic/humanizer-zh/SKILL.md) |
+| Correspondence | [`yiru-email`](skills-market/writing/correspondence/yiru-email/SKILL.md) |
 | Technical English | [`asd-ste100`](skills-market/writing/technical/asd-ste100/SKILL.md) |
 | Literature | [`zotpilot`](skills-market/writing/literature/zotpilot/SKILL.md) |
 | Academic slides | [`duke-nus-marp`](skills-market/writing/presentations/duke-nus-marp/SKILL.md) |

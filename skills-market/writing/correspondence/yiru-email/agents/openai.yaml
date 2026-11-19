@@ -1,0 +1,4 @@
+interface:
+  display_name: "Yiru Email"
+  short_description: "Draft or lightly edit email in Yiru’s own voice"
+  default_prompt: "Use $yiru-email to draft or polish this message for its intended reader."

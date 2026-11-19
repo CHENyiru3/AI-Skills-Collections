@@ -1,6 +1,6 @@
 # Writing Skills Catalog
 
-This catalog covers the 14 active skills under `skills-market/writing/`.
+This catalog covers the 15 active skills under `skills-market/writing/`.
 
 ## General Academic
 
@@ -9,6 +9,12 @@ This catalog covers the 14 active skills under `skills-market/writing/`.
 | [`academic-writing-editor`](../../skills-market/writing/academic/academic-writing-editor/SKILL.md) | `writing/academic/academic-writing-editor` | Structural editing for academic manuscripts |
 | [`humanizer`](../../skills-market/writing/academic/humanizer/SKILL.md) | `writing/academic/humanizer` | Cleanup pass for AI-marked, robotic, or overly corporate prose |
 | [`humanizer-zh`](../../skills-market/writing/academic/humanizer-zh/SKILL.md) | `writing/academic/humanizer-zh` | Chinese-language cleanup for prose that sounds translated, stiff, or AI-generated |
+
+## Correspondence
+
+| Skill | Location | Focus |
+|-------|----------|-------|
+| [`yiru-email`](../../skills-market/writing/correspondence/yiru-email/SKILL.md) | `writing/correspondence/yiru-email` | Draft or lightly edit professional correspondence in Yiru’s own voice |
 
 ## Technical English
 
