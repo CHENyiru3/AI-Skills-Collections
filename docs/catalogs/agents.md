@@ -1,9 +1,10 @@
 # Agent Skills
 
-This catalog covers the 8 active skills under `skills-market/agents/`.
+This catalog covers the 9 active skills under `skills-market/agents/`.
 
 | Skill | Category | Focus |
 | --- | --- | --- |
+| [`assumption-to-continue`](../../skills-market/agents/guidelines/assumption-to-continue/SKILL.md) | guidelines | State reasonable, reversible assumptions and continue in-scope work |
 | [`claude-code`](../../skills-market/agents/claude-code/SKILL.md) | agent | Delegate an explicitly requested task to Claude Code CLI, monitor it and review the result |
 | [`codex`](../../skills-market/agents/codex/SKILL.md) | agent | Delegate an explicitly requested task to the Codex CLI and inspect its result |
 | [`codex-backup`](../../skills-market/agents/workflows/codex-backup/SKILL.md) | workflows | Back up local Codex chats to a private GitHub repository from macOS, Linux, Windows, or WSL |

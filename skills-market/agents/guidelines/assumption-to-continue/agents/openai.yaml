@@ -1,0 +1,4 @@
+interface:
+  display_name: Assumption to Continue
+  short_description: Continue with reasonable, reversible assumptions
+  default_prompt: Use $assumption-to-continue to complete this task with reasonable, reversible assumptions where details are unclear.

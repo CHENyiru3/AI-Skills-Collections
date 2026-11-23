@@ -2845,6 +2845,26 @@ skills:
     dependencies: []
     profiles: []
     taskpacks: []
+  assumption-to-continue:
+    version: "1.0.0"
+    name: Assumption to Continue
+    canonical_path: skills-market/agents/guidelines/assumption-to-continue
+    old_paths: []
+    domain: agents
+    category: guidelines
+    tags:
+    - guidelines
+    - assumptions
+    supported_hosts:
+    - macos
+    - linux
+    - windows
+    install_weight: light
+    status: active
+    id: assumption-to-continue
+    dependencies: []
+    profiles: []
+    taskpacks: []
   vi-methodology-development:
     version: "1.0.0"
     name: VI Methodology Development

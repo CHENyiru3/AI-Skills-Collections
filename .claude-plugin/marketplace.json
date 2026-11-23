@@ -157,6 +157,7 @@
       "skills": [
         "./claude-code",
         "./codex",
+        "./guidelines/assumption-to-continue",
         "./guidelines/ub-mode",
         "./mcp/mcp-builder",
         "./workflows/codex-backup",
